@@ -1,0 +1,218 @@
+<!-- calendario-marca-controles.html -->
+
+{% extends 'calendario-marca-base.html' %}
+
+{% block controlFiltro %}
+
+    <div class="row">
+        <div class=" col-md-4 hidden-xs ">
+
+            <div class="row">
+                <div class="col-xs-11 col-md-10 ">
+
+                    <div class="row vic-calendar-box gray">
+                        <div class="col-xs-6" style="padding-left: 5px;padding-right: 5px;
+                        ">
+
+                            <table style="width: 100%">
+                                <colgroup>
+                                    <col style="width: 80%">
+                                    <col style="width: 20%">
+                                </colgroup>
+                                <tr>
+                                    <td>
+                                        <div class="vic-calendar-filtro-label">INICIOD</div>
+                                        <input readonly
+                                               autocomplete="off" name="fechaInicio"
+                                               class="btn-block vic-calendar-filtro-input-fecha fechaInicioCalendar fechaInicio"
+                                               type="text" value="{{ fechaInicio }}"
+                                               placeholder="DD/MM/YYYY">
+                                    </td>
+                                    <td>
+                                        <i onclick="focus_date('fechaInicio')" class="fas fa-calendar-alt fa-1-5x "></i>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+
+                        <div class="col-xs-6" style="padding-left: 5px;padding-right: 5px;
+                        ">
+                            <div style="border-left:1px #8B96AA solid;padding-left: 5px;">
+                                <table style="width: 100%">
+                                    <colgroup>
+                                        <col style="width: 80%">
+                                        <col style="width: 20%">
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            <div class="vic-calendar-filtro-label">FIN</div>
+                                            <input readonly
+                                                   autocomplete="off"
+                                                   name="fechaFinalizacion"
+                                                   class="btn-block vic-calendar-filtro-input-fecha fechaFinalizacionCalendar fechaFinalizacion"
+                                                   type="text" value="{{ fechaFinalizacion }}"
+                                                   placeholder="DD/MM/YYYY">
+                                        </td>
+                                        <td>
+                                            <i onclick="focus_date('fechaFinalizacion')"
+                                               class="fas fa-calendar-alt fa-1-5x "></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-1 col-md-2">
+                    <div class="row">
+
+
+                        <div>
+
+                            <i class="fas fa-clock fa-1-5x dropdown-toggle " data-toggle="dropdown" aria-hidden="true"
+                               style="margin-top:18px;margin-left: 10px;"></i>
+
+                            <ul class="dropdown-menu clock" style="right: 30px; top: 0px;">
+
+
+                                <li role="presentation"><a onclick="prepararFechasProximas()" href="#">Próximas</a></li>
+                                <li role="presentation"><a class="o-clock" onclick="vic_periodo(6,'Esta Semana',this)"
+                                                           href="#">Esta
+                                    Semana</a></li>
+                                <li role="presentation"><a class="o-clock" onclick="vic_periodo(1,'Este Mes',this)"
+                                                           href="#">Este Mes</a>
+                                </li>
+                                <li role="presentation"><a class="o-clock" onclick="vic_periodo(2,'Mes Pasado',this)"
+
+                                                           href="#">Mes Pasado</a>
+                                </li>
+                                <li role="presentation"><a class="o-clock"
+                                                           onclick="vic_periodo(3,'Ultimos 90 Dias',this)" href="#">Ultimos
+                                    90 Dias</a></li>
+                                <li role="presentation"><a class="o-clock" onclick="vic_periodo(4,'Este Año',this)"
+                                                           href="#">Este Año</a>
+                                </li>
+                                <li role="presentation"><a class="o-clock" onclick="vic_periodo(5,'Año Pasado',this)"
+                                                           href="#">Año Pasado</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hidden-xs  col-md-4 ">
+
+            <div class="row vic-calendar-box gray">
+                <div class="col-xs-10" style="padding-left: 5px;">
+
+                    <input autocomplete="off" name="afecha"
+                           class="btn-block  vic-calendar-filtro-input-search searchString"
+                           type="text" value="" placeholder="Buscar Actividades">
+
+                </div>
+                <div class="col-xs-2" style="border-left:1px #8B96AA solid;height: 34px;text-align: center;">
+                    <i onclick="clear_form_search();" class="fa fa-search "></i>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class=" destop-md col-md-4  " style="margin-right: 0;">
+            <div class="row vic-calendar-box pull-right">
+
+                <table style="width: 100px" border="0">
+
+                    <tr>
+
+                        <td class="disabled vic-icon  text-center">
+                            <div><i class="vic-list-simple fa fa-align-justify fa-1-5x "></i></div>
+                            <div class="vic-icon-text">Simple</div>
+                        </td>
+                        <td class="  vic-icon text-center">
+                            <div><i class="vic-list-detallado fa fa-list fa-1-5x "></i></div>
+                            <div class="vic-icon-text">Detallado</div>
+                        </td>
+
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="hidden-xs col-md-8  vic-filtro   ">
+            <form action="">
+                <!--  <div class="pull-right vic-calendar-filter-close"><i class="fa fa-close"></i></div> -->
+
+                <div class="row vic-calendar-box gray box2 ">
+                    <div class="col-sm-3 col-xs-4">
+
+                        <div class="vic-calendar-filtro-label ">Estatus Actividad</div>
+                        <select name="status" class="vic-calendar-filtro-select status">
+                            <option value="" style="color: #777">Todos</option>
+                            {% for statu in status %}
+                                <option value="{{ statu }}">{{ statu }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <div class="vic-calendar-filtro-label ">DICIPLINA</div>
+                        <select name="disciplina" class="vic-calendar-filtro-select disciplina">
+                            <option value="" style="color: #777">Todas</option>
+                            {% for disciplina in perfilMarca.marcaDisciplinas %}
+                                <option value="{{ disciplina.nombreDisciplina }}">{{ disciplina.nombreDisciplina }}</option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+
+                        <div class="vic-calendar-filtro-label">INSTRUCTOR</div>
+                        <select name="instructor" class="vic-calendar-filtro-select instructor">
+                            <option value="">Todos</option>
+                            {% for instructor in perfilMarca.marcaInstructores %}
+                                <option value="{{ instructor.nombreInstructor }}">{{ instructor.nombreInstructor }}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3 col-xs-4  ">
+                        <div class="vic-calendar-filtro-label ">LOCALIDAD</div>
+                        <select name="localidad" class="vic-calendar-filtro-select localidad">
+                            <option value="" style="color: #777">Todas</option>
+                            <option value="{{ perfilMarca.marcaLocalidad }}">{{ perfilMarca.marcaLocalidad }}</option>
+
+                        </select>
+                    </div>
+
+
+                </div>
+
+            </form>
+        </div>
+        <div class="aplicar-btn hidden-xs   ">
+            <button id="btnAplicar" onclick="inicializar();" type="button" class="btn  vic-btn-aplicar  ">
+                Aplicar
+            </button>
+        </div>
+    </div>
+
+{% endblock controlFiltro %}
+
+
+

@@ -1,0 +1,286 @@
+<!-- calendario-marca-table.html -->
+<script>
+    numPages ={{ numPages }};
+</script>
+
+{% load filtrosEspeciales %}
+
+{% block contenido %}
+    <div class=" vc-perf-atleta-menu2-tab   vc-perf-atleta-menu2-tab-2 animated fadeIn">
+        {% for actividad in actividadesTodas %}
+
+        {% ifchanged actividad.actividadFecha %}
+
+            <div class="vic-table-perf-atle-title">{{ actividad.actividadFecha|fechaEspecial }}</div>
+            <div class="vic-hr gris-oscuro-title2" ></div>
+            <div class=""></div>
+        {% else %}
+
+        {% endifchanged %}
+
+        {% if not actividad.actividadAbiertaParaGestionar %}
+
+
+            {% if actividad.actividadEstado == 'Culminada' %}
+                <div class="pl-m15 pr-m15"
+                     style="vertical-align: middle;  opacity: .7; ">
+            {% else %}
+
+                <div class="pl-m15 pr-m15">
+
+            {% endif %}
+        {% else %}
+            <div class="pl-m15 pr-m15">
+        {% endif %}
+
+    <table class=" tc table-compra t-consumen" border="0"
+           style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td class="vic-table-marca-c1">
+ <a href="./clase-{{ actividad.actividadId }}">
+                {% if actividad.actividadEstado == 'Culminada' %}
+                    <div class="vic-circle-calendar-1" style="border: solid 2px #ccc;">
+
+                {% else %}
+
+                    <div class="vic-circle-calendar-1">
+
+                {% endif %}
+
+
+                {% if actividad.actividadEstado == 'En Conflicto' %}
+                    <div class="vic-icon-nc" title="No asistió"><i class="fas fa-exclamation"
+                                                                   aria-hidden="true"></i>
+                    </div>
+                {% endif %}
+
+                {% if actividad.actividadEstado == 'Cancelada' %}
+                    <div class="linea-suspendido"></div>
+                {% endif %}
+
+                <img src="{{ actividad.actividadDisciplinaImagenNegra }}"
+                     style="width: 30px; height: 30px; display: inline-block"><br>
+                </div>
+
+                <div class="clickable-col d2 vic-black-c1"
+                     data-href="./clase-{{ actividad.actividadId }}">{{ actividad.actividadDisciplinaNombre }}
+                </div>
+               </a>
+            </td>
+
+            <td>
+                <div class="flex-container vic-marca-vigente">
+
+                    <div class="vic-marca-c1">
+                        <a href="./clase-{{ actividad.actividadId }}">
+                            {% if actividad.actividadEstado == 'Cancelada' %}
+                                <div style="opacity: .7;">
+                            {% else %}
+                                <div>
+
+                            {% endif %}
+
+
+                            <b class="min-24">
+                                {{ actividad.actividadNombre }}</b>
+                            </div>
+                            <div>{{ actividad.actividadNombreInstructor }}</div>
+                        </a>
+                    </div>
+
+                    <div class="vic-marca-c2">
+                        <div>{{ actividad.actividadHoraInicio|horaCivil }}
+                        </div>
+                    </div>
+
+                    <div class=" vic-marca-c3">
+
+
+                        <div style="margin-bottom: 5px">
+                            <div>
+                                {{ actividad.actividadSalonNombre }}</div>
+                            {% if actividad.actividadReferenciada %}
+                            {% endif %}
+                        </div>
+
+
+                        <div><i class="fas fa-ticket-alt fa-1x" aria-hidden="true"
+                                style="color: #FFCD00"></i>{{ actividad.actividadReservados }}/{{ actividad.actividadCapacidadMaxima }}
+                            {% if actividad.actividadEspera > 0 %}
+                                <i style="margin-left: 8px" class="fas fa-clock fa-1x dropdown-toggle "
+                                   data-toggle="dropdown"
+                                   aria-hidden="true"> {{ actividad.actividadEspera }}</i>
+                            {% endif %}
+
+                        </div>
+
+
+                    </div>
+                    <div class="vic-marca-c5">
+
+                        {% if actividad.actividadEstado == "Activa" %}
+                            <div class="vic-text-puesto-new text-success"><b> En progreso</b></div>
+                           
+                            <img  onclick="reserva({{ actividad.actividadId }})" class="icon-vic-actions {% if actividad.actividadReferenciada %} vic-disabled{% endif %}" alt="" src="../../static/images/gestionar.svg">
+
+                        {% endif %}
+
+                        {% if actividad.actividadAbiertaParaGestionar %}
+
+
+                            <img  onclick="reserva({{ actividad.actividadId }})" class="icon-vic-actions {% if actividad.actividadReferenciada %} vic-disabled{% endif %}" alt="" src="../../static/images/gestionar.svg">
+
+
+
+
+                        {% endif %}
+
+                        {% if actividad.actividadEstado == "Planifico" %}
+
+                            <div class="vic-text-puesto-new ">Próximamente</div>
+
+
+                            <img  class="icon-vic-actions " alt="" src="../../static/images/gestionar_disable.svg">
+
+                        {% endif %}
+
+
+
+                        {% if actividad.actividadEstado == 'En Conflicto' %}
+
+                            <div class="vic-text-puesto-new ">En conflicto</div>
+
+                          <img  class="icon-vic-actions " alt="" src="../../static/images/gestionar_conflicto.svg">
+
+
+                        {% endif %}
+                    </div>
+
+
+                </div>
+
+            </td>
+
+            <td class="text-right" style="padding-top: 10px; vertical-align: top;width: 25px;">
+
+
+                <div class="vic-marca-c6">
+
+                    {% if actividad.actividadAbiertaParaEliminar or actividad.actividadAbiertaParaEditar or actividad.actividadAbiertaParaCancelar %}
+
+
+                        <div class="btn-group moreOpsBt pull-right">
+                            <button type="button"
+                                    class="btn btn-sm btn-default dropdown-toggle "
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&nbsp;
+                            </button>
+                            <ul class="dropdown-menu" style="right: 30px; top: 0;">
+                                {% if actividad.actividadAbiertaParaGestionar %}
+                                    <li role="presentation">
+                                        <a href="#"
+                                           onclick="return reserva('{{ actividad.actividadId }}')">Gestionar
+                                            Actividad
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if actividad.actividadAbiertaParaEditar %}
+                                    <li role="presentation">
+                                        <a href="#"
+                                           onclick="serie=false;modi=true;modichange(true);return modificar({{ actividad.actividadId }})"
+                                           class="test">Editar Actividad
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if actividad.actividadAbiertaParaEditar and actividad.actividadEsSerie %}
+                                    <li role="presentation">
+                                        <a href="#"
+                                           onclick="serie=false;modi=true;modichange(true);return modificar({{ actividad.actividadId }},'Si')"
+                                           class="test">Editar Serie
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if actividad.actividadAbiertaParaEliminar %}
+                                    <li role="presentation">
+                                        <a href="#"
+                                           onclick="serie=false;modi=true;modichange(true);return eliminarActividad({{ actividad.actividadId }})"
+                                           class="test">Eliminar Actividad
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#"
+                                           onclick="serie=false;modi=true;modichange(true);return reactivarActividad({{ actividad.actividadId }})"
+                                           class="test">Reactivar Actividad
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if actividad.actividadAbiertaParaCancelar and actividad.actividadEsSerie %}
+                                    <li role="presentation">
+                                        <a href="#"
+                                           onclick="serie=false;modi=true;modichange(true);return eliminarSerie({{ actividad.actividadId }},'Serie')"
+                                           class="test">Eliminar Serie
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if actividad.actividadAbiertaParaCancelar %}
+                                    <li role="presentation">
+                                        <a href="#" onclick="suspenderActividad({{ actividad.actividadId }})"
+                                           class="test">Suspender
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </td>
+
+            {% if forloop.last %}
+                <tr>
+                </tr>
+            {% endif %}
+
+        </tr>
+
+        </tbody>
+    </table>
+
+    </div>
+
+
+    {% endfor %}
+    </div>
+{% endblock contenido %}
+
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {	
+	
+$( ".min-24" ).each(function( index, element ) {
+    
+	if($(this).text()){
+			
+		var temp  = $(this).text().trim();
+	
+		
+		if(temp.length > 19){
+			
+			 $(this).text(temp.substr(0,20) +"...");
+	
+		}
+				
+	}
+ 
+  });
+
+ });
+</script>
+

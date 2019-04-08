@@ -1,0 +1,988 @@
+<!-- centro-detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+        button {
+
+            text-align: center !important;
+        }
+    </style>
+
+    {% load filtrosEspeciales %}
+
+    {% include "head.html" %}
+
+    {% include "scriptsActividades.html" %}
+
+    <script>
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.vic-load').hide();
+
+            $(".vc-perf-dropdonw-down").click(function () {
+
+                $(".vc-perf-dropdown-up").show();
+                $(".vc-perf-dropdonw-down").hide();
+
+                $(".vc-perf-detalle").slideDown(300);
+
+                console.log('up');
+
+            });
+
+            $(".vc-perf-dropdown-up").click(function () {
+
+                $(".vc-perf-dropdonw-down").show();
+                $(".vc-perf-dropdown-up").hide();
+
+                $(".vc-perf-detalle").slideUp(300);
+
+                console.log('down');
+
+            });
+
+            $(".clickable-col").click(function () {
+                window.location = $(this).data("href");
+            });
+
+        });
+
+
+        function vcCentroDMenu(obj, n) {
+
+            $(".vic-centro-d-menu").hide();
+            $(".vic-centro-d-box-" + n).show();
+            $(".vic-centro-d-menu-link").removeClass('active');
+            $(obj).addClass('active');
+
+        }
+
+
+    </script>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+
+        function confirmarDesactivacion(usuario, marcaId, marcaNombre, url) {
+            parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+            $('.modal-body').attr('style', 'text-align: left;');
+            var params = '';
+
+            var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea usted dejar de seguir a ' + marcaNombre + ' ?</div>';
+
+            params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Desafiliar</a> </div><div>';
+            params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+            $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Desafiliar marca ' + '<span>');
+            $("#myModal").find(".modal-body").html(params);
+            $("#myModal").modal();
+
+            // redirect(url);
+
+            return false;
+
+        }
+
+        function confirmarCancelacionSolicitud(usuario, marcaId, marcaNombre, url) {
+            parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+            $('.modal-body').attr('style', 'text-align: left;');
+            var params = '';
+
+            var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea eliminar la solicitud de afiliación a ' + marcaNombre + ' ?</div>';
+
+            params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+            params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+            $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminación de solicitud ' + '<span>');
+            $("#myModal").find(".modal-body").html(params);
+            $("#myModal").modal();
+
+            // redirect(url);
+
+            return false;
+
+        }
+
+        function redirect(url) {
+
+            window.location.href = url;
+
+        }
+
+
+        function seguirDejar(opcion, usuario, marca) {
+            $.ajax({
+                data: {'opcion': opcion, 'usuario': usuario, 'marca': marca},
+                url: '/solicitudusuario',
+                type: 'get',
+                success: function (data) {
+                    location.reload();
+                },
+            });
+        }
+
+    </script>
+
+
+    <link rel="stylesheet" type="text/css"
+          href="../static/css/nuevo_calendario.css"/>
+
+
+    <style type="text/css">
+        .vc-multi .item {
+            padding: 1rem;
+            text-align: left;
+            height: 156px;
+            width: 299px;
+            border: 1px solid #E7EAEF;
+        }
+
+        .center {
+            text-align: left;
+            padding-bottom: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+            background: #FFD302;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td,
+        .table > tbody > tr > td, .table > tfoot > tr > td {
+            border-top: 0 !important;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+        }
+
+        /* /------------------------------------*/
+        .vic-ma-cd-header-letras {
+            width: 100%;
+            text-align: center;
+            letter-spacing: -6px;
+            line-height: 1em;
+
+            position: absolute;
+            right: 0;
+            color: rgba(155, 155, 155, 0.1);
+            font-size: 7em;
+            word-wrap: break-word;
+            word-break: break-word;
+            -webkit-pointer-events: none;
+            -moz-pointer-events: none;
+            -ms-pointer-events: none;
+            -o-pointer-events: none;
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            font-weight: bold;
+            overflow: hidden;
+            max-height: 82%;
+        }
+
+        @media ( max-width: 767px) {
+
+            .vic-ma-cd-header-letras {
+                font-size: 5em;
+            }
+        }
+
+        .vic-ma-cd-header {
+            min-height: 110px;
+            padding-top: 15px
+        }
+
+        .vic-ma-cd-header .vic-right {
+            float: right;
+        }
+
+        .vic-ma-cd-header .vic-left {
+            float: left;
+        }
+
+        .vic-ma-header-2:after {
+            letter-spacing: -6px;
+            content: "Entrena con Nosotros";
+            line-height: 1em;
+
+            color: rgba(255, 205, 1, 0.29);
+            background: #EEF0F4;
+            font-size: 5em;
+            height: 137px;
+            overflow: hidden;
+        }
+
+        .vic-masInfo {
+
+            float: right;
+            text-decoration: underline;
+        }
+
+        @media ( max-width: 991px) {
+            .vic-ma-header-2:after {
+                font-size: 4em;
+            }
+
+            .vic-ma-cd-header .vic-right {
+                float: none;
+                margin-top: 10px;
+                margin-bottom: 15px;
+            }
+
+            .vic-ma-cd-header .vic-direccion {
+
+                color: #4A4A4A;
+
+                font-size: 13px;
+                font-weight: 300;
+                line-height: 16px;
+                text-align: right;
+            }
+
+            .vic-ma-cd-header .vic-left {
+                float: none;
+            }
+
+            .vic-ma-cd-header .vic-direccion {
+
+                text-align: left;
+                font-size: 16px;
+
+            }
+
+            .vic-masInfo {
+                line-height: 25px;
+                font-size: 14px;
+                float: left;
+            }
+        }
+
+        .vic-masInfo-left {
+            float: none;
+        }
+    </style>
+
+</head>
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+{% siguiendo_esta_marca pm.marcaId vs.userId as seguidor %}
+{% pendiente_con_esta_marca pm.marcaId vs.userId as pendiente %}
+
+{% with pmInfo=pm.marcaInfoGeneral %}
+
+    <div id="vic-tab-2" class="tab-pane in active">
+
+
+        <div class="container" style="font-size: 16px">
+<div class="container">
+
+<div class=" titulo-principal titulo-principal-30 box row">
+           <div class="">{{ pm.marcaNombre }}</div>
+                        <div class="vic-perfil-client-alias">@{{ pm.marcaAlias }}</div>
+    </div>
+</div>
+
+            <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+                <div class="col-xs-4 menu-movil sin-left vic-centro-d-menu-link  active "
+                     onclick="vcCentroDMenu(this,1)">
+                    <div class="cell">
+                        ACERCA DE
+                    </div>
+                </div>
+                <div class="col-xs-4 menu-movil  vic-centro-d-menu-link " onclick="vcCentroDMenu(this,2)">
+                    <div class="cell">
+                        ACTIVIDADES
+
+                    </div>
+                </div>
+                <div class="col-xs-4 menu-movil  vic-centro-d-menu-link " onclick="vcCentroDMenu(this,3)">
+                    <div class="cell">
+                        PLANES
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+                <div>
+                    <div class="menu-tab-calendar vic-centro-d-menu-link active" onclick="vcCentroDMenu(this,1)"> ACERCA
+                        DE
+                    </div>
+                    <div class="menu-tab-calendar vic-centro-d-menu-link vic-left" onclick="vcCentroDMenu(this,2)">
+                        ACTIVIDADES
+                    </div>
+                    <div class="menu-tab-calendar vic-centro-d-menu-link vic-left" onclick="vcCentroDMenu(this,3)">
+                        PLANES
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row vic-centro-d-box-1 vic-centro-d-menu animated fadeIn">
+                <div class="col-xs-12 vic-ma-cd-header">
+
+                    <div class="vic-ma-cd-header-letras">{{ pm.marcaIniciales }}</div>
+
+                    <div class="">
+
+                        {% if vs.tipoSesion == vs.MARCA %}
+
+
+                        <div class="pull-right">
+                        	<a href="confmarca">
+                        	
+                        	
+                        	         	<button type="button" class="btn btn-link">Editar ></button>
+                        	</a>
+               
+                        	</div>
+
+                        {% endif %}
+
+                        <div style="padding-top: 10px;" class="destop-md">
+
+                            {% if vs.tipoSesion == vs.ATLETA %}
+                                {% if pm.marcaDuenoAlias != vs.userAlias %}
+                                    {% if seguidor or pendiente %}
+                                        {% if seguidor %}
+                                            <button style="margin-right: 40px;margin-top: -2px;"
+                                                    type="button"
+                                                    class="btn btn-xs  vic-btn-outline-reservar "
+                                                    onclick='return confirmarDesactivacion({{ vs.userId }},{{ pm.marcaId }},"{{ pm.marcaNombre }}","../{{ pm.marcaAlias }}");'
+                                            >Afiliado <i class="fa fa-check"></i>
+                                            </button>
+                                        {% else %}
+                                            <button style="margin-right: 40px;margin-top: -2px;"
+                                                    type="button"
+                                                    class="btn btn-xs  vic-btn-outline-reservar  Afiliado "
+                                                    onclick='return confirmarCancelacionSolicitud({{ vs.userId }},{{ pm.marcaId }},"{{ pm.marcaNombre }}","../{{ pm.marcaAlias }}");'
+                                            >Esperando Afiliación <i class="fas fa-clock"></i>
+                                            </button>
+
+                                        {% endif %}
+                                    {% else %}
+                                        {% if pm.marcaEsPublica %}
+                                            <button style="margin-right: 40px;margin-top: -2px;"
+                                                    type="button" class="btn btn-xs  vic-btn-reservar "
+                                                    onclick="seguirDejar(1,{{ vs.userId }},{{ pm.marcaId }});"
+                                            >Afiliarse
+                                            </button>
+                                        {% else %}
+                                            <button style="margin-right: 40px;margin-top: -2px;"
+                                                    type="button" class="btn btn-xs  vic-btn-reservar vic-disabled"
+                                                    onclick=""
+                                            >Privado
+                                            </button>
+                                        {% endif %}
+
+                                    {% endif %}
+                                {% else %}
+                                    <button style="margin-right: 40px;margin-top: -2px;"
+                                            type="button"
+                                            class="btn btn-xs  vic-btn-outline-reservar vic-disabled"
+                                            onclick=""
+                                    >Mi Marca <i class="fa fa-check"></i>
+                                    </button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <br>
+                        <div style=" font-weight: normal;font-size: 12px;text-transform: uppercase;">Descripción</div>
+                        <div style="max-width: 430px">{{ pm.marcaDescripcion }}
+                        </div>
+                        <br>
+                        {% if not pm.marcaEsPublica %}
+                            <div style=" font-weight: normal;font-size: 12px;text-transform: uppercase;">Información de
+                                contacto
+                            </div>
+                            <div style="max-width: 430px">{{ pm.marcaCorreo }}
+                                <br>
+                                {{ pm.marcaTelefono1 }}
+                                <br>
+                                {{ pm.marcaTelefono2 }}
+                            </div>
+                            <br>
+                        {% endif %}
+                    </div>
+                    {% if esSeguidor or pm.marcaEsPublica %}
+                        {% if pm.marcaDireccionCompleta %}
+                            <div class="">
+                                <div style=" font-weight: normal;font-size: 12px;text-transform: uppercase;">Dirección
+                                </div>
+
+                                <div class="">
+                                    {{ pm.marcaDireccionCompleta }}
+                                </div>
+                            </div>
+
+                            <br>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                {% if seguidor or pm.marcaEsPublica %}
+
+
+
+
+                    <div class="col-xs-12">
+
+
+                        <hr>
+                        <div class="m-b-15">INSTRUCTORES</div>
+
+
+                        <!-- CARROUSEL DE CIRCULOS-->
+                        <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn">
+                            <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px">
+                                <div class="owl-carousel owl-theme marcasCarrusel ">
+                                    <!-- GUIA PARA EL ENCARGADO DEL BACK-->
+                                    <!-- EL CIRCULO QUE NO ESTA SELECCIONADO SE LE DEBE AGREGAR LA CLASE yellow, si esta seleccionado se le quita la clase yellow-->
+                                    <!-- EL EVENTO ON CLICK, TIENE UNA FUNCION DE NOMBRE event(1), ES DE PRUEBAS Y DEBE SER REEMPLAZADO POR LA FUNCION E IDENTIFICADOR CORRECTO-->
+
+
+
+
+                                    {% for instructor in pm.marcaInstructores %}
+
+                                        <div>
+                                            <div id="idDiv_{{ instructor.aliasInstructor }}"
+                                                 class="vic-circle-calendar-carrusel active"
+                                                 style="display: table;margin: auto">
+                                                <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;">
+                                                    <a href="/{{ instructor.aliasInstructor }}/perfil-instructor-{{ instructor.aliasInstructor }}">
+                                                        {{ instructor.inicialesInstructor }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="line-clamp" style="font-size:12px;margin-top: 6px;">
+                                                {{ instructor.nombreInstructor }}
+                                            </div>
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div>
+                            <small><b>CONTACTO</b></small>
+                        </div>
+                        <div>
+                            <div>
+                                {% if pm.marcaTelefono1 %}
+                                    {{ pm.marcaTelefono1|telefono }}
+                                {% endif %}
+                                <br>
+                                {% if pm.marcaTelefono2 %}
+                                    {{ pm.marcaTelefono2|telefono }}
+                                {% endif %}
+                                <br>
+                                {{ pm.marcaCorreo }}
+                            </div>
+                        </div>
+
+
+                        <br><br>
+
+
+                        <!-- CARROUSEL DE CIRCULOS-->
+                        <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn">
+                            <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px">
+                                <div class="owl-carousel owl-theme marcasCarrusel ">
+                                    <!-- GUIA PARA EL ENCARGADO DEL BACK-->
+                                    <!-- EL CIRCULO QUE NO ESTA SELECCIONADO SE LE DEBE AGREGAR LA CLASE yellow, si esta seleccionado se le quita la clase yellow-->
+                                    <!-- EL EVENTO ON CLICK, TIENE UNA FUNCION DE NOMBRE event(1), ES DE PRUEBAS Y DEBE SER REEMPLAZADO POR LA FUNCION E IDENTIFICADOR CORRECTO-->
+
+
+                                    <div>
+
+                                        <a href="http://www.facebook.com/{{ pm.marcaFacebook }}/" class="vic-circle-calendar-carrusel active
+                            
+                            " style="display: table;margin: auto"
+                                           onClick="seleccionCirculoMarca('')">
+                                            <div style="font-size: 18px; display: table-cell;vertical-align:middle"><i
+                                                    class="fab fa-facebook-f"></i></div>
+                                        </a>
+
+                                    </div>
+
+                                    <div>
+
+                                        <a href="http://www.instagram.com/{{ pm.marcaInstagram }}/" class="vic-circle-calendar-carrusel active
+                            
+                            " style="display: table;margin: auto"
+                                           onClick="seleccionCirculoMarca('')">
+                                            <div style="font-size: 18px; display: table-cell;vertical-align:middle"><i
+                                                    class="fab fa-instagram"></i></div>
+                                        </a>
+
+                                    </div>
+
+                                    <div>
+
+                                        <a href="http://www.twitter.com/{{ pm.marcaTwitter }}/" class="vic-circle-calendar-carrusel active
+                            
+                            " style="display: table;margin: auto"
+                                           onClick="seleccionCirculoMarca('')">
+                                            <div style="font-size: 18px; display: table-cell;vertical-align:middle"><i
+                                                    class="fab fa-twitter"></i></div>
+                                        </a>
+
+                                    </div>
+
+                                    <div>
+                                        <a href="#" class="vic-circle-calendar-carrusel active
+                            
+                            " style="display: table;margin: auto"
+                                           onClick="seleccionCirculoMarca('')">
+                                            <div style="font-size: 18px; display: table-cell;vertical-align:middle"><i
+                                                    class="far fa-registered"></i></div>
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <hr>
+                        <div class="m-b-15">DISCIPLINAS</div>
+
+
+                        <!-- CARROUSEL DE CIRCULOS-->
+                        <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn">
+                            <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px">
+                                <div class="owl-carousel owl-theme marcasCarrusel ">
+                                    <!-- GUIA PARA EL ENCARGADO DEL BACK-->
+                                    <!-- EL CIRCULO QUE NO ESTA SELECCIONADO SE LE DEBE AGREGAR LA CLASE yellow, si esta seleccionado se le quita la clase yellow-->
+                                    <!-- EL EVENTO ON CLICK, TIENE UNA FUNCION DE NOMBRE event(1), ES DE PRUEBAS Y DEBE SER REEMPLAZADO POR LA FUNCION E IDENTIFICADOR CORRECTO-->
+
+
+                                    {% for disciplina in pm.marcaDisciplinas %}
+
+                                        {% if disciplina.nombreDisciplina != 'Multiple' %}
+
+
+                                            <div>
+
+                                                <div style="
+	width: 56px;
+    height: 56px;
+    border: 1px solid black;
+    margin: auto;
+    padding: 4px;
+    border-radius: 50px;">
+
+                                                    <img src="{{ disciplina.imagenDisciplinaNegra }}"
+                                                         style="width: 35px;height: 35px;margin: auto;    margin-top: 5px;">
+                                                </div>
+
+                                                <div class="line-clamp"
+                                                     style="font-size:12px;margin-top: 6px;font-weight: bold;">
+                                                    {{ disciplina.nombreDisciplina }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    </div>
+
+</div>
+                    <div class=" vic-centro-d-box-2 vic-centro-d-menu animated fadeIn" style="display: none">
+
+                        <div class=" w-100 text-center">
+
+                            <div class=" section_perfilMarca"></div>
+
+                        </div>
+
+                        <br>
+
+                    </div>
+  
+  <div class="container">
+                    <div class="row vic-centro-d-box-3 vic-centro-d-menu animated fadeIn" style="display: none">
+
+                        <div class=" col-xs-12 col-12">
+
+
+                            {% if productosActivos %}
+
+                                {% for producto in productosActivos %}
+
+
+                                    <div class="vic-table-perf-atle-title"> 
+                                     <div class="pull-left " style="font-size: 21px;
+    margin-right: 12px;"><i class="fas fa-tag"></i></div>
+                                    {{ producto.nombre }}
+                                    </div>
+                                    
+                                    <div class="m-t-10">Mensualidad HTP. Incluye luenes a jueves
+                                        cualquier horario. Libre para cualquier disciplina.
+                                    </div>
+
+                                    <table class=" tc table-compra t-consumen" border="0"
+                                           style="font-size: 16px; vertical-align: middle;">
+
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="flex-container vic-plan-2">
+
+                                                    <div class="vic-plan-c3">
+                                                        <div>
+                                                            <b>CRÉDITOS</b>
+                                                        </div>
+                                                        <div>{{ producto.creditos }}</div>
+                                                    </div>
+
+                                                    <div class="vic-plan-c4 ">
+                                                        <div>
+                                                            <b>INVERSIÓN</b>
+                                                        </div>
+                                                        <div>{{ producto.precio }}</div>
+                                                        <div style="font-size: 14px;"
+                                                             class="ccc text-right">{{ producto.descuento }} Dcto.
+                                                        </div>
+
+                                                        {% if seguidor and vs.tipoSesion == vs.ATLETA %}
+
+                                                            <button type="button"
+                                                                    class="btn btn-xs  vic-btn-reservar  m-t-10"
+                                                                    onclick="confirmar('{{ producto.nombre }}','{{ producto.creditos }}','{{ producto.precio }}','{{ producto.id }}')">
+                                                                Comprar
+                                                            </button>
+
+                                                        {% endif %}
+
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <div class="vic-hr gris-claro vic-hr"></div>
+
+                                {% endfor %}
+
+                            {% endif %}
+
+                        </div>
+
+                        <br>
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <div class="text-center col-xs-12 ">
+                        <hr>
+                        <i class="fa fa-lock fa-4x"></i>
+                        <div class="vic-calendar-title " style="margin-top: 10px;">
+                            Este perfil es privado.<br>
+                            <div class="vic-calendar-sub-title-header vic-tex-inic ">
+                                Para mas información comunícate con {{ pm.marcaNombre }}
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                    </div>
+
+
+                {% endif %}
+
+        </div>
+    </div>
+
+{% endwith %}
+
+<!-- Modal -->
+<div class="modal fade modalTabRecarga"  role="dialog" style="z-index: 9999">
+    <div class="modal-dialog">
+        <div class="prdId" hidden><</div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" >
+
+                        	<div
+			style="margin-bottom: 5px; text-transform: initial; line-height: 16px;">
+
+			Te enviaremos un correo con los detalles para el pago por transferencia.
+
+		</div>
+		  <hr>
+
+
+			<div class="vic-table-perf-atle-title tr-n">
+           </div>
+			<div class="m-t-10">Mensualidad HTP. Incluye luenes a jueves
+				cualquier horario. Libre para cualquier disciplina.</div>
+
+
+            <br>
+
+
+			<table class=" tc table-compra t-consumen" border="0"
+				style="font-size: 16px; vertical-align: middle;">
+				<tbody>
+					<tr>
+						<td>
+			
+			</td>
+
+			<td style="    width: 109px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;">
+
+<b>INVERSIÓN</b>
+
+<div class="tr-p" style="font-size: 16px;
+    line-height: 16px;    font-weight: 500;
+   "></div>
+    			<div style="font-size: 14px; padding-bottom: 6px;"  ><span class="tr-c"></span>% Dcto.</div>
+    
+              </td>
+              </tr>
+              </tbody>
+              </table>
+
+
+    <hr>
+
+<div class="container-fuid text-right">
+<button  onclick="continuarTabRecarga()"
+			 type="button"
+			class="btn btn-md   vic-btn-reservar-reverse ">
+			Continuar</button>
+</div>
+	
+		      </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+{% include "fin-content-tabs.html" %}
+
+
+<div class=" movil-md footer div-btn-reserv-movil shadown" style="height: auto;padding:5px;background: white;">
+
+
+    <a class="pull-right" href="/centros">
+    </a>
+
+    {% if vs.tipoSesion == vs.ATLETA %}
+        {% if pm.marcaDuenoAlias != vs.userAlias %}
+            {% if seguidor or pendiente %}
+                {% if seguidor %}
+                    <button
+                            type="button"
+                            class="btn btn-md  btn-block vic-btn-outline-reservar sticky-btn"
+                            onclick='return confirmarDesactivacion({{ vs.userId }},{{ pm.marcaId }},"{{ pm.marcaNombre }}","../{{ pm.marcaAlias }}");'
+                    >  <span style="border-bottom: 2px #ffcd00 groove;">Afiliado</span>  <i class="fa fa-check"></i>
+                    </button>
+                {% else %}
+                    <button type="button"
+                            class="btn btn-md  btn-block vic-btn-outline-reservar  Afiliado sticky-btn"
+                            onclick='return confirmarCancelacionSolicitud({{ vs.userId }},{{ pm.marcaId }},"{{ pm.marcaNombre }}","../{{ pm.marcaAlias }}");'
+                    >Esperando Afiliación <i class="fas fa-clock"></i>
+                    </button>
+
+                {% endif %}
+            {% else %}
+                {% if pm.marcaEsPublica %}
+                    <button
+                            type="button" class="btn btn-md  btn-block vic-btn-reservar sticky-btn"
+                            onclick="seguirDejar(1,{{ vs.userId }},{{ pm.marcaId }});"
+                    >Afiliarse
+                    </button>
+                {% else %}
+                    <button
+                            type="button" class="btn btn-md  btn-block  vic-btn-reservar vic-disabled sticky-btn"
+                            onclick=""
+                    >Privado
+                    </button>
+                {% endif %}
+
+            {% endif %}
+        {% else %}
+            <button
+                    type="button"
+                    class="btn btn-md  btn-block  vic-btn-outline-reservar vic-disabled sticky-btn"
+                    onclick=""
+            >Mi Marca <i class="fa fa-check"></i>
+            </button>
+        {% endif %}
+    {% endif %}
+</div>
+
+
+
+
+<div class=" destop-md footer reserv-movil-footer">
+
+    {% include "footer.html" %}
+
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var marcaAlias = ''
+        {% if vs.tipoSesion == vs.MARCA %}
+            marcaAlias = '{{ vs.marcaEnUsoAlias }}'
+            urlViCcalendar = "{% url 'web:perfil-actividades-marca' %}"
+        {% else %}
+            marcaAlias = '{{ pm.marcaAlias }}'
+            urlViCcalendar = "{% url 'web:perfil-actividades-marca-por-atleta' %}"
+        {%  endif %}
+        var parametros = '?pk=' + marcaAlias
+        var urlViCcalendar;
+
+        $('.section_perfilMarca').addClass('opasiti-list');
+        Pace.restart();
+        $('#idDivBienvenida').hide();
+        $('.vic-load').show();
+        $('.section_perfilMarca').load(urlViCcalendar + parametros, function () {
+            var section_perfilMarca = $(this);
+            $('.section_perfilMarca').removeClass('opasiti-list');
+            $('.vic-load').hide();
+            $('#idDivBienvenida').hide();
+        });
+
+        $('.restrict').each(function () {
+
+            var txt = "";
+
+            txt = $(this).text().trim();
+
+            if (txt.length > 90) {
+
+                txt = txt.substring(0, 90) + '.....';
+
+
+                $(this).text(txt);
+            }
+
+
+        });
+
+
+    });
+
+    function confirmar(n, c, p, i) {
+
+
+        $(".modalTabRecarga").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;">Solicitar la información de pago' + '<span>');
+        $(".prdId").html(i);
+        $(".tr-n").html(n);
+        $(".tr-c").html(c);
+        $(".tr-p").html(p);
+
+        $(".modalTabRecarga").modal();
+
+        // redirect(url);
+
+        return false;
+
+    }
+
+
+    function continuarTabRecarga(n, mail) {
+
+        $('.modalTabRecarga').modal('toggle');
+
+        $.ajax({
+            url: '/ajax/enviar_correo_intencion_compra/',
+            data: {
+                'productoId': $('.prdId').html(),
+            },
+            dataType: 'json',
+            success: function (data) {
+
+            }
+        });
+
+        $(".tr1").hide();
+        $(".tr2").show();
+        return false;
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

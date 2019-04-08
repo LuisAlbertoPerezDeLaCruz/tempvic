@@ -1,0 +1,53 @@
+<!-- calendario-atleta-carrusel-misActividades.html -->
+
+{% load filtrosEspeciales %}
+
+{% if perfilAtleta.atletaTieneRelacionConMarcas == True and misActividadesTodas %}
+
+<div class="soloIZQ movil-md footer div-btn-reserv-movil shadown hidden-md hidden-lg"
+     style="height: auto;background: white;margin-left: -15px;padding: 0">
+    <div class="bg-gray-ca ">
+
+        <div class="flex-container" style="font-size: 12px">
+
+            <div style="width: 26%;
+                        font-weight: 700;
+                        margin-top: auto;
+                        margin-bottom: auto;
+                        padding-left: 5px;">
+                Mis próximas:
+            </div>
+
+            <div style="width: 74%">
+
+                {% if not misActividadesTodas %}
+                    <div class="text-center">
+                        Mi BOX de los deseos está vacío.<br>
+                        Agenda tu próximo entrenamiento
+                    </div>
+
+
+                {% else %}
+                    <div class="owl-carousel owl-theme customCarruserActividades">
+
+                        {% for actividad in misActividadesTodas %}
+                            <div class="item-ca">
+                                <a href="./clase-{{ actividad.actividadId }}">
+                                    {{ actividad.actividadDisciplinaNombre }}<br>
+                                    {{ actividad.actividadFecha|fechaEspecial }}, {{ actividad.actividadHoraInicio|horaCivil }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}

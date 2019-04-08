@@ -1,0 +1,2484 @@
+<!-- clase-detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+
+    <style type="text/css">
+
+        .vic-text-puesto-new {
+            line-height: 5px;
+        }
+
+        /* /------------------------------------*/
+        .vic-ma-cd-header-letras {
+            width: 100%;
+            text-align: center;
+            line-height: 1em;
+
+            position: absolute;
+            right: 0;
+            color: rgba(155, 155, 155, 0.1);
+            font-size: 3em;
+            word-wrap: break-word;
+            word-break: break-word;
+            -webkit-pointer-events: none;
+            -moz-pointer-events: none;
+            -ms-pointer-events: none;
+            -o-pointer-events: none;
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            font-weight: bold;
+            overflow: hidden;
+            max-height: 82%;
+            text-align: center;
+        }
+
+        @media ( max-width: 767px) {
+
+            .vic-ma-cd-header-letras {
+                font-size: 3em;
+                letter-spacing: -3px;
+            }
+        }
+
+        .vic-ma-cd-header {
+            min-height: 110px;
+            padding-top: 15px;
+        }
+
+        .vic-ma-cd-header .vic-right {
+            float: right;
+        }
+
+        .vic-ma-cd-header .vic-left {
+            float: left;
+            max-width: 520px;
+
+        }
+
+        .vic-ma-header-2:after {
+            letter-spacing: -6px;
+            content: "Entrena con Nosotros";
+            line-height: 1em;
+
+            color: rgba(255, 205, 1, 0.29);
+            background: #EEF0F4;
+            font-size: 7em;
+            height: 137px;
+            overflow: hidden;
+        }
+
+        @media ( max-width: 991px) {
+
+            .puesto_salon {
+                font-size: 10px;
+            }
+
+            .vic-ma-header-2:after {
+                font-size: 4em;
+            }
+
+            .vic-ma-cd-header .vic-right {
+                float: none;
+                margin-top: 10px;
+                margin-bottom: 15px;
+            }
+
+            .vic-ma-cd-header .vic-direccion {
+                color: #4A4A4A;
+
+                font-size: 13px;
+
+                line-height: 16px;
+                text-align: right;
+            }
+
+            .vic-ma-cd-header .vic-left {
+                float: none;
+            }
+
+            .vic-ma-cd-header .vic-direccion {
+                text-align: left;
+            }
+        }
+
+        .moreOpsBt {
+            position: relative;
+            /* bottom: 0; */
+            /* right: 0px; */
+            z-index: 4;
+            height: 21px;
+        }
+
+        .vic-perfil-client-text {
+            color: #4A4A4A;
+
+            font-size: 13px;
+
+            line-height: 16px;
+        }
+
+        .vic-perfil-client-subtitle {
+            color: #4A4A4A;
+
+            font-size: 16px;
+            line-height: 19px;
+            margin-bottom: 10px;
+        }
+
+        .vic-clase-d-text {
+
+
+            font-size: 13px;
+            line-height: 15px;
+            max-width: 500px;
+
+        }
+
+        .vic-clase-d-leeter {
+            color: #4A4A4A;
+
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 65px;
+        }
+
+        .vic-clase-d-user-leeter {
+            color: #4A4A4A;
+
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 48px;
+        }
+
+        .vic-clase-d-box-user-leeter {
+            background-color: #CFCFCF;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 45px;
+            width: 45px;
+            text-align: center;
+            margin-right: 15px;
+        }
+
+        .vic-clase-d-box-leeter {
+            background-color: #CFCFCF;
+            border-radius: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 65px;
+            width: 65px;
+            text-align: center;
+            margin-right: 15px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+
+        .vic-clase-d-title {
+
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 26px;
+        }
+
+        .vic-clase-d-status-title {
+            color: #4A4A4A;
+
+            font-size: 9px;
+
+            line-height: 26px;
+        }
+
+        .vic-clase-d-status-num {
+            color: #4A4A4A;
+
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 14px;
+        }
+
+        .vic-clase-d-status-num2 {
+            font-size: 26px;
+        }
+
+        .vic-clase-d-footer-1 {
+            color: #4A4A4A;
+
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 15px;
+        }
+
+        .vic-clase-d-footer-2 {
+            color: #9B9B9B;
+
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 14px;
+        }
+
+
+        @media (max-width: 768px) {
+            .vic-clase-d-text {
+
+                font-size: 16px;
+                line-height: 22px;
+            }
+
+            .vic-clase-d-footer-1 {
+
+                font-size: 14px;
+
+            }
+
+            .vic-clase-d-footer-2 {
+
+                font-size: 14px;
+
+            }
+        }
+
+        .vic-calendar-box {
+            min-height: 0 !important;
+            padding: 0 !important;
+            margin-top: -15px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+{% include "scriptsActividades.html" %}
+{% include "header.html" %}
+
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+{% load filtrosEspeciales %}
+
+{% esta_reservado perfilActividad.actividadId vs.userId as tieneReserva %}
+{% esta_en_espera perfilActividad.actividadId vs.userId as estaEnEspera %}
+{% puede_reservar perfilActividad.actividadId vs.userId as puedeReservar %}
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="{{ perfilActividad.actividadClaseCSS }} w-100 movil-md vc-barra-estatus-movil">
+
+        <small
+                style="font-weight: bold;margin-right: 15px;font-size: 12px;padding-left: 10px;text-transform: uppercase;">
+            Actividad {{ perfilActividad.actividadEstadoImprimible }}</small>
+
+    </div>
+
+    {% if  conflictos %}
+
+        <div style="margin-top: 0;background: #CFCFCF;text-align: left;"
+             class=" w-100 movil-md vc-barra-estatus-movil ">
+
+            <small
+                    style="font-weight: bold;margin-right: 15px;font-size: 12px;padding-left: 10px;color: #393939"
+                    class="text-center">{{ conflictos|length }} Conflictos encontrados <a href="#"
+                                                                                          onclick="cargarConflictos()"
+                                                                                          class=""
+                                                                                          style="text-decoration: underline;"><b>Ver
+                mas</b> </a>
+            </small>
+
+        </div>
+
+    {% endif %}
+
+    <div class="container">
+
+        <!--
+            activa: class="bg-success"
+            cancelada:  class="bg-danger"
+            culminada:  class="bg-primary"
+            conflicto :bg-warning
+            planificada:  class="bg-secondary"
+            abierta: class="bg-info"
+        -->
+
+        <div class="{{ perfilActividad.actividadClaseCSS }} w-100 destop-md vc-barra-estatus">
+
+            <small
+                    style="font-weight: bold;margin-right: 15px;font-size: 12px;padding-left: 10px;">
+                ACTIVIDAD {{ perfilActividad.actividadEstadoImprimible }}</small>
+
+
+        </div>
+
+        {% if conflictos %}
+            <div style="margin-top: 0;background: #CFCFCF;text-align: left;" class=" w-100 destop-md vc-barra-estatus ">
+                <small
+                        style="font-weight: bold;margin-right: 15px;font-size: 12px;padding-left: 10px;color: #393939"
+                        class="text-center">{{ conflictos|length }} Conflictos encontrados <a
+                        onclick="cargarConflictos()"
+                        href="#"
+                        class="pull-right"
+                        style="text-decoration: underline;"><b>Ver
+                    mas</b>
+                </a></small>
+            </div>
+        {% else %}
+
+            {% if not perfilActividad.actividadEstado == 'Planifico' %}
+
+
+                <div class=" text-desk-cintillo destop-md">
+
+                    <!-- ** atleta** -->
+                    {% if vs.tipoSesion == vs.ATLETA %}
+
+                        {% if perfilActividad.actividadAbiertaParaCancelar %}
+
+                            {% if tieneReserva %}
+
+                                {% if estaEnEspera %}
+
+                                    Estas en la lista de espera. Te notificaremos de tu reserva cuando llegue tu turno.
+
+                                {% else %}
+
+                                    ¡Estas reservado en esta actividad! Si deseas cancelar tu reserva, revisa las
+                                    políticas
+                                    de cancelación.
+
+                                {% endif %}
+                            {% else %}
+
+
+                                {% if perfilActividad.actividadCapacidadLlena %}
+
+                                    Agotado
+
+                                {% else %}
+
+                                    {% if perfilActividad.actividadEstado == 'Planifico' %}
+
+
+                                        {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA %}
+
+                                            Eres el instructor de esta actividad.
+                                            Esta actividad aún no permite reservaciones.
+
+                                        {% else %}
+                                            Esta actividad aún no permite reservaciones.
+                                        {% endif %}
+
+
+                                    {% else %}
+
+
+                                        {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA %}
+                                            Eres el instructor de esta actividad.
+
+                                        {% else %}
+
+                                            {% if perfilActividad.actividadReferenciada %}
+                                                Esta actividad es <b>Referenciada</b>.  Contacta a
+                                                <b>{{ perfilActividad.actividadNombreMarca }}</b> para más información
+                                                sobre la política de pago
+                                            {% else %}
+
+
+
+
+                                                {% if perfilActividad.actividadCapacidadMaxima <= perfilActividad.actividadReservados %}
+
+
+                                                    {% if not puedeReservar %}
+                                                        Reserva tu participación en esta actividad.
+                                                    {% else %}
+
+                                                        Los cupos de esta actividad estan agotados.
+                                                        Puedes anotarte en la lista de espera
+                                                    {% endif %}
+
+
+                                                {% else %}
+
+
+                                                    {% if not puedeReservar %}
+                                                        Contrata un plan para participar en esta  actividad.
+
+                                                    {% else %}
+
+                                                        Reserva tu participación en esta actividad.
+                                                    {% endif %}
+
+
+
+                                                {% endif %}
+
+
+
+                                            {% endif %}
+
+
+                                        {% endif %}
+
+                                    {% endif %}
+                                {% endif %}
+
+                            {% endif %}
+
+
+                        {% else %}
+
+                            {% if perfilActividad.actividadEstado == 'Activa' %}
+
+                                {% if tieneReserva %}
+
+                                    Disfruta tu entrenamiento. Esta actividad ha comenzado.
+
+
+                                {% else %}
+
+
+                                    Esta actividad ha comenzado.
+
+                                {% endif %}
+
+                            {% endif %}
+
+
+
+
+
+
+                            {% if perfilActividad.actividadEstado == 'Culminada' %}
+
+
+                                {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA and  perfilActividad.actividadEstado == 'Culminada' %}
+                                    ¡Felicidades por tu liderazgo en esta actividad! No olvides marcara asistencia.
+
+                                {% else %}
+                                    {% atleta_asistio perfilActividad.actividadId vs.userId as asistio %}
+
+                                    {% if tieneReserva %}
+                                        {% if  asistio %}
+
+                                            ¡Felicidades, completase esta actividad! ¡Te esperamos en la próxima!
+
+                                        {% else %}
+                                            No completaste esta actividad. ¡Te esperamos en la próxima!
+
+                                        {% endif %}
+                                    {% else %}
+
+                                        ¡Te esperamos en la próxima!
+
+                                    {% endif %}
+
+                                {% endif %}
+
+
+                            {% endif %}
+
+                            {% if perfilActividad.actividadEstado == 'Cancelada' %}
+                                Los participantes reservados han sido notificados.
+
+                            {% endif %}
+
+
+                            {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA and  perfilActividad.actividadEstado == 'Activa' %}
+
+                                Eres el instructor. Puedes marcar asistencia de tus paticipantes.
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% endif %}
+
+
+                    <!-- ** marca** -->
+
+                    {% if vs.tipoSesion == vs.MARCA %}
+                        {% if perfilActividad.actividadAbiertaParaGestionar %}
+
+                            {% if perfilActividad.actividadReferenciada %}
+                                Esta actividad es <b>Referenciada</b>
+                            {% else %}
+                                Gestiona las reservaciones para esta actividad.
+                            {% endif %}
+
+                        {% else %}
+
+
+
+                            {% if perfilActividad.actividadEstado == 'Cancelada' %}
+                                Edita la actividad para reactivarla.
+                            {% endif %}
+
+                            {% if perfilActividad.actividadEstado == 'Culminada' %}
+
+                                {% if  perfilActividad.actividadReservados > 0 %}
+
+                                    Recuerda marcar la asistencia de tus participantes.
+
+
+                                {% else %}
+
+
+                                    Lo sentimos. No han se registraron participantes.
+
+                                {% endif %}
+
+                            {% endif %}
+
+                            {% if  perfilActividad.actividadEstado == 'Activa' %}
+
+
+                                {% if  perfilActividad.actividadReservados > 0 %}
+
+                                    Recuerda marcar la asistencia de tus participantes.
+
+
+                                {% else %}
+
+
+                                    Lo sentimos. No han se registraron participantes.
+
+                                {% endif %}
+                            {% endif %}
+
+
+
+                        {% endif %}
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+                <div class="{{ perfilActividad.actividadClaseCSS }} w-100 destop-md " style="padding-top: 1px;"></div>
+
+            {% endif %}
+
+
+        {% endif %}
+        <div class="row">
+            <div class="col-xs-12 vic-ma-cd-header">
+
+                <!--
+                <div class="vic-ma-cd-header-letras">{{ perfilActividad.actividadNombre }}</div>
+ -->
+                <div class="vic-left">
+
+                    <div>
+                        <table>
+                            <tr>
+                                <td style="padding-right: 20px;text-align: center;">
+
+                                    <div class="vic-circle-calendar-1 pull-left">
+
+                                        {% if perfilActividad.actividadEstado == 'Cancelada' %}
+                                            <div class="linea-suspendido"></div>
+                                        {% endif %}
+
+
+                                        <!--  Reservado
+                                                            <div class="vic-icon-nc"  title="Reservado" ><i class="fas fa-thumbtack" aria-hidden="true"></i>
+
+                                        -->
+
+                                        <!--  Asistió
+                                                            <div class="vic-icon-nc" title="Asistió" ><i class="fa fa-check" aria-hidden="true"></i>
+
+                                        -->
+
+                                        <!-- No asistió
+
+                                          <div class="vic-icon-nc" title="No asistió"><i class="fas fa-times" aria-hidden="true"></i>
+
+                                        -->
+
+                                        {% if vs.tipoSesion == vs.ATLETA %}
+
+                                            {% esta_reservado perfilActividad.actividadId vs.userId as tieneReserva %}
+                                            {% atleta_asistio perfilActividad.actividadId vs.userId as asistio %}
+
+                                            {% if perfilActividad.actividadEstado == 'Culminada' %}
+                                                {% if tieneReserva %}
+                                                    {% if  asistio %}
+                                                        <div class="vic-icon-nc" title="Asistio">
+                                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="vic-icon-nc" title="No Asistio">
+                                                            <i class="fas fa-times" aria-hidden="true"></i>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            {% elif perfilActividad.actividadEstado == 'Activa' %}
+
+                                                {% if asistio %}
+                                                    <div class="vic-icon-nc" title="Asistio">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </div>
+                                                {% elif tieneReserva %}
+                                                    <div class="vic-icon-nc" title="Reservado">
+                                                        <i class="fas fa-thumbtack" aria-hidden="true"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% elif perfilActividad.actividadEstado == 'Abierta Irreversible' %}
+
+                                                {% if asistio %}
+                                                    <div class="vic-icon-nc" title="Asistio">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </div>
+                                                {% elif tieneReserva %}
+                                                    <div class="vic-icon-nc" title="Reservado">
+                                                        <i class="fas fa-thumbtack" aria-hidden="true"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% else %}
+
+                                                {% if tieneReserva %}
+                                                    <div class="vic-icon-nc" title="Reservado">
+                                                        <i class="fas fa-thumbtack" aria-hidden="true"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% endif %}
+
+                                        {% endif %}
+
+                                        <img src="{{ perfilActividad.actividadDisciplinaImagenNegra }}"
+                                             style="width: 30px; height: 30px; display: inline-block"><br>
+                                    </div>
+                                    <div class="clickable-col d2 vic-black-c1" style="margin-top: 55px;"
+                                         data-href="./clase-{{ perfilActividad.actividadId }}">{{ perfilActividad.actividadDisciplinaNombre }}
+                                    </div>
+                                </td>
+                                <td>
+
+                                    <div class="vic-perfil-client-name">
+
+                                        <div class="title-12">
+                                            {% if perfilActividad.actividadReferenciada %}
+                                                ACTIVIDAD REFERENCIADA
+                                            {% else %}
+                                                ACTIVIDAD
+                                            {% endif %}
+                                        </div>
+
+
+
+
+                                        {% if perfilActividad.actividadEstado == 'Cancelada' %}
+                                            <div style="opacity: .7;margin-top: -10px">
+
+
+                                        {% else %}
+                                            <div style="margin-top: -10px">{% endif %}{{ perfilActividad.actividadNombre }}
+                                        {% if vs.tipoSesion == vs.MARCA %}
+                                            {% if perfilActividad.actividadAbiertaParaEliminar or perfilActividad.actividadAbiertaParaEditar or perfilActividad.actividadAbiertaParaCancelar %}
+                                                <div class="btn-group moreOpsBt">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-default dropdown-toggle "
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">&nbsp;
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right"
+                                                        style="right: -19px; top: 0px;">
+                                                        {% if perfilActividad.actividadAbiertaParaGestionar %}
+                                                            <li id="cambiarFotoBtn" role="presentation">
+                                                                <a href="#"
+                                                                   onclick="return reserva('{{ perfilActividad.actividadId }}')">Gestionar
+                                                                    Actividad
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if perfilActividad.actividadAbiertaParaEditar %}
+                                                            <li role="presentation">
+                                                                <a href="#"
+                                                                   onclick="serie=false;modi=true;modichange(true);return modificar({{ perfilActividad.actividadId }})"
+                                                                   class="test">Editar Actividad
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if perfilActividad.actividadAbiertaParaEditar and perfilActividad.actividadEsSerie %}
+                                                            <li role="presentation">
+                                                                <a href="#"
+                                                                   onclick="serie=false;modi=true;modichange(true);return modificar({{ perfilActividad.actividadId }},'Si')"
+                                                                   class="test">Editar Serie
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if perfilActividad.actividadAbiertaParaEliminar %}
+                                                            <li role="presentation">
+                                                                <a href="#"
+                                                                   onclick="serie=false;modi=true;modichange(true);return eliminarActividad({{ perfilActividad.actividadId }})"
+                                                                   class="test">Eliminar Actividad
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if perfilActividad.actividadAbiertaParaCancelar and perfilActividad.actividadEsSerie %}
+                                                            <li role="presentation">
+                                                                <a href="#"
+                                                                   onclick="serie=false;modi=true;modichange(true);return eliminarSerie({{ perfilActividad.actividadId }},'Serie')"
+                                                                   class="test">Eliminar Serie
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+                                                        {% if perfilActividad.actividadAbiertaParaCancelar %}
+                                                            <li role="presentation">
+                                                                <a href="#"
+                                                                   onclick="suspender({{ perfilActividad.actividadId }})"
+                                                                   class="test">Suspender
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+
+
+                                            {% if perfilActividad.actividadAbiertaParaGestionar %}
+
+
+                                                <div class="destop-md-inline">
+
+                                                    <div class="dest-cancel-cd" style="text-align: center;">
+                                                        <div class="vic-text-puesto-new"></div>
+                                                        <button title="Reservar atletas"
+
+                                                                onclick="return reserva('{{ perfilActividad.actividadId }}')"
+                                                                type="button"
+                                                                class="btn btn-md  vic-btn-reservar-reverse ">
+                                                            Gestionar
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="movil-md pull-right" style=" text-align: center;">
+                                                        <div class="vic-text-puesto-new"></div>
+                                                        <button title="Reservar atletas"
+                                                                onclick="return reserva('{{ perfilActividad.actividadId }}')"
+                                                                type="button"
+                                                                class="btn btn-md  vic-btn-reservar-reverse ">
+                                                            Gestionar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+
+
+                                                {% if  perfilActividad.actividadEstado == 'Activa' %}
+
+                                                    <div class="destop-md-inline">
+
+                                                        <div class="dest-cancel-cd" style="text-align: center;">
+                                                            <div class="vic-text-puesto-new"></div>
+                                                            <button title="Reservar atletas"
+
+                                                                    onclick="return reserva('{{ perfilActividad.actividadId }}')"
+                                                                    type="button"
+                                                                    class="btn btn-md  vic-btn-reservar-reverse ">
+                                                                Gestionar
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="movil-md pull-right" style=" text-align: center;">
+                                                            <div class="vic-text-puesto-new"></div>
+                                                            <button title="Reservar atletas"
+                                                                    onclick="return reserva('{{ perfilActividad.actividadId }}')"
+                                                                    type="button"
+                                                                    class="btn btn-md  vic-btn-reservar-reverse ">
+                                                                Gestionar
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                {% endif %}
+
+                                            {% endif %}
+
+
+                                        {% endif %}
+
+
+                                        <div class="destop-md-inline" style="padding-left: 15px;">
+                                            {% if vs.tipoSesion == vs.ATLETA %}
+                                                {% if perfilActividad.actividadAbiertaParaCancelar %}
+                                                    {% if tieneReserva %}
+                                                        {{ debug }}
+                                                        <div class="dest-cancel-cd " style="text-align: center;">
+
+                                                            <div class="vic-text-puesto-new">{{ perfilActividad.actividadAvisoQuedanPuestos }}</div>
+                                                            <button onclick="cancelarReservaDesdeClaseDetail({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                                    type="button"
+                                                                    class="btn btn-md  vic-btn-reservar-reverse ">
+
+                                                                {% if estaEnEspera %}
+                                                                    ESPERANDO
+                                                                {% else %}
+                                                                    RESERVADO
+                                                                {% endif %}
+
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="movil-md pull-right"
+                                                             style=" text-align: center;">
+                                                            <div class="vic-text-puesto-new">{{ perfilActividad.actividadAvisoQuedanPuestos }}</div>
+                                                            <button onclick="cancelarReservaDesdeClaseDetail({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                                    type="button"
+                                                                    class="btn btn-md  vic-btn-reservar-reverse ">
+
+                                                                {% if estaEnEspera %}
+                                                                    ESPERANDO
+                                                                {% else %}
+                                                                    RESERVADO
+                                                                {% endif %}
+
+                                                            </button>
+                                                        </div>
+
+                                                    {% else %}
+
+                                                        {% if perfilActividad.actividadEsperandoLocacion == False and perfilActividad.actividadAbiertaParaGestionar == True %}
+
+                                                            {% if perfilActividad.actividadCapacidadLlena %}
+
+                                                                <div class="dest-cancel-cd"
+                                                                     style="text-align: center;">
+                                                                    <div class="vic-perfil-client-subtitle ">
+                                                                        <div style="color: #D0021B;">
+                                                                            <b>Agotado</b>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            {% else %}
+
+                                                                <div class="dest-cancel-cd"
+                                                                     style="text-align: center;">
+                                                                    <div class="vic-text-puesto-new">{{ perfilActividad.actividadAvisoQuedanPuestos }}</div>
+
+                                                                    {% if perfilActividad.actividadCapacidadMaxima <= perfilActividad.actividadReservados %}
+
+                                                                        {% if not puedeReservar %}
+
+                                                                            <button onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                                                    type="button"
+                                                                                    class="btn btn-md  vic-btn-reservar-reverse ">
+                                                                                Reservar
+                                                                            </button>
+
+                                                                        {% else %}
+
+                                                                            <button onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                                                    type="button"
+                                                                                    class="btn btn-md  vic-btn-reservar-reverse ">
+                                                                                Lista de espera
+                                                                            </button>
+
+                                                                        {% endif %}
+
+                                                                        </div>
+
+                                                                    {% else %}
+
+
+                                                                        {% if not puedeReservar %}
+
+                                                                            {% if perfilActividad.actividadInstructorAlias == vs.userAlias %}
+                                                                            {% else %}
+                                                                                <button onclick="preparaTabNew({{ perfilActividad.actividadId }})"
+                                                                                        type="button"
+                                                                                        class="btn btn-md  vic-btn-reservar-reverse ">
+                                                                                    RECARGA
+                                                                                </button>
+
+                                                                            {% endif %}
+
+
+                                                                        {% else %}
+
+
+                                                                            <button onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                                                    type="button"
+                                                                                    class="btn btn-md  vic-btn-reservar-reverse ">
+                                                                                Reservar
+                                                                            </button>
+
+                                                                        {% endif %}
+
+                                                                    {% endif %}
+
+
+
+
+
+
+
+
+                                                            {% endif %}
+
+                                                        {% endif %}
+
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if vs.tipoSesion == vs.MARCA %}
+
+                                            {% endif %}
+
+
+                                        </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="vic-perfil-client-subtitle"><a
+                                                href="/{{ perfilActividad.actividadAliasMarca }}">{{ perfilActividad.actividadNombreMarca }}</a>
+                                        </div>
+
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                    <br>
+
+                    {% if asistio %}
+                        <div style=" line-height: 20px;margin-top: 14px">
+                            <span style="background: #007bff; color: white;font-weight:bold;padding: 3px; border-radius: 2px;  ">  Felicitaciones ! <i
+                                    class="fa fa-rocket" aria-hidden="true"></i></span>
+                            <br>
+                            <div style="color: #007bff">Completaste esta actividad</div>
+                        </div>
+
+
+                    {% else %}
+                        {% if vs.tipoSesion == vs.ATLETA %}
+                            {% if tieneReserva %}
+
+
+                            {% endif %}
+                        {% endif %}
+
+                    {% endif %}
+
+                    <div class="vic-hr movil "></div>
+
+
+                    <div class="title-12">
+                        fecha y hora
+                    </div>
+
+                    <div class="vic-text-descrip">
+                        <div>
+                            {{ perfilActividad.actividadFecha|fechaCortaPlus }} {{ perfilActividad.actividadHoraInicio }}
+                            - {{ perfilActividad.actividadHoraFinalizacion }}</div>
+                        {{ perfilActividad.actividadRepetirComo }}
+                    </div>
+                    <div class="movil-md">
+                        <div class="vic-hr movil-md"></div>
+
+                        <div class="title-12">
+                            Descripción
+                        </div>
+                        <div class="vic-text-descrip">
+                            {{ perfilActividad.actividadDescripcion }}
+                        </div>
+                    </div>
+
+                    <div class="vic-hr movil-md"></div>
+
+                    <div class="movil-md clase-d">
+
+                        <a href="/{{ perfilActividad.actividadInstructorAlias }}/perfil-atleta-{{ perfilActividad.actividadInstructorAlias }}">
+                            <table style="width: 100%">
+
+                                <tr>
+                                    <td style="    vertical-align: top;width: 74px; ">
+                                        <div class="vic-clase-d-box-leeter ">
+
+                                            <div class="vic-clase-d-leeter">
+                                                {% if perfilActividad.actividadInstructorAlias == vs.userAlias %}
+                                                    <div>TÚ</div>
+                                                {% else %}
+                                                    {{ perfilActividad.actividadInstructorIniciales }}
+
+                                                {% endif %}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="vic-clase-d-title "><span
+                                                class="title-12">INSTRUCTOR</span><br>
+
+                                        {% if perfilActividad.actividadInstructorAlias == vs.userAlias %}
+
+                                            <span style="background-color: rgba(255,204,0,0.6)"> {{ perfilActividad.actividadNombreInstructor }} </span>
+                                            <span style="" class=""> (Tú) </span>
+
+                                        {% else %}
+                                            <span style="">   {{ perfilActividad.actividadNombreInstructor }}</span>
+
+
+                                        {% endif %}
+
+                                        </div>
+                                        <div>
+                                            <small>@{{ perfilActividad.actividadInstructorAlias }}</small>
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            </table>
+                        </a>
+
+                        {% comment %}                        <div class="vic-clase-d-text">$${{ perfilActividad.actividadInstructorProfile }}.</div>{% endcomment %}
+
+                        <br class="destop-md">
+
+                        {% if vs.tipoSesion == vs.MARCA %}
+                            <div class="vic-hr movil "></div>
+
+                            <table style="width: 100%">
+                                <tr>
+                                    <td>
+                                        <div class="title-12">metricas</div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="2" style="padding-top: 5px;">
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <div class="vic-clase-d-status-num">
+                                                    <span class="vic-clase-d-status-num2">{{ perfilActividad.actividadReservados }}</span>/{{ perfilActividad.actividadCapacidadMaxima }}
+                                                </div>
+                                                <div class="vic-clase-d-status-title">RESERVADOS</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <div class="vic-clase-d-status-num">
+                                                    <span class="vic-clase-d-status-num2">{{ perfilActividad.actividadEspera }}</span>/{{ perfilActividad.actividadCapacidadEspera }}
+                                                </div>
+                                                <div class="vic-clase-d-status-title">EN ESPERA</div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="row">
+                                                <div class="vic-clase-d-status-num">
+                                                    <span class="vic-clase-d-status-num2">{{ perfilActividad.actividadAsistencia }}</span>/{{ perfilActividad.actividadCapacidadMaxima }}
+                                                </div>
+                                                <div class="vic-clase-d-status-title">ASISTENCIA</div>
+
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="vic-hr movil-md"></div>
+
+                        {% endif %}
+
+
+                        <br class="destop-md">
+                        <div class="vic-hr movil-md"></div>
+
+                        <div class="title-12">planes</div>
+                        <div class="vic-text-descrip">
+                            {% for producto in perfilActividad.actividadProductosPermitidosNombres %}
+                                {% if perfilActividad.actividadProductosPermitidos %}
+                                    {{ producto.p_nombre }}
+                                {% else %}
+                                    {{ producto }}
+                                {% endif %}
+                                {% if not forloop.last %},
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="vic-hr movil-md"></div>
+                        <br class="destop-md">
+
+                        <div class="title-12">LOCALIZADOR</div>
+                        <div class="vic-text-descrip">
+                            {{ perfilActividad.actividadLocalizador }}
+                        </div>
+
+
+                    </div>
+
+                    <br class="destop-md">
+                    <div class="destop-md">
+
+                        <div class="title-12">
+                            Descripción
+                        </div>
+                        <div class="vic-text-descrip">
+                            {{ perfilActividad.actividadDescripcion }}
+                        </div>
+                    </div>
+                    <div class="vic-hr movil-md"></div>
+                    <br class="destop-md">
+                    {% if esAmigo or vs.tipoSesion == vs.MARCA %}
+                        <div class="title-12">
+                            costo
+                        </div>
+
+                        <div class="vic-text-descrip"> {{ perfilActividad.actividadCreditos }} Credito</div>
+
+                        <div class="vic-hr movil-md"></div>
+                    {% endif %}
+                    <br class="destop-md">
+
+                    <div class="title-12">
+                        instrucciones
+                    </div>
+                    <div class="vic-text-descrip">  {{ perfilActividad.actividadInstrucciones }}.</div>
+                    <div class="vic-hr movil-md"></div>
+                    <br class="destop-md">
+                    <div class="title-12">
+
+                        cancelación
+
+                    </div>
+                    <div class="vic-text-descrip"> Si necesitas cancelar tu reservación puedes hacerlo en cualquier
+                        momento.
+                        Reservaciones canceladas antes de "{{ perfilActividad.actividadTiempoIrreversible }}" minutos se
+                        les reintegra el costo de su inversión en el
+                        plan asociado.
+                    </div>
+
+                    <div class="vic-hr movil-md"></div>
+
+
+                </div>
+                <div class="vic-right clase-d destop-md">
+                    <div class="vic-hr movil "></div>
+
+                    <a href="/{{ perfilActividad.actividadInstructorAlias }}/perfil-atleta-{{ perfilActividad.actividadInstructorAlias }}">
+                        <table style="width: 100%">
+
+                            <tr>
+                                <td style="    vertical-align: top;width: 74px; ">
+                                    <div class="vic-clase-d-box-leeter ">
+
+                                        <div class="vic-clase-d-leeter">
+
+                                            {% if perfilActividad.actividadInstructorAlias == vs.userAlias %}
+                                                <div>TÚ</div>
+                                            {% else %}
+                                                {{ perfilActividad.actividadInstructorIniciales }}
+
+                                            {% endif %}
+
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="vic-clase-d-title "><span
+                                            class="title-12">INSTRUCTOR</span><br>
+
+                                        {% if perfilActividad.actividadInstructorAlias == vs.userAlias %}
+
+                                            <span style="background-color: rgba(255,204,0,0.6)"> {{ perfilActividad.actividadNombreInstructor }} </span>
+                                            <span style="" class=""> (Tú) </span>
+
+                                        {% else %}
+                                            <span style="">   {{ perfilActividad.actividadNombreInstructor }}</span>
+
+
+                                        {% endif %}
+
+                                    </div>
+                                    <div>
+                                        <small>@{{ perfilActividad.actividadInstructorAlias }}</small>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                    </a>
+
+                    {% comment %}                    <div class="vic-clase-d-text">{{ perfilActividad.actividadInstructorProfile }}.</div>{% endcomment %}
+
+                    <div class="vic-hr movil-md"></div>
+                    <br class="destop-md">
+
+                    {% if vs.tipoSesion == vs.MARCA %}
+                        <table style="width: 100%">
+                            <tr>
+                                <td>
+                                    <div class="title-12">metricas</div>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td colspan="2" style="padding-top: 5px;">
+                                    <div class="col-xs-4">
+                                        <div class="row">
+                                            <div class="vic-clase-d-status-num">
+                                                <span class="vic-clase-d-status-num2">{{ perfilActividad.actividadReservados }}</span>/{{ perfilActividad.actividadCapacidadMaxima }}
+                                            </div>
+                                            <div class="vic-clase-d-status-title">RESERVADOS</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="row">
+                                            <div class="vic-clase-d-status-num">
+                                                <span class="vic-clase-d-status-num2">{{ perfilActividad.actividadEspera }}</span>/{{ perfilActividad.actividadCapacidadEspera }}
+                                            </div>
+                                            <div class="vic-clase-d-status-title">EN ESPERA</div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="row">
+                                            <div class="vic-clase-d-status-num">
+                                                <span class="vic-clase-d-status-num2">{{ perfilActividad.actividadAsistencia }}</span>/{{ perfilActividad.actividadCapacidadMaxima }}
+                                            </div>
+                                            <div class="vic-clase-d-status-title">ASISTENCIA</div>
+
+                                        </div>
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                        </table>
+                    {% endif %}
+
+                    <br class="destop-md">
+                    <div class="title-12">planes</div>
+                    <div> {% for producto in perfilActividad.actividadProductosPermitidosNombres %}
+                        {% if perfilActividad.actividadProductosPermitidos %}
+                            {{ producto.p_nombre }}
+                        {% else %}
+                            {{ producto }}
+                        {% endif %}
+                        {% if not forloop.last %},
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                    <div class="vic-hr movil-md"></div>
+                    <br class="destop-md">
+
+                    <div class="title-12">LOCALIZADOR</div>
+                    <div class="vic-text-descrip">
+                        {{ perfilActividad.actividadLocalizador }}
+                    </div>
+                    <br>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <br class="destop-md">
+        <br class="destop-md">
+
+        <div class="pull-right">
+
+            <!--
+                <div class=" vic-calendar-box gray">
+                    <table>
+
+                        <tr>
+                            <td style="padding-left: 5px;"><input style="border: 0" id="searchString"
+                                                                  autocomplete="off" name="afecha"
+                                                                  class="btn-block  vic-calendar-filtro-input-search "
+                                                                  type="text" value="" placeholder="Buscar...">
+                            </td>
+
+                        </tr>
+                    </table>
+
+
+                </div>
+
+
+                 <div >
+                 <div style="border: 1px solid blue">ejemplo</div>
+                  <div style="font-size: 19px" >
+                                    <i style="cursor: pointer; " onclick="clear_form_search();"
+                                       class="fa fa-search "></i>
+
+
+                                </div>
+                 </div>
+                  -->
+
+
+        </div>
+        {% if vs.tipoSesion == vs.MARCA or  perfilActividad.actividadEstado != 'Cancelada'  and  perfilActividad.actividadEstado  != 'Planifico' %}
+
+            <br class="movil-md"> <br class="movil-md">
+            <div class="vic-table-perf-atle-title">PARTICIPANTES</div>
+            <div class="vic-hr "></div>
+
+            {% if  perfilActividad.actividadParticipantes %}
+
+                <div class=" vc-perf-atleta-menu2-tab   vc-perf-atleta-menu2-tab-1 animated fadeIn">
+                    <table class=" table-compra t-consumen edo-min" border="0"
+                           style="vertical-align: middle;">
+
+                        <colgroup class="destop">
+                            <col width="2%">
+                            <col width="58%">
+                            <col width="20%">
+                            <col width="19%">
+                            <col width="1%">
+                        </colgroup>
+                        <colgroup class="movil">
+                            <col width="2%">
+                            <col width="58%">
+                            <col width="20%">
+                            <col width="19%">
+                            <col width="1%">
+                        </colgroup>
+                        <tbody>
+
+                        {% for participante in  perfilActividad.actividadParticipantes %}
+
+                            {% if participante.participanteEsPublico or vs.tipoSesion == vs.MARCA or participante.participanteUserId == vs.user.id %}
+
+                                <tr>
+                                    <td>
+                                        <div class="vic-clase-d-box-user-leeter ">
+
+                                            {% comment %}
+
+									 {% if perfilActividad.actividadEstado == 'Culminada' %}
+                                            {% if  participante.participanteAsistio %}
+                                                <div class="vic-icon-nc" title="Asistio"><i class="fa fa-check"
+                                                                                            aria-hidden="true"></i>
+                                                </div>
+                                            {% else %}
+                                                <div class="vic-icon-nc" title="No Asistio"><i class="fas fa-times"
+                                                                                               aria-hidden="true"></i>
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="vic-icon-nc" title="Reservado"><i class="fas fa-thumbtack"
+                                                                                          aria-hidden="true"></i>
+                                            </div>
+                                        {% endif %}{% endcomment %}
+
+
+                                            {% esta_reservado perfilActividad.actividadId participante.participanteUserId as tieneReserva %}
+                                            {% atleta_asistio perfilActividad.actividadId participante.participanteUserId as asistio %}
+
+                                            {% if perfilActividad.actividadEstado == 'Culminada' %}
+
+                                                {% if  asistio %}
+                                                    <div class="vic-icon-nc" title="Asistio">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="vic-icon-nc" title="No Asistio">
+                                                        <i class="fas fa-times" aria-hidden="true"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% elif perfilActividad.actividadEstado == 'Activa' %}
+
+                                                {% if asistio %}
+                                                    <div class="vic-icon-nc" title="Asistio">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </div>
+                                                {% elif tieneReserva %}
+                                                    <div class="vic-icon-nc" title="Reservado">
+                                                        <i class="fas fa-thumbtack" aria-hidden="true"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% elif perfilActividad.actividadEstado == 'Abierta Irreversible' %}
+
+                                                {% if asistio %}
+                                                    <div class="vic-icon-nc" title="Asistio">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </div>
+                                                {% elif tieneReserva %}
+                                                    <div class="vic-icon-nc" title="Reservado">
+                                                        <i class="fas fa-thumbtack" aria-hidden="true"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% else %}
+
+                                                {% if tieneReserva %}
+                                                    <div class="vic-icon-nc" title="Reservado">
+                                                        <i class="fas fa-thumbtack" aria-hidden="true"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% endif %}
+
+
+
+                                            <div class="vic-clase-d-user-leeter">{{ participante.participanteIniciales }}</div>
+                                        </div>
+
+                                    </td>
+                                    <td class="vic-table-perf-atle-td-1">
+
+                                        <div>
+                                            <b><a href="/{{ request.session.vs.userAlias }}/perfil-atleta-{{ participante.participanteAlias }}">{{ participante.participanteNombre }}</a></b>
+                                        </div>
+
+                                        <div>@{{ participante.participanteAlias }}</div>
+
+                                    </td>
+
+                                    {% comment %}<td class="vic-table-perf-atle-td-2">
+
+                                    <strong><i class="fas fa-ticket-alt fa-2x" aria-hidden="true"
+                                               style="color: #FFCD00"></i>
+                                        <strong style="font-size: 16px;">{{ participante.participanteSaldo }}</strong></strong>
+
+
+                                </td>{% endcomment %}
+
+                                    <td class=" vic-table-perf-atle-td-3">
+                                        <strong class="puesto_salon"><strong> P
+                                            -{{ participante.participantePuesto }}</strong></strong>
+                                    </td>
+
+                                    <td style="text-align: right;">
+
+                                        {% if vs.tipoSesion == vs.MARCA %}
+                                            {% if perfilActividad.actividadAbiertaParaCancelar or perfilActividad.actividadAbiertaMarcarParaAsistencia %}
+                                                <div class="btn-group moreOpsBt" style="position: relative;">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-default dropdown-toggle "
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                        &nbsp;
+                                                    </button>
+                                                    <ul class="dropdown-menu" style="right: 30px; top: 0;">
+
+                                                        {% if perfilActividad.actividadAbiertaParaCancelar %}
+
+                                                            <li role="presentation"><a
+                                                                    onclick="cancelarReservaDesdeClaseDetail({{ participante.participanteUserId }},{{ perfilActividad.actividadId }})"
+                                                                    href="#">Cancelar
+                                                                Reserva</a></li>
+
+                                                        {% endif %}
+
+                                                        {% if perfilActividad.actividadAbiertaMarcarParaAsistencia %}
+                                                            {% if  participante.participanteAsistio %}
+                                                                <li role="presentation"><a
+                                                                        onclick="marcar({{ participante.participanteId }})"
+
+                                                                        href="#">Desmarcar Asistencia</a>
+                                                                </li>
+                                                            {% else %}
+                                                                <li role="presentation"><a
+                                                                        onclick="marcar({{ participante.participanteId }})"
+
+                                                                        href="#">Marcar Asistencia</a>
+                                                                </li>
+                                                            {% endif %}
+
+                                                        {% endif %}
+
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if vs.tipoSesion == vs.ATLETA %}
+                                            {% if perfilActividad.actividadAbiertaParaCancelar %}
+                                                {% if participante.participanteUserId == vs.userId %}
+                                                    <div class="btn-group moreOpsBt" style="position: relative;">
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-default dropdown-toggle "
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                            &nbsp;
+                                                        </button>
+                                                        <ul class="dropdown-menu" style="right: 30px; top: 0;">
+
+                                                            <li role="presentation"><a
+                                                                    onclick="cancelarReservaDesdeClaseDetail({{ participante.participanteUserId }},{{ perfilActividad.actividadId }},0.0)"
+                                                                    href="#">Cancelar
+                                                                Reserva</a></li>
+
+                                                        </ul>
+                                                    </div>
+                                                {% endif %}
+
+                                            {% endif %}
+
+                                            {% if vs.userAlias == perfilActividad.actividadInstructorAlias %}
+
+                                                <div class="btn-group moreOpsBt" style="position: relative;">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-default dropdown-toggle "
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                        &nbsp;
+                                                    </button>
+                                                    <ul class="dropdown-menu" style="right: 30px; top: 0;">
+
+                                                        {% if perfilActividad.actividadAbiertaMarcarParaAsistencia %}
+                                                            {% if  participante.participanteAsistio %}
+                                                                <li role="presentation"><a
+                                                                        onclick="marcar({{ participante.participanteId }})"
+
+                                                                        href="#">Desmarcar Asistencia</a>
+                                                                </li>
+                                                            {% else %}
+                                                                <li role="presentation"><a
+                                                                        onclick="marcar({{ participante.participanteId }})"
+
+                                                                        href="#">Marcar Asistencia</a>
+                                                                </li>
+                                                            {% endif %}
+
+                                                        {% endif %}
+
+                                                    </ul>
+                                                </div>
+
+                                            {% endif %}
+
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+                            <tr>
+                                <td colspan="4">
+                                    <div class="vic-hr"></div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+
+                    </table>
+
+
+                    <br>
+
+                    {% if  perfilActividad.actividadEsperas %}
+
+                        <div class="vic-table-perf-atle-title">LISTA DE ESPERA</div>
+                        <div class=" vc-perf-atleta-menu2-tab   vc-perf-atleta-menu2-tab-1 animated fadeIn">
+                            {% for participante in  perfilActividad.actividadEsperas %}
+
+                                {% if participante.participanteEsPublico or vs.tipoSesion == vs.MARCA or participante.participanteUserId == vs.user.id %}
+
+
+                                    <div class="vic-hr"></div>
+
+                                    <table class=" table-compra t-consumen" border="0"
+                                           style="vertical-align: middle;">
+
+                                        <colgroup class="destop">
+                                            <col width="2%">
+                                            <col width="58%">
+                                            <col width="20%">
+                                            <col width="19%">
+                                            <col width="1%">
+                                        </colgroup>
+                                        <colgroup class="movil">
+                                            <col width="2%">
+                                            <col width="58%">
+                                            <col width="20%">
+                                            <col width="19%">
+                                            <col width="1%">
+                                        </colgroup>
+                                        <tbody>
+
+
+                                        <tr>
+                                            <td>
+                                                <div class="vic-clase-d-box-user-leeter ">
+
+                                                    <div class="vic-clase-d-user-leeter">{{ participante.participanteIniciales }}</div>
+                                                </div>
+
+                                            </td>
+                                            <td class="vic-table-perf-atle-td-1">
+                                                <div>
+                                                    <b> {{ participante.participanteNombre }}</b>
+                                                </div>
+                                                <div>@{{ participante.participanteAlias }}</div>
+
+                                            </td>
+
+                                            <td class=" vic-table-perf-atle-td-3">
+                                                <strong class="puesto_salon"><strong> E
+                                                    -{{ participante.participantePuesto }}</strong></strong>
+                                            </td>
+
+                                            <td style="text-align: right;">
+                                                {% if vs.tipoSesion == vs.MARCA %}
+                                                    {% if perfilActividad.actividadAbiertaParaCancelar %}
+                                                        <div class="btn-group moreOpsBt" style="position: relative;">
+                                                            <button type="button"
+                                                                    class="btn btn-sm btn-default dropdown-toggle "
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                &nbsp;
+                                                            </button>
+                                                            <ul class="dropdown-menu" style="right: 30px; top: 0;">
+
+                                                                <li role="presentation"><a
+                                                                        onclick="cancelarReservaDesdeClaseDetail({{ participante.participanteUserId }},{{ perfilActividad.actividadId }})"
+                                                                        href="#">Cancelar Reserva</a></li>
+
+                                                            </ul>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                                {% if vs.tipoSesion == vs.ATLETA %}
+                                                    {% if perfilActividad.actividadAbiertaParaCancelar %}
+                                                        {% if participante.participanteUserId == vs.userId %}
+                                                            <div class="btn-group moreOpsBt"
+                                                                 style="position: relative;">
+                                                                <button type="button"
+                                                                        class="btn btn-sm btn-default dropdown-toggle "
+                                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                                        aria-expanded="false">
+                                                                    &nbsp;
+                                                                </button>
+                                                                <ul class="dropdown-menu" style="right: 30px; top: 0;">
+
+                                                                    <li role="presentation"><a
+                                                                            onclick="cancelarReservaDesdeClaseDetail({{ participante.participanteUserId }},{{ perfilActividad.actividadId }},0.0)"
+                                                                            href="#">Cancelar
+                                                                        Reserva</a></li>
+
+                                                                </ul>
+                                                            </div>
+                                                        {% endif %}
+
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            </td>
+                                        </tr>
+
+
+                                        </tbody>
+
+
+                                    </table>
+
+                                {% endif %}
+
+
+                            {% endfor %}
+
+                        </div>
+
+
+
+                    {% endif %}
+
+
+                </div>
+
+
+            {% else %}
+
+
+
+                {% if vs.tipoSesion == vs.ATLETA %}
+                    {% if perfilActividad.actividadParticipantes %}
+
+                    {% else %}
+                        <div class="text-center col-xs-12 ">
+                            <br>
+                            <i class="fas fa-users fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                            <div class=" vic-calendar-title">No hay participantes</div>
+                            <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">¡Anímate!
+                                Cuando hayan particiantes reservados podrás verlos aquí.
+                            </div>
+                            <br>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center col-xs-12 ">
+                        <br>
+                        <i class="fas fa-users fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                        <div class=" vic-calendar-title">No hay participantes</div>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Cuando hayan
+                            particiantes reservados podrás verlos aquí.
+                        </div>
+                        <br>
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+        {% endif %}
+
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="vic-table-perf-atle-title  m-t-35">MAS SOBRE LA ACTIVIDAD</div>
+
+
+                {% if vs.tipoSesion == vs.MARCA %}
+
+                    <div class="row">
+
+
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+                            {% if perfilActividad.actividadNombreAyudante1 %}
+                                <div class="title-12 pull-right">{{ perfilActividad.actividadNombreAyudante1 }}</div>
+                                <div class="vic-text-descrip">Ayudante</div>
+
+                            {% else %}
+                                <div class="title-12 pull-right">No disponible</div>
+                                <div class="vic-text-descrip">Ayudante</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+                            {% if perfilActividad.actividadNombreAyudante2 %}
+                                <div class="title-12 pull-right">{{ perfilActividad.actividadNombreAyudante2 }}</div>
+                                <div class="vic-text-descrip">Segundo ayudante</div>
+
+                            {% else %}
+                                <div class="title-12 pull-right">No disponible</div>
+                                <div class="vic-text-descrip">Segundo ayudante</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">{{ perfilActividad.actividadBonificacionBase|bolivares }}</div>
+                            <div class="vic-text-descrip">Bonificación base</div>
+
+                        </div>
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">{{ perfilActividad.actividadBonificacionAdicional|bolivares }}</div>
+                            <div class="vic-text-descrip">Bonificación adicional</div>
+
+                        </div>
+
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">{{ perfilActividad.actividadCapacidadMaxima }}
+                                / {{ perfilActividad.actividadCapacidadMinima }} </div>
+
+                            <div class="vic-text-descrip">
+                                Capacidad Min/Max
+                            </div>
+                        </div>
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">
+                                {{ perfilActividad.actividadSalonNombre }}
+                                {% if  perfilActividad.actividadSalonUbicacion %}
+                                    / {{ perfilActividad.actividadSalonUbicacion }}
+                                {% endif %}
+                            </div>
+
+                            <div class="vic-text-descrip">
+                                Ubicación
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+
+                        <div class="col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">{{ perfilActividad.actividadIntensidad }}</div>
+                            <div class="vic-text-descrip">Intensidad</div>
+                        </div>
+
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class="col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">{% if perfilActividad.actividadEsSerie %}Si{% else %}
+                                No{% endif %}</div>
+                            <div class="vic-text-descrip">Actividad en serie</div>
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="row">
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">{{ perfilActividad.actividadCapacidadMaxima }}
+                                / {{ perfilActividad.actividadCapacidadMinima }} </div>
+
+                            <div class="vic-text-descrip">
+                                Capacidad Min/Max
+                            </div>
+                        </div>
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+                        <div class=" col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">
+                                {{ perfilActividad.actividadSalonNombre }}
+                                {% if  perfilActividad.actividadSalonUbicacion %}
+                                    / {{ perfilActividad.actividadSalonUbicacion }}
+                                {% endif %}
+                            </div>
+
+                            <div class="vic-text-descrip">
+                                Ubicación
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 vic-hr gris-oscuro"></div>
+
+
+                        <div class="col-xs-12 vic-clase-d-footer">
+
+                            <div class="title-12 pull-right">{{ perfilActividad.actividadIntensidad }}</div>
+                            <div class="vic-text-descrip">Intensidad</div>
+                        </div>
+
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modalTabRecarga" role="dialog" style="z-index: 9999">
+    <div class="modal-dialog">
+        <div class="prdId" hidden><</div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+                <div
+                        style="margin-bottom: 5px; text-transform: initial; line-height: 16px;">
+
+                    Te enviaremos un correo con los detalles para el pago por transferencia.
+
+                </div>
+                <hr>
+
+
+                <div class="vic-table-perf-atle-title tr-n">
+                </div>
+                <div class="m-t-10">Mensualidad HTP. Incluye luenes a jueves
+                    cualquier horario. Libre para cualquier disciplina.
+                </div>
+
+
+                <br>
+
+
+                <table class=" tc table-compra t-consumen" border="0"
+                       style="font-size: 16px; vertical-align: middle;">
+                    <tbody>
+                    <tr>
+                        <td>
+
+                        </td>
+
+                        <td style="    width: 109px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;">
+
+                            <b>INVERSIÓN</b>
+
+                            <div class="tr-p" style="font-size: 16px;
+    line-height: 16px;    font-weight: 500;
+   "></div>
+                            <div style="font-size: 14px; padding-bottom: 6px;"><span class="tr-c"></span>% Dcto.</div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <hr>
+
+                <div class="container-fuid text-right">
+                    <button onclick="continuarTabRecarga()"
+                            type="button"
+                            class="btn btn-md   vic-btn-reservar-reverse ">
+                        Continuar
+                    </button>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+{% include "fin-content-tabs.html" %}
+
+{% if vs.tipoSesion == vs.ATLETA %}
+
+    {% if perfilActividad.actividadAbiertaParaCancelar %}
+        <div class=" movil-md footer div-btn-reserv-movil shadown" style="height: auto;padding:5px;background: white;">
+
+            {% if tieneReserva %}
+
+                {% if estaEnEspera %}
+
+                    <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "> Estas en la lista de espera. Te notificaremos de tu reserva cuando llegue tu turno.
+                    </div>
+
+                    <button style="text-align: center"
+                            onclick="cancelarReservaDesdeClaseDetail({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                            type="button" class="btn btn-md btn-block vic-btn-reservar-reverse sticky-btn">
+                        ESPERANDO
+
+                    </button>
+
+                {% else %}
+
+                    <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "> ¡Estas reservado en esta actividad! <br>Si deseas cancelar tu reserva, revisa las políticas de
+                        cancelación.
+                    </div>
+
+
+                    <button style="text-align: center"
+                            onclick="cancelarReservaDesdeClaseDetail({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                            type="button" class="btn btn-md btn-block vic-btn-reservar-reverse sticky-btn">
+
+                        Cancelar reserva
+                    </button>
+
+
+
+                {% endif %}
+
+
+
+            {% else %}
+
+
+                {% if perfilActividad.actividadCapacidadLlena %}
+
+
+                    <div class="vic-perfil-client-subtitle">
+                        <div style="color: #D0021B; text-align: center">
+                            <br> <b>Agotado</b><br><br>
+                        </div>
+                    </div>
+
+
+                {% else %}
+
+                    {% if perfilActividad.actividadEstado == 'Planifico' %}
+
+                        <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                ">
+                            {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA %}
+
+                                <b>Eres el instructor de esta actividad.</b>
+                                <br>  Esta actividad aún no permite reservaciones.
+                            {% else %}
+                                <br>    Esta actividad aún no permite reservaciones.<br><br>
+                            {% endif %}
+
+                        </div>
+                        </div>
+                    {% else %}
+
+
+                        {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA %}
+
+                            <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                ">
+
+                                <br> Eres el instructor de esta actividad.<br>
+                            </div>
+
+                        {% else %}
+
+                            <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                ">
+                                {% if perfilActividad.actividadReferenciada %}
+                                    Esta actividad es <b>Referenciada</b>. <br> Contacta a
+                                    <b>{{ perfilActividad.actividadNombreMarca }}</b> para más información sobre la
+                                    política de pago
+                                {% else %}
+
+
+
+
+
+
+                                    {% if perfilActividad.actividadCapacidadMaxima <= perfilActividad.actividadReservados %}
+
+
+                                        {% if not puedeReservar %}
+                                            Reserva tu participación en esta actividad.
+                                        {% else %}
+
+                                            Los cupos de esta actividad estan agotados.<br>
+                                            Puedes anotarte en la lista de espera
+                                        {% endif %}
+
+
+                                    {% else %}
+
+
+
+                                        {% if not puedeReservar %}
+                                            Contrata un plan para participar en esta  actividad.
+                                        {% else %}
+
+                                            Reserva tu participación en esta actividad.
+                                        {% endif %}
+
+
+
+                                    {% endif %}
+
+
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if perfilActividad.actividadReferenciada %}
+                                <button style="text-align: center"
+                                        onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                        type="button" class="btn btn-md  btn-block vic-btn-reservar-reverse sticky-btn">
+                                    Reservar
+                                </button>
+                            {% else %}
+
+
+                                {% if perfilActividad.actividadCapacidadMaxima <= perfilActividad.actividadReservados %}
+
+                                    {% if not puedeReservar %}
+                                        <button style="text-align: center"
+                                                onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                type="button"
+                                                class="btn btn-md  btn-block vic-btn-reservar-reverse sticky-btn">
+                                            Reservar
+                                        </button>
+
+
+                                    {% else %}
+                                        <button style="text-align: center"
+                                                onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                type="button"
+                                                class="btn btn-md  btn-block vic-btn-reservar-reverse sticky-btn">
+                                            Lista de espera
+                                        </button>
+
+                                    {% endif %}
+
+                                {% else %}
+
+                                    {% if not puedeReservar %}
+
+                                        <button style="text-align: center"
+                                                onclick="preparaTabNew({{ perfilActividad.actividadId }})"
+                                                type="button"
+                                                class="btn btn-md  btn-block vic-btn-reservar-reverse sticky-btn">
+                                            RECARGA
+                                        </button>
+
+
+
+                                    {% else %}
+                                        <button style="text-align: center"
+                                                onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
+                                                type="button"
+                                                class="btn btn-md  btn-block vic-btn-reservar-reverse sticky-btn">
+                                            Reservar
+                                        </button>
+
+
+
+                                    {% endif %}
+
+                                {% endif %}
+
+
+
+
+
+
+                            {% endif %}
+
+
+                        {% endif %}
+
+                    {% endif %}
+                {% endif %}
+
+            {% endif %}
+
+
+        </div>
+    {% else %}
+
+
+        {% if perfilActividad.actividadEstado == 'Activa' %}
+            <div class=" movil-md footer div-btn-reserv-movil shadown"
+                 style="height: auto;padding:5px;background: white;">
+
+
+                {% if tieneReserva %}
+
+                    <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "><br>Disfruta tu entrenamiento.<br>Esta actividad ha comenzado.
+                    </div>
+
+                    </div>
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "><br>Esta actividad ha comenzado.<br>
+                    </div>
+
+                    </div>
+
+                    </div>
+
+
+                {% endif %}
+
+        {% endif %}
+
+
+
+        {% if perfilActividad.actividadEstado == 'Culminada' %}
+            <div class=" movil-md footer div-btn-reserv-movil shadown"
+                 style="height: auto;padding:5px;background: white;">
+
+
+                {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA and  perfilActividad.actividadEstado == 'Culminada' %}
+
+                    <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "><br>¡Felicidades por tu liderazgo en esta actividad!<br>No olvides marcara asistencia.<br>
+                    </div>
+
+                    </div>
+
+                    </div>
+
+
+                {% else %}
+                    {% atleta_asistio perfilActividad.actividadId vs.userId as asistio %}
+                    {% if tieneReserva %}
+                        {% if  asistio %}
+                            <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                ">¡Felicidades, completase esta actividad!<br> ¡Te esperamos en la próxima!
+                            </div>
+                            </div>
+                            </div>
+                        {% else %}
+                            <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "> No completaste esta actividad.<br> ¡Te esperamos en la próxima!
+                            </div>
+                            </div>
+                            </div>
+                        {% endif %}
+
+                    {% endif %}
+
+                {% endif %}
+
+
+            </div>
+        {% endif %}
+
+        {% if perfilActividad.actividadEstado == 'Cancelada' %}
+            <div class=" movil-md footer div-btn-reserv-movil shadown"
+                 style="height: auto;padding:5px;background: white;">
+                <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "><br>Los participantes reservados han sido notificados.<br><br>
+                </div>
+            </div>
+            </div>
+
+            </div>
+        {% endif %}
+
+
+
+        {% if vs.userAlias == perfilActividad.actividadInstructorAlias and vs.tipoSesion == vs.ATLETA and  perfilActividad.actividadEstado == 'Activa' %}
+
+            <div class=" movil-md footer div-btn-reserv-movil shadown"
+                 style="height: auto;padding:5px;background: white;">
+                <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "><b>Eres el instructor.</b><br> Puedes marcar asistencia de tus paticipantes.<br>
+                </div>
+            </div>
+            </div>
+
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+{% endif %}
+
+
+
+
+{% if vs.tipoSesion == vs.MARCA %}
+    {% if perfilActividad.actividadAbiertaParaGestionar %}
+        <div class=" movil-md footer div-btn-reserv-movil shadown" style="height: auto;padding:5px;background: white;">
+            <a class="pull-right" href="/">
+                </a>
+            <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+             ">
+                {% if perfilActividad.actividadReferenciada %}
+                    Esta actividad es <b>Referenciada</b>
+                {% else %}
+                    Gestiona las reservaciones para esta actividad.
+                {% endif %}
+            </div>
+
+
+            <div class="vic-text-puesto-new"></div>
+            <button title="Reservar atletas"
+                    onclick="return reserva('{{ perfilActividad.actividadId }}')"
+                    type="button"
+                    class="btn btn-md  btn-block  vic-btn-reservar-reverse sticky-btn" style="text-align: center">
+                Gestionar
+            </button>
+
+        </div>
+    {% else %}
+
+
+
+        {% if perfilActividad.actividadEstado == 'Cancelada' %}
+            <div class=" movil-md footer div-btn-reserv-movil shadown"
+                 style="height: auto;padding:5px;background: white;">
+                <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+                "><br>Edita la actividad para reactivarla.<br><br>
+                </div>
+            </div>
+            </div>
+
+            </div>
+        {% endif %}
+
+        {% if perfilActividad.actividadEstado == 'Culminada' %}
+            <div class=" movil-md footer div-btn-reserv-movil shadown"
+                 style="height: auto;padding:5px;background: white;">
+
+
+                <a class="pull-right" href="/">
+                    </a>
+                <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+             ">
+                    {% if  perfilActividad.actividadReservados > 0 %}
+
+                        Recuerda marcar la asistencia de tus participantes.
+
+
+                    {% else %}
+
+
+                        Lo sentimos. No han se registraron participantes.
+
+                    {% endif %}
+
+
+                </div>
+
+
+                <div class="vic-text-puesto-new"></div>
+                <button title="Reservar atletas"
+                        onclick="return reserva('{{ perfilActividad.actividadId }}')"
+                        type="button"
+                        class="btn btn-md  btn-block  vic-btn-reservar-reverse sticky-btn" style="text-align: center">
+                    Gestionar
+                </button>
+
+            </div>
+
+
+        {% endif %}
+
+        {% if  perfilActividad.actividadEstado == 'Activa' %}
+            <div class=" movil-md footer div-btn-reserv-movil shadown"
+                 style="height: auto;padding:5px;background: white;">
+
+
+                <a class="pull-right" href="/">
+                    </a>
+                <div class="text-center" style="margin-bottom: 5px;text-transform: initial;    line-height: 16px;
+             ">
+                    {% if  perfilActividad.actividadReservados > 0 %}
+
+                        Recuerda marcar la asistencia de tus participantes.
+
+
+                    {% else %}
+
+
+                        Lo sentimos. No han se registraron participantes.
+
+                    {% endif %}
+                </div>
+
+
+                <div class="vic-text-puesto-new"></div>
+                <button title="Reservar atletas"
+                        onclick="return reserva('{{ perfilActividad.actividadId }}')"
+                        type="button"
+                        class="btn btn-md  btn-block  vic-btn-reservar-reverse sticky-btn" style="text-align: center">
+                    Gestionar
+                </button>
+
+            </div>
+
+
+        {% endif %}
+
+
+
+    {% endif %}
+
+
+
+
+{% endif %}
+
+
+
+<div class=" destop-md footer reserv-movil-footer">
+
+    {% include "footer.html" %}
+
+
+</div>
+
+
+<!--
+
+  -->
+
+<script>
+
+
+    function cancelarReservaDesdeClaseDetail(usuario, actividad, costo) {
+        //cancelarActualizar(actualizar, usuario, actividad, costo)
+        //eliminarreserva(usuario,actividad,'reserva');
+        {% if estaEnEspera %}
+            eliminarreserva(usuario, actividad, 'lista de espera');
+        {% else %}
+            eliminarreserva(usuario, actividad, 'reserva');
+        {% endif %}
+    }
+
+    function reservausuario(usuario, actividad, costo) {
+        reservarActualizar(actualizar, usuario, actividad, costo)
+    }
+
+    function actualizar() {
+        window.location.reload();
+    }
+
+    function cargarConflictos() {
+        contenido = '<table style="width:100%">'
+        contenido += '<tr><th>Fecha</th><th>Horas</th><th>Localizador</th><th>Descripcion del conflicto</th></tr>'
+        {% for conflicto in conflictos %}
+            contenido += '<tr><td>' + '{{ conflicto.fecha }}' + '</td><td>' + '{{ conflicto.horas }}' + '</td><td>' + '{{conflicto.localizador  }}' + '</td><td>' + '{{ conflicto.tipo }}' + '</td></tr>'
+        {% endfor %}
+        $('#idDivConflictos').html(contenido);
+        $('#idDivConflictosTitulo').html('<i>Conflictos de la actividad</i><br><hr>')
+        contenido += '</table>'
+        changeTabs('actividades-conflictos');
+    }
+
+</script>
+
+</body>
+
+</html>

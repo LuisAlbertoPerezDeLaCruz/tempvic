@@ -1,0 +1,47 @@
+<!-- muestraMensajes.html -->
+
+{% if messages %}
+
+	{% for message in messages %}
+
+        {% if message.extra_tags == 'sticky' %}
+
+            <script type="text/javascript">
+
+              var sticky = true;
+
+              alertVictorius('{{message}}',
+                      {% if message.level_tag == 'success' %}
+                          1, sticky
+                      {% elif message.level_tag == 'error' %}
+                          2, sticky
+                      {% elif message.level_tag == 'warning' %}
+                          3, sticky
+                      {% endif %}
+              );
+
+            </script>
+
+        {%  else %}
+
+            <script type="text/javascript">
+
+              var sticky = false;
+
+              alertVictorius('{{message}}',
+                      {% if message.level_tag == 'success' %}
+                          1, sticky
+                      {% elif message.level_tag == 'error' %}
+                          2, sticky
+                      {% elif message.level_tag == 'warning' %}
+                          3, sticky
+                      {% endif %}
+              );
+
+            </script>
+
+        {% endif %}
+
+	{% endfor %}
+
+{% endif %} 

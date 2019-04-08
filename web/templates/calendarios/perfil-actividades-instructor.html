@@ -1,0 +1,110 @@
+<!-- perfil-actividades-instructor.html -->
+
+{% extends 'calendario-atleta.html' %}
+
+{% block modales %}
+{% endblock modales %}
+
+{% block tabs %}
+
+    <div class="row vc-perf-atleta-menu2-tab  vc-perf-atleta-menu2-tab-2 animated fadeIn">
+
+        <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+            <div class="col-xs-6 menu-movil sin-left tabIzquierdo  active">
+                <div class="cell">
+                    POR IMPARTIR
+                </div>
+            </div>
+            <div class="col-xs-6 menu-movil tabDerecho ">
+                <div class="cell">
+                    IMPARTIDAS
+                </div>
+            </div>
+        </div>
+
+        <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+            <div>
+                <div class="col-6 menu-tab-calendar active tabIzquierdo">
+                    POR IMPARTIR
+                </div>
+                <div class="col-6 menu-tab-calendar vic-left tabDerecho">
+                    IMPARTIDAS
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock tabs %}
+
+{% block titulo %}
+    <div class=" titulo-principal box row">
+        {% if vs.tipoSesion == vs.MARCA %}
+            Actividades {{ perfilAtleta.atletaNombreCompleto }}
+        {% elif esElMismo %}
+            Mis Actividades
+        {% else %}
+            Actividades {{ perfilAtleta.atletaNombreCompleto }}
+        {% endif %}
+    </div>
+{% endblock titulo %}
+
+{% block contenido %}
+    <div class="row seccionPrincipal">
+        <div class="seccionPagina">
+            {% include 'calendario-instructor-table.html' %}
+        </div>
+    </div>
+{% endblock contenido %}
+
+{% block controlFiltro %}
+    <input type="text" id="idMarcaAlias" name="marcaAlias" class="marcaAlias marcaAliasFiltro" hidden>
+{% endblock controlFiltro %}
+
+{% block mensajes %}
+
+    {% if esElMismo %}
+
+        {% if not actividadesIZQ %}
+            <div class="text-center col-xs-12 soloIZQ">
+                <br> <br> <br>
+                <img src="../static/images/moon.svg">
+                <div class=" vic-title-ms">No encontre actividades</div>
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                    Cuando tengas actividades asignadas<br> podrás verlas aquí.
+                </div>
+                <br>
+            </div>
+        {% endif %}
+
+        {% if diasUltimaImpartida == -1 %}
+
+            <div class="text-center col-xs-12 soloDER">
+                <br> <br> <br>
+                <img src="../static/images/moon.svg">
+                <div class=" vic-title-ms">No encontre actividades</div>
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                    Cuando tengas actividades asignadas<br>podrás verlas aquí.
+                </div>
+                <br>
+            </div>
+
+        {% else %}
+
+            <div class="text-center col-xs-12 " hidden>
+                <br> <br> <br>
+                <img src="../static/images/horn.svg">
+                <div class=" vic-title-ms">¡Reactívate!</div>
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                    Hace <b>{{ diasUltimaImpartida }} días </b>que no te vemos entrenar
+                </div>
+                <br>
+            </div>
+
+        {% endif %}
+
+    {% endif %}
+
+{% endblock mensajes %}
+
+

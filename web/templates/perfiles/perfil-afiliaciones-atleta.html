@@ -1,0 +1,563 @@
+<!-- perfil.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    {% load filtrosEspeciales %}
+    {% include "head.html" %}
+
+    {% load staticfiles %}
+
+    <link rel="stylesheet" type="text/css"
+          href="../../static/css/nuevo_calendario.css"/>
+
+
+    <script>
+        $(document).ready(function () {
+            $('.vic-load').hide();
+        });
+
+        function confirmarDesactivacion(usuario, marcaId, marcaNombre, url) {
+            parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+            $('.modal-body').attr('style', 'text-align: left;');
+            var params = '';
+
+            var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea usted dejar de seguir a ' + marcaNombre + ' ?</div>';
+
+            params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Desafiliar</a> </div><div>';
+            params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+            $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Desafiliar marca ' + '<span>');
+            $("#myModal").find(".modal-body").html(params);
+            $("#myModal").modal();
+
+            // redirect(url);
+
+            return false;
+
+        }
+
+        function confirmarCancelacionSolicitud(usuario, marcaId, marcaNombre, url) {
+            parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+            $('.modal-body').attr('style', 'text-align: left;');
+            var params = '';
+
+            var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea eliminar la solicitud de afiliación a ' + marcaNombre + ' ?</div>';
+
+            params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+            params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+            $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminación de solicitud ' + '<span>');
+            $("#myModal").find(".modal-body").html(params);
+            $("#myModal").modal();
+
+            // redirect(url);
+
+            return false;
+
+        }
+
+        function redirect(url) {
+
+            window.location.href = url;
+
+        }
+
+
+        function seguirDejar(opcion, usuario, marca) {
+            $.ajax({
+                data: {'opcion': opcion, 'usuario': usuario, 'marca': marca},
+                url: '/solicitudusuario',
+                type: 'get',
+                success: function (data) {
+                    location.reload();
+                },
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+{% include "scriptsPagos.html" %}
+{% include "scriptsActividades.html" %}
+
+{% esAmigo perfil.atletaId vs.user.id as esAmigo %}
+{% soy_yo_mismo perfil.atletaId as soyYoMismo %}
+
+{% with paInfo=perfil.atletaInfoGeneral %}
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="vic-tab-2" class="tab-pane in active">
+
+        <div class="container">
+
+
+            <div class=" titulo-principal box ">
+                Centros
+            </div>
+
+
+            <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+                <div class="col-xs-6 menu-movil sin-left tabIzquierdo  active  vic-afiliacion-menu-link "
+                     onclick="vcAfiliacionMenu(this,2)">
+                    <div class="cell">
+                        TODOS
+                    </div>
+                </div>
+                <div class="col-xs-6 menu-movil tabDerecho vic-afiliacion-menu-link  "
+                     onclick="vcAfiliacionMenu(this,1)">
+                    <div class="cell">
+                        MIS AFILIACIONES
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+                <div>
+                    <div class="menu-tab-calendar vic-afiliacion-menu-link active" onclick="vcAfiliacionMenu(this,2)">
+                        TODOS
+                    </div>
+                    <div class="menu-tab-calendar vic-afiliacion-menu-link  vic-left"
+                         onclick="vcAfiliacionMenu(this,1)"> MIS AFILIACIONES
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="vic-afiliacion-box-1 vic-afiliacion-menu" style="display: none">
+
+                {% if  perfil.atletaEstadoConfiguracion > 0 %}
+
+                    {% if vs.tipoSesion == vs.ATLETA and perfil.atletaEstadoConfiguracion > 0 and soyYoMismo %}
+
+                        <div class="">
+                            <br class="hidden-md hidden-lg">
+
+
+                            <!-- centros -->
+                            <div>
+
+                                {% with perfil.atletaMarcasAprobadasPendientes as centros %}
+
+                                    {% for c in centros %}
+
+                                        {% perfil_de_marca c.m_alias as centro %}
+
+                                        {% siguiendo_esta_marca centro.marcaId vs.userId as seguidor %}
+                                        {% pendiente_con_esta_marca centro.marcaId vs.userId as pendiente %}
+
+
+                                        {% with pmInfo=centro.marcaInfoGeneral %}
+
+                                            <br>
+                                            <div class="flex-container vic-filia-atleta">
+
+                                                <div class="box-1">
+                                                    {% if soyYoMismo %}
+                                                        {% if centro.marcaDuenoAlias != perfil.atletaAlias %}
+                                                            {% if seguidor or pendiente %}
+                                                                {% if seguidor %}
+                                                                    <div class="vic-circle-calendar-carrusel-65 "
+                                                                         style="display: table">
+                                                                        <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                            <img id="fotoPerfil"
+                                                                                 class="vic-circle-calendar-carrusel-65 "
+                                                                                 src="{{ centro.rutaAvatar }}"
+                                                                                 onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                                        </div>
+                                                                    </div>
+
+                                                                {% else %}
+                                                                    <div class="vic-circle-calendar-carrusel "
+                                                                         style="display: table">
+                                                                        <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                            <img id="fotoPerfil"
+                                                                                 class="vic-circle-calendar-carrusel-65 "
+                                                                                 src="{{ centro.rutaAvatar }}"
+                                                                                 onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                                        </div>
+                                                                    </div>
+
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% else %}
+
+
+                                                            <div class="vic-circle-calendar-carrusel-65 "
+                                                                 style="display: table">
+                                                                <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                    <img id="fotoPerfil"
+                                                                         class="vic-circle-calendar-carrusel-65 "
+                                                                         src="{{ centro.rutaAvatar }}"
+                                                                         onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                                </div>
+                                                            </div>
+
+                                                        {% endif %}
+                                                    {% endif %}
+
+                                                </div>
+
+                                                <div class="box-2">
+                                                    <a href="../{{ centro.marcaAlias }}">
+
+                                                        <div><b>{{ centro.marcaNombre }}</b></div>
+                                                        <div>
+                                                            <small>@{{ centro.marcaAlias }}</small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="box-3">
+
+                                                    {% if soyYoMismo %}
+                                                        {% if centro.marcaDuenoAlias != perfil.atletaAlias %}
+                                                            {% if seguidor or pendiente %}
+                                                                {% if seguidor %}
+                                                                    <button style="margin-top: -2px;"
+                                                                            type="button"
+                                                                            class="btn btn-xs  vic-btn-outline-reservar "
+                                                                            onclick="seguirDejar(0,{{ vs.userId }},{{ centro.marcaId }});"
+                                                                    ><i class="fa fa-check"></i> Afiliado
+                                                                    </button>
+                                                                {% else %}
+                                                                    <button style="margin-top: -2px;cursor: pointer;"
+                                                                            type="button"
+                                                                            class="btn btn-xs  vic-btn-outline-reservar disabled Afiliado "
+                                                                            onclick='return confirmarCancelacionSolicitud({{ vs.userId }},{{ centro.marcaId }},"{{ centro.marcaNombre }}","../{{ centro.marcaAlias }}");'
+                                                                    ><i class="far fa-clock"></i> Afiliado
+                                                                    </button>
+
+                                                                {% endif %}
+
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <button style="margin-top: -2px;"
+                                                                    type="button"
+                                                                    class="btn btn-xs  vic-btn-outline-reservar vic-disabled"
+                                                                    onclick=""
+                                                            ><i class="fa fa-check"></i> Mi Marca
+                                                            </button>
+                                                        {% endif %}
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <br>
+                                            <div class="vic-hr hidden-xs hidden-sm"></div>
+
+
+
+                                        {% endwith %}
+
+                                    {% endfor %}
+                                {% endwith %}
+
+                            </div>
+
+                        </div>
+
+                        <!-- fin centros -->
+
+
+
+                    {% endif %}
+
+                {% else %}
+
+                    <div id="idDivBienvenida" class="text-center col-md-8 col-md-offset-2 ">
+
+
+                        <i class="fa fa-bolt fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+
+                        <div class=" vic-calendar-title">{{ perfil.atletaPrimerNombre }}<br>Aún no cuentas con centros
+                            afiliados
+                        </div>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Cuando tengas
+                            centros afiliados podrás verlos aquí.
+                            <br><br>
+                            <a type="button" class="btn btn-xs  vic-btn-reservar-reverse  " href="/centros">Centros</a>
+                        </div>
+                        <br>
+                    </div>
+
+                {% endif %}
+            </div>
+            <div class="vic-afiliacion-box-2 vic-afiliacion-menu">
+
+                <div class="">
+                    <br class="hidden-md hidden-lg">
+                    <!-- centros -->
+                    <div>
+
+                        {% for centro in centros %}
+
+                            {% siguiendo_esta_marca centro.marcaId vs.userId as seguidor %}
+                            {% pendiente_con_esta_marca centro.marcaId vs.userId as pendiente %}
+
+                            {% with pmInfo=centro.marcaInfoGeneral %}
+
+                                <br>
+                                <div class="flex-container vic-filia-atleta">
+
+                                    <div class="box-1">
+
+                                        {% if vs.tipoSesion == vs.ATLETA %}
+                                            {% if centro.marcaDuenoAlias != vs.userAlias %}
+                                                {% if seguidor or pendiente %}
+                                                    {% if seguidor %}
+
+                                                        <div class="vic-circle-calendar-carrusel-65 "
+                                                             style="display: table">
+                                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                <img id="fotoPerfil"
+                                                                     class="vic-circle-calendar-carrusel-65 "
+                                                                     src="{{ centro.rutaAvatar }}"
+                                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                            </div>
+                                                        </div>
+
+                                                    {% else %}
+
+                                                        <div class="vic-circle-calendar-carrusel "
+                                                             style="display: table">
+                                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                <img id="fotoPerfil"
+                                                                     class="vic-circle-calendar-carrusel-65 "
+                                                                     src="{{ centro.rutaAvatar }}"
+                                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                            </div>
+                                                        </div>
+
+
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if centro.marcaEsPublica %}
+
+                                                        <div class="vic-circle-calendar-carrusel-lap b-black "
+                                                             style="display: table">
+                                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                <img id="fotoPerfil"
+                                                                     class="vic-circle-calendar-carrusel-65 "
+                                                                     src="{{ centro.rutaAvatar }}"
+                                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="vic-circle-calendar-carrusel-lap b-black "
+                                                             style="display: table">
+                                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                <img id="fotoPerfil"
+                                                                     class="vic-circle-calendar-carrusel-65 "
+                                                                     src="{{ centro.rutaAvatar }}"
+                                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% else %}
+
+                                                <div class="vic-circle-calendar-carrusel-65 "
+                                                     style="display: table">
+                                                    <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                        <img id="fotoPerfil" class="vic-circle-calendar-carrusel-65"
+                                                             style="border: none"
+                                                             src="{{ centro.rutaAvatar }}"
+                                                             onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                    </div>
+                                                </div>
+
+                                            {% endif %}
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <div class="box-2">
+                                        <a href="../{{ centro.marcaAlias }}">
+
+                                            <div><b>{{ centro.marcaNombre }}</b></div>
+                                            <div>
+                                                <small>@{{ centro.marcaAlias }}</small>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="box-3">
+
+                                        {% if vs.tipoSesion == vs.ATLETA %}
+                                            {% if centro.marcaDuenoAlias != vs.userAlias %}
+                                                {% if seguidor or pendiente %}
+                                                    {% if seguidor %}
+                                                        <button
+                                                                type="button"
+                                                                class="btn btn-xs  vic-btn-outline-reservar "
+                                                                onclick='return confirmarDesactivacion({{ vs.userId }},{{ centro.marcaId }},"{{ centro.marcaNombre }}","../{{ centro.marcaAlias }}");'
+                                                        ><i class="fa fa-check"></i> Afiliado
+                                                        </button>
+                                                    {% else %}
+
+                                                        <button style="margin-top: -2px;cursor: pointer;"
+                                                                type="button"
+                                                                class="btn btn-xs  vic-btn-outline-reservar disabled Afiliado "
+                                                                onclick='return confirmarCancelacionSolicitud({{ vs.userId }},{{ centro.marcaId }},"{{ centro.marcaNombre }}","../{{ centro.marcaAlias }}");'
+                                                        ><i class="far fa-clock"></i> Afiliado
+                                                        </button>
+
+
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if centro.marcaEsPublica %}
+                                                        <button
+                                                                type="button" class="btn btn-xs  vic-btn-reservar "
+                                                                onclick="seguirDejar(1,{{ vs.userId }},{{ centro.marcaId }});"
+                                                        >Afiliarse
+                                                        </button>
+                                                    {% else %}
+                                                        <button
+                                                                type="button" class="btn btn-xs  vic-disabled "
+                                                        >PRIVADO
+                                                        </button>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% else %}
+                                                <button
+                                                        type="button"
+                                                        class="btn btn-xs  vic-btn-outline-reservar vic-disabled"
+                                                        onclick=""
+                                                ><i class="fa fa-check"></i> Mi Marca
+                                                </button>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <br>
+                                <div class="vic-hr hidden-xs hidden-sm"></div>
+
+
+
+                            {% endwith %}
+
+
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endwith %}
+
+<!-- fin codigo nuevo  -->
+
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+
+<script>
+
+
+    function vcAfiliacionMenu(obj, n) {
+
+
+        $(".vic-afiliacion-menu").hide();
+        $(".vic-afiliacion-box-" + n).show();
+
+        $(".vic-afiliacion-menu-link").removeClass('active');
+        $(obj).addClass('active');
+
+    }
+
+    function cerrarModal() {
+        $("#myModal").modal('toggle');
+    }
+
+
+    function confirmarCancelacionSolicitud(usuario, marcaId, marcaNombre, url) {
+        parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea eliminar la solicitud de afiliación a ' + marcaNombre + ' ?</div>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminación de solicitud ' + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+
+        // redirect(url);
+
+        return false;
+
+    }
+
+    function seguirDejar(opcion, usuario, marca) {
+        $.ajax({
+            data: {'opcion': opcion, 'usuario': usuario, 'marca': marca},
+            url: '/solicitudusuario',
+            type: 'get',
+            success: function (data) {
+                location.reload();
+            },
+        });
+    }
+
+    //Evento de prueba para la seleccion del filtro:
+    function event_circle(identifier) {
+        alert('Ejemplo de filtro:' + identifier);
+    }
+
+
+</script>
+</body>
+
+</html>

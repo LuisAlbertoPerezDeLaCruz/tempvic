@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include "head.html" %}
+
+</head>
+<body>
+{% include "header.html" %}
+{% include "content-tabs.html"%}
+{% include "tabs_entrenador-calendario.html"%}
+
+<div id="vic-tab-2" class="tab-pane in active">    
+
+<div class="container-fluid fondo-atletas" id="nombre-display">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 margen">
+        <center>
+          <h1>{{user.first_name}} {{user.last_name}}</h1>
+          <h4>
+  				Planes
+          </h4>
+        </center>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form>
+          <input id="maoInput" type="search" onkeyup="return maoFilter()" class="buscar-atleta">
+        </form>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid" id="resultados-display">
+  <div class="row"> 
+    <!--PRIMERA FILA SIN CLASS "fila-oculta"-->
+    <div class="col-md-12 col-xs-6 sm-grey">
+      <div class="row">
+        <div class="col-md-1 ">#</div>
+        <div class="col-md-2">FECHA OBTENCION</div>
+        <div class="col-md-2">FECHA VENCIMIENTO</div>
+        <div class="col-md-2">PRODUCTO</div>
+        <div class="col-md-1">CREDITOS</div>
+        <div class="col-md-1">ESTATUS</div>
+        <div class="col-md-2">MEDIO DE PAGO</div>
+        <div class="col-md-1">ESTATUS DE PAGO</div>
+   
+      </div>
+    </div>
+
+{% for plan,pago,estado in planes %}
+     <div class="col-md-12 col-xs-6 center detalle">
+        <div id="r{{forloop.counter}}" class="row">
+          <div id="i{{forloop.counter}}" class="col-md-1">{{forloop.counter}}</div>
+          <div id="f{{forloop.counter}}" class="col-md-2">{{plan.p_fecha_obtencion}}</div>
+          <div id="d{{forloop.counter}}" class="col-md-2">{{plan.p_fecha_caducidad}}</div>
+          <div id="n{{forloop.counter}}" class="col-md-2">{{plan.p_nombre}}</div>
+          <div id="h{{forloop.counter}}" class="col-md-1">{{plan.p_creditos_usados}} / {{plan.p_creditos_totales}}</div>
+          {%if plan.p_creditos_usados >= plan.p_creditos_totales %}
+          		<div id="l{{forloop.counter}}" class="col-md-1"><span class="label-espera">CONSUMIDO</span></div>
+          {%endif%}
+          {%if plan.p_historico %}
+          		<div id="l{{forloop.counter}}" class="col-md-1"><span class="label-cancelada">VENCIDO</span></div>
+          {%endif%}
+          {%if not plan.p_historico %}
+         		 <div id="l{{forloop.counter}}" class="col-md-1"><span class="label-agendada">ACTIVO</span></div>
+          {%endif%}
+          <div id="p{{forloop.counter}}" class="col-md-2"><span>{{estado}}</span></div>
+          {%if pago.p_porcobrar%}
+          	<div id="l{{forloop.counter}}" class="col-md-1"><img src="../static/images/aceptar.png" width="25" height="25" alt=""/></div>
+		  {%endif%}         
+         </div>
+      </div>
+   
+{% endfor %}
+   
+  </div>
+</div>
+
+</div>
+{% include "fin-content-tabs.html"%}
+<script src="../static/js/sameHeight.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');       
+        }
+    );
+});
+</script>
+
+<script>
+	var div = $("#nombre-display");
+	document.querySelector('div#resultados-tabla').style.marginTop = div.outerHeight()+'px';
+	</script>
+	
+<script type="text/javascript">
+function maoFilter() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("maoInput");
+    filter = input.value.toUpperCase();
+	    for (i = 1; i <= parseInt('{{planes|length}}'); i++) {
+	        palabra = document.getElementById('n'+i);
+	        console.log(palabra.innerHTML);
+	        console.log(filter);
+	        if (palabra.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	            $('#r'+i).show();
+	            console.log("Mostro");
+	        } else {
+	            $('#r'+i).hide();
+	            console.log("Oculto");
+	
+	        }
+    }
+}
+var medios = ["","Transferencia","Deposito","POS","VPOS","Cheque","Efectivo","Por Cobrar"];
+function cambiar(input,val){
+	$("#p"+input).html(medios[val]);
+}
+</script>
+	{% include "footer.html" %}
+</body>
+</html>

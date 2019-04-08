@@ -1,0 +1,385 @@
+<!-- planes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load filtrosEspeciales %}
+
+    {% include "head.html" %}
+    <style type="text/css">
+
+        .vic-ma-caja-texto-header {
+
+            font-size: 18 xp !important;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+{% include "header.html" %}
+
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+<div id="vic-tab-2" class="tab-pane in active">
+    <!--EDITAR-->
+
+    <div class="container-fluid fondo" id="nombre-display">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 margen">
+                    <center>
+                        <h1>PLANES</h1><h4>{{ marca_actual }}</h4>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid" id="resultados-display">
+        <div class="row">
+            <div class="col-lg-12 no-padding">
+
+                {% if vs.tipoSesion == vs.MARCA %}
+                    <a href="/{{ vs.marcaEnUsoAlias }}/gestionar_planes"
+                       class="col-lg-3 2ol-md-4 col-sm-6  col-xs-12 vc-box-planes-barras new">
+
+                        <div>
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+
+                        <div class="col-xs-12">
+
+                            <span class="vic-ma-caja-texto-header ">Agregar plan</span>
+                        </div>
+                    </a>
+                {% endif %}
+
+
+                {% if productos %}
+                    {% for producto in productos %}
+                        {% if producto.p_tipo != 3 %}
+                            <div class="col-lg-3 2ol-md-4 col-sm-6  col-xs-12 vc-box-planes-barras ">
+                                {% if vs.tipoSesion == vs.MARCA %}
+                                    <div class="btn-group moreOps">
+                                        <button type="button" class="btn btn-sm btn-default dropdown-toggle "
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">&nbsp;
+                                        </button>
+                                        <ul class="dropdown-menu" style="left: -158px; top:0;">
+                                            {% if producto.p_tipo != 3 %}
+                                                <li role="presentation"><a
+                                                        href="gestionar_planes?prd={{ producto.id }}">Editar Plan</a>
+                                                </li>
+                                            {% endif %}
+
+                                            {% if producto.p_activo %}
+                                                <li onclick="habilitar({{ producto.id }},0)" role="presentation"><a
+                                                        href="#">Deshabilitar
+                                                    Plan</a></li>
+                                            {% else %}
+                                                <li onclick="habilitar({{ producto.id }},1)" role="presentation"><a
+                                                        href="#">Habilitar
+                                                    Plan</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+
+                                {% if producto.p_descuento == 100 %}
+
+                                    {% if producto.p_activo %}
+
+                                        <div class="row" style="padding-bottom: 15px">
+
+
+                                            <div class="col-xs-12">
+                                        <span id="nombre{{ producto.id }}"
+                                              class="vic-ma-caja-texto-header ">{{ producto.p_nombre }}</span>
+                                            </div>
+
+                                            <div class="col-xs-12">
+                                                <span class="vc-plan-sub-title"></span>
+                                            </div>
+
+                                            <div class="col-xs-12" style="margin-top: 15px;">
+
+                                                <div class=" pull-left">
+                                                    <span style="color:#00a8ac;font-weight:600;">BECA</span>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-xs-6" style="margin-top: 15px">
+
+                                                <div class="vc-plan-sub-title">Vencimiento</div>
+                                                <div>{{ producto.p_duracion_meses }} meses</div>
+
+                                            </div>
+
+                                            <div class="col-xs-6" style="margin-top: 15px">
+
+                                            </div>
+
+                                        </div>
+
+                                    {% else %}
+                                        <div class="row" style="padding-bottom: 15px">
+
+
+                                            <div class="col-xs-12" style="opacity:0.4">
+                                        <span id="nombre{{ producto.id }}"
+                                              class="vic-ma-caja-texto-header ">{{ producto.p_nombre }}</span>
+                                            </div>
+
+                                            <div class="col-xs-12" style="opacity:0.4">
+                                                <span class="vc-plan-sub-title"></span>
+                                            </div>
+
+                                            <div class="col-xs-12" style="margin-top: 15px;">
+
+                                                <div class=" pull-left">
+                                                    <span style="opacity:0.4;color:#00a8ac;font-weight:600;">BECA</span>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-xs-6" style="margin-top: 15px ;opacity:0.4">
+
+                                                <div class="vc-plan-sub-title">Vencimiento</div>
+                                                <div>{{ producto.p_duracion_meses }} meses</div>
+
+                                            </div>
+
+                                            <div class="col-xs-6" style="margin-top: 15px">
+
+                                            </div>
+
+                                        </div>
+
+                                    {% endif %}
+
+                                {% else %}
+
+                                    {% if producto.p_activo %}
+
+                                        <div class="row" style="padding-bottom : 15px">
+
+                                            <div class="col-xs-12">
+                                                <!-- condicionar con la class="text-primary" -->
+                                                <span id="nombre{{ producto.id }} " style="color: black"
+                                                      class="vic-ma-caja-texto-header">{{ producto.p_nombre }}</span>
+                                            </div>
+
+                                            <div class="col-xs-12">
+                                                <span class="vc-plan-sub-title"></span>
+                                                Tipo de Plan: {{ producto.get_p_tipo_display }}
+                                            </div>
+
+                                            {% if producto.p_descripcion %}
+                                                <div class="col-xs-12">
+                                                    <br>
+                                                    <div class="title-12">Descripcion</div>
+                                                    <div>{{ producto.p_descripcion }}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                            <div class="col-xs-12" style="margin-top: 15px;">
+
+                                                <div class=" pull-left">
+                                                    <div class="row">
+                                                        <div class="title-12 col-xs-12">CRÉDITOS</div>
+
+                                                        {% if producto.p_tipo == 0 or producto.p_tipo == 2 %}
+                                                            <div id="creditos{{ producto.id }}"
+                                                                 class="disciplina vc-planes-credito col-xs-12">{{ producto.p_creditos }}</div>
+                                                        {% else %}
+                                                            <div id="creditos{{ producto.id }}"
+                                                                 class="disciplina vc-planes-credito col-xs-12">ꝏ
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
+                                                <div class="pull-right">
+                                                    <div class="title-12">Inversión</div>
+                                                    <div class="profesor" style="text-align: right;margin-right: 7px;">
+                                                        <div class="vc-planes-credito">{{ producto.p_precio|bolivares }}</div>
+                                                        <div class="vc-planes-dcto">{{ producto.p_descuento }}% dcto
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-xs-6" style="margin-top: 15px">
+                                                <div class="title-12">Vencimiento</div>
+                                                <div>{{ producto.p_duracion_meses }} meses</div>
+                                            </div>
+
+                                            <div class="col-xs-6" style="margin-top: 15px">
+
+                                            </div>
+
+                                        </div>
+
+                                    {% else %}
+                                        <div class="row" style="padding-bottom: 15px">
+
+
+                                            <div class="col-xs-12" style="opacity:0.4">
+                                        <span id="nombre{{ producto.id }}"
+                                              class="vic-ma-caja-texto-header ">{{ producto.p_nombre }}</span>
+                                            </div>
+
+                                            <div class="col-xs-12" style="opacity:0.4">
+                                                <span class="vc-plan-sub-title"></span>
+                                            </div>
+
+                                            <div class="col-xs-12" style="margin-top: 15px;">
+
+                                                <div class=" pull-left" style="opacity:0.4">
+                                                    <div class="row">
+                                                        <div id="creditos{{ producto.id }}"
+                                                             class="disciplina vc-planes-credito col-xs-12">{{ producto.p_creditos }}</div>
+                                                        <div class="col-xs-12" style="font-size: 12px">CRÉDITOS</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pull-right" style="opacity:0.4">
+
+                                                    <div class="profesor">
+                                                        <div class="vc-plan-monto">{{ producto.p_precio }}
+                                                            {{ producto.p_moneda }}</div>
+                                                        <div class="vc-planes-dcto">{{ producto.p_descuento }}%
+                                                            dcto
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-xs-6" style="margin-top: 15px;opacity:0.4">
+
+                                                <div class="vc-plan-sub-title">Vencimiento</div>
+                                                <div>{{ producto.p_duracion_meses }} meses</div>
+
+                                            </div>
+
+                                            <div class="col-xs-6" style="margin-top: 15px">
+
+                                            </div>
+
+                                        </div>
+
+
+                                    {% endif %}
+                                {% endif %}
+
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center col-xs-12 ">
+                    <br>
+                    <i class="fas fa-minus-circle fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                    <div class=" vic-calendar-title">No hay planes</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic "
+                         style="margin-top: 10px;">{{ marca_actual }}, no tiene planes disponibles en este momento
+                    </div>
+                    <br>
+                {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% include "fin-content-tabs.html" %}
+
+    <script>
+        function habilitar(id, valor) {
+            $.ajax({
+                data: {'pk': "{{pk}}", 'id': id, 'valor': valor},
+                url: '/habilitarplan',
+                type: 'get',
+                success: function (data) {
+                    //window.location= "../{{pk}}/planes?notificacion="+data;
+                    //alertBack('/notifhandler', "El plan ha sido habilitado", '{{pk}}/planes', 1);
+                    location.reload();
+                },
+            });
+        }
+    </script>
+
+    <script>
+        function editar(id, nombre, tipoPlan, credito, precio, descuento, pboxprec2, pboxprec3, vencimiento, creditosMensual) {
+            $("#accionPeditar").text("Editar Plan");
+            $("#accionPeditar2").text("Editar Plan");
+            document.getElementById("peditar").style.display = "";
+
+            document.getElementById("pnombre").value = nombre;
+            document.getElementById("piden").value = id;
+            document.getElementById("pcredito").value = credito;
+            document.getElementById("pprecio").value = precio;
+            document.getElementById("pboxprec2").value = pboxprec2;
+            document.getElementById("pboxprec3").value = pboxprec3;
+            document.getElementById("pdescuento").value = descuento;
+            document.getElementById("pvencimiento").value = vencimiento;
+            if (tipoPlan == 0) tipoPlan = 'Por Credito';
+            if (tipoPlan == 1) tipoPlan = 'Mensual Ilimitado';
+            if (tipoPlan == 2) {
+                tipoPlan = 'Mensual Limitado';
+                document.getElementById("pcredito").value = creditosMensual;
+            }
+            document.getElementById("tipoPlan").value = tipoPlan;
+            $('#tipoPlan').change();
+            $('#formplan').validator('validate');
+        }
+    </script>
+
+
+    <script src="../static/js/sameHeight.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>
+
+    <!--Mostrar el calendario-->
+    <script type="text/javascript">
+        function showcontent(bool) {
+            var text = "none";
+            if (bool) {
+                text = "";
+            }
+            document.getElementById("nombre-display").style.display = text;
+            document.getElementById("resultados-display").style.display = text;
+        }
+
+
+    </script>
+    {% include "footer.html" %}
+
+</body>
+</html>

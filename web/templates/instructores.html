@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include "head.html" %}
+
+</head>
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html"%}
+{% include "tabs_entrenador-calendario.html"%}
+
+<div class="dropdown agendar-abs"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="agendar" style="padding:10px;">AGENDAR</span><!--<span class="caret"></span>--></a>
+              <ul class="dropdown-menu pop-menu-blanco">
+              <div class="row">
+                <div class="col-xs-12"><span class="big-grey">CCS</span></div>
+                <div class="col-xs-12 padding-row">
+                 <form><input type="search" class="buscar-usuario"></form>
+                </div>
+              </div>
+				<li><a href="centro-detail.html">Anatomía Fitness</a></li>
+                <li><a href="centro-detail.html">BodyStar</a></li>
+                <li><a href="centro-detail.html">Caracas MultiSport</a></li>
+                <li><a href="centro-detail.html">Directv Sport Park</a></li>
+                <div class="row">
+                <div class="col-xs-12 padding-row"><input type="button" value="Comprar clases" class="btn-block botones-agregar"></div>
+              </div>
+              </ul>
+            </div>
+
+
+<div class="container-fluid fondo-instructores no-padding">
+  <div class="container-fluid fondo-container no-padding">
+    <div class="row padding-bottom">
+      <div class="col-sm-12 margen">
+        <center>
+          <h1 style="display:inline">INSTRUCTORES</h1><h4 style="display:inline">INDEPENDIENTES</h4>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid menu-disciplina raleway">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 acordeon-disciplina">
+        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading tab-disciplina" role="tab">
+              <h4 class="panel-title" ><a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" class="arrow-drop">Disciplina</a></h4>
+            </div>
+            <div id="collapseOne1" class="panel-collapse collapse">
+              <div class="panel-body contenido-acordeon">
+                <ul>
+                  <li role="presentation"><a href="#">Yoga</a></li>
+                  <li role="presentation"><a href="#">TRX</a></li>
+                  <li role="presentation"><a href="#">Spinning</a></li>
+                  <li role="presentation"><a href="#">Fitwall</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 no-padding">
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Valentina</span><br><span class="espe">Yoga</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Sandra</span><br> <span class="espe">Yoga</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Andrés</span><br> <span class="espe">Yoga</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/roberto.jpg) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Roberto</span><br> <span class="espe">Yoga</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">David</span><br> <span class="espe">Yoga<br>TRX</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Daniel</span><br> <span class="espe">Yoga</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Alicia</span><br> <span class="espe">Yoga</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Martha</span><br> <span class="espe">Yoga</span></div>
+      </div></a>
+      <a href="instructor-detail.html"><div class="col-sm-3 col-xs-12 foto atleta" style="background:url(images/sin-foto.png) no-repeat right bottom; min-height:175px;">
+        <div class="users"><span class="trainer museo">Flavio</span><br> <span class="espe">Yoga</span></div>
+      </div></a>
+    </div>
+  </div>
+</div>
+</div>
+{% include "fin-content-tabs.html"%}
+{% include "footer.html" %}
+<script src="../static/js/sameHeight.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');       
+        }
+    );
+});
+</script>
+</body>
+</html>

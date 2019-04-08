@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+{% load filtrosEspeciales %}
+
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<style media="all" type="text/css">
+</style>
+</head>
+
+<body style='font-family: "imes New Roman", Times, serif'>
+
+
+
+	<div
+		style="border: 2px solid #ccc; width: 900px; margin: 13px; padding: 15px; padding-bottom: 33px;">
+		<table style="width: 100%;">
+		<colgroup>
+		<col width="35%"/>
+		<col width="40%"/>
+		<col width="25%"/>
+		</colgroup>
+			<tr>
+				<td>
+					<div style="color: #393939; font-size: 20px;">
+						<div class="col-xs-12">
+							Recibo
+						</div>
+                        <br>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800;">CENTRO
+						</div>
+						<div id="recibo_centro">{{ centro }}</div>
+					</div>
+				</td>
+
+				<td>
+					<div style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800;">DATOS
+						</div>
+						<div id="recibo_nombre">{{ nombre }}</div>
+						<em  id="recibo_alias">@{{ alias }}</em>
+
+					</div>
+				</td>
+
+				<td>
+					<div
+						style="color: #393939; font-size: 14px; font-weight: 900;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800;">TOTAL
+						</div>
+						<div id="recibo_totalArriba">{{ total }}</div>
+
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<div class="col-xs-4"
+						style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800;">FECHA
+						</div>
+						<div id="recibo_fecha">{{ fecha }}</div>
+
+					</div>
+				</td>
+
+				<td>
+					<div class="col-xs-5"
+						style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800; margin-top: 8px;"></div>
+						<div id="recibo_tipoMedioPago">{{ medioPago }}</div>
+						<div id="recibo_banco">{{ banco }}</div>
+						<div id="recibo_referencia">{{ referencia }}</div>
+
+					</div>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="col-xs-4"
+						style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800;">Nº
+							RECIBO</div>
+						<div id="recibo_numero">{{ numeroRecibo }}</div>
+					</div>
+
+				</td>
+			</tr>
+		</table>
+		<table style="width: 100%;">
+		
+			<tr>
+				<td>
+					<hr
+						style="box-sizing: border-box; border-top: 1px solid #393939; margin-top: 30px; margin-bottom: 20px; padding: 0">
+				</td>
+			</tr>
+		</table>
+		<table style="width: 100%;">
+			<colgroup>
+		<col width="25%"/>
+		<col width="25%"/>
+		<col width="25%"/>
+		<col width="25%"/>
+		</colgroup>
+			<tr>
+				<td>
+					<div class="col-xs-3"
+						style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800; margin-bottom: 12px">
+							PLAN</div>
+						<div id="recibo_planNombre">{{ planNombre }}</div>
+					</div>
+				</td>
+				<td>
+					<div class="col-xs-3"
+						style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800; margin-bottom: 12px">
+							CREDITOS</div>
+						<div id="recibo_planCreditos">{{ planCreditos }}</div>
+					</div>
+				</td>
+				<td>
+					<div class="col-xs-3"
+						style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800; margin-bottom: 12px">
+							VENCIMIENTO</div>
+						<div id="recibo_planFechaVencimiento">{{ planFechaVencimiento }}</div>
+					</div>
+				</td>
+				<td>
+					<div class="col-xs-3"
+						style="color: #393939; font-size: 14px;">
+
+						<div
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800; margin-bottom: 12px">
+							PRECIO</div>
+						<div id="recibo_planPrecio">{{ planPrecio }}</div>
+					</div>
+				</td>
+
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td style="padding-top: 30px;"><div
+						class="col-xs-3 col-xs-offset-6"
+						style="color: #393939; font-size: 14px;">
+
+						<div id="recibo_headerDescuento"
+							style="color: #8B96AA;  font-size: 10px; font-weight: 800;">
+							{{ planHeaderDescuento|upper }}
+                        </div>
+
+
+					</div></td>
+				<td style="padding-top: 30px;"><div class="col-xs-3"
+						style="color: #393939; font-size: 14px;">
+
+						<div id="recibo_planDescuento">{{ planDescuento }}</div>
+
+
+					</div></td>
+
+			</tr>
+		</table>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<hr
+						style="box-sizing: border-box; border-top: 1px solid #393939; margin-top: 30px; margin-bottom: 20px; padding: 0">
+				</td>
+			</tr>
+		</table>
+		<table style="width: 100%;">
+			<colgroup>
+		<col width="25%"/>
+		<col width="25%"/>
+		<col width="25%"/>
+		<col width="25%"/>
+		</colgroup>
+			<tr>
+				<td>
+					<div class="col-xs-9"
+						style="color: #393939; font-size: 14px; font-weight: bold;">
+						TOTAL</div>
+				</td>
+				<td></td>
+				<td></td>
+				<td>
+
+					<div class="col-xs-3"
+						style="color: #393939; font-size: 14px; font-weight: bold;">
+
+
+						<div id="recibo_totalAbajo">{{ total }}</div>
+					</div>
+				</td>
+
+			</tr>
+		</table>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<hr
+						style="box-sizing: border-box; border: 1px solid #8B96AA; margin-top: 30px; margin-bottom: 20px; padding: 0">
+				</td>
+			</tr>
+		</table>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<div class="col-xs-12"
+						style="color: #8B96AA; font-size: 12px; line-height: 18px;">
+						<div class="col-xs-12">
+							Si tiene problemas para continuar contacte <a href="#"
+								style="color: blue; text-decoration: underline;">soporte@victorius.com</a><br>
+							Victorius C.A Caracas, Venezuela
+						</div>
+
+					</div>
+
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+
+</html>

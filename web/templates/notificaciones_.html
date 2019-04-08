@@ -1,0 +1,113 @@
+<!-- notificaciones.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load filtrosEspeciales %}
+    {% include "head.html" %}
+
+
+    <style type="text/css">
+        .vic-hr {
+
+            margin-left: inherit;
+            margin-right: inherit;
+        }
+    </style>
+
+    {% load static %}
+    <script src="{% static 'js/notificaciones.js' %}"></script>
+
+</head>
+
+<body>
+{% include "scriptsActividades.html" %}
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+<link rel="stylesheet" type="text/css"
+      href="../static/css/nuevo_calendario.css"/>
+
+
+<input type="hidden" id="fechaInicialVigentes" value="{{ fechaInicio }}">
+<input type="hidden" id="fechaFinalVigentes" value="{{ fechaFinalizacion }}">
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+    <div class="container">
+        <div class=" col-sm-offset-1 col-sm-10">
+
+            <div class="vic-noti-title">Notificaciones</div>
+        </div>
+        <div class=" col-sm-offset-1 col-sm-10">
+
+            <hr>
+            <!-- bucle -->
+            {% if notificaciones %}
+
+                {% for notificacion in notificaciones %}
+
+
+                    <div class="vic-hr gris-oscuro">
+                        <table class=" table-compra tc t-consumen" border="0"
+                               style="vertical-align: middle;">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="flex-container vic-noti">
+                                        <div class="vic-noti-c1 vic-noti-table-title">{{ notificacion.descripcion }}</div>
+                                        <div class="vic-noti-c2 vic-noti-table-hora">{{ notificacion.tiempoEmitida }}</div>
+                                        <div class="vic-noti-c3 vic-noti-table-descripcion">{{ notificacion.textoNotificacion }}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                {% if notificacion.acciones.aceptar %}
+                                    <td title="Aceptar" class=""
+                                        onclick="llamarFuncion({{ notificacion.callbackAceptar }},{{ notificacion.funcionAceptar }})">
+                                        <button style="float: right;"
+                                                class="btn btn-group btn-default btn-xs reservar-active ">
+                                            Aceptar
+                                        </button>
+                                    </td>
+                                {% endif %}
+
+                                <td>
+                                    &nbsp;
+                                    &nbsp;
+                                </td>
+
+                                {% if notificacion.acciones.rechazar %}
+                                    <td title="Eliminar" class=""
+                                        onclick="llamarFuncion({{ notificacion.callbackRechazar }},{{ notificacion.funcionRechazar }})">
+                                        <button style="float: right;"
+                                                class="btn btn-group btn-default btn-xs reservar-active ">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                {% endif %}
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                {% endfor %}
+
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!-- correoBienvenida.html -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <style media="all" type="text/css">
+    </style>
+</head>
+
+<body style='font-family: " serif'>
+
+{% if activo == False %}
+
+
+    {% if marcaNombre != 'victorius' %}
+
+        <!-- Cuando usuario lo registra una marca -->
+
+        <div style="font-family:serif;width: 900px; margin: 13px; padding: 15px; padding-bottom: 33px; text-align: left; margin-left: auto; margin-right: auto;">
+
+
+            <div style="margin-left: auto; margin-right: auto; margin-bottom: 20px; width: 618px; color: #393939;  font-size: 15px;   line-height: 24px; text-align: left;">
+
+                {{ marcaNombre }}
+                <br>
+                <b>Estimad@ {{ nombres }}</b>
+
+                <br>
+                Bienvenido a {{ marcaNombre }}. Ya estás casi list@.
+                <br>
+                <br>
+                {{ marcaNombre }} utiliza la plataforma <b>VICTORIUS</b> para gestionar tus servicios de suscripción, planes y reservas.
+                <br>
+                La plataforma te permite la auto gestión desde tu celular. No requiere descargar una APP. Todo funciona con tu navegador.
+                <br>
+                <br>
+                Para disfrutar y obtener el máximo de las experiencias de Victorius A Center,tener el calendario a la mano y confirmar tu
+                <br>
+                asistencia y mas, completa tu registro.
+                <br>
+                {{ enlace }}
+                <br>
+                ¿Quieres saber más sobre el estilo de vida VICTORIUS?
+                <br>
+                www.victorius.io
+                <br>
+                <br>
+
+            </div>
+
+            <div style="margin-left: auto; margin-right: auto; margin-bottom: 20px; width: 618px; color: #393939;  font-size: 15px;   line-height: 24px; text-align: left;">
+                Gracias,<br>El equipo de Victorius.
+            </div>
+
+
+        </div>
+
+    {% else %}
+
+        <!--  Cuando usuario se registra por auto servicio -->
+
+        <div style="font-family:serif;width: 900px; margin: 13px; padding: 15px; padding-bottom: 33px; text-align: left; margin-left: auto; margin-right: auto;">
+
+
+            <div style="margin-left: auto; margin-right: auto; margin-bottom: 20px; width: 618px; color: #393939;  font-size: 15px;   line-height: 24px; text-align: left;">
+
+                <img src="../static/images/Victorius_version_negro.svg" style = "width: 30px; height: 30px; display: inline-block"/>
+
+                <br>
+                <b>Estimad@ {{ nombres }}</b>
+
+                <br>
+                Ya estás casi list@. Haz click sobre el siguiente link para activar tu cuenta.<br>
+                <br>
+                <br>
+                <div style="padding-bottom: 20px;">
+                    <a href="{{ enlace }}"
+                       style="height: 39px; width: 235px; background-color: #FFD302; padding: 10px;  color: black; text-decoration: underline;">
+                        Activar Cuenta
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-left: auto; margin-right: auto; margin-bottom: 20px; width: 618px; color: #393939;  font-size: 15px;   line-height: 24px; text-align: left;">
+                <br>
+                Una vez activada, coloca tu correo y contraseña para ingresar a la plataforma y comenzar a disfrutar.<br>
+                <br>
+                Tip: Si necesitas cambiar tus datos ingresa en el menú lateral y selecciona la opción de editar perfil.
+                <br><br>
+            </div>
+            <div style="margin-left: auto; margin-right: auto; margin-bottom: 20px; width: 618px; color: #393939;  font-size: 15px;   line-height: 24px; text-align: left;">
+                Gracias,<br>El equipo de Victorius.
+            </div>
+
+
+        </div>
+
+    {% endif %}
+
+{% endif %}
+
+</body>
+
+</html>

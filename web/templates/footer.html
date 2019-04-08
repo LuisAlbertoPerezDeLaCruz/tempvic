@@ -1,0 +1,100 @@
+<!-- footer.html -->
+
+{% if user.is_authenticated %}
+
+
+    <div class="footer  movil-min"
+         style="background: #fbfbfb;padding-bottom: 150px;height: 300px; -webkit-box-shadow: -1px -3px 20px -7px rgba(0, 0, 0, 0.75); -moz-box-shadow: -1px -3px 20px -7px rgba(0, 0, 0, 0.75); box-shadow: -1px -3px 20px -7px rgba(0, 0, 0, 0.75);
+	display: none;  text-transform: uppercase; " id="div-menu-footer">
+
+        <div class="col-xs-12">
+            <a href="javascript:void(0);"
+               style="float: right;"><img src="../static/images/close2.png"
+                                          class="blank-img hvr-grow footer-menu-fin"
+                                          style="width: 15px; margin-right: 10px; width: 15px; margin-top: 5px;"></a>
+            <div class="col-xs-12"
+                 style="text-align: left; font-size: 14px;line-height: 35px;overflow-x: auto;max-height: 200px;">
+
+                {% if request.session.vs.tipoSesion == request.session.vs.MARCA %}
+
+                    <div class="menu-desplegable menu-desplegable-admin">
+                        <a class="vc-menu-footer-movil" href="./edo-cuenta"><span>&nbsp;Edo. Cuenta</span></a><br>
+                        <a class="vc-menu-footer-movil" href="./consumos"><span>&nbsp;Consumos</span></a><br>
+                        <a class="vc-menu-footer-movil" href="./planes"><span>&nbsp;Planes</span></a>
+                    </div>
+                    <!--  inic -->
+                    <div class="menu-desplegable menu-desplegable-agregar" style="margin-left: 20px;">
+                        <div class="vc-menu-footer-movil">AGREGAR:</div>
+                        <div style="margin-left: 30px">
+                            <a class="footer-menu"
+                               onclick="desde=false;intentodecobro();limpiarCamposNuevoAtleta();return changeTabs('nuevoAtleta')"
+                               href="#"><span>&nbsp;Atleta</span></a><br>
+                            <a class="footer-menu" href="#" onclick="modi=false; return newActividad(false)"><span>&nbsp;Actividad</span></a><br>
+                            <a class="footer-menu" onclick="crearplan()" href="#"><span>&nbsp;Plan</span></a><br>
+                            <a class="footer-menu" href="#" onclick="return sala()"><span>&nbsp;Sala</span></a><br>
+                            <a class="footer-menu" href="#"
+                               onclick="return cuentaB()"><span>&nbsp;Cuenta Bancaria</span></a><br>
+                        </div>
+                    </div>
+                    <!--  fin -->
+                    
+                    <div class="menu-desplegable menu-desplegable-usuarios">
+                        <a class="vc-menu-footer-movil" href="./atletas"><span
+                                style="cursor: pointer;text-transform: uppercase;">&nbsp; Atletas</span></a><br>
+                        <a class="vc-menu-footer-movil" href="./atletas?entrenadores=s"><span
+                                style="cursor: pointer;text-transform: uppercase;">&nbsp; Instructores</span></a>
+                    </div>
+
+
+                {% else %}
+                    <div class="menu-desplegable menu-desplegable-agendar" style="margin-left: 30px;">
+
+                        {% for a in relaciones %}
+                            <a class="vc-menu-footer-movil" id="n{{ forloop.counter }}"
+                               href="./{{ a.r_marca.m_alias }}-calendario"> <span>&nbsp; {{ a.r_marca.m_nombre }}</span></a>
+                            <br>
+                        {% endfor %}
+
+                    </div>
+
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+   
+                {% if request.session.vs.tipoSesion == request.session.vs.MARCA %}
+                
+               
+
+                {% else %}
+                
+                
+       <footer class="footer  destop-min" style="border-top: 1px solid #dcdcdc">
+          <div class="row">
+            <div class="col-xs-12 ">
+                <span class="destop-min"> Calendario - {{ ahora }} - </span>
+                <span class="destop-min"> FAQ </span>
+                <span class="destop-min"> Manifiesto</span>
+                <span class="destop-min"> Planes</span>
+                <span class="destop-min">Terminos y Condiciones</span>
+                <span class="copyright destop-min">Copyright
+					2017 Victorius <img alt="" src="../static/images/isotipo_victorius_negro.svg"> </span>
+
+
+          </div>
+
+        </div>
+    </footer>
+                {% endif %}
+  
+{% endif %}
+<script>
+    $('#boton').click(function () {
+        $(this).addClass(" open");
+    });
+</script>

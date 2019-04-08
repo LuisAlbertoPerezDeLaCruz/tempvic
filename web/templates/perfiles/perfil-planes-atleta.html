@@ -1,0 +1,394 @@
+<!-- perfil-planes-atleta.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block head %}
+
+    <head>
+
+        {% load filtrosEspeciales %}
+        {% include "head.html" %}
+
+        <link rel="stylesheet" type="text/css"
+              href="../../static/css/nuevo_calendario.css"/>
+
+        {% include "header.html" %}
+        {% include "content-tabs.html" %}
+        {% include "tabs_entrenador-calendario.html" %}
+        {% include "scriptsPagos.html" %}
+        {% include "scriptsActividades.html" %}
+
+    </head>
+
+{% endblock %}
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.vic-load').hide();
+        })
+
+        var viendoRecientes=false;
+        var marcaAlias='';
+    </script>
+
+<body>
+
+<!-- Modal -->
+<div class="modal fade modalTabRecarga"  role="dialog" style="z-index: 9999">
+    <div class="modal-dialog">
+        <div class="prdId" hidden><</div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" >
+
+                        	<div
+			style="margin-bottom: 5px; text-transform: initial; line-height: 16px;">
+
+			Te enviaremos un correo con los detalles para el pago por transferencia.
+
+		</div>
+		  <hr>
+
+
+			<div class="vic-table-perf-atle-title tr-n">
+           </div>
+			<div class="m-t-10">Mensualidad HTP. Incluye luenes a jueves
+				cualquier horario. Libre para cualquier disciplina.</div>
+
+
+            <br>
+
+
+			<table class=" tc table-compra t-consumen" border="0"
+				style="font-size: 16px; vertical-align: middle;">
+				<tbody>
+					<tr>
+						<td>
+
+			</td>
+
+			<td style="    width: 109px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;">
+
+<b>INVERSIÓN</b>
+
+<div class="tr-p" style="font-size: 16px;
+    line-height: 16px;    font-weight: 500;
+   "></div>
+    			<div style="font-size: 14px; padding-bottom: 6px;"  ><span class="tr-c"></span>% Dcto.</div>
+
+              </td>
+              </tr>
+              </tbody>
+              </table>
+
+
+    <hr>
+
+<div class="container-fuid text-right">
+<button  onclick="continuarTabRecarga()"
+			 type="button"
+			class="btn btn-md   vic-btn-reservar-reverse ">
+			Continuar</button>
+</div>
+
+		      </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+
+<div class="container">
+
+<div class=" titulo-principal box ">
+    {% if vs.tipoSesion == vs.MARCA %}
+        Planes {{ perfil.atletaNombreCompleto }}
+    {% else %}
+        Mis Planes
+    {% endif %}
+</div>
+        
+</div>
+
+
+    {% esAmigo perfil.atletaId vs.user.id as esAmigo %}
+    {% soy_yo_mismo perfil.atletaId as soyYoMismo %}
+
+  
+
+<div class=" section_perfilPlanes">
+
+    {% include 'table_body_planes_atleta.html' %}
+
+</div>
+</div>
+
+<!-- fin codigo nuevo  -->
+{% block foot %}
+    {% include "fin-content-tabs.html" %}
+    {% include "footer.html" %}
+{% endblock %}
+
+
+
+<script>
+
+
+    function vcPlansMenu(obj, n) {
+
+        $(".vic-plans-menu").hide();
+        $(".vic-plans-box-" + n).show();
+
+        $(".vic-plans-menu-link").removeClass('active');
+        $(obj).addClass('active');
+
+        if (n==2) {
+            $('.tabPlanesActivos').removeClass('active');
+            $('.tabPlanesVencidos').addClass('active');
+            viendoRecientes = true;
+        }
+        else {
+            viendoRecientes=false;
+            $('.tabPlanesVencidos').removeClass('active');
+            $('.tabPlanesActivos').addClass('active');
+        }
+    }
+
+    function vcPerfilMenu1(obj, n) {
+
+        $(".vc-perf-menu1").removeClass("active-perf");
+        $(obj).addClass("active-perf");
+
+        $(".vc-perf-menu1-tab").hide();
+        $(".vc-perf-menu1-tab-" + n).show();
+        //  vc-perf-menu1-2
+        if (n == 2)
+            $(".vic-clase-d-text").html('{{ perfil.profifeInstructor }}');
+        else
+            $(".vic-clase-d-text").html('{{ perfil.atletaObjetivos }}');
+    }
+
+
+    function vcPerfilAtletaMenu1(obj, n) {
+
+         if (n == 1) {
+
+            $(".sap-vh").show();
+            $(".sap-va").hide();
+
+
+        } else {
+
+
+            $(".sap-vh").hide();
+            $(".sap-va").show();
+
+        }
+
+
+        $(".vc-perf-atleta-menu1-tab-" + n).show();
+
+        $(".vc-perf-atleta-menu1-tab").hide();
+
+        $(".vc-perf-atleta-menu1-tab-" + n).show();
+
+
+        //  vc-perf-menu1-2
+
+    }
+
+    function vcPerfilAtletaMenu2(obj, n) {
+
+        $(".vc-perf-atleta-menu2").removeClass("vc-link-perf-active");
+        $(obj).addClass("vc-link-perf-active");
+
+        $(".vc-perf-atleta-menu2-tab").hide();
+
+        $(".vc-perf-atleta-menu2-tab-" + n).show();
+
+        //  vc-perf-menu1-2
+    }
+
+
+    function vcPerfilInstructorMenu1(obj, n) {
+
+        $(".vc-perf-instructor-menu1").removeClass("vc-link-perf-active");
+        $(obj).addClass("vc-link-perf-active");
+
+        $(".vc-perf-instructor-menu1-tab").hide();
+
+        $(".vc-perf-instructor-menu1-tab-" + n).show();
+
+
+        //  vc-perf-menu1-2
+
+    }
+
+    function vcPerfilInstructorMenu2(obj, n) {
+        $(".vc-perf-instructor-menu2").removeClass("vc-link-perf-active");
+        $(obj).addClass("vc-link-perf-active");
+
+        $(".vc-perf-instructor-menu2-tab").hide();
+
+        $(".vc-perf-instructor-menu2-tab-" + n).show();
+
+        if (n == 1) {
+            $('#tabUltimosSieteDiasInst').removeClass('active');
+            $('#tabProximasInst').addClass('active');
+        } else {
+            $('#tabUltimosSieteDiasInst').addClass('active');
+            $('#tabProximasInst').removeClass('active');
+        }
+
+        //  vc-perf-menu1-2
+
+    }
+
+    function muestraReciboPago(planId) {
+        $.ajax({
+            url: '/ajax/getReciboPagoInfo/',
+            data: {
+                'planId': planId,
+            },
+            dataType: 'json',
+            success: function (data) {
+                $("#recibo_centro").text(data.centro);
+                $("#recibo_nombre").text(data.nombre);
+                $("#recibo_alias").text('@' + data.alias);
+                $("#recibo_fecha").text(data.fecha);
+                $("#recibo_totalArriba").text(data.total);
+                $("#recibo_numero").text(data.numeroRecibo);
+                $("#recibo_tipoMedioPago").text(data.medioPago);
+                $("#recibo_banco").text(data.banco);
+                $("#recibo_referencia").text(data.referencia);
+                $("#recibo_planNombre").text(data.planNombre);
+                $("#recibo_planCreditos").text(data.planCreditos);
+                $("#recibo_planFechaVencimiento").text(data.planFechaVencimiento);
+                $("#recibo_planPrecio").text(data.planPrecio);
+                $("#recibo_headerDescuento").html(data.planHeaderDescuento);
+                $("#recibo_planDescuento").text(data.planDescuento);
+                $("#recibo_totalAbajo").text(data.total);
+            }
+        });
+
+        changeTabs('recibo-pago');
+    }
+
+    function entrenador(usuario, estado) {
+        valor = estado ? 2 : 1
+        $.ajax({
+            data: {'usuario': usuario, 'estado': valor},
+            url: "/{{ marca_actual.m_alias }}/estadoentrenador",
+            type: 'get',
+            success: function (data) {
+                window.location.reload();
+            },
+        })
+    }
+
+
+</script>
+
+<script>
+    function cancelarreserva(usuario, actividad, costo) {
+        $.ajax({
+            data: {
+                'usuario': usuario,
+                'actividad': actividad,
+                'costo': costo
+            },
+            url: 'cancelarreserva',
+            type: 'get',
+            success: function (data) {
+                location.reload();
+                var str = data[0]
+                    + " "
+                    + data[1]
+                alertVictorius(str, 1);
+            },
+        })
+    }
+
+    function actualizar_ppa(marcaAlias) {
+        {% if vs.tipoSesion == vs.MARCA %}
+            var parametros = '?pk=' + '{{ vs.marcaEnUsoAlias }}'
+        {% else %}
+            var parametros = '?pk=' + '{{ vs.userAlias }}'
+        {% endif %}
+
+        parametros += '&marcaAlias=' +marcaAlias;
+        parametros = parametros.split(' ').join('+');
+
+        var url;
+        $('.vic-load').show()
+
+        url = "{% url 'web:table_body_planes_atleta' %}";
+
+        $('.vic-load').hide()
+
+
+        $('.section_perfilPlanes').addClass('opasiti-list');
+        Pace.restart();
+
+
+        $('.section_perfilPlanes').load(url + parametros, function () {
+            var section_perfilPlanes = $(this);
+            $('.section_perfilPlanes').removeClass('opasiti-list');
+
+            $('.vic-circle-calendar-carrusel').removeClass('selected');
+            $('.vic-circle-calendar-carrusel-lap').removeClass('selected');
+            $('.vic-circle-calendar-carrusel-65').removeClass('selected');
+            if (marcaAlias==''){
+                $('.resultado_div').hide(0);
+                $('.idDiv_Todos').addClass('selected');
+
+            }
+            else{
+                $('.idDiv_' + marcaAlias).addClass('selected');
+                $('.resultado').html(marcaAlias);
+                $('.resultado_div').show();
+
+            }
+            if (viendoRecientes){
+                $('.tabPlanesVencidos').click();
+                $('.vic-plans-box-1').hide();
+                $('.vic-plans-box-2').show();
+            }else{
+                $('.tabPlanesActivos').click();
+                $('.vic-plans-box-2').hide();
+                $('.vic-plans-box-1').show();
+            }
+
+            $('.vic-load').hide();
+
+        });
+
+    }
+
+    function seleccionCirculoMarca_ppa(marcaAliasIn) {
+          marcaAlias=marcaAliasIn;
+          actualizar_ppa(marcaAliasIn);
+        return
+    }
+
+
+</script>
+
+</body>
+
+</html>

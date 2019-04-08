@@ -1,0 +1,587 @@
+<!-- perfil-atleta.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include "head.html" %}
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$(".vc-perf-dropdonw-down").click(function() {
+
+			$(".vc-perf-dropdown-up").show();
+			$(".vc-perf-dropdonw-down").hide();
+
+			$(".vc-perf-detalle").slideDown(300);
+
+			console.log('up');
+
+		});
+
+		$(".vc-perf-dropdown-up").click(function() {
+
+			$(".vc-perf-dropdonw-down").show();
+			$(".vc-perf-dropdown-up").hide();
+
+			$(".vc-perf-detalle").slideUp(300);
+
+			console.log('down');
+
+		});
+
+	});
+</script>
+
+
+
+</head>
+<body>
+
+	{% include "header.html" %} {% include "content-tabs.html"%} 
+	{% include "tabs_entrenador-calendario.html"%}
+
+	<style type="text/css">
+.vc-multi .item {
+	padding: 1rem;
+	text-align: left;
+	height: 156px;
+	width: 299px;
+	border: 1px solid #E7EAEF;
+}
+
+.center {
+	text-align: left;
+	padding-bottom: 0 !important;
+	padding-top: 0 !important;
+}
+
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span
+	{
+	background: #FFD302;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td,
+	.table>tbody>tr>td, .table>tfoot>tr>td {
+	border-top: 0 !important;
+}
+
+.table {
+	margin-bottom: 0 !important;
+}
+</style>
+
+
+	<div id="vic-tab-2" class="tab-pane in active">
+
+		<!-- codigo nuevo  -->
+	
+		<div class="col-xs-12 rectangle-7"
+			style="padding-bottom: 15px; min-height: 0;">
+				<div class="col-lg-8 col-lg-offset-2  block-vic sin-paddign-cols" style="margin-top: 15px; border-bottom: 0; color: #FFFFFF;">
+					
+						<div class=" col-xs-12 sin-paddign-cols">
+							<img src="../../static/images/avatar.jpg" style=""
+                                 class="img-avatar img-mk">
+
+							<div class="block-1-vic mk-user">
+								<span  style="font-weight: 400;font-size: 20px;font-weight: Raleway;">Juan Soto</span>
+								<div style="margin-top: -6px;">@jsoto</div>
+							</div>
+							<div class="btn-group moreOpsBt"
+								style="position: relative; float: right;">
+								<button type="button"
+									class="btn btn-sm btn-default dropdown-toggle "
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">&nbsp;</button>
+								<ul class="dropdown-menu" style="right: 30px; top: 0px;">
+									<li role="presentation"><a href="#">1 ejemplo</a></li>
+									<li role="presentation"><a href="#">2 ejemplo</a></li>
+
+								</ul>
+							</div>
+						</div>
+
+				</div>
+					</div>
+
+
+	<div class="col-xs-12 "
+			style="text-align: center; background-color: #393939; padding-bottom: 10px;">
+			<div class="vc-perf-dropdown-up" style="display: none;">
+				<i class="fa fa-angle-double-up fa-2x mk-re-ama hvr-shrink "
+					aria-hidden="true"></i>
+			</div>
+			<div class="vc-perf-dropdonw-down">
+				<i class="fa fa-angle-double-down fa-2x mk-re-ama hvr-shrink "
+					aria-hidden="true"></i>
+			</div>
+
+			<div
+				style="font-size: 12px; font-weight: bold; color: white; padding: 10px 0 15px 0">MI
+				PASIÒN</div>
+
+
+			<div class="row vc-perf-detalle"  style="display: none;">
+				<div class="owl-carousel owl-theme custom1">
+					<div class="item">
+
+						<div class="col-lg-8 col-lg-offset-2" style="text-align: center;">
+
+
+								<table class="table ">
+							<colgroup >
+								<col width="20%">
+								<col width="20%">
+								<col width="20%">
+								<col width="20%">
+								<col width="20%">
+					
+							</colgroup>
+									<tr>
+										<td><i class="fa fa-bicycle vc-perf-icon fa-2x"
+											aria-hidden="true"></i>
+											<div
+												style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 30px;">SIPINNING</div>
+
+										</td>
+										<td><i class="fa fa-free-code-camp vc-perf-icon fa-2x"
+											aria-hidden="true"></i>
+											<div
+												style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 30px;">BOXEO</div>
+
+										</td>
+										<td><i class="fa fa-free-code-camp vc-perf-icon fa-2x"
+											aria-hidden="true"></i>
+											<div
+												style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 30px;">RUNNING</div>
+
+										</td>
+										<td><i class="fa fa-free-code-camp vc-perf-icon fa-2x"
+											aria-hidden="true"></i>
+											<div
+												style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 30px;">PESAS</div>
+
+										</td>
+										<td><i class="fa fa-free-code-camp vc-perf-icon fa-2x"
+											aria-hidden="true"></i>
+											<div
+												style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 30px;">YOGA</div>
+										</td>
+									</tr>
+								</table>
+							<div class="col-xs-12"
+								style="margin-top: 10px; text-align: justify;">
+								<div class="mk-2-text2">Ubicado en el Centro Comercial El
+									Recreo, Nivel C1. Este centro cuenta con aproximadamente
+									2.500mt2. Este Centro Fitness es uno de los mas grandes del
+									país. Dotado de tecnología de punta y equipos de la reconocida
+									marca Tecno Gym, que le brindarán a sus usuarios tener las
+									mejores herramientas para ejercitarse y un espacio muy cómodo
+									para realizar su rutina deportiva.</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="item">
+
+						<div class="col-lg-10 col-lg-offset-1" style="text-align: left;">
+							<div class="col-lg-10 col-lg-offset-1">
+								<div class="col-xs-6">
+									<div class="mk-amarillo-text">EMAIL</div>
+									<div class="mk-2-text2">juan@hazling.com</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="mk-amarillo-text">TELF</div>
+									<div class="mk-2-text2">0412 2755589</div>
+								</div>
+
+								<div class="col-xs-12" style="margin-top: 10px">
+									<div class="mk-amarillo-text">FECHA DE NACIMIENTO</div>
+									<div class="mk-2-text2">11 Noviembre 1982</div>
+								</div>
+								<div class="col-xs-12" style="margin-top: 10px">
+									<div class="mk-amarillo-text">DIRECCIÒN</div>
+									<div class="mk-2-text2">Calle Sorocaima Edif. Montecarlo
+										Colinas de Bellomonte. Caracas, Venezuela</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 block-2c">
+
+			<div class=" col-xs-12  block-2c-c ">
+
+
+				<div
+					class="col-md-offset-4 col-md-2 col-xs-6 div-fecha-c active-perf"
+					style="padding-top: 15px;">
+					<a onclick="cambio(0)">ATLETA</a>
+				</div>
+
+				<div class="col-xs-6 col-md-2  div-fecha-c "
+					style="padding-top: 15px;">
+					<a onclick="cambio(0)">INSTRUCTOR</a>
+				</div>
+
+
+
+			</div>
+
+		</div>
+
+      
+		<div class="col-md-8 col-md-offset-2 col-xs-12  "
+			style="margin-top: 20px; text-align: left;">
+
+
+			<div class="col-md-3 col-xs-6 div-fecha-c vc-link-perf "
+				style="padding-top: 15px;">
+				<a onclick="cambio(0)" class="vc-link-perf-active">PRODUCTOS
+					ACTIVOS</a>
+			</div>
+
+			<div class=" col-xs-6 col-md-6  div-fecha-c vc-link-perf"
+				style="padding-top: 15px;">
+				<a onclick="cambio(0)" class="vc-link-perf-gray">HISTORIAL</a>
+			</div>
+
+		</div>
+		<div class="col-xs-12"> 
+		<div class="col-md-8 col-md-offset-2 col-xs-12  columns"
+			style="text-align: center; padding-top: 10px;">
+
+
+			<div class="owl-carousel owl-theme vc-multi">
+				<div class="item">
+					<div class="row">
+						<div class="col-xs-5 " style="padding-right: 0">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 8px; font-weight: bold;">ZONA
+								FUNCIONAL</div>
+							<div
+								style="color: #FFD302; font-family: Roboto; font-size: 14px; font-weight: 900;">SUPER
+								BIKE</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal;">Spinning</div>
+						</div>
+						<div class="col-xs-4 "
+							style="padding-right: 0; padding-left: 5px; margin-top: 10px;">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; font-weight: bold;">10.000,00
+								Bs</div>
+							<div
+								style="color: #999; font-family: Roboto; font-size: 12px; font-weight: normal;">10%
+								dcto</div>
+
+						</div>
+						<div class="col-xs-3" style="padding-left: 0;">
+							<div
+								style="float: right; max-width: 306px; height: 50px; width: 50px; border-radius: 50%; box-sizing: border-box; border: 1.5px solid #E7E9ED; background-color: #9B9B9B;">
+							</div>
+
+						</div>
+						<div class="col-xs-3"
+							style="margin-top: 18px; margin-bottom: 18px;">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 22px; font-weight: 900; line-height: 16px;">3/16</div>
+						</div>
+						<div class="col-xs-9"
+							style="margin-top: 23px; margin-bottom: 18px; padding-left: 0;">
+							<div class="progress progress-striped"
+								style="height: 7px; margin-bottom: 7px">
+								<div class="progress-bar progress-bar-info" role="progressbar"
+									aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+									style="width: 20%; background-color: #FFCD00">
+									<span class="sr-only">20% completado</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-5 " style="padding-right: 0">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; line-height: 13px; font-weight: 500;">Comprado</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal; line-height: 13px;">18/06/2017</div>
+
+						</div>
+						<div class="col-xs-7 ">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; font-weight: 500; line-height: 13px;">Vence</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal; line-height: 13px;">30/07/2017</div>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!-- bucle ejemplo -->
+
+				<div class="item">
+					<div class="row">
+						<div class="col-xs-5 " style="padding-right: 0">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 8px; font-weight: bold;">YOGASHALA</div>
+							<div
+								style="color: #FFD302; font-family: Roboto; font-size: 14px; font-weight: 900;">YOGA
+								PRO</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal;">yoga</div>
+						</div>
+						<div class="col-xs-4 "
+							style="padding-right: 0; padding-left: 5px; margin-top: 10px;">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; font-weight: bold;">120.000,00
+								Bs</div>
+							<div
+								style="color: #999; font-family: Roboto; font-size: 12px; font-weight: normal;">0%
+								dcto</div>
+
+						</div>
+						<div class="col-xs-3" style="padding-left: 0;">
+							<div
+								style="float: right; max-width: 306px; height: 50px; width: 50px; border-radius: 50%; box-sizing: border-box; border: 1.5px solid #E7E9ED; background-color: #9B9B9B;">
+							</div>
+
+						</div>
+						<div class="col-xs-3"
+							style="margin-top: 18px; margin-bottom: 18px;">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 22px; font-weight: 900; line-height: 16px;">7/20</div>
+						</div>
+						<div class="col-xs-9"
+							style="margin-top: 23px; margin-bottom: 18px; padding-left: 0;">
+							<div class="progress progress-striped"
+								style="height: 7px; margin-bottom: 7px">
+								<div class="progress-bar progress-bar-info" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="20"
+									style="width: 40%; background-color: #FFCD00">
+									<span class="sr-only">40% completado</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-5 " style="padding-right: 0">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; line-height: 13px; font-weight: 500;">Comprado</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal; line-height: 13px;">18/06/2017</div>
+
+						</div>
+						<div class="col-xs-7 ">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; font-weight: 500; line-height: 13px;">Vence</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal; line-height: 13px;">30/07/2017</div>
+
+						</div>
+
+					</div>
+				</div>
+
+
+				<div class="item">
+					<div class="row">
+						<div class="col-xs-5 " style="padding-right: 0">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 8px; font-weight: bold;">YOGASHALA</div>
+							<div
+								style="color: #FFD302; font-family: Roboto; font-size: 14px; font-weight: 900;">YOGA
+								PRO</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal;">yoga</div>
+						</div>
+						<div class="col-xs-4 "
+							style="padding-right: 0; padding-left: 5px; margin-top: 10px;">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; font-weight: bold;">120.000,00
+								Bs</div>
+							<div
+								style="color: #999; font-family: Roboto; font-size: 12px; font-weight: normal;">0%
+								dcto</div>
+
+						</div>
+						<div class="col-xs-3" style="padding-left: 0;">
+							<div
+								style="float: right; max-width: 306px; height: 50px; width: 50px; border-radius: 50%; box-sizing: border-box; border: 1.5px solid #E7E9ED; background-color: #9B9B9B;">
+							</div>
+
+						</div>
+						<div class="col-xs-3"
+							style="margin-top: 18px; margin-bottom: 18px;">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 22px; font-weight: 900; line-height: 16px;">7/20</div>
+						</div>
+						<div class="col-xs-9"
+							style="margin-top: 23px; margin-bottom: 18px; padding-left: 0;">
+							<div class="progress progress-striped"
+								style="height: 7px; margin-bottom: 7px">
+								<div class="progress-bar progress-bar-info" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="20"
+									style="width: 40%; background-color: #FFCD00">
+									<span class="sr-only">40% completado</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-5 " style="padding-right: 0">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; line-height: 13px; font-weight: 500;">Comprado</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal; line-height: 13px;">18/06/2017</div>
+
+						</div>
+						<div class="col-xs-7 ">
+							<div
+								style="color: #393939; font-family: Roboto; font-size: 12px; font-weight: 500; line-height: 13px;">Vence</div>
+							<div
+								style="font-family: Roboto; font-size: 13px; font-weight: normal; line-height: 13px;">30/07/2017</div>
+
+						</div>
+
+					</div>
+				</div>
+
+
+				<!-- bucle ejemplo fin -->
+
+			</div>
+
+		</div>
+</div>
+		<div class="col-xs-12 "
+			style="border: 1px solid #8B96AA; width: 100%; margin-top: 40px;"></div>
+
+
+		
+		<div class="col-md-8 col-md-offset-2 col-xs-12  "
+			style="margin-top: 20px; text-align: left;">
+
+
+			<div class="col-md-3 col-xs-6 div-fecha-c vc-link-perf "
+				style="padding-top: 15px; ">
+				<a onclick="cambio(0)" class="vc-link-perf-active">CLASES AGENDADAS</a>
+			</div>
+
+			<div class=" col-xs-6 col-md-6  div-fecha-c vc-link-perf"
+				style="padding-top: 15px;">
+				<a onclick="cambio(0)" class="vc-link-perf-gray">HISTORIAL</a>
+			</div>
+
+			<table class=" table-compra t-consumen" border="0" style=" padding-left: 0; line-height: 50px; margin-top: 20px;">
+				<colgroup >
+
+					<col width="97%">
+					<col width="3%">
+				</colgroup>
+
+				<tbody>
+
+					<tr>
+
+						<td ><div class="col-xs-12 "
+								style="color: #FFD302; font-family: Roboto; font-size: 16px; font-weight: 900;text-align: left;">Miercoles
+								30 Ago, 2017</div></td>
+
+						<td style="text-align: right;" class="destop"><i class="fa fa-cog  fa-2x fa-fw margin-bottom " style="cursor: pointer;"></i></td>
+
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+
+    <!-- inicio bucle una tabla por reguistro -->
+<div class="col-xs-12 " style="border: 1px solid #E7EAEF;width: 100%;"></div>
+    
+    <div class="col-xs-12 " >
+		<div class="col-md-8 col-md-offset-2 col-xs-12  "
+			style="margin-top: 5px; margin-bottom: 5px; text-align: left;">
+
+			<table class=" table-compra t-consumen" border="0" style="vertical-align: middle; ">
+				<colgroup class="destop">
+					<col width="10%">
+					<col width="10%">
+					<col width="15%">
+					<col width="15%">
+					<col width="28%">
+					<col width="3%">
+				</colgroup>
+				<colgroup class="movil">
+					<col width="25%">
+					<col width="24%">
+					<col width="24%">
+					<col width="24%">
+					<col width="3%">
+				</colgroup>
+				<tbody>
+
+					<tr style="padding-top: 10px">	
+
+						<td style="text-align: left; border-right: 1px solid #CCD3DE"><div
+								style="font-family: Roboto; font-size: 14px; font-weight: bold; line-height: 14px;">7:30
+							 	a.m.</div></td>
+						<td style="text-align: center;"><i
+							class="fa fa-bicycle  fa-2x" aria-hidden="true"></i>
+							<div
+								style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 20px;">SIPINNING</div>
+						</td>
+						<td style="text-align: left;">
+						
+						<div style="font-family: Roboto; font-size: 14px; font-weight: bold; line-height: 14px;">SUPER BIKE</div>
+						
+						</td>
+						<td><div style="font-family: Roboto; font-size: 14px; font-weight: normal; text-align: left;">Zona Funcional<div>Sala 5</div></div></td>
+						<td class="destop"></td>
+						<td style="text-align: right;">
+							<div class="btn-group moreOpsBt" style="position: relative;">
+								<button type="button"
+									class="btn btn-sm btn-default dropdown-toggle "
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">&nbsp;</button>
+								<ul class="dropdown-menu" style="right: 30px; top: 0;">
+
+									<li role="presentation"><a onclick="mostrar('70')"
+										href="#">REGISTRAR PAGO</a></li>
+
+								</ul>
+							</div>
+						</td>
+
+					</tr>
+				
+				</tbody>
+			</table>
+
+		</div>
+		</div>
+		
+ <!-- fin bucle una tabla por reguistro -->
+ 		<div class="col-xs-12 " style="border: 1px solid #E7EAEF;width: 100%;"></div>
+ <!-- fin -->
+
+ 
+
+
+
+	</div>
+
+
+	<!-- fin codigo nuevo  -->
+
+
+	{% include "fin-content-tabs.html"%} {% include "footer.html" %}
+
+
+</body>
+
+</html>

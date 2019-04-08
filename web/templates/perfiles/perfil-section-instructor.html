@@ -1,0 +1,57 @@
+{% load filtrosEspeciales %}
+
+    <div id="vic1tab2" style="display: none;" class="vc-perf-menu1-tab vc-perf-menu1-tab-2 animated fadeIn">
+
+
+
+<div class="container" style="padding-top: 15px;">
+
+<div class="btn-group  vic-btn-default btn-group-justified m-t-20" role="group" aria-label="...">
+  <div class="btn-group" role="group">
+   <button type="button" class="btn btn-default vic-perfil-dash-opt border-active vic-perfil-menu-opt" onclick="changeOptionPerfil('vic-perfil-dash')">DASHBOARD</button>  </div>
+  <div class="btn-group" role="group">
+   <button type="button" class="btn btn-default vic-perfil-pagos-opt vic-perfil-menu-opt"  onclick="changeOptionPerfil('vic-perfil-pagos')">PAGOS</button>
+     </div>
+  <div class="btn-group" role="group">
+<button type="button" class="btn btn-default  vic-perfil-actividadesInstructor-opt vic-perfil-menu-opt"  onclick="changeOptionPerfil('vic-perfil-actividadesInstructor')">ACTIVIDADES</button>  </div>
+</div>
+
+        {% if vs.tipoSesion == vs.MARCA or soyYoMismo %}
+          <div class="vic-perfil-pagos vic-perfil-menu ">
+        
+            {% include "perfil-section-instructor-remun.html" %}
+            </div>
+            
+            <div class="vic-perfil-actividadesInstructor vic-perfil-menu">
+            
+            {% include "perfil-section-instructor-actividades.html" %}
+            </div>
+        {% else %}
+            {% if esAmigo or modoInstructor %}
+            
+               <div class="vic-perfil-actividades vic-perfil-menu">
+            
+            {% include "perfil-section-instructor-actividades.html" %}
+            
+            </div>
+                
+            {% else %}
+            
+                           <div class="vic-perfil-actividades vic-perfil-menu">
+            
+                <div>
+                    <div id="idDivBienvenida" class="text-center col-xs-12 ">
+                        <hr>
+                        <i class="fa fa-lock fa-4x" aria-hidden="true"></i>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                            Esta cuenta es privada
+                        </div>
+                    </div>
+                </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</div>
+

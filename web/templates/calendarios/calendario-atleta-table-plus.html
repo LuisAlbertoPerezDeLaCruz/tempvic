@@ -1,0 +1,31 @@
+{% extends 'calendario-atleta-table.html' %}
+
+{% block mensajesPlus %}
+        <script>
+    $('.PREVIA').remove();
+    $('.PREVIA').remove();
+    </script>
+    {% if numPagesIZQ == 0 %}
+        <div class="text-center col-xs-12 soloIZQ ">
+            <br> <br> <br>
+            <img src="../static/images/moon.svg">
+            <div class=" vic-title-ms">No encontre actividades</div>
+            <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                Cuando hayan actividades en tus centros afiliados<br> podrás verlas aquí.
+            </div>
+            <br>
+        </div>
+    {% endif %}
+    {% if numPagesDER == 0 %}
+        <div class="text-center col-xs-12 soloDER ">
+            <br>
+            <img src="../../static/images/moon.svg">
+            <div class=" vic-calendar-title">No tienes actividades planificadas...</div>
+            <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">¡Activate!
+                Explora las actividades que tus centros<br>tienen abiertas y reservate.
+                <br class="md-movil">
+            </div>
+            <br>
+        </div>
+    {% endif %}
+{% endblock mensajesPlus %}

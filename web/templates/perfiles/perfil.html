@@ -1,0 +1,1234 @@
+<!-- perfil.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load filtrosEspeciales %}
+
+    {% load staticfiles %}
+
+    {% include "head.html" %}
+
+    <link rel="stylesheet" type="text/css"
+          href="../../static/css/nuevo_calendario.css"/>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //Carga las actividades del atleta
+            parametros="?pka={{ perfil.atletaAlias }}"
+            parametros+="&marcaAlias={{ vs.marcaEnUsoAlias }}"
+            parametros = parametros.split(' ').join('+');
+            url = "{% url 'web:perfil-actividades-atleta' %}"
+            $('.seccionActividades').load(url  + parametros, function () {
+                 $('.vic-load').hide();
+            });
+
+            //Carga la informacion de los planes del atleta
+            url = "{% url 'web:perfil-planes-atleta' %}"
+            $('.seccionPlanes').load(url  + parametros, function () {
+                 $('.vic-load').hide();
+            });
+
+            $('.vic-load').hide();
+
+            $('.vc-multi').owlCarousel({
+                loop: false,
+                center: false,
+                dots: true,
+                margin: 5,
+                responsiveClass: true,
+                animateOut: 'fadeOut',
+                nav: false,
+                autoWidth: true,
+                //autoplay:true,
+                //autoplayTimeout:5000,
+                // autoplayHoverPause:true,
+                rewind: true,
+                responsive: {
+                    0: {
+                        items: 2,
+                        dots: true
+                    },
+                    600: {
+                        items: 3,
+                        dots: true
+                    },
+                    1000: {
+                        items: 4,
+                        loop: false,
+                        dots: true,
+                        margin: 20
+                    }
+
+
+                }
+            });
+
+            {% if modoInstructor %}
+                $(".vcPerfilMenu1").val(2);
+                vcPerfilMenu1(this, 2);
+
+            parametros="?pka={{ perfil.atletaAlias }}"
+            parametros+="&marcaAlias={{ vs.marcaEnUsoAlias }}"
+            parametros = parametros.split(' ').join('+');
+            url = "{% url 'web:perfil-actividades-instructor' %}"
+            $('.vic-load').show();
+            $('.seccionActividadesInstructor').load(url  + parametros, function () {
+                 $('.vic-load').hide();
+            });
+
+            {% else %}
+                $(".vcPerfilMenu1").val(1);
+                vcPerfilMenu1(this, 1);
+            {% endif %}
+
+            $(".vc-perf-dropdonw-down").click(function () {
+
+                $(".vc-perf-dropdown-up").show();
+                $(".vc-perf-dropdonw-down").hide();
+
+                $(".vc-perf-detalle").slideDown(300);
+
+
+            });
+
+            $(".vc-perf-dropdown-up").click(function () {
+
+                $(".vc-perf-dropdonw-down").show();
+                $(".vc-perf-dropdown-up").hide();
+
+                $(".vc-perf-detalle").slideUp(300);
+
+
+            });
+
+            $(".clickable-col").click(function () {
+                window.location = $(this).data("href");
+            });
+
+            $('input:file').change(
+                function () {
+                    if ($(this).val()) {
+                        $('#cambioFotoSubir').click();
+                    }
+                }
+            );
+
+
+            $("#cambiarFotoBtn").click(function () {
+                $("#cambioFotoSeleccionar").click();
+            });
+
+            $('#cambioFotoSubir').click(function () {
+                $('#spinner').show();
+            });
+
+            function vcPerfilMenu1(obj, n) {
+
+                $(".vc-perf-menu1").removeClass("active-perf");
+                $(obj).addClass("active-perf");
+
+                $(".vc-perf-menu1-tab").hide();
+                $(".vc-perf-menu1-tab-" + n).show();
+                //  vc-perf-menu1-2
+                if (n == 2)
+                    $(".vic-clase-d-text").html('{{ perfil.profifeInstructor }}');
+                else
+                    $(".vic-clase-d-text").html('{{ perfil.atletaObjetivos }}');
+            }
+
+
+            $('.vcPerfilMenu1').change(function () {
+                changeOptionPerfil('vic-perfil-dash');
+
+                vcPerfilMenu1(this, $(this).val());
+            });
+
+            $('#idCambioAvatar').change(function () {
+                document.forms["formAvatar"].submit();
+            });
+
+        });
+
+        function cancelarUsuario(usuario, actividad, costo) {
+            cancelarActualizar(actualizar, usuario, actividad, costo)
+        }
+
+        function actualizar() {
+            window.location.reload();
+        }
+
+        function changeOptionPerfil(opt) {
+
+            if (opt == "vic-perfil-actividadesAtleta") {
+                cargarActividadesAtleta();
+
+            }
+
+            $('.vic-perfil-menu-opt').removeClass('border-active');
+            $('.' + opt + '-opt').addClass('border-active');
+
+            $('.vic-perfil-menu').hide(0, function () {
+                $('.' + opt).show(0);
+
+            });
+
+
+        }
+
+        function toogleInstructor() {
+            parametros="?pka={{ perfil.atletaAlias }}"
+            parametros+="&marcaAlias={{ vs.marcaEnUsoAlias }}"
+            parametros = parametros.split(' ').join('+');
+            url = "{% url 'web:perfil-actividades-instructor' %}"
+            $('.vic-load').show();
+            $('.seccionActividadesInstructor').load(url  + parametros, function () {
+                 $('.vic-load').hide();
+            });
+            $('.vic-load').show();
+            url = "{% url 'web:perfil-remuneraciones-instructor' %}"
+            $('.seccionRemuneracionesInstructor').load(url  + parametros, function () {
+                 $('.vic-load').hide();
+            });
+
+            $(".btn-atleta").hide();
+            $(".btn-instructor").show();
+            $(".box-atleta").hide();
+            $(".box-instructor").show();
+
+        }
+
+        function toogleAtleta() {
+            parametros="?pka={{ perfil.atletaAlias }}"
+            parametros+="&marcaAlias={{ vs.marcaEnUsoAlias }}"
+            parametros = parametros.split(' ').join('+');
+            url = "{% url 'web:perfil-actividades-atleta' %}"
+            $('.vic-load').show();
+            $('.seccionActividades').load(url  + parametros, function () {
+                 $('.vic-load').hide();
+            });
+
+            $(".btn-atleta").show();
+            $(".btn-instructor").hide();
+            $(".box-atleta").show();
+            $(".box-instructor").hide();
+
+        }
+
+
+        function muestraActividades() {
+            $('#idContenidoActividadesInstructor').hide();
+            $('#idContenidoPlanes').hide();
+            $('#idContenidoPerfil').hide();
+            $('#idContenidoRemuneracionesInstructor').hide();
+            $('#idContenidoActividades').show();
+        }
+
+        function muestraPlanes() {
+           $('#idContenidoActividadesInstructor').hide();
+            $('#idContenidoActividades').hide();
+            $('#idContenidoPerfil').hide();
+            $('#idContenidoRemuneracionesInstructor').hide();
+            $('#idContenidoPlanes').show();
+        }
+
+        function muestraPerfil() {
+            $('#idContenidoActividades').hide();
+            $('#idContenidoActividadesInstructor').hide();
+            $('#idContenidoPlanes').hide();
+            $('#idContenidoRemuneracionesInstructor').hide();
+            $('#idContenidoPerfil').show();
+        }
+
+        function muestraActividadesInstructor() {
+            $('#idContenidoActividades').hide();
+            $('#idContenidoPlanes').hide();
+            $('#idContenidoRemuneracionesInstructor').hide();
+            $('#idContenidoPerfil').hide();
+            $('#idContenidoActividadesInstructor').show();
+        }
+
+        function muestraRemuneracionesInstructor() {
+            $('#idContenidoActividades').hide();
+            $('#idContenidoPlanes').hide();
+            $('#idContenidoActividadesInstructor').hide();
+            $('#idContenidoPerfil').hide();
+            $('#idContenidoRemuneracionesInstructor').show();
+        }
+
+    </script>
+
+
+    <style type="text/css">
+
+
+        .vic-perfil-pagos {
+            display: none;
+
+        }
+
+        .vic-perfil-actividades {
+            display: none;
+
+        }
+
+        .vic-perfil-planes {
+            display: none;
+
+        }
+
+        .vic-btn-default {
+
+            background-color: #EEF0F4 !important;
+        }
+
+        .vic-btn-default .btn-default {
+
+            color: #333 !important;
+            font-weight: 600;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+            font-size: 18px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+
+        }
+
+        .vic-btn-default .btn-default:focus {
+            outline: 0px;
+
+        }
+
+        .vic-btn-default .btn-default.border-active {
+
+            border-bottom: 2px solid #FFD302;
+        }
+
+        .vic-btn-default2 {
+            padding-top: 10px;
+
+        }
+
+        @media ( max-width: 767px) {
+            .opt-perfil-drop {
+                background: none;
+                float: right;
+
+            }
+
+            .vic-btn-default {
+
+                background-color: #EEF0F4 !important;
+            }
+
+            .vic-btn-default .btn-default {
+                font-size: 14px;
+
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+{% include "scriptsPagos.html" %}
+{% include "scriptsActividades.html" %}
+
+<style type="text/css">
+
+
+    .vic-ma-caja-texto {
+        width: auto;
+    }
+
+    .vic-ma-header:after {
+        letter-spacing: -6px;
+        content: "{{ perfil.atletaIniciales }}";
+        line-height: 1em;
+
+        color: rgba(155, 155, 155, 0.1);
+        font-size: 7em;
+        height: 120px;
+        overflow: hidden;
+        box-sizing: border-box;
+        position: absolute;
+    }
+
+    .t-consumen td {
+
+        height: 40px;
+    }
+
+    .moreOpsBt {
+        position: relative;
+        /* bottom: 0; */
+        /* right: 0px; */
+        z-index: 4;
+        height: 21px;
+    }
+
+    .active-perf {
+        background: white;
+        text-decoration: none;
+        font-weight: normal;
+    }
+
+    .vc-perf-menu1-tab-2, .vc-perf-menu1-tab-1 {
+        display: none;
+
+    }
+
+</style>
+
+<!-- Modal -->
+
+<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999">
+
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+{% esAmigo perfil.atletaId vs.user.id as esAmigo %}
+{% soy_yo_mismo perfil.atletaId as soyYoMismo %}
+
+
+
+{% with paInfo=perfil.atletaInfoGeneral %}
+
+ 
+
+    <div id="vic-tab-perfil-aa" class="tab-pane ">
+
+
+        <div class="col-xs-12  block-5-vic " style="background: #EEF0F4;height: 50px">
+
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close2.png"
+                 class="blank-img  hvr-grow " onclick="changeTabs(2);">
+
+            <span class="nav-rectangle-5"> ACTIVIDADES</span>
+        </div>
+
+
+    </div>
+    <div id="vic-tab-perfil-ap" class="tab-pane ">
+        vic-tab-perfil-ap
+    </div>
+    <div id="vic-tab-perfil-ia" class="tab-pane ">
+        vic-tab-perfil-ia
+    </div>
+    <div id="vic-tab-perfil-ir" class="tab-pane ">
+        vic-tab-perfil-ir
+    </div>
+    
+
+ <div id="vic-tab-2" class="tab-pane in active">
+        
+    <div id="idContenidoPerfil" style="display: unset">
+
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="vic-marca-agua vic-ma-header col-xs-12">
+                        <div class="vic-ma-perfil-texto ">
+
+                            <div>
+                                <img id="fotoPerfil" class="foto-perfil" style="width:
+                           90px; height: 90px; border: solid 2px #ffcd00; padding:10px; margin-top: 0px;margin-bottom: 15px"
+                                     src="{{ perfil.rutaAvatar }}?dummy={{ dummy }}"
+                                     onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/victorius_avatar.svg'">
+                                <form id="formAvatar" name="formAvatar" method="post"
+                                      action="perfil-atleta-{{ vs.userAlias }}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    {% if soyYoMismo and vs.tipoSesion == vs.ATLETA %}
+
+                                        <label for="idCambioAvatar" class="custom-file-upload">
+                                            <i class="fa fa-cloud-upload"></i> cambiar foto
+                                        </label>
+                                        <input id='idCambioAvatar' type="file" name="myAvatar">
+                                        <br><br>
+
+                                    {% endif %}
+
+                                </form>
+                            </div>
+
+                            <div class="vic-perfil-client-name">
+
+                                {% if vs.tipoSesion == vs.ATLETA and vs.userAlias == perfil.atletaAlias %}
+
+                                    <div class="pull-right">
+
+                                        <a href="confatleta">
+                                            <button type="button" class="btn btn-link">Editar ></button>
+                                        </a>
+                                    </div>
+
+                                {% endif %}
+
+{% comment %}                                {{ perfil.atletaNombreCompleto }}{% endcomment %}
+
+                                {% if perfil.atletaAlias == vs.userAlias %}
+
+                                    <span style="background-color: rgba(255,204,0,0.6)"> {{ perfil.atletaNombreCompleto }} </span>
+                                    <span style="" class=""> (Tú) </span>
+
+                                {% else %}
+                                    <span style="">   {{ perfil.atletaNombreCompleto }}</span>
+
+                                {% endif %}
+
+                            </div>
+                            <div class="vic-perfil-client-alias">@{{ perfil.atletaAlias }}</div>
+                            <br>
+                            <div class="vic-text-descrip">{{ perfil.atletaObjetivos }}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container">
+
+                {% if puedeVer.PerfilAtleta %}
+
+                    <br>
+                    <table class="m-t-15 box-atleta">
+                        <tr>
+                            {% if puedeVer.ActividadesAtleta %}
+
+                                <td style="width: 100px;text-align: center;">
+                                  
+                                    {% comment %}                                <a href="perfil-actividades-atleta-{{ perfil.atletaAlias }}" onclick=""
+                                   target="_blank">
+                                    <div id="idDiv_PA_Act" class="vic-circle-calendar-carrusel selected "
+                                         style="display: table;margin: auto;border: 0;"
+                                         >
+                                        <div style="font-size: 30px; display: table-cell;vertical-align:middle">
+                                            <i class="fas fa-heartbeat"></i>
+
+                                        </div>
+                                    </div>
+                                
+                                    <div style="font-size:12px">
+                                        Actividades
+                                    </div>
+                                </a>{% endcomment %}
+
+                                    <a onclick="muestraActividades()"
+                                       target="_blank">
+                                        <div id="idDiv_PA_Act" class="vic-circle-calendar-carrusel selected "
+                                             style="display: table;margin: auto;border: 0;"
+                                             >
+                                            <div style="font-size: 30px; display: table-cell;vertical-align:middle">
+                                                <i class="fas fa-heartbeat"></i>
+
+                                            </div>
+                                        </div>
+                                      
+                                        <div style="font-size:12px;cursor: pointer">
+                                            Actividades
+                                        </div>
+                                    </a>
+
+                                </td>
+
+                            {% endif %}
+
+                            {% if puedeVer.PlanesAtleta %}
+
+                                <td style="width: 100px;text-align: center;">
+                                    
+
+{% comment %}                                    <a href="perfil-planes-atleta-{{ perfil.atletaAlias }}" onclick=""
+                                       target="_blank">
+                                        <div id="idDiv_PA_Pln" class="vic-circle-calendar-carrusel selected "
+                                             style="display: table;margin: auto;border: 0;"
+                                             >
+                                            <div style="font-size: 25px; display: table-cell;vertical-align:middle">
+                                                <i class="fas fa-tags"></i>
+
+                                            </div>
+                                        </div>
+                                       
+                                        <div style="font-size:12px">
+                                            Planes
+                                        </div>
+                                    </a>{% endcomment %}
+                                    <a onclick="muestraPlanes();"
+                                       target="_blank">
+                                        <div id="idDiv_PA_Pln" class="vic-circle-calendar-carrusel selected "
+                                             style="display: table;margin: auto;border: 0;"
+                                             >
+                                            <div style="font-size: 25px; display: table-cell;vertical-align:middle">
+                                                <i class="fas fa-tags"></i>
+
+                                            </div>
+                                        </div>
+                                       
+                                        <div style="font-size:12px;cursor: pointer">
+                                            Planes
+                                        </div>
+                                    </a>
+                                </td>
+
+                            {% endif %}
+
+                        </tr>
+                    </table>
+
+                {% endif %}
+
+                {% if puedeVer.PerfilInstructor %}
+
+                    <table class="m-t-15 box-instructor" style="display: none;">
+                        <tr>
+                            {% if puedeVer.ActividadesInstructor %}
+
+                                <td style="width: 100px;text-align: center;">
+
+{% comment %}                                    <a href="perfil-actividades-instructor-{{ perfil.atletaAlias }}" onclick=""
+                                       target="_blank">
+                                        <div id="idDiv_Todos" class="vic-circle-calendar-carrusel selected "
+                                             style="display: table;margin: auto;border: 0;">
+                                            <div style="font-size: 30px; display: table-cell;vertical-align:middle">
+                                                <i class="fas fa-heartbeat"></i>
+
+                                            </div>
+                                        </div>
+                                      
+                                        <div style="font-size:12px">
+                                            Actividades
+                                        </div>
+                                    </a>{% endcomment %}
+                                    <a  onclick="muestraActividades();"
+                                       target="_blank">
+                                        <div id="idDiv_Todos" class="vic-circle-calendar-carrusel selected "
+                                             style="display: table;margin: auto;border: 0;">
+                                            <div style="font-size: 30px; display: table-cell;vertical-align:middle">
+                                                <i class="fas fa-heartbeat"></i>
+
+                                            </div>
+                                        </div>
+                                       
+                                        <div style="font-size:12px;cursor: pointer">
+                                            Actividades
+                                        </div>
+                                    </a>
+
+                                </td>
+
+                            {% endif %}
+
+                            {% if puedeVer.RemuneracionesInstructor %}
+
+                                <td style="width: 100px;text-align: center;">
+                                 
+
+                                    <a onclick="muestraRemuneracionesInstructor();"
+                                       target="_blank">
+                                        <div id="idDiv_Todos" class="vic-circle-calendar-carrusel selected "
+                                             style="display: table;margin: auto;border: 0;"
+                                             >
+                                            <div style="font-size: 25px; display: table-cell;vertical-align:middle">
+                                                <i class="fas fa-dollar-sign"></i>
+
+                                            </div>
+                                        </div>
+                                      
+                                        <div style="font-size:12px;cursor: pointer">
+                                            Remuneraciones
+                                        </div>
+                                    </a>
+                                </td>
+
+                            {% endif %}
+
+                        </tr>
+                    </table>
+                    <br>
+
+                {% endif %}
+
+                <div class="row" style="display: none">
+                    {% if puedeVer.PerfilInstructor %}
+                        {% if puedeVer.PerfilAtleta %}
+                            <div class="col-xs-12 col-md-4 vic-atlreta  animated fadeIn m-t-10 btn-atleta">
+                                <button style="text-align: center" type="button"
+                                        class="btn btn-md  btn-block vic-btn-reservar-reverse "
+                                        onclick="toogleInstructor()">
+                                    Ver perfil de instructor
+                                </button>
+
+                            </div>
+                        {% else %}
+                            <script>
+                                toogleInstructor()
+                            </script>
+                        {% endif %}
+                    {% endif %}
+                    {% if puedeVer.PerfilAtleta %}
+                        <div style=" display: none;" class="col-xs-12 col-md-4 animated fadeIn m-t-10 btn-instructor">
+                            <button style="text-align: center;" type="button"
+                                    class="btn btn-md  btn-block vic-btn-reservar-reverse " onclick="toogleAtleta()">
+                                Ver perfil de atleta
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <br> <br>
+            </div>
+
+
+            <div class="container">
+                <br>
+                <div class="vic-perfil-atl-inst-sub-title ">DATOS PERSONALES</div>
+                <hr class="m-b-t-5">
+
+                <div class="flex-container vic-dp-table">
+
+                    <div class="box-1">
+                        Cumpleaños
+                    </div>
+                    <div class="box-2">
+                        {{ perfil.atletaFechaNacimiento|fechaMedioLarga }}
+                    </div>
+
+                </div>
+                <hr class="m-b-t-5">
+
+                <div class="flex-container vic-dp-table ">
+
+                    <div class="box-1">
+                        Teléfono
+                    </div>
+                    <div class="box-2">
+                        {{ perfil.atletaTelefono }}
+                    </div>
+
+                </div>
+                <hr class="m-b-t-5">
+
+                <div class="flex-container vic-dp-table ">
+
+                    <div class="box-1">
+                        Correo
+                    </div>
+                    <div class="box-2">
+                        {{ perfil.atletaCorreo }}
+                    </div>
+
+                </div>
+                <hr class="m-b-t-5">
+
+            </div>
+
+
+            {% if  perfil.atletaEstadoConfiguracion > 0 %}
+
+
+                <div class="container vic-perfil-dash vic-perfil-menu">
+
+                    <div class="vic-perfil-atl-inst-sub-title m-t-15">ACTIVIDADES FAVORITAS</div>
+                    <hr class="m-b-t-5">
+
+                    <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn ">
+
+                        <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px">
+                            <div class="owl-carousel owl-theme marcasCarrusel m-t-10">
+
+
+                                {% for disciplina in perfil.atletaDisciplinas %}
+                                    {% if forloop.counter0 < 5 %}
+
+
+
+                                        <div>
+                                       
+                                            <div id="idDiv_Todos" class="vic-circle-calendar-carrusel b-black "
+                                                 style="display: table;margin: auto"
+                                                 >
+                                                <div style="font-size: 18px; display: table-cell;vertical-align:middle">
+                                                    <img src="{{ disciplina.imagenDisciplinaNegra }}"
+                                                         style="width: 40px; height: 40px;margin-left: 7px;">
+
+                                                </div>
+                                            </div>
+                                    
+                                            <div style="font-size:12px">
+                                                {{ disciplina.nombreDisciplina }}
+                                            </div>
+                                        </div>
+
+                                    {% endif %}
+                                {% endfor %}
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            {% else %}
+
+                <div id="idDivBienvenida" class="text-center col-md-8 col-md-offset-2 ">
+                    <i class="fa fa-bolt fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+
+                    <div class=" vic-calendar-title">{{ perfil.atletaPrimerNombre }}<br>¡Bienvenido a Victorius!</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Aún no cuentas
+                        con
+                        información en tu perfil, no te <br>
+                        preocupes, una vez afilies tus centros podrás<br>
+                        comenzar a ver mas información
+                        <br><br>
+                        <a type="button" class="btn btn-xs  vic-btn-reservar-reverse  " href="/centros">Centros</a>
+                    </div>
+                    <br>
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+  
+
+    <div id="idContenidoActividades" style="display: none">
+
+        <div class="w-100">
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                         class="pull-right" onclick="muestraPerfil();" style="width: 36px;">
+                </div>
+            </div>
+                <div class="seccionActividades">
+                </div>
+        </div>
+
+    </div>
+
+    <div id="idContenidoPlanes" style="display: none">
+    
+
+        <div class="w-100">
+            <div class="row">
+                <div class="col-xs-12">
+                    <img  style="width: 36px;" src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                         class="pull-right" onclick="muestraPerfil();">
+                </div>
+            </div>
+                <div class="seccionPlanes">
+                </div>
+        </div>
+
+    </div>
+
+    <div id="idContenidoActividadesInstructor" style="display: none">
+
+        <div class="w-100">
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                         class="pull-right" onclick="muestraPerfil();"  style="width: 36px;">
+                </div>
+            </div>
+                <div class="seccionActividadesInstructor">
+                </div>
+        </div>
+
+    </div>
+
+    <div id="idContenidoRemuneracionesInstructor" style="display: none">
+
+        <div class="w-100">
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                         class="pull-right" onclick="muestraPerfil();"  style="width: 36px;">
+                </div>
+            </div>
+                <div class="seccionRemuneracionesInstructor">
+                </div>
+        </div>
+
+    </div>
+  </div>
+
+{% endwith %}
+
+<!-- Modal -->
+<div class="modal fade modalTabRecarga"  role="dialog" style="z-index: 9999">
+    <div class="modal-dialog">
+        <div class="prdId" hidden><</div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" >
+
+                        	<div
+			style="margin-bottom: 5px; text-transform: initial; line-height: 16px;">
+
+			Te enviaremos un correo con los detalles para el pago por transferencia.
+
+		</div>
+		  <hr>
+
+
+			<div class="vic-table-perf-atle-title tr-n">
+           </div>
+			<div class="m-t-10">Mensualidad HTP. Incluye luenes a jueves
+				cualquier horario. Libre para cualquier disciplina.</div>
+
+
+            <br>
+
+
+			<table class=" tc table-compra t-consumen" border="0"
+				style="font-size: 16px; vertical-align: middle;">
+				<tbody>
+					<tr>
+						<td>
+
+			</td>
+
+			<td style="    width: 109px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;">
+
+<b>INVERSIÓN</b>
+
+<div class="tr-p" style="font-size: 16px;
+    line-height: 16px;    font-weight: 500;
+   "></div>
+    			<div style="font-size: 14px; padding-bottom: 6px;"  ><span class="tr-c"></span>% Dcto.</div>
+
+              </td>
+              </tr>
+              </tbody>
+              </table>
+
+
+    <hr>
+
+<div class="container-fuid text-right">
+<button  onclick="continuarTabRecarga()"
+			 type="button"
+			class="btn btn-md   vic-btn-reservar-reverse ">
+			Continuar</button>
+</div>
+
+		      </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<!-- fin codigo nuevo  -->
+
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+
+<script>
+    function toogleInstructor_() {
+
+        $(".btn-atleta").hide(0, () => {
+
+            $(".btn-instructor"
+    ).
+        show(0);
+
+    })
+        ;
+        $(".box-atleta").hide(0, () => {
+
+            $(".box-instructor"
+    ).
+        show(0);
+
+    })
+        ;
+
+
+    }
+
+    function toogleAtleta_() {
+
+        $(".btn-instructor").hide(0, () => {
+
+            $(".btn-atleta"
+    ).
+        show(0);
+
+    })
+        ;
+        $(".box-instructor").hide(0, () => {
+
+            $(".box-atleta"
+    ).
+        show(0);
+
+    })
+        ;
+
+    }
+
+    function cambio(input) {
+
+        $("#d" + input).show();
+        $("#f" + input).show();
+        $("#m" + input).addClass("active");
+
+
+    }
+
+
+    function vcPerfilAtletaMenu1(obj, n) {
+
+
+        if (n == 1) {
+
+            $(".sap-vh").show();
+            $(".sap-va").hide();
+
+
+        } else {
+
+
+            $(".sap-vh").hide();
+            $(".sap-va").show();
+
+        }
+
+
+        $(".vc-perf-atleta-menu1-tab").hide();
+
+        $(".vc-perf-atleta-menu1-tab-" + n).show();
+
+
+        //  vc-perf-menu1-2
+
+    }
+
+    function vcPerfilAtletaMenu2(obj, n) {
+
+        $(".vc-perf-atleta-menu2").removeClass("vc-link-perf-active");
+        $(obj).addClass("vc-link-perf-active");
+
+        $(".vc-perf-atleta-menu2-tab").hide();
+
+        $(".vc-perf-atleta-menu2-tab-" + n).show();
+
+
+        //  vc-perf-menu1-2
+
+    }
+
+
+    function vcPerfilInstructorMenu1(obj, n) {
+        $(".vc-perf-instructor-menu1").removeClass("vc-link-perf-active");
+        $(obj).addClass("vc-link-perf-active");
+
+        $(".vc-perf-instructor-menu1-tab").hide();
+
+        $(".vc-perf-instructor-menu1-tab-" + n).show();
+
+
+        //  vc-perf-menu1-2
+
+    }
+
+    function vcPerfilInstructorMenu2(obj, n) {
+        $(".vc-perf-instructor-menu2").removeClass("vc-link-perf-active");
+        $(obj).addClass("vc-link-perf-active");
+
+        $(".vc-perf-instructor-menu2-tab").hide();
+
+        $(".vc-perf-instructor-menu2-tab-" + n).show();
+
+        if (n == 1) {
+            $('#tabUltimosSieteDiasInst').removeClass('active');
+            $('#tabProximasInst').addClass('active');
+        } else {
+            $('#tabUltimosSieteDiasInst').addClass('active');
+            $('#tabProximasInst').removeClass('active');
+        }
+
+        //  vc-perf-menu1-2
+
+    }
+
+    function muestraReciboPago(planId) {
+        $.ajax({
+            url: '/ajax/getReciboPagoInfo/',
+            data: {
+                'planId': planId,
+            },
+            dataType: 'json',
+            success: function (data) {
+                $("#recibo_centro").text(data.centro);
+                $("#recibo_nombre").text(data.nombre);
+                $("#recibo_alias").text('@' + data.alias);
+                $("#recibo_fecha").text(data.fecha);
+                $("#recibo_totalArriba").text(data.total);
+                $("#recibo_numero").text(data.numeroRecibo);
+                $("#recibo_tipoMedioPago").text(data.medioPago);
+                $("#recibo_banco").text(data.banco);
+                $("#recibo_referencia").text(data.referencia);
+                $("#recibo_planNombre").text(data.planNombre);
+                $("#recibo_planCreditos").text(data.planCreditos);
+                $("#recibo_planFechaVencimiento").text(data.planFechaVencimiento);
+                $("#recibo_planPrecio").text(data.planPrecio);
+                $("#recibo_headerDescuento").html(data.planHeaderDescuento);
+                $("#recibo_planDescuento").text(data.planDescuento);
+                $("#recibo_totalAbajo").text(data.total);
+            }
+        });
+
+        changeTabs('recibo-pago');
+    }
+
+    function entrenador(usuario, estado) {
+        valor = estado ? 2 : 1
+        $.ajax({
+            data: {'usuario': usuario, 'estado': valor},
+            url: "/{{ marca_actual.m_alias }}/estadoentrenador",
+            type: 'get',
+            success: function (data) {
+                window.location.reload();
+            },
+        })
+    }
+
+
+</script>
+
+<script>
+    function cancelarreserva(usuario, actividad, costo) {
+        $.ajax({
+            data: {
+                'usuario': usuario,
+                'actividad': actividad,
+                'costo': costo
+            },
+            url: 'cancelarreserva',
+            type: 'get',
+            success: function (data) {
+                location.reload();
+                var str = data[0]
+                    + " "
+                    + data[1]
+                alertVictorius(str, 1);
+            },
+        })
+    }
+</script>
+
+<script>
+
+    function cerrarModal() {
+        $("#myModal").modal('toggle');
+    }
+
+    {% comment %}    function mostrarCambioFoto(){
+
+            $("#cambioFotoSeleccionar").click();
+            $("#cambioFoto").click();
+        }
+
+        $( "#cambioFoto" ).submit(function( event ) {
+          event.preventDefault();
+        });
+
+
+        $( "#cambiarFotoBtn" ).click(function() {
+            $("#cambioFotoSeleccionar").click();
+            setTimeout(function(){
+                document.getElementById("cambioFoto").submit();
+            },5500);
+
+        });{% endcomment %}
+
+
+    function confirmarCancelacionSolicitud(usuario, marcaId, marcaNombre, url) {
+        parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea eliminar la solicitud de afiliación a ' + marcaNombre + ' ?</div>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminación de solicitud ' + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+
+        // redirect(url);
+
+        return false;
+
+    }
+
+    function seguirDejar(opcion, usuario, marca) {
+        $.ajax({
+            data: {'opcion': opcion, 'usuario': usuario, 'marca': marca},
+            url: '/solicitudusuario',
+            type: 'get',
+            success: function (data) {
+                location.reload();
+            },
+        });
+    }
+
+    //Evento de prueba para la seleccion del filtro:
+    function event_circle(identifier) {
+        alert('Ejemplo de filtro:' + identifier);
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

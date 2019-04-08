@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!-- registro.html -->
+<html lang="en">
+<head>
+{% load static %}
+{% include "head.html" %}
+
+<style type="text/css">
+@media ( max-width : 570px) {
+	form [class*="col-"] {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+</style>
+</head>
+
+<body >
+
+<div class="vicAlertalert col-xs-12  av"></div>
+
+<div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+
+            <div class="modal-body">
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
+
+
+             <div class="w-100 vic-log-reg text-center">
+            <img style="width: 180px" src="../static/images/Victorius_version_negro.svg" alt="" class="big-logo ">
+        </div>
+
+        <div class="vic-register-title ">¡Ya tienes una cuenta con nosotros!</div>
+        <br>
+        <div class="vic-register-sub-title">Bienvenido de regreso. Ingresa tus credenciales.
+        </div>
+        <br><br>
+
+        <div class="row">
+
+        <div class="col-sm-8 col-sm-offset-2">
+        <form method="post" action="/" id="logon">
+                {% csrf_token %}
+                <input type="hidden" name="form-type" value="logon"/>
+                <div
+                        class="form-group">
+                    <label for="username"class="label-form-pago control-label ">Correo
+                        Electrónico</label>
+
+                    <input id="username" name="username"
+                           class="btn-block input-grey form-control" type="email" value=""
+                           placeholder="Correo Electrónico" data-error="Correo Invalido"
+                           required>
+                    <div class="help-block with-errors error-label"></div>
+
+
+                </div>
+
+
+                <div class="form-group ">
+
+                    <label for="username" class="label-form-pago control-label ">Contraseña</label>
+                    <span for="username" class="label-form-pago control-label "
+                          style="color: #333;font-weight: bold;float: right;" onclick="changeTabs('olvido-contra')">Olvido la Contraseña ?</span>
+
+                    <input id="password" name="password"
+                           class="btn-block input-grey form-control" type="password"
+                           value="" placeholder="******" data-error="Campo requerido"
+                           required>
+                    <div class="help-block with-errors error-label"></div>
+
+                </div>
+
+                  <div class="form-group ">
+
+                 <div style="margin-top: 24px;margin-bottom: 20px;" class="col-sm-6 col-sm-offset-3 ">
+                <input type="submit" class="btn-block botones-agregar submit"
+                       value="Login">
+            </div>
+            </div>
+
+
+            </form>
+
+        </div>
+        </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container" >
+    <div class="" style="max-width: 417px;margin-left:auto ;margin-right: auto;">
+
+
+        <div class="w-100 vic-log-reg text-center">
+            <img style="width: 180px" src="../static/images/Victorius_version_negro.svg" alt="" class="big-logo ">
+        </div>
+
+        <div class="vic-register-title ">¡Regístrate con Nosotros!</div>
+        <br>
+        <div class="vic-register-sub-title">¿Ya tienes una cuenta en Victorius?<br><b><a style="text-decoration: underline;"
+                                                                                         href="/requerirLogon">Ingresa aqui</a></b>
+        </div>
+        <br><br>
+
+
+        <form action="/" method="post" id="formRegister-new" data-toggle="validator">
+            {% csrf_token %} <input type="hidden" name="form-type"
+                                    value="registro"/>
+
+            <div class="vic-register-title2">Mi Cuenta</div>
+            <br>
+
+            <div class="row">
+
+                <div class="form-group col-sm-6 ">
+                    <label for="first_name" class="label-form-pago control-label  ">Nombre</label>
+
+                    <input name="first_name" id="first_name"
+                           class="btn-block input-grey form-control" type="text" value=""
+                           placeholder="Nombre" data-error="Campo requerido" required>
+                    <div class="help-block with-errors error-label"></div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label for="last_name" class="label-form-pago control-label  ">Apellido</label>
+
+                    <input name="last_name" id="last_name"
+                           class="btn-block input-grey form-control" type="text" value=""
+                           placeholder="Apellido" data-error="Campo requerido" required>
+                    <div class="help-block with-errors error-label"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="useralias"
+                       class="label-form-pago control-label ">Alias</label>
+
+                <input name="useralias" id="useralias" onkeypress="return check(event)"
+                       class="btn-block input-grey form-control" type="text"
+                       value="" placeholder="alias" data-error="Campo requerido"
+                       required>
+                <div class="help-block with-errors error-label"></div>
+            </div>
+
+            <div class="form-group">
+
+                <label for="username" class="label-form-pago control-label ">Correo
+                    Electrónico</label>
+
+                <input style="padding-right: 30px" id="username_reg" name="username"
+                       class="btn-block input-grey form-control email" type="email" value=""
+                       placeholder="Correo electronico" data-error="Correo Invalido"
+                       required>
+
+
+                <div class="help-block with-errors error-label"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="username" class="label-form-pago control-label ">Contraseña</label>
+
+                <input id="password" name="password"
+                       class="btn-block input-grey form-control password" type="password"
+                       value="" placeholder="******"
+                       data-error="Campo requerido" required>
+
+                <i class="fa fa-eye-slash vic-eye-slash vic-eyes" onclick="toogle_eye(false);" style="display: none;"
+                   aria-hidden="true"></i>
+                <i class="fa fa-eye vic-eye vic-eyes" onclick="toogle_eye(true);" aria-hidden="true"></i>
+
+
+                <div class="help-block with-errors error-label"></div>
+            </div>
+
+            <div class="vic-register-title2">Mis Preferencias</div>
+            <div>Selecciona los tipos de disciplinas que prefieres!</div>
+            <br>
+
+            <div class="form-group">
+                <label for="useralias" class="label-form-pago control-label ">
+                    Primera disciplina
+                </label>
+
+                <select name="dic1" data-error="Campo requerido" required
+                        class="input-grey form-control btn-block ">
+                    <option value="" style="color: #777">Seleccionar...
+                    </option> {% for c in disciplinas %}
+                    <option>{{ c.d_nombre }}</option> {% endfor %}
+                </select>
+                <div class="help-block with-errors error-label"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="useralias" class="label-form-pago control-label ">
+                    Segunda disciplina</label>
+
+                <select name="dic2" data-error="Campo requerido" required
+                        class="input-grey form-control btn-block ">
+                    <option value="" style="color: #777">Selecionar...
+                    </option> {% for c in disciplinas %}
+                    <option>{{ c.d_nombre }}</option> {% endfor %}
+                </select>
+                <div class="help-block with-errors error-label"></div>
+            </div>
+
+            <div style="margin-top: 24px;margin-bottom: 20px;" class="col-sm-6 col-sm-offset-3 ">
+                <input type="submit" class="btn-block botones-agregar submit"
+                       value="Registrarse">
+            </div>
+
+        </form>
+    </div>
+
+</div>
+<script>
+
+$(document).ready(function() {
+
+        $("#username_reg").change(function () {
+            var username_reg = $(this).val();
+            if (username_reg=='victorius@hazling.com')
+                return true;
+            $.ajax({
+                url: '/ajax/validate_username/',
+                data: {
+                    'username': username_reg
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        if (data.activo) {
+                            $('#username_reg').val(username_reg);
+
+                                                       $("#myModal").modal();
+
+                        } else {
+                            alertVictorius("Correo ya registrado.", 1);
+                        }
+                        hubo_error = true;
+                    } else {
+                        hubo_error = false;
+                    }
+                    if (hubo_error) {
+                        $('#r1Continuar').attr('disabled', true);
+                    } else {
+                        $('#r1Continuar').attr('disabled', false);
+                    }
+                    $('#formRegister').validator();
+                }
+            });
+        });
+
+        $("#useralias").change(function () {
+            var alias = $(this).val();
+            $.ajax({
+                url: '/ajax/validate_useralias/',
+                data: {
+                    'useralias': alias
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        alertVictorius("alias ya existe", 2);
+                        $("#useralias").val('');
+                        hubo_error = true;
+                    } else {
+                        hubo_error = false;
+                    }
+                    if (hubo_error) {
+                        $('#r2Continuar').attr('disabled', true);
+                    } else {
+                        $('#r2Continuar').attr('disabled', false);
+                    }
+                    $('#formRegister').validator();
+                }
+            });
+        });
+});
+
+</script>
+<script type="text/javascript">
+        function toogle_eye(params) {
+        	
+        	console.log("hola mundo");
+
+            if (!params) {
+
+                $(".vic-eye-slash").hide();
+                $(".vic-eye").show();
+                $(".password").attr("type", "password");
+
+            } else {
+
+                $(".vic-eye-slash").show();
+                $(".vic-eye").hide();
+                $(".password").attr("type", "text")
+
+            }
+
+        }
+
+        $(document).ready(function () {
+            $('.aniview').AniView();
+        });
+    </script>
+
+
+
+</body>
+</html>

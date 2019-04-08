@@ -1,0 +1,42 @@
+<!-- calendario-vacio.html -->
+
+{% extends 'calendario-atleta-mensajes.html' %}
+
+{% load filtrosEspeciales %}
+
+{% block controlFiltro %}
+{% endblock controlFiltro %}
+
+{% block controlCarrusel %}
+{% endblock controlCarrusel %}
+
+{% block mensajes %}
+            <div id="idDivBienvenida" class="text-center col-md-8 col-md-offset-2 ">
+
+                <br>
+                <i class="fa fa-bolt fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+
+                <div class=" vic-calendar-title">{{ perfil.atletaPrimerNombre }}<br>¡Bienvenido a Victorius!</div>
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Aún no cuentas con
+                    información en tu perfil, no te <br>
+                    preocupes, una vez afilies tus centros podrás<br>
+                    comenzar a ver mas información
+                    <br><br>
+                    <a type="button" class="btn btn-xs  vic-btn-reservar-reverse  " href="/centros">Centros</a>
+                </div>
+                <br>
+            </div>
+{% endblock mensajes %}
+
+{% block titulo %}
+{% endblock titulo %}
+
+{% block tabs %}
+{% endblock tabs %}
+
+{% block contenido %}
+{% endblock contenido %}
+
+{% block accionPagineo %}
+{% endblock accionPagineo %}
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="40px" viewBox="0 0 30 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 27</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-540.000000, -1026.000000)">
+            <g id="Group-27" transform="translate(540.000000, 1026.000000)">
+                <path d="M0.00896489766,0 L0.00896489766,38.3429635 C-0.0619585308,38.9789179 0.292849659,39.5895913 0.899011937,39.8748562 C1.07652054,39.9484218 1.26838639,39.9860518 1.46224105,39.9853205 C1.92842743,39.9702775 2.37122953,39.7888876 2.7013451,39.4777327 L14.5610648,29.4382667 C14.8149525,29.2447981 15.1774022,29.2447981 15.43129,29.4382667 L27.2914931,39.4777327 C27.7299345,39.9764826 28.4664569,40.1386116 29.0933085,39.8743623 C29.7201601,39.610113 30.0839959,38.9841279 29.9833899,38.3429635 L29.9833899,0 L0.00896489766,0 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+                <g id="Group-24" transform="translate(12.000000, 5.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+                    <path d="M0.34453125,8.47058824 L3.6328125,0.466631471" id="Path"></path>
+                    <path d="M3.1875,19 L6.8125,9.48798062" id="Path"></path>
+                    <path d="M3.5,12 L3.5,6" id="Path" transform="translate(3.500000, 9.000000) rotate(90.000000) translate(-3.500000, -9.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

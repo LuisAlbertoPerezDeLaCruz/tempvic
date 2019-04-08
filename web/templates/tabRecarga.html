@@ -1,0 +1,200 @@
+<!-- tabRecarga.html -->
+<head>
+        <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</head>
+<div class="text-center tr2" style="display: none;">
+
+	<div class="prdId" hidden></div>
+
+	<div class="vic-perfil-atl-inst-sub-title "
+		style=" margin-top: 60px;  text-align: center; font-size: 18px;">
+		Victorius A Center</div>
+		<div>RECARGA</div>
+		
+		<div class="vic-circle-amarillo-recarga m-t-20">
+		<div><i class="fas fa-check"></i></div>
+	</div>
+
+
+    <div class="vic-perfil-atl-inst-sub-title "
+		style=" margin-top: 30px; margin-bottom : 40px; text-align: center; font-size: 18px;">¡FELICIDADES!</div>
+		
+			<div >Victorius Atletic Center ha recibido tu solicitud por el plan 
+			<br>
+			<br>
+			<span class="tr-n"></span>
+			 Bs. <span class="tr-p"></span>
+			<br>
+			<br>
+			<br>
+			Te hemos enviado un email  a <br>
+			
+			<b>{{ correoUsuario }}</b>
+<br><br>
+Recibirás un email con las instrucciones para realizar el pago y reportarlo.
+			
+			
+			
+			</div>
+			
+			
+
+		
+	
+   	
+</div>
+
+<div class="text-center tr1" >
+
+	<div class="vic-circle-calendar-carrusel  selected"
+		style="display: table; margin: auto; margin-top: 60px;">
+		<div
+			style="font-size: 18px; font-weight: medium; display: table-cell; vertical-align: middle;">
+			{{ perfilMarca.marcaIniciales }}</div>
+	</div>
+
+	<div class="vic-perfil-atl-inst-sub-title "
+		style="margin-top: 10px; text-align: center; font-size: 18px;">
+		{{ perfilMarca.marcaNombre }}</div>
+		<div>RECARGA</div>
+
+
+	<div class="text-left m-t-20">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="vic-table-perf-atle-title">Planes de pago para esta
+				actividad</div>
+
+
+
+			{% if productosPermitidos %}
+			
+			 {% for producto in productosPermitidos %}
+
+			<div class="vic-hr gris-claro vic-hr"></div>
+
+			<div class="vic-table-perf-atle-title">{{ producto.nombre }}</div>
+			<div class="m-t-10">Mensualidad HTP. Incluye luenes a jueves
+				cualquier horario. Libre para cualquier disciplina.</div>
+
+			<table class=" tc table-compra t-consumen" border="0"
+				style="font-size: 16px; vertical-align: middle;">
+
+				<tbody>
+					<tr>
+						<td>
+							<div class="flex-container vic-plan-2">
+
+								<div class="vic-plan-c3">
+									<div>
+										<b>CRÉDITOS</b>
+									</div>
+									<div>{{ producto.creditos }}</div>
+								</div>
+
+								<div class="vic-plan-c4 ">
+									<div>
+										<b>INVERSIÓN</b>
+									</div>
+									<div>{{ producto.precio }}</div>
+									<div style="font-size: 14px;" class="ccc text-right">{{producto.descuento }} Dcto.</div>
+									
+									<button type="button" class="btn btn-xs  vic-btn-reservar  m-t-10" onclick='confirmar("{{ producto.nombre }}","{{ producto.creditos }}","{{ producto.precio }}","{{ producto.id }}")'>
+                                                        Comprar
+                                </button>
+
+									
+								</div>
+								
+								
+
+							</div>
+
+
+
+						</td>
+
+					</tr>
+
+				</tbody>
+			</table>
+
+			{% endfor %} 
+			{% endif %}
+			<div class="vic-hr gris-claro vic-hr"></div>
+		</div>
+
+	</div>
+	
+   	
+</div>
+
+	
+	
+
+
+<script type="text/javascript">
+$( document ).ready(function() {
+	$(".tr2").hide();
+	$(".tr1").show();
+});
+
+	
+function confirmar(n,c,p,i) {
+
+    $(".modalTabRecarga").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;">Solicitar la información de pago' + '<span>');
+    $(".prdId").html(i);
+    $(".tr-n").html(n);
+    $(".tr-c").html(c);
+    $(".tr-p").html(p);
+ 
+    $(".modalTabRecarga").modal();
+
+    // redirect(url);
+
+    return false;
+
+}
+
+
+function continuarTabRecarga(n,mail) {
+
+    $('.modalTabRecarga').modal('toggle');
+
+    $.ajax({
+        url: '/ajax/enviar_correo_intencion_compra/',
+        data: {
+            'actividad':'{{ perfilActividad.actividadId }}',
+            'productoId':$('.prdId').html(),
+        },
+        dataType: 'json',
+        success: function (data) {
+
+        }
+    });
+
+	$(".tr1").hide();
+	$(".tr2").show();
+    return false;
+
+}
+
+</script>
+
+
+

@@ -1,0 +1,130 @@
+<!-- perfi-dropdown.html -->
+{% if request.session.vs.tipoSesion == request.session.vs.MARCA %}
+    <div class="col-xs-12">
+        <a class="dropdownClickClose" href="javascript:void(0);" return changeTabs(2);"><img
+            src="http://{{ request.META.HTTP_HOST }}/static/images/close.png" class="blank-img"></a>
+
+{% comment %}        <img id="fotoPerfil"
+             class="foto-perfil"
+             style="height: 60px; width: 60px; border: solid 2px #ffcd00; float: left; margin-top: 8px;"
+             src="http://{{ request.META.HTTP_HOST }}/static/{{ vs.user }}.png?dummy={{ dummy }}"
+             onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/Fotoperfil.png'"/>{% endcomment %}
+        <span
+                style="float: left; margin-top: 6px; margin-left: 12px; top: 0">
+		<span>
+            {{ request.session.vs.marcaEnUsoNombre }}
+            <br>
+            <b>@{{ request.session.vs.marcaEnUsoAlias }}</b>
+	    </span>
+            <br>
+            {% if request.session.vs.tipoSesion == request.session.vs.MARCA %}
+                <a href="configuracion_general"><button class="btn-block  btn-black disabled hvr-shrink"
+                                            style="font-size: 12px; font-weight: bold; height: 20px; margin-top: 5px;">CONFIGURACIÓN</button></a>
+            {% else %}
+                <a href="confatleta"><button class="btn-block  btn-black disabled hvr-shrink"
+                                             style="font-size: 12px; font-weight: bold; height: 20px; margin-top: 5px;">EDITAR PERFIL</button></a>
+            {% endif %}
+	    </span>
+    </div>
+
+    <div class="col-xs-12">
+        <br>
+        <p><a href="/{{ request.session.vs.marcaEnUsoAlias }}/">Perfil @{{ request.session.vs.marcaEnUsoAlias }}</a>
+        </p>
+        <p><a href="/{{ request.session.vs.marcaEnUsoAlias }}/dashboard">Calendario de Actividades</a></p>
+    </div>
+
+    <div class="col-xs-12"
+         style="text-align: center; border-bottom: 1px solid #8B96AA; color: #8B96AA; font-size: 10px;">
+        <b>MIS OTROS PERFILES </b>
+    </div>
+
+    <div class="col-xs-12">
+        <br>
+        <a href="/{{ request.session.vs.userAlias }}/dashboard">
+            {{ request.session.vs.userFirstName }} {{ request.session.vs.userLastName }} (Calendario)</a>
+        {% if request.session.vs.marcasPropietarias %}
+            <br>
+            {% for marcaAlias,marcaNombre in request.session.vs.marcasPropietarias %}
+                {% if marcaAlias != vs.marcaEnUsoAlias %}
+                    <p>
+                        <a href="/cambiarmarca/{{ marcaAlias }}">{{ marcaNombre }}</a>
+                    </p>
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+    <div class="col-xs-12" style="border-bottom: 1px solid #8B96AA;"></div>
+
+    <div class="col-xs-12">
+        <br> <a href="/logout"><b style="text-decoration: underline;"><i class="fa fa-sign-out" aria-hidden="true"></i>
+        Cerrar sesión</b></a>
+    </div>
+
+    <div class="col-xs-12 movil-min" style="margin-bottom: 50px;">
+    </div>
+{% endif %}
+
+{% if request.session.vs.tipoSesion == request.session.vs.ATLETA %}
+    <div class="col-xs-12">
+        <a class="dropdownClickClose" href="javascript:void(0);" return changeTabs(2);"><img
+            src="http://{{ request.META.HTTP_HOST }}/static/images/close.png" class="blank-img"></a>
+
+{% comment %}       <img id="fotoPerfil"
+             class="foto-perfil"
+             style="height: 60px; width: 60px; border: solid 2px #ffcd00; float: left; margin-top: 8px;"
+             src="http://{{ request.META.HTTP_HOST }}/static/{{ vs.user }}.png?dummy={{ dummy }}"
+             onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/Fotoperfil.png'"/> {% endcomment %}
+        <span style="float: left; margin-top: 6px; margin-left: 12px; top: 0">
+            {{ request.session.vs.userFirstName }} {{ request.session.vs.userLastName }}
+            <br>
+            <b>@{{ request.session.vs.userAlias }}</b>
+            <br>
+            <a href="confatleta"><button class="btn-block  btn-black disabled hvr-shrink"
+                                         style="font-size: 12px; font-weight: bold; height: 20px; margin-top: 5px;">EDITAR PERFIL</button></a>
+	    </span>
+    </div>
+
+    <div class="col-xs-12">
+        <br>
+        <p><a href="/{{ request.session.vs.userAlias }}/perfil-atleta-{{ request.session.vs.userAlias }}">Mi
+            Perfil</a>
+        </p>
+        <p><a href="/{{ request.session.vs.userAlias }}/dashboard">Calendario de Actividades</a></p>
+
+        <p><a href="/registro-marca">Registrar Centro</a></p>
+
+    </div>
+
+    {% if request.session.vs.marcasPropietarias %}
+        <div class="col-xs-12"
+             style="text-align: center; border-bottom: 1px solid #8B96AA; color: #8B96AA; font-size: 10px;">
+            <b>MIS OTROS PERFILES </b>
+        </div>
+
+        <div class="col-xs-12">
+            <br>
+            {% for marcaAlias,marcaNombre in request.session.vs.marcasPropietarias %}
+                <p>
+                    <a href="/cambiarmarca/{{ marcaAlias }}">{{ marcaNombre }}</a>
+                </p>
+
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+    <div class="col-xs-12" style="border-bottom: 1px solid #8B96AA;"></div>
+
+    <div class="col-xs-12">
+        <br> <a href="/logout"><b style="text-decoration: underline;"><i class="fa fa-sign-out" aria-hidden="true"></i>
+        Cerrar sesión</b></a>
+    </div>
+
+    <div class="col-xs-12 movil-min" style="margin-bottom: 50px;">
+    </div>
+{% endif %}

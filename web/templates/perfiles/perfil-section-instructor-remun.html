@@ -1,0 +1,111 @@
+<!-- perfil-section-instructor-remun.html -->
+
+{% load filtrosEspeciales %}
+<br>
+
+{% if programadoMeses %}
+    <div class="vic-perfil-atl-inst-history pull-right" onclick="vcPerfilInstructorMenu1(this,2)"> Ver Historial <i
+            class="fa fa-calendar"></i>
+    </div>
+{% endif %}
+
+<div class="vic-perfil-atl-inst-sub-title " onclick="vcPerfilInstructorMenu1(this,1)"> REMUNERACIONES</div>
+
+<div class="vic-hr"></div>
+
+
+<div class=" vc-perf-instructor-menu1-tab   vc-perf-instructor-menu1-tab-1 animated fadeIn">
+
+    <div class="columns" style="text-align: center; padding-top: 10px;">
+
+        {% with programadoMeses=perfil.ingresosPorPercibir %}
+
+            {% if programadoMeses %}
+                <div class="owl-carousel owl-theme vc-multi">
+                    {% for monthInfo in programadoMeses %}
+                        <div class="item">
+                            <div class="vic-per-caja-intruc-title">
+                                {{ monthInfo.marca }}
+                            </div>
+                            <br><br>
+                            <div class="vic-per-caja-intruc-text">{{ monthInfo.mes }} <br>{{ monthInfo.total }}</div>
+                            <br>
+                            <div class="vic-per-caja-intruc-text">{{ monthInfo.cantidad }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row">
+
+                <div class="text-center col-xs-12 ">
+                    <br>
+                    <i class="fa fa-money-check fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                    <div class=" vic-calendar-title">{{ perfil.atletaPrimerNombre }}, no tiene remuneraciones pendientes</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Cuando tenga remuneraciones pendientes podrás verlas aquí
+                        <br class="md-movil">
+                    </div>
+                    <br>
+                </div>
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+</div>
+
+
+<div style="display: none;"
+     class="vc-perf-instructor-menu1-tab   vc-perf-instructor-menu1-tab-2 animated fadeIn">
+    <div class=" columns"
+         style="text-align: center; padding-top: 10px;">
+
+        {% with devengadoMeses=perfil.ingresosYaPercibidos %}
+
+            {% if devengadoMeses %}
+                <div class="owl-carousel owl-theme vc-multi">
+                    {% for monthInfo in devengadoMeses %}
+                        <div class="item">
+                            <div class="vic-per-caja-intruc-title">
+                                {{ monthInfo.marca }}
+                            </div>
+                            <br><br>
+                            <div class="vic-per-caja-intruc-text">{{ monthInfo.mes }} <br>{{ monthInfo.total }}</div>
+                            <br>
+                            <div class="vic-per-caja-intruc-text">{{ monthInfo.cantidad }}</div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            {% else %}
+
+                <div class="row">
+                    <div class="col-xs-12 vic-ma2">
+
+                        <div class="">
+                            <div class="col-xs-12  vic-text">
+                                <div class="vic-left">
+                                    <i class="fa fa-exclamation-triangle"></i> No hay remuneraciones devengadas.
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="vic-ma2-letras"></div>
+
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+</div>
+<br>
+        
+        
+    

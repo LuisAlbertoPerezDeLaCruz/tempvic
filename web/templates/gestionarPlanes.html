@@ -1,0 +1,570 @@
+<!-- gestionarPlanes.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>{% load filtrosEspeciales %} {% include "head.html" %}
+    <script type="text/javascript">
+
+
+         function continuarForma(forma,id,a, b) {
+            var temp = false;
+           
+            $('#'+forma).validator('validate');
+
+            $('.'+id).find('.with-errors').each(function (index) {
+
+                if ($.trim($(this).text()) != '') {
+                    temp = true;
+                }
+            });
+
+            if (temp) {
+
+                return temp;
+
+            }else{
+
+          $('#'+forma).validator('destroy');
+           $('#'+forma).validator('update');
+           
+           setTimeout(function(){
+            nextStepForm(a, b);
+
+            }, 300);
+        }
+
+        }
+
+        $(document).ready(function () {
+
+
+
+            $(".hide-show-desc").click(function () {
+
+                obj = $(this).parent('label').parent('.form-group').find('.vc-form-d1');
+
+                $(obj).toggle();
+
+            });
+
+            $("#idNombrePlan").change(function () {
+                $('.vc-np').html($(this).val());
+            });
+
+            $(".idTipoPlan").change(function () {
+                  switch ($(this).val()) {
+                    case 'MI':
+                        $('.vc-tp').html('Mensual Ilimitado');
+                        $('#idCreditos').attr('required',false);
+                        $('#idCreditos').attr('disabled',true);
+                        $('#idCreditos').val('');
+                        $('#formPlan').validator('validate');
+
+                        break;
+                    case 'ML':
+                        $('.vc-tp').html('Mensual Limitado');
+                        $('#idCreditos').attr('required',true);
+                        $('#idCreditos').attr('disabled',false);
+                        break;
+                    case 'PC':
+                        $('.vc-tp').html('Por Credito');
+                        $('#idCreditos').attr('required',true);
+                        $('#idCreditos').attr('disabled',false);
+                        break;
+                }
+            });
+
+            var editando = false
+
+            if ('{{ editando }}' == 'True') {
+                editando = true
+            } else {
+                editando = false
+            }
+
+            if (editando) {
+
+                $('.steps').hide();
+                $('.continuar-edit').hide();
+                $('.jumbotron').hide();
+                $('.step-form-gp-1').show();
+                $('.step-form-gp-2').show();
+                $('.step-form-gp-3').show();
+
+
+                $("input:radio").each(function(){
+
+                    if($(this).attr("name") == "idTipoPlan"){
+
+                         $(this).attr("disabled",true);
+                          if ("{{tipoPlan}}" == $(this).val()) {
+                                
+                                $(this).attr("checked",true);
+
+                            }else{
+
+                                  $(this).parents('.eli-col').remove();
+
+                            }
+                       }
+               
+                });
+            }
+
+
+                        setTimeout(() =>{
+
+            $('#formPlan').show(0,()=> {
+
+                $('body').scrollTop(0);
+            });
+            }, 200);
+
+        });
+
+        function nextStepForm(a, b) {
+
+            $('.step-form').hide(0, function () {
+
+                $('.' + b).show(0);
+                $('body').scrollTop(0);
+
+
+            });
+
+        }
+
+
+        function prevtStepForm(a) {
+
+            $('.step-form').hide(0, function () {
+
+                $('.' + a).show(0);
+                $('body').scrollTop(0);
+
+
+            });
+
+        }
+
+
+    </script>
+
+
+</head>
+
+<body>
+        {% include "scriptsActividades.html" %}
+         {% include "header.html" %} {% include "content-tabs.html" %}
+          {% include "tabs_entrenador-calendario.html" %}
+    
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="container">
+
+        <form  id="formPlan" style="display: none" method="post" class="nf" action="gestionar_planes" data-toggle="validator">
+
+
+            {% csrf_token %}
+
+            <input type="hidden" id="idEditando" name="idEditando" value="{{ editando }}">
+            <input type="hidden" id="idPlan" name="idPlan" value="{{ idPlan }}">
+
+            <!-- 1 seccion -->
+            <br>
+            <div class="step-form  step-form-gp-1 w-100 animated fadeIn">
+                <div class="row">
+                    <div class="col-md-1<0 col-md-offset-1">
+                        <div class="vc-m-t-20 steps">PASO <b>1</b> DE <b>3</b></div>
+                        <div class="vc-form-t1">Crear Plan</div>
+                        <br>
+                        <div class="vc-form-sub-t1">El plan te permite definir las especificaciones
+                            de tus servicios en cuanto a tiempo, inversión económica y objetivo de forma que puedas
+                            gestionar los cupos y reservaciones de tus usuarios para tu calendario de actividades.
+                            <br><br> ¡Un poco más y listo!
+
+                        </div>
+                        <br>
+
+
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">NOMBRE<i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1 gp1">Este es el nombre que describe el servicio a ser prestado y su
+                                objetivo.
+                                Por ejemplo, “Mensualidad Bootcamp”; “Sesión de Día Feriados”; “1 Clase de Spinning”
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input id="idNombrePlan" name="idNombrePlan"
+                                           class="btn-block input-grey form-control " type="text"
+                                           value="{{ nombrePlan }}" placeholder="Por  ejemplo “10 Sesiones de Spinning”"
+                                           data-error="Campo requerido" required>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">DESCRIPCIÓN <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i></label>
+
+                            <div class="vc-form-d1">Aquí puedes para aclarar algunos detalles sobre la política del
+                                servicio del plan.
+                                Esta descripción la podrán ver los usuarios.
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12">
+
+										<textarea autocomplete="off" id="idDescripcionPlan"
+                                                  name="idDescripcionPlan"
+                                                  class="btn-block input-grey form-control bind"
+                                                  bind="formclase-descrip-clase" type="text"
+                                                  placeholder="Por ejemplo, Mensualidad para actividades de Spinning. Se excluye otras actividades del tipo TRX o Bootcamp. "
+                                                  data-error="Campo requerido" required rows="6">{{ descripcionPlan }}
+                                        </textarea>
+
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group continuar-edit">
+                            <div class="row">
+                                <div style="margin-top: 24px; margin-bottom: 20px;"
+                                     class="col-xs-12 col-md-4  col-md-offset-8">
+                                    <button type="button" class=" btn-block botones-agregar"
+                                            onclick=" continuarForma('formPlan','step-form-gp-1','step-form-gp-1','step-form-gp-2')">Continuar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- 2 seccion -->
+
+
+            <div class="step-form  step-form-gp-2 w-100 animated fadeIn"
+                 style="display: none;">
+                <div class="row">
+                    <div class="col-md-10  col-md-offset-1">
+                        <div class="vc-m-t-20 steps">PASO <b>2</b> DE <b>3</b></div>
+
+                        <div class="vc-form-t1">Características del Plan</div>
+                        <br>
+                        <div class="vc-form-sub-t1">El plan es el mecanismo de
+                            cobro que utiliza Victorius para gestionar la política de acceso
+                            y reservaciones para los usuarios de la cuenta de negocios.
+                        </div>
+
+                        <br>
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">TIPO
+                                DE PLAN </label>
+
+                            <div class="vc-form-d1" style="display: block;">El tipo de plan permite definir las reglas
+                                de negocio bajo las cuales se regulará su cobro y uso.
+                            </div>
+
+
+                            <div class="row eli-col">
+                                <div class="col-md-8 col-lg-8">
+
+                                    <div class="radio">
+                                        <label> <input type="radio" class="idTipoPlan"  name="idTipoPlan" value="ML"
+                                                       required>
+                                            Mensual Limitado
+                                        </label>
+                                    </div>
+                                    <div class="vc-form-d1" style="margin-left: 20px;display: block;">
+                                        El plan mensual limitado permite definir de cobro prepagado o pago por cobrar
+                                        con una política de mensualidad libre de restricciones en número de actividades.
+                                    </div>
+                                </div>
+                                 <hr>
+                            </div>
+                           
+
+                            <div class="row eli-col">
+                                <div class="col-md-8 col-lg-8">
+
+                                    <div class="radio">
+                                        <label> <input type="radio" class="idTipoPlan"  name="idTipoPlan" value="MI"
+                                                       required>
+                                            Mensual Ilimitado
+                                        </label>
+                                    </div>
+                                    <div class="vc-form-d1" style="margin-left: 20px;display: block;">
+                                        El plan mensual limitado permite definir de cobro prepagado o pago por cobrar
+                                        con una política de mensualidad libre de restricciones en número de actividades.
+                                    </div>
+                                </div>
+                                 <hr>
+                            </div>
+
+                            <div class="row eli-col">
+                                <div class="col-md-8 col-lg-8">
+
+                                    <div class="radio">
+                                        <label> <input type="radio" class="idTipoPlan"  name="idTipoPlan" value="PC"
+                                                       required>
+                                            Por Créditos
+                                        </label>
+                                    </div>
+                                    <div class="vc-form-d1" style="margin-left: 20px;display: block;">
+                                        El plan mensual limitado permite definir de cobro prepagado o pago por cobrar
+                                        con una política de mensualidad libre de restricciones en número de actividades.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">CREDITOS <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">Indique la cantidad de tokens que desea asociar a este plan.</div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input min="0" maxlength="2" style="  padding-right: 80px;" id="idCreditos" name="idCreditos"
+                                           class="btn-block input-grey form-control" type="number"
+                                           value="{{creditos}}" placeholder="Por  ejemplo “10 Sesiones de Spinning”"
+                                           data-error="Por  ejemplo “30”" required>
+                                    <div style="    position: absolute;right: 24px; margin-top: -34px;">créditos</div>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">VENCIMIENTO <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">
+                                Defina la política de vigencia del plan. Por ejemplo, si quieres que el plan venza
+                                mensualmente despues de que el usuario lo adquiere.
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input  max="60"  maxlength="3"  min="0" style="  padding-right: 80px;" id="idVencimiento"
+                                           name="idVencimiento"
+                                           class="btn-block input-grey form-control" type="number"
+                                           value="{{vencimiento}}" placeholder="Por  ejemplo 3 meses"
+                                           data-error="Por  ejemplo “7”" required>
+
+                                    <div style="    position: absolute;right: 24px; margin-top: -34px;">meses</div>
+
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group continuar-edit">
+                            <div class="row">
+
+                                <div class="col-xs-6 col-md-8 ">
+                                    <div class="pull-left" style="margin-top: 40px;">
+                                        <a href="#" style="font-weight: bold"
+                                           onclick="prevtStepForm('step-form-gp-1');"><i
+                                                class="fas fa-chevron-left"> </i>Atrás</a>
+                                    </div>
+
+                                </div>
+                                <div style="margin-top: 24px; margin-bottom: 20px;"
+                                     class="col-xs-6 col-md-4 ">
+                                    <button type="button" class=" btn-block botones-agregar"
+                                            onclick="continuarForma('formPlan','step-form-gp-2','step-form-gp-2','step-form-gp-3')">Continuar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+<!--tres -->
+            <div class="step-form  step-form-gp-3 w-100 animated fadeIn"
+                 style="display: none;">
+                <div class="row">
+                    <div class="col-md-10  col-md-offset-1">
+                        <div class="vc-m-t-20 steps">PASO <b>3</b> DE <b>3</b></div>
+
+                        <div class="vc-form-t1">Inversión Económica</div>
+                        <br>
+                        <div class="jumbotron">
+                            <table class="w-100">
+                                <tr>
+                                    <td><b>NOMBRE DEL PLAN</b></td>
+                                    <td><span class="pull-right vc-np"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>TIPO DE PLAN</b></td>
+                                    <td><span class="pull-right vc-tp">Por Créditos</span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">PRECIO <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">El valor de la inversión económica total del plan el cual los
+                                usuarios deben cancelar.
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input  maxlength="10" max="1000000000" min="0" style="  padding-right: 80px;" id="idPrecio" name="idPrecio"
+                                           class="btn-block input-grey form-control format-mount" type="text"
+                                           value="{{precio}}" placeholder="Expresado en moneda de curso legal"
+                                           data-error="Campo requerido" required>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <div class="vc-form-t2"> POLITICAS DE DESCUENTO</div>
+                        <div style="margin-top: 10px">VICTORIUS permite definir descuentos sobre el precio del plan.
+                            Puede configurar hasta tres (3) descuentos los cuales serán aplicados al momento de
+                            registrar la compra del plan.
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">DESCUENTO GENERAL <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">
+
+                                Es un descuento discrecional para los usuarios que desees, es adicional al descuento
+                                general. Por ejemplo, si el precio es 100 y tienes un descuento general del 10% y un
+                                descuento especial del 15%, el precio para tus usuarios al seleccionar este descuento
+                                especial seria 75.
+                                <br>
+                                Por ejemplo: Tienes descuentos para amigos (10%) y familiares (20%)
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input maxlength="2" min="0" style="  padding-right: 80px;" id="idDescuentoGeneral"
+                                           name="idDescuentoGeneral"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="{{descuentoGeneral}}" placeholder="Expresado en porcentaje, ejemplo 10">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">DESCUENTO ESPECIAL 1 <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input  maxlength="2" min="0" style="  padding-right: 80px;" id="idDescuentoEspecial1"
+                                           name="idDescuentoEspecial1"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="{{ descuentoEspecial1}}" placeholder="Expresado en porcentaje, ejemplo 5"
+                                    >
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="username" class="label-form-pago control-label ">DESCUENTO ESPECIAL 2  </i>
+                            </label>
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input min="0"  maxlength="2" style="  padding-right: 80px;" id="idDescuentoEspecial2"
+                                           name="idDescuentoEspecial2"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="{{ descuentoEspecial2}}" placeholder="Expresado en porcentaje, ejemplo 3"
+                                    >
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+
+                        <div class="form-group ">
+                            <div class="row">
+
+                                <div class="col-xs-6 col-md-8 ">
+                                    <div class="pull-left steps" style="margin-top: 40px;">
+                                        <a href="#" style="font-weight: bold"
+                                           onclick="prevtStepForm('step-form-gp-2');"><i
+                                                class="fas fa-chevron-left"> </i>Atrás</a>
+                                    </div>
+
+                                </div>
+
+
+                                <div style="margin-top: 24px; margin-bottom: 20px;" class="col-xs-6 col-md-4 ">
+                                    <button type="submit" id="idGuardar" class="btn-block botones-agregar"
+                                            style="float: left; font-size: 16px;  text-align: center"
+                                    >Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- fin codigo nuevo  -->
+
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+
+</body>
+
+</html>

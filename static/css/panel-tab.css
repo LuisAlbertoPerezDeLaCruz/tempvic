@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+.tabs-left > .nav-tabs {
+	border-bottom: 0;
+}
+
+.tab-content > .tab-pane, .pill-content > .pill-pane {
+	display: none;
+}
+
+.tab-content > .active, .pill-content > .active {
+	display: block;
+	overflow:hidden;
+}
+
+.tabs-left > .nav-tabs > li {
+	float: none;
+}
+
+.confirmados {
+	color:#fff;
+	padding:30px;
+	}
+	
+.fila-confirmados {
+	margin-bottom:20px;
+	padding-bottom:5px;
+	padding-top:5px;}
+	
+.fila-confirmados:hover {
+	cursor:pointer;
+	background:url(../images/usuario-eliminar.png) no-repeat 15px center;}
+
+.espacio-sup {
+	padding-top:10px !important;}
+	
+.phone {
+	background:url(../images/phone.png) no-repeat 0 2px;
+	padding-left:25px !important;
+	}
+
+.tabs-left > .nav-tabs > li > a {
+	min-width: 270px;
+	margin-right: 0;
+	margin-bottom: 3px;
+	min-height: 170px;
+	font-size: 24px;
+	color: #ddd;
+	border-color: transparent;
+	font-weight: 600;
+}
+
+.tabs-left > .nav-tabs > li > a:hover {
+	border-color: transparent;
+	color: #ddd;
+	}
+
+.tabs-left > .nav-tabs {
+	float: left;
+}
+
+.tabs-left > .nav-tabs > li > a {
+	margin-right: -1px;
+	border-radius:0;
+}
+
+.tabs-left > .nav-tabs > li > a:hover, .tabs-left > .nav-tabs > li > a:focus {
+}
+
+.tabs-left > .nav-tabs .active > a, .tabs-left > .nav-tabs .active > a:hover, .tabs-left > .nav-tabs .active > a:focus {
+	background-color: #414141 !important;
+}
+
+.gris-bg {
+	background-color: #414141;
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.fila-confirmados:hover {
+	background:url(../images/usuario-eliminar.png) no-repeat right center;
+}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.fila-confirmados:hover {
+	background:url(../images/usuario-eliminar.png) no-repeat right center;
+}
+}
+
+@media (max-width: 767px) {
+
+.tabs-left > .nav-tabs > li > a {
+	min-width: 150px;
+	margin-right: 0;
+	margin-bottom: 3px;
+	min-height: 170px;
+}
+.fila-confirmados:hover {
+	background:url(../images/usuario-eliminar.png) no-repeat right center;
+}
+}
+
+@media (max-width: 922px) {
+	.fila-confirmados:hover {
+	background:url(../images/usuario-eliminar.png) no-repeat right center;
+}
+}

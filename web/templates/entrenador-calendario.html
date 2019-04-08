@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<!-- entrenador-calendario.html -->
+<html lang="en">
+<head>
+    {% include "head.html" %}
+    {% load i18n %}
+    {% language 'es' %}
+
+        </head>
+        <body onload="selectors()">
+        <!-- Visualizar como ... -->
+        <div id="inicio" style="display:none">{{ inicio_sem|date:"Y-m-d" }}</div>
+        <div id="fin" style="display:none">{{ fin_de_sem|date:"Y-m-d" }}</div>
+        <div id="f0" style="display:none">{{ sem_date.0|date:"Y-m-d" }}</div>
+        <div id="f1" style="display:none">{{ sem_date.1|date:"Y-m-d" }}</div>
+        <div id="f2" style="display:none">{{ sem_date.2|date:"Y-m-d" }}</div>
+        <div id="f3" style="display:none">{{ sem_date.3|date:"Y-m-d" }}</div>
+        <div id="f4" style="display:none">{{ sem_date.4|date:"Y-m-d" }}</div>
+        <div id="f5" style="display:none">{{ sem_date.5|date:"Y-m-d" }}</div>
+        <div id="f6" style="display:none">{{ sem_date.6|date:"Y-m-d" }}</div>
+        <div id="f7" style="display:none">{{ sem_date.7|date:"Y-m-d" }}</div>
+        <input style="display:none" id="iden" value=''>
+        {% include "header.html" %}
+
+        {% include "atletafast.html" with valor=pk %}
+        {% include "content-tabs.html" %}
+        {% include "tabs_entrenador-calendario.html" %}
+
+        <div id="vic-tab-2" class="tab-pane in active">
+
+            <div class="container-fluid fondo " id="nombre-display">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 margen">
+                            <center>
+                                <h1 style="text-transform: uppercase;">{{ marca_actual }}</h1>
+                                <h4>{{ marca_actual.m_municipio }}</h4>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sin-paddign-cols movil">
+
+
+                <div class="col-xs-12 block-2c"
+                     style="top: auto; position: relative;">
+
+                    <div class="col-xs-1 col-md-offset-1 col-md-1 ">
+                        <img src="../static/images/prev.png"
+                             class="blank-img  hvr-grow close-left-all" onclick="return cambiarSemana(-1)">
+                    </div>
+                    <div class=" col-xs-10 col-md-8  block-2c-c">
+
+                        <!-- version que aparece en movil -->
+
+                        <div class="col-xs-12 div-fecha-c ">
+                            <div class="fecha-c"
+                                 style="top: 10px; font-size: 16px; margin-top: 18px;">{{ mes }}, Semana {{ ini_sem }}
+                                al {{ fin_sem }}</div>
+                        </div>
+
+                        <!-- fin que aparece en movil -->
+
+                    </div>
+                    <div class="col-xs-1 col-md-1  ">
+                        <img src="../static/images/next.png"
+                             class="blank-img  hvr-grow close-right-all" onclick="return cambiarSemana(1)">
+
+                    </div>
+
+                </div>
+                <div class="sin-paddign-cols estatic-diast" data-spy="affix"
+                     data-offset-top="130">
+
+                    <div class="col-xs-12 block-2c"
+                         style="top: auto; position: relative; background: white;">
+                        <table class='table table-ca' border="0">
+                            <colgroup>
+                                <col width='14.2%'>
+                                <col width='14.2%'>
+                                <col width='14.2%'>
+                                <col width='14.2%'>
+                                <col width='14.2%'>
+                                <col width='14.2%'>
+                                <col width='14.2%'>
+                            </colgroup>
+                            <tr>
+                                {% for se,sem_date_d in sem %}
+
+                                    <td onclick="diaCalendario({{ forloop.counter }},this)"
+                                        class="dia-ac mdia-{{ forloop.counter }} {% if forloop.counter == 1 %}activ{% endif %}">
+                                        <div class="dia-l">
+                                            <b>{{ sem_date_d| date:"D" }}</b>
+                                        </div>
+                                        <div class="dia-n">{{ se }}</div>
+                                    </td>
+                                {% endfor %}
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="container-fluid" style="min-height: 550px;">
+
+
+                    <!-- ------------inic bucle------------ -->
+
+                    {% for actividades,minimo,s in actividades_semana %}
+
+                        <div class="col-xs-12  cl-d-{{ forloop.counter }}">
+
+
+                            <div class="col-xs-12 fecha-c label-fecha "
+
+                                    {% if s.day >= ahora.day and s.month >= ahora.month and actividades %}
+                                        style=" color: #666; font-weight: 800; font-size: 14px; text-align: left;"
+                                    {% else %}
+                                        style=" color: #666; font-weight: 500; font-size: 14px; text-align: left;"
+                                    {% endif %}
+
+                            >
+
+                                {{ s |date:"l, d M" }}
+
+                                {% if s.day == ahora.day %}
+                                    *
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if not actividades %}
+                                <div class="col-xs-12 past"
+                                     style="border-top : 1px solid #d6d8db ;padding-bottom: 5px;padding-top: 5px;">
+                                </div>
+                            {% else %}
+
+                                {% for actividad,series in actividades %}
+                                    <div class="col-xs-12 {% if actividad.ac_estado.ea_estado == 'Culminada' or actividad.ac_estado.ea_estado == 'Planifico' %}past{% endif %}"
+                                         style="border-top : 1px solid #d6d8db;padding-bottom: 5px;padding-top: 5px;">
+
+                                        <div class="col-xs-2 "
+                                             style="border-right: 1px solid #d6d8db; color: #666; font-weight: 500; font-size: 10px; text-align: left; height: 50px">{{ actividad.ac_hora_ini | date:"h:i a" }}</div>
+
+                                        <div class="col-xs-10 " style="height: 50px">
+                                            <div style="text-align: left; {% if actividad.ac_estado.ea_estado != 'Culminada' and actividad.ac_estado.ea_estado != 'Planifico' %} font-weight: bold;{% endif %} font-size: 12px; padding-left: 10px;">
+                                                <a href="./clase-{{ actividad.pk }}"
+                                                   class="">{{ actividad.ac_nombre|truncatechars:15 }}</a>
+
+                                                <img style="width: 20px;    margin-top: 12px;float: right;margin-right: 52px;"
+                                                     src="{{ actividad.ac_estado.ea_imagen }}">
+                                                <BR>
+                                                por @{{ actividad.ac_instructor.u_alias }}
+                                            </div>
+
+
+                                            <div
+                                                    style="text-align: left; font-weight: 500; font-size: 12px; padding-left: 10px;">
+                                                {% if actividad.ac_cupos_en_espera > 0 %}
+                                                    +{% endif %} {{ actividad.ac_cupos_reservados }}/{{ actividad.ac_cap_max }}+
+
+                                            </div>
+                                            {% if actividad.ac_estado.ea_estado != "Culminada" and actividad.ac_estado.ea_estado != "Cancelada" %}
+                                                <div class='btn-group moreOpsBt' style='float: right;'>
+                                                    <button type='button'
+                                                            class='btn btn-sm btn-default dropdown-toggle '
+                                                            data-toggle='dropdown' aria-haspopup='true'
+                                                            aria-expanded='false'>&nbsp;
+                                                    </button>
+                                                    <ul class='dropdown-menu' style='right: 30px; top: 0;'>
+                                                        {% if not actividad.ac_estado.ea_estado == "Planifico" and not actividad.ac_estado.ea_estado == "Cancelada" and not actividad.ac_estado.ea_estado == "Culminada" %}
+                                                            <li role="presentation"><a href="#"
+                                                                                       onclick="return reserva({{ actividad.id }})">Gestionar
+                                                                Actividad</a></li>
+                                                        {% endif %}
+
+                                                        {% if not actividad.ac_estado.ea_estado == "Activa" and not actividad.ac_estado.ea_estado == "Culminada" and not actividad.ac_estado.ea_estado == "Cancelada" %}
+                                                            <li role="presentation"><a
+                                                                    onclick="serie=false;modi=true;modichange(true);return modificar({{ actividad.id }})"
+                                                                    class="test">Editar Actividad</a></li>
+                                                        {% endif %}
+                                                        {% if actividad.ac_estado.ea_estado == "Planifico" %}
+                                                            {% if actividad.ac_OpcionSerie == 'Si' %}
+                                                                <li role="presentation"><a
+                                                                        onclick="serie=false;modi=true;modichange(true);return modificar({{ actividad.id }},true)"
+                                                                        class="test">Editar Serie</a></li>
+                                                            {% endif %}
+                                                            <li role="presentation"><a
+                                                                    onclick="serie=false;modi=true;modichange(true);return eliminarActividad({{ actividad.id }})"
+                                                                    class="test">Eliminar Actividad</a></li>
+                                                            {% if actividad.ac_OpcionSerie == 'Si' %}
+                                                                <li role="presentation"><a
+                                                                        onclick="serie=false;modi=true;modichange(true);return eliminarActividad({{ actividad.id }},true)"
+                                                                        class="test">Eliminar Serie</a></li>
+                                                            {% endif %}
+                                                        {% endif %}
+
+                                                        {% if not actividad.ac_estado.ea_estado == "Activa" and not actividad.ac_estado.ea_estado == "Asistencia" and not actividad.ac_estado.ea_estado == "Culminada" and not actividad.ac_estado.ea_estado == "Cancelada" %}
+                                                            <li role="presentation"><a href="#"
+                                                                                       onclick="suspender({{ actividad.pk }})">Suspender</a>
+                                                            </li>
+                                                        {% endif %}
+
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                        </div>
+
+                    {% endfor %}
+
+                    <!-- fin -->
+
+                </div>
+
+                <div class="col-xs-12">
+                    <br><br>
+                </div>
+
+                {% if maximo == 0 %}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="sin-paddign-cols destop">
+                <div id="calendario-numeros" class="container-fluid semana">
+
+
+                    <div class="row select-semana" style="padding: 0;">
+
+
+                        <div class="col-xs-12 col-md-4 col-md-offset-4"
+                             style="text-align: center; padding-top: 16px;">
+                            <a style="float: left;" id="prev"
+                               onclick="return cambiarSemana(-1)" href="#"><img
+                                    class="next-prev" src="../static/images/prev.png"></a> <a
+                                style="float: right;" id="next" onclick="return cambiarSemana(1)"
+                                href="#"><img class="next-prev"
+                                              src="../static/images/next.png"></a> <span id="semana-actual"
+                                                                                         class="semana-actual">{{ mes }}, Semana {{ ini_sem }} al
+                            {{ fin_sem }}</span><span id="mes-actual"
+                                                      style="display: none">{{ sem_date.0.month }}</span>
+                        </div>
+
+                        <div class="col-xs-3 col-md-4 destop" style="text-align: right;">
+						<span style="color: #ffce09;"> <input type="submit"
+                                                              onclick="return cambiarSemana(0)" value="HOY"
+                                                              class="volver-hoy"
+                                                              style="font-size: 14px;"></span> <span
+                                class="semana-icon"><a
+                                href="dashboard-day?fecha={{ hoy|date:'Y-m-d' }}"><img
+                                style="width: 18px;" src="../static/images/dia.png"></a></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row " style="border-bottom:1px solid #8B96AA;padding-bottom:  15px; ">
+                        {% for se,sem_date_d in sem %}
+                            {% if forloop.counter0|divisibleby:2 %}
+                                <div class="col-xs-3">
+                                <div class="row" style="font-size: 18px;">
+                            {% endif %}
+
+
+
+                        <div id="{{ forloop.counter0 }}" onclick="return resaltarcol(this)"
+                             class="col-xs-6 diaSemana phone-padding">
+                            <div class=" sin-paddign-cols col-xs-12 dia{{ forloop.counter0 }} vc-dia">
+
+                            </div>
+
+                            <a href="#" class="col-xs-12">{{ se }}</a>
+
+                            <div class="btn-group moreOps ocultar" style="float: right;">
+                                <button type="button" class="btn btn-sm btn-default dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&nbsp;
+                                </button>
+                                <ul class="dropdown-menu posicion">
+                                    <li role="presentation"><a href="dashboard-day?fecha={{ sem_date_d|date:'Y-m-d' }}">Ver
+                                        día</a></li>
+                                    <li role="presentation"><a
+                                            onclick="modi=false;modichange(false);limpiarformulariosactividad(); return newActividad('{{ sem_date_d|date:'d/m/Y' }}')"
+                                            href="#">Nueva Actividad</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        {% if not forloop.counter0|divisibleby:2 %}
+                            </div>
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!--BARRAS DE CONFIRMACIÓN ASISTENCIA INVITADOS-->
+                <div id="fila-barras" class="container-fluid fila-barras" style="background-color:#EEF0F4;">
+                    <div class="row">
+
+                        {% for c,e,r,re,pa in confirmados_semana %}
+                            {% if not forloop.counter|divisibleby:2 %}
+                                <div class="col-xs-3">
+                                <div class="row">
+                            {% endif %}
+                        <div class="col-xs-6 diaSemana phone-padding barras">
+                            <div class="col-xs-12 no-padding" style="margin-bottom:20px;"><span
+                                    style="color: #393939;		font-size: 12px;	font-weight: 600;	line-height: 21px; float:left;">
+          RESERVAS
+          </span> <span id="0sc"
+                        style="float:right;  font-weight: normal;color: #393939;	font-family: Roboto;	font-size: 14px;	line-height: 15px;">
+                  {{ c.sum_cupos }}/{{ r.sum_cupos }}
+         </span>
+                                <div class="col-xs-12 no-padding"
+                                     style="background-color:rgba(57,57,57,0.15); height:5px;border-radius:50px; ">
+                                    <div id="0bc"
+                                         style="border-radius:50px; height:5px; float:left; background-color:#ffcd00; width:calc({{ confirmados_semana.0.sum_cupos }}/{{ reservas_semana.0.sum_cupos }}*100%);"></div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 no-padding" style="margin-bottom:20px;">
+                                {% if not pa %}
+                                    <span style="color: #393939;		font-size: 12px;	font-weight: 600;	line-height: 21px;  float:left">
+          EN ESPERA
+          </span><span id="0se"
+                       style="float:right;  font-weight: normal;color: #393939;	font-family: Roboto;	font-size: 14px;	line-height: 15px;">{{ e.sum_cupos }}/{{ re.sum_cupos }}</span>
+                                {% else %}
+                                    <span style="color: #393939;		font-size: 12px;	font-weight: 600;	line-height: 21px;  float:left">
+          ASISTIDOS
+          </span><span id="0se"
+                       style="float:right;  font-weight: normal;color: #393939;	font-family: Roboto;	font-size: 14px;	line-height: 15px;">{{ e }}{% comment %}/{{ re.sum_cupos }}{% endcomment %}</span>
+                                {% endif %}
+                                <div class="col-xs-12 no-padding"
+                                     style="background-color:rgba(57,57,57,0.15); height:5px;border-radius:50px; ">
+                                    <div id="0be"
+                                         style="height:5px; float:left; background-color:#00a9ad; width:calc({{ enespera_semana.0.sum_cupos }}/{{ cuposenespera_semana.0.sum_cupos }}*100%);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:2 %}
+                            </div>
+                            </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% if maximo == 0 %}
+
+                    <div class="container-fluid vc-vacio-block">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+							<span class="vacioTxt">Oops no hay actividades
+								registradas... <strong><br> para este dia.</strong>
+							</span>
+                            </div>
+                            <div class="col-xs-12 text-center">
+                                <img class="vc-vacio-img"
+                                     src="../static/images/No_actividades.png" alt="">
+
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div id="cal-centro" class="container-fluid cal-centro">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    {% for actividades,minimo,s in actividades_semana %}
+                                        <!--LUNES-->
+                                        <div id="{{ forloop.counter0 }}c" class="col-md-3 lun-col">
+                                            <div class="row">
+                                                {% for actividad,series in actividades %}
+                                                    <div id="ac{{ actividad.pk }}" onclick="return resaltardia(this)"
+                                                         class="col-sm-12 dia {% if actividad.ac_estado.ea_estado == 'Culminada' or actividad.ac_estado.ea_estado == 'Planifico' %}past{% endif %}">
+
+                                                        <span style="font-size: 14px;"
+                                                              class="hora">{{ actividad.ac_hora_ini |date:'h:i a' }}
+                                                        </span> <br>
+                                                        <div class="clase"><a href="./clase-{{ actividad.pk }}"
+                                                                              class="disciplina">{{ actividad.ac_nombre|truncatechars:15 }}</a><br>{{ actividad.ac_disciplina }}<br>
+                                                            {% if  actividad.ac_cap_max > 0 %}
+                                                                <strong>{% if actividad.ac_cupos_en_espera > 0 %}
+                                                                    +{% endif %} {{ actividad.ac_cupos_reservados }}</strong>
+                                                                / {{ actividad.ac_cap_max }} <br>
+                                                            {% else %}
+                                                                <a>Sin Sala</a>
+                                                                <br>
+                                                            {% endif %}
+                                                            {% if actividad.ac_instructor_id > 0 %}
+                                                                <a href="./perfil-atleta-{{ actividad.ac_instructor.u_alias }}"
+                                                                   class="profesor">
+                                                                    @{{ actividad.ac_instructor.u_alias }}</a>
+                                                            {% else %}
+                                                                <a>Sin Instructor</a>
+                                                            {% endif %}
+                                                            <br>
+
+                                                            <div class="btn-group moreOps">
+                                                                <img src="{{ actividad.ac_estado.ea_imagen }}"
+                                                                     style="width: 20px;height: 20px;    margin-top: -51px;margin-right: 5px;">
+
+                                                                {% if actividad.ac_estado.ea_estado != "Culminada"  %}
+
+                                                                    <button type="button"
+                                                                            style="    margin-right: -20px;"
+                                                                            class="btn btn-sm btn-default dropdown-toggle"
+                                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                                            aria-expanded="false">&nbsp;
+                                                                    </button>
+                                                                    <ul class="dropdown-menu posicion">
+                                                                        {% if not actividad.ac_estado.ea_estado == "Planifico" and not actividad.ac_estado.ea_estado == "Cancelada" and not actividad.ac_estado.ea_estado == "Culminada" %}
+                                                                            <li role="presentation"><a href="#"
+                                                                                                       onclick="return reserva({{ actividad.id }})">Gestionar
+                                                                                Actividad</a></li>
+                                                                        {% endif %}
+
+                                                                        {% if not actividad.ac_estado.ea_estado == "Activa" and not actividad.ac_estado.ea_estado == "Culminada" and  actividad.ac_cupos_reservados == 0 %}
+                                                                            <li role="presentation"><a
+                                                                                    onclick="serie=false;modi=true;modichange(true);return modificar({{ actividad.id }})"
+                                                                                    class="test">Editar Actividad</a>
+                                                                            </li>
+                                                                            <li role="presentation"><a
+                                                                                    onclick="serie=false;modi=true;modichange(true);return eliminarActividad({{ actividad.id }})"
+                                                                                    class="test">Eliminar Actividad</a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                        {% if actividad.ac_estado.ea_estado == "Planifico" %}
+                                                                            {% if actividad.ac_OpcionSerie == 'Si' %}
+                                                                                <li role="presentation"><a
+                                                                                        onclick="serie=true;modi=true;modichange(true);return modificar({{ actividad.id }},true)"
+                                                                                        class="test">Editar Serie</a>
+                                                                                </li>
+                                                                            {% endif %}
+                                                                            {% if actividad.ac_OpcionSerie == 'Si' %}
+                                                                                <li role="presentation"><a
+                                                                                        onclick="serie=false;modi=true;modichange(true);return eliminarActividad({{ actividad.id }},true)"
+                                                                                        class="test">Eliminar Serie</a>
+                                                                                </li>
+                                                                            {% endif %}
+                                                                        {% endif %}
+
+                                                                        {% if not actividad.ac_estado.ea_estado == "Activa" and not actividad.ac_estado.ea_estado == "Asistencia" and not actividad.ac_estado.ea_estado == "Culminada" and not actividad.ac_estado.ea_estado == "Cancelada" %}
+                                                                            <li role="presentation"><a href="#"
+                                                                                                       onclick="suspender({{ actividad.pk }})">Suspender</a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    </ul>
+
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                                {% for i in minimo %}
+                                                    <div onclick="" class="col-sm-12" style="height: 185px"></div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        {% if forloop.counter == 4 %}
+                                            </div></div>
+                                            <div class="col-md-6">
+                                            <div class="row">
+                                        {% endif %}
+                                    {% endfor %}
+
+
+                                    </div>
+                                    </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="padding-bottom: 50px">
+                    </div>
+                    </div>
+                {% endif %}
+
+        </div>
+
+        {% include "fin-content-tabs.html" %}
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" style="z-index: 9999">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body" style="text-align:center;">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <script src="../static/js/sameHeight.js"></script>
+
+        <!--Resultados en tabla-->
+        <script>
+            //var div = document.getElementById("nombre-display");
+            //document.querySelector('div#resultados-tabla').style.marginTop = div.outerHeight()+'px';
+        </script>
+
+        <!--Resaltar día de hoy-->
+        <script>
+            var semanas = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo", "lunes"];
+            var semanac = ["lun", "mar", "mie", "jue", "vie", "sab", "dom", "lun2"];
+            if (parseInt({{hoy|date:'w'}}) == 0) {
+                var dia = document.getElementById(6);
+                var diac = document.getElementById("6c");
+            } else {
+                var dia = document.getElementById(parseInt({{hoy|date:'w'}}-1));
+                var diac = document.getElementById(eval(parseInt({{hoy|date:'w'}}) - 1) + "c");
+            }
+            dia.className += " selected";
+            var a = dia.getElementsByTagName('a')[0];
+            a.className += " selected";
+            // diac.className += " select-col";
+        </script>
+
+        <!--Resaltar fecha-->
+        <script type="text/javascript">
+
+            for (i = 0; i < 8; i++) {
+//	document.getElementById(""+i).className += " "+semanas[i];
+
+            }
+
+            function resaltar(input) {
+                var cambiar;
+                for (i = 0; i <= 8; i++) {
+                    var text1 = i + 'c';
+                    cambiar = document.getElementById(text1);
+                    cambiar.className = "col-md-3";
+                    //document.getElementById(i).className = "col-xs-6 diaSemana phone-padding "+semanas[i];
+                    if (input == i) {
+                        cambiar.className += " select-col";
+                        //document.getElementById(i).className += " selected";
+                    }
+                }
+            }
+        </script>
+
+        <!--Resaltar la columna-->
+        <script type="text/javascript">
+            function resaltarcol(input) {
+                var columna = document.getElementById(input.id + 'c');
+                resaltar(input.id);
+            }
+        </script>
+
+        <!--Resaltar dia -->
+        <script type="text/javascript">
+            function resaltardia(input) {
+                var x = document.getElementsByClassName("col-sm-12 dia select-dia");
+                if (x.length > 0) {
+                    x[0].className = "col-sm-12 dia";
+                }
+                input.className += " select-dia";
+            }
+        </script>
+
+        <!--Mostrar el calendario-->
+        <script type="text/javascript">
+            function showcontent(bool) {
+                var text = "none";
+                if (bool) {
+                    text = "";
+                }
+                document.getElementById("nombre-display").style.display = text;
+                document.getElementById("resultados-tabla").style.display = text;
+                document.getElementById("calendario-numeros").style.display = text;
+                document.getElementById("fila-barras").style.display = text;
+                document.getElementById("cal-centro").style.display = text;
+            }
+        </script>
+
+        <!-- Agregar actividad -->
+        <script type="text/javascript">
+            function notif(str, tipo) {
+                if (tipo) {
+                    alertVictorius(str, 1);
+
+                } else {
+
+                    alertVictorius(str, 2);
+
+                }
+            }
+
+        </script>
+
+        <script>
+            function validate(target) {
+                console.log(target);
+                var elements = [];
+                if (target == "descripcion") {
+                    elements = [document.getElementById("anombre")];
+                } else if (target == "instructor") {
+                    fecha = new Date(document.getElementById("afecha").value);
+                    fecha.setDate(fecha.getDate() + 1);
+                    console.log(fecha);
+                    hoy = new Date();
+                    if (fecha < hoy) {
+                        document.getElementById("afecha").style.border = "3px solid #a0026b";
+                        notif("La fecha debe ser mayor a hoy", false);
+                        return false;
+                    } else {
+                        document.getElementById("afecha").style.border = "0px solid #a0026b";
+                    }
+                    ini = document.getElementById("ahora_ini").value;
+                    console.log(ini);
+                    fin = document.getElementById("ahora_fin").value;
+                    console.log(fin);
+                    if (fin <= ini) {
+                        document.getElementById("ahora_fin").style.border = "3px solid #a0026b";
+                        notif("La hora de culminacion debe ser menor a la de inicio", false);
+                        return false;
+                    } else {
+                        document.getElementById("ahora_fin").style.border = "0px solid #a0026b";
+                    }
+                } else if (target == "fechayhora") {
+                    elements = [document.getElementById("adescripcioncontenido")];
+                } else if (target == "agregarfinal") {
+                    elements = [document.getElementById("acredito"), document.getElementById("acosto")];
+                }
+                for (i = 0; i < elements.length; i++) {
+                    if (elements[i].value == null || elements[i].value == "") {
+                        elements[i].style.border = "3px solid #a0026b";
+                        notif("Debe llenar el siguiente campo", false);
+                        return false;
+                    } else {
+                        elements[i].style.border = "0px solid #a0026b";
+                    }
+                }
+                return true;
+            }
+        </script>
+
+        <script>
+
+            function select(evt) {
+                lightbox(true);
+                var panels = document.querySelectorAll('.opened');
+                var target = evt.target.id.trim();
+                var i;
+                if (target == "agregarfinal") {
+                    if (validate(target)) {
+                        return crearactividad();
+                    }
+                } else {
+                    if (validate(target)) {
+                        for (i = 0; i < panels.length; ++i) {
+                            panels[i].classList.toggle('opened');
+                            panels[i].style.maxHeight = "0px";
+                        }
+                        document.querySelector('#panel' + target).classList.toggle('opened');
+                        document.querySelector('#panel' + target).style.maxHeight = parseInt(document.querySelector('#panel' + target).scrollHeight) * 2.5 + "px";
+                        document.getElementById('afecha').value = document.getElementById('f' + evt.target.classList[1]).innerHTML;
+                        if (serie) {
+                            document.getElementById('dafecha').style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+
+        <script type="text/javascript">
+            var semanachecked = [false, false, false, false, false, false, false];
+
+            function chequeo(i) {
+                semanachecked[i] = !semanachecked[i];
+                console.log(i);
+            }
+
+        </script>
+
+        {% include "footer.html" %}
+
+    {% endlanguage %}
+    </body>
+</html>

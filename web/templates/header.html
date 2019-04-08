@@ -1,0 +1,853 @@
+<!-- header.html -->
+{% load staticfiles %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+<div class="capa-menu close-sidebar"></div>
+
+{% load filtrosEspeciales %}
+<div  class="w-100  vic-online" style="z-index: 100;margin-top: .50rem;position: fixed;display: none;">
+    <div class="row">
+        <div class="container-fluid">
+
+            <div class="alert alert-warning animated fadeIn text-center" role="alert" style="background-color:rgba(0, 0, 0, 0.8);color:#fff; ">
+                <strong> <i class="fas fa-sync fa-spin"> </i>
+                    <span class="sr-only">Loading...</span></strong>&nbsp;&nbsp;  Te has quedado sin conexión, reconectando...
+            </div>
+        </div>
+    </div>
+</div>
+{% if not user.is_authenticated %}
+    <div id="login"
+         style="max-height: 0px; overflow: hidden; padding-top: 0px; padding-bottom: 0px; 		transition: 0.3s;display:none;   background-color: #ffcd00 !important;"
+         class="container-fluid modulo-login">
+        <div class="row">
+            <div class="col-sm-11  col-sm-offset-1" style="height: 80px;">
+                <div style="cursor: pointer;" onclick="cerrar()" class="close-btn"></div>
+                <div class="amarillo-movil">
+                    <h3>Login</h3>
+                    {% comment %}<a href="/register"  class="miembro">registrate</a>{% endcomment %}
+                    <a
+                        href="/password_reset" class="miembro">¿olvidaste tu
+                    contraseña?</a>
+
+                </div>
+            </div>
+            <div class="col-sm-10 col-sm-offset-1">
+                <form method="post" action="/" id="formLogin">
+                    {% csrf_token %}
+                    <div class="row" style="text-align: left;">
+                        <div class="col-xs-12">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <input type="hidden" name="form-type" value="/"/>
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label label-grey">Correo
+                                            Electrónico</label>
+
+                                        <input id="username" name="username"
+                                               class="btn-block input-agregar form-control" type="email"
+                                               value="" placeholder="nombre@victorius.com"
+                                               data-error="Correo Invalido" onkeyup="return forceLower(this);" required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label label-grey">Contraseña</label>
+
+                                        <input id="password" name="password"
+                                               class="btn-block input-agregar form-control" type="password"
+                                               value="" placeholder="******"
+                                               data-error="Campo requerido" required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-xs-4 " style="padding-bottom: 20px;top: 25px">
+                                    <input type="submit" class="btn-block botones-agregar submit"
+                                           value="Login">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-1" style="padding-bottom: 20px"></div>
+        </div>
+        <div class="row" style="padding-bottom: 40px"></div>
+    </div>
+
+
+{% endif %}
+
+
+
+<!--BLOQUE NOTIFICACION DE RESERVA ALCANZADA -->
+<div id="exito"
+     style="display: none; opacity: 0.6; position: absolute; width: 100%; z-index: 200;"
+     class="container-fluid modulo-alerta">
+    <a href='#'>
+        <div onclick="$('#exito').delay(0).fadeOut();"
+             class='close-btn' style="top: -10px;"></div>
+    </a>
+    <div class="col-sm-12">
+			<span id="exitotext" class="detalles-tit"><strong>Daniel
+					Iribarren</strong> ha sido agregado.</span>
+    </div>
+</div>
+
+
+<!--BLOQUE NOTIFICACION DE ELIMINADA RESERVA-->
+<div id="error"
+     style="display: none; opacity: 0.6; position: absolute; width: 100%; z-index: 200;"
+     class="container-fluid modulo-alerta-error">
+    <a href='#'>
+        <div onclick="$('#error').delay(0).fadeOut();"
+             class='close-btn' style="top: -10px;"></div>
+    </a>
+    <div class="col-sm-12">
+			<span id="errortext" class="detalles-tit">Error en reserva <strong>Daniel
+					Iribarren.</strong></span>
+    </div>
+</div>
+
+ <!--BLOQUE NOTIFICACION DE RESERVA ALCANZADA -->
+                        <div id="exito"
+                             style="display: none; opacity: 0.6; position: absolute; width: 100%; z-index: 200;"
+                             class="container-fluid modulo-alerta">
+                            <a href='#'>
+                                <div onclick="$('#exito').delay(0).fadeOut();"
+                                     class='close-btn' style="top: -10px;"></div>
+                            </a>
+                            <div class="col-sm-12">
+			<span id="exitotext" class="detalles-tit"><strong>Daniel
+					Iribarren</strong> ha sido agregado.</span>
+                            </div>
+                        </div>
+
+
+                        <!--BLOQUE NOTIFICACION DE ELIMINADA RESERVA-->
+                        <div id="error"
+                             style="display: none; opacity: 0.6; position: absolute; width: 100%; z-index: 200;"
+                             class="container-fluid modulo-alerta-error">
+                            <a href='#'>
+                                <div onclick="$('#error').delay(0).fadeOut();"
+                                     class='close-btn' style="top: -10px;"></div>
+                            </a>
+                            <div class="col-sm-12">
+			<span id="errortext" class="detalles-tit">Error en reserva <strong>Daniel
+					Iribarren.</strong></span>
+                            </div>
+                        </div>
+
+<div class="vicAlertalert col-xs-12  av"></div>
+
+<div class="container-fluid">
+
+
+<div class="sidebar">
+
+<div  class="pull-left" style="    margin-top: 20px; margin-left: 5px;">
+
+<img src="../static/images/Victorius_version_negro.svg" alt="" class="big-logo " style="width: 155px;"/>
+</div>
+
+<div class="pull-right" >
+    <a  class="cerrar close-sidebar">
+      <img alt="" src="../static/images/close.svg" class="pull-left desplegableIcon" style="    width: 14px;height: 30px;">
+
+  </a>
+
+</div>
+<div class="w-100 body">
+<br>
+<br>
+
+<div>
+
+{% if request.session.vs.tipoSesion == request.session.vs.MARCA %}
+
+<a href="/{{ request.session.vs.marcaEnUsoAlias }}/">
+<div class="m-l-title" style="font-weight: normal;">
+ {{ request.session.vs.marcaEnUsoNombre }}
+</div>
+<div>
+<small>@{{ request.session.vs.marcaEnUsoAlias }}</small>
+</div>
+</a>
+
+
+  {% endif %}
+
+  {% if request.session.vs.tipoSesion == request.session.vs.ATLETA %}
+
+     <a href="/{{ request.session.vs.userAlias }}/perfil-atleta-{{ request.session.vs.userAlias }}">
+	<div class="pull-right">
+	        <img id="fotoPerfil"
+	             class="foto-perfil"
+	             style="height: 50px; width: 50px; border: solid 2px #ffcd00;  margin-top: 0px;margin-bottom: 0"
+	             src="{{ vs.user.profile.full_ruta_avatar }}?dummy={{ dummy }}"
+             onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/victorius_avatar_small.svg'"/>
+	</div>
+	<div class="m-l-title" style="font-weight: normal;">
+	   {{ request.session.vs.userFirstName }} {{ request.session.vs.userLastName }}
+	</div>
+	<div>
+	<small>@{{ request.session.vs.userAlias }}</small>
+	</div>
+
+</a>
+
+
+  {% endif %}
+
+
+</div>
+
+ {% if vs.cantidadMarcas > 0 %}
+
+    {% if vs.tipoSesion == vs.ATLETA and perfil.atletaTieneMarca or vs.tipoSesion == vs.ATLETA and perfilAtleta.atletaTieneMarca or vs.tipoSesion == vs.MARCA %}
+
+        <div class="m-t-23">
+
+        <hr class="separador">
+        <div class="sidebar-dropdown" onclick='dropdownSidebar("perfil");'  style="cursor: pointer;">
+        <a href="#"><i class="fas fa-angle-down pull-right gris icon-dropdown sidebar-dropdown-perfil-down " onclick='showDropdownSidebar("perfil");' ></i></a>
+        <a href="#"><i class="fas fa-angle-up pull-right gris icon-dropdown sidebar-dropdown-perfil sidebar-dropdown-perfil-up "  onclick='hideDropdownSidebar("perfil");'  style="display: none;" ></i></a>
+
+        <small><b>Cambiar Perfil</b></small>
+        </div>
+
+        <div class="sidebar-dropdown-box sidebar-dropdown-perfil" style="display: none;">
+
+        <br>
+
+        {% if request.session.vs.tipoSesion == request.session.vs.ATLETA %}
+
+
+              {% if request.session.vs.marcasPropietarias %}
+
+                    {% for marcaAlias,marcaNombre in request.session.vs.marcasPropietarias %}
+
+                    <div class="pull-right">
+                    <img id="fotoPerfil"
+                         class="foto-perfil"
+                         style="height: 50px; width: 50px; border: solid 2px #ffcd00;  margin-top: 0px;margin-bottom: 0"
+                         src="{{ vs.user.profile.full_ruta_avatar }}?dummy={{ dummy }}"
+                        onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/victorius_avatar_small.svg'"/>
+                    </div>
+                    <div class="m-l-subTitle">
+                         <a href="/cambiarmarca/{{ marcaAlias }}" onclick="localStorage.removeItem('historyLog');" style="color: #777">{{ marcaNombre }}</a>
+                    </div>
+                    <div>
+                    <small>@{{ marcaAlias }}</small>
+                    </div>
+
+
+                    {% endfor %}
+
+
+            {% endif %}
+
+
+        {% endif %}
+
+
+        {% if request.session.vs.tipoSesion == request.session.vs.MARCA %}
+
+
+          {% if request.session.vs.marcasPropietarias %}
+
+               {% for marcaAlias,marcaNombre in request.session.vs.marcasPropietarias %}
+
+
+            <div class="pull-right">
+                    <img id="fotoPerfil"
+                         class="foto-perfil"
+                         style="height: 50px; width: 50px; border: solid 2px #ffcd00;  margin-top: 0px;margin-bottom: 0"
+                         src="{{ vs.user.profile.full_ruta_avatar }}?dummy={{ dummy }}"
+                         onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/victorius_avatar_small.svg'"/>
+            </div>
+            <div class="m-l-subTitle">
+                            <a href="/{{ request.session.vs.userAlias }}/dashboard" style="color: #777"  onclick="localStorage.removeItem('historyLog');" > {{ request.session.vs.userFirstName }} {{ request.session.vs.userLastName }}</a>
+
+            </div>
+            <div>
+            <small>@{{ request.session.vs.userAlias }}</small>
+            </div>
+                    {% endfor %}
+            {% endif %}
+
+         {% endif %}
+
+        </div>
+
+        </div>
+
+    {% endif %}
+
+    <hr class="separador">
+
+{% endif %}
+
+ {% if user.is_authenticated %}
+    {% if request.session.vs.tipoSesion == request.session.vs.MARCA %}
+
+
+  <div ><a  class="dd-link"  href="/">
+                  <img class="icon-menu" alt="" src='../static/images/icons/actividades.svg'/>Calendario Actividades</a></div>
+
+
+        <div>
+
+
+
+<a class="dd-link"  href="./atletas"  >  <img class="icon-menu" alt="" src='../static/images/icons/contactos.svg'/> Contactos</a></div>
+
+
+<div><a class="dd-link" href="./edo-cuenta">
+
+    <img class="icon-menu" alt="" src='../static/images/icons/estado_de_cuenta.svg'/>
+Estado de Cuenta</a></div>
+
+    	<div class="m-t-10">  <small style="font-size: 80%">CONFIGURACIÓN</small></div>
+
+		        <div  ><a  class="dd-link" href="confmarca">                  <img class="icon-menu" alt="" src='../static/images/icons/cog-solid.svg'/>
+		        General</a></div>
+
+		        <div ><a class="dd-link" href="cuentas">                  <img class="icon-menu" alt="" src='../static/images/icons/cuentas.svg'/>
+		        Cuentas Bancarias</a></div>
+
+		        <div ><a class="dd-link" href="salas">                  <img class="icon-menu" alt="" src='../static/images/icons/salas.svg'/>
+		        Salas</a></div>
+
+		        <div ><a class="dd-link" href="planes">                  <img class="icon-menu" alt="" src='../static/images/icons/planes.svg'/>
+		        Planes</a></div>
+
+        {% if perfilMarca.marcaEstadoConfiguracion >= 4 and perfilMarca.marcaEstadoConfiguracion != 11 %}
+
+
+		<div class="m-t-10"> <small style="font-size: 80%">AGREGAR</small></div>
+
+		 <div >
+
+
+		  <a  class="dd-link close-sidebar" href="#" onclick="modi=false; return newActividad(false)"  class="close-sidebar"> <img class="icon-menu" alt="" src='../static/images/icons/actividades.svg'/>Actividad</a>
+		       </div>
+        {% else %}
+
+		<div class="m-t-10 vic-disabled"> <small style="font-size: 80%">AGREGAR</small></div>
+
+		 <div >
+
+
+		  <a  class="dd-link close-sidebar vic-disabled" href="#" onclick="modi=false; return newActividad(false)"  class="close-sidebar"> <img class="icon-menu" alt="" src='../static/images/icons/actividades.svg'/>Actividad</a>
+		       </div>
+        {% endif %}
+
+	{% endif %}
+
+ 	 {% if request.session.vs.tipoSesion == request.session.vs.ATLETA %}
+
+        <div ><a class="dd-link" href="/"><img class="icon-menu" alt="" src='../static/images/icons/afiliaciones.svg'/>Explorar Actividades</a></div>
+		<div ><a class="dd-link" href="perfil-afiliaciones-atleta-{{ request.session.vs.userAlias }}"><img class="icon-menu" alt="" src='../static/images/icons/afiliaciones.svg'/>Centros</a></div>
+
+         {% if cantidadMarcas > 0 %}
+
+            <div ><a class="dd-link" href="perfil-actividades-atleta-{{ request.session.vs.userAlias }}"><img class="icon-menu" alt="" src='../static/images/icons/mis_actividades.svg'/>Mis Actividades</a></div>
+
+            <div ><a class="dd-link" href="perfil-planes-atleta-{{ request.session.vs.userAlias }}"><img class="icon-menu" alt="" src='../static/images/icons/planes.svg'/>Mis Planes</a></div>
+
+        {% endif %}
+
+         {% if vs.perfil.u_entrenador %}
+
+            <div class="m-t-10"> <small style="font-size: 80%">ENTRENADOR</small></div>
+
+            <div ><a class="dd-link" href="perfil-actividades-instructor-{{ request.session.vs.userAlias }}"><img class="icon-menu" alt="" src='../static/images/icons/mis_actividades.svg'/>Mis Actividades</a></div>
+            <div ><a class="dd-link" href="perfil-remuneraciones-instructor-{{ request.session.vs.userAlias  }}"><img class="icon-menu" alt="" src='../static/images/icons/remuneraciones.svg'/>Mis Remuneraciones</a></div>
+
+         {% endif %}
+
+        {% if perfilAtleta.puedeRegistrarMarca %}
+            <hr class="separador">
+            <div ><a class="dd-link2"  href="/registro-marca">Registrar un Centro</a></div>
+        {% endif %}
+
+
+     {% endif %}
+
+
+
+{% endif %}
+
+
+
+<hr class="separador">
+<div class="dd-link"><b><a href="/logout">Cerrar Sesión</a></b></div>
+
+
+</div>
+</div>
+
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top raleway">
+            <div class="container-fluid">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header pull-left">
+
+                 {% if user.is_authenticated %}
+
+               <a class="navbar-brand show-back" onclick="goBack()" >
+
+                 <img alt="" src="../static/images/back.svg" class="pull-left desplegableIcon" style="width: 20px;height: 28px;">
+                 </a>
+		        <a class="navbar-brand open-sidebar" >
+		          <img alt="" src="../static/images/menu_vic.svg" class="pull-left desplegableIcon" style="width: 20px;height: 28px;">
+
+		          </a>
+                {% endif %}
+                <a href="/" onclick="localStorage.removeItem('historyLog');" >
+                 <div class="navbar-brand animated flipInX destop-md">
+
+                 <img
+                            src="../static/images/Victorius_version_negro.svg" alt="" class="big-logo "/>
+
+
+                 </div>
+
+                        <div class="navbar-brand animated flipInX movil-md">
+
+                        <img
+                                src="../static/images/isotipo_victorius_negro.svg" alt="" class="big-logo "
+                                style=" height: 28px;width: auto;margin-left: 0px;margin-top: 5px;"/>
+
+                    </div>
+                         </a>
+
+
+                {% if not user.is_authenticated %}
+					<div class="out">
+						<ul>
+							<li><a href="#" onclick="return login()">Login</a></li>
+							{% comment %}<li><a href="/register" >Regístrate</a></li>{% endcomment %}
+							<li style="width: 120px;"></li>
+						</ul>
+
+					</div>
+
+			    {% else %}
+
+
+
+				{% endif %}
+
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="topFixedNavbar1">
+
+
+                 {% if not user.is_authenticated %}
+
+			    {% else %}
+
+				{% endif %}
+
+                  </div>
+                 </div>
+                </nav>
+
+
+ 				{% if user.is_authenticated %}
+                            <!--POP UP MENU NOTIFICACIONES-->
+                            {% notificaciones_pendientes vs as notificacionesPendientes %}
+                            <div class=" notificaciones">
+                                <a id="abrirNoti"
+                                   tab="noti" href="/{% if vs.tipoSesion == vs.MARCA %}{{ vs.marcaEnUsoAlias }}{% else %}{{ vs.userAlias }}{% endif %}/notificaciones" class="navbar-brand dropdown-toggle dropdownClick "
+                                   data-toggle="" role="button" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="notiPerfil">{{ notificacionesPendientes }}</span>
+		         					 <i id="idNotificaciones" class="far fa-bell pull-left desplegableIcon " style="padding-top: 0" aria-hidden="true"></i>
+
+
+
+                                    <!--  <p style="color: #393939" class="destop-min">{{ahora|date:"H:i"}}</p>-->
+                                </a>
+
+                            </div>
+
+      			 {% endif %}
+
+
+	<div class="vic-noti-box" style="display: none;">
+		<i class="fa fa-close close close-new" onclick="$(this).parent('.vic-noti-box').hide();"></i>
+		<div class="w-100 noti-new" >
+
+		</div>
+	</div>
+
+	</header>
+</div>
+
+<div class=" vic-load col-12 text-center">
+
+        <img alt="" src="../static/images/spinner.mov.gif" class="vic-load-class">
+</div>
+
+
+
+
+<!-- - scripts -->
+
+    <script type="text/javascript">
+
+
+    
+
+        hubo_error = false;
+        mostrar_menu = true;
+
+        function dropdownSidebar(data){
+
+        	if(mostrar_menu){
+
+        		showDropdownSidebar(data);
+        		mostrar_menu = false;
+
+        	}else{
+
+        		hideDropdownSidebar(data);
+        		mostrar_menu = true;
+
+        	}
+
+        }
+
+        function showDropdownSidebar(data){
+
+
+        	$('.sidebar-dropdown-'+ data +'-down').hide(0,function(){
+
+            	$('.sidebar-dropdown-'+data+'-up').show(0);
+
+        	});
+
+
+        	$('.sidebar-dropdown-'+ data ).show();
+
+        }
+
+  	    function hideDropdownSidebar(data){
+
+			$('.sidebar-dropdown-'+data+'-up').hide(0,function(){
+
+            	$('.sidebar-dropdown-'+data+'-down').show(0);
+
+        	});
+
+
+        	$('.sidebar-dropdown-'+data).hide();
+
+
+
+        }
+
+        function cerrar() {
+        	localStorage.removeItem("historyLog");
+
+            document.getElementById("login").style.maxHeight = "0px"
+        }
+
+        function login() {
+        	localStorage.removeItem("historyLog");
+
+        	 closedropdown();
+            document.getElementById("login").style.maxHeight = parseInt(document.getElementById("login").scrollHeight) * 2.5 + "px";
+
+        }
+
+
+    function myFiltro() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        for (i = 1; i <= parseInt('{{marcas_publicas|length}}'); i++) {
+            palabra = document.getElementById('n' + i);
+            console.log(palabra.innerHTML);
+            if (palabra.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                document.getElementById('re' + i).style.display = "";
+            } else {
+                document.getElementById('re' + i).style.display = "none";
+            }
+        }
+    }
+
+    var notificacion = {%if notificacion %}"{{notificacion}}"{%else%}""{%endif%};
+    var tipo = {%if tipon %}"{{tipon}}"{%else%}0{%endif%};
+    if (notificacion.trim() != "" && tipo > 0) {
+        if (notificacion.trim() == "#login") {
+            if (tipo == 1) {
+
+                var str = "El usuario ha sido validad. Porfavor inicie sesión";
+
+            }
+
+            if (tipo == 2) {
+                var str = "Usuario y/o contraseña errados";
+            }
+
+        } else {
+            var str = "{{notificacion}}";
+        }
+
+        alertVictorius(str, tipo);
+
+    }
+
+    function lightbox(input) {
+        if (input) {
+            document.getElementById("lightbox").style.opacity = 1;
+            document.getElementById("lightbox").style.zIndex = 10;
+        } else {
+            document.getElementById("lightbox").style.opacity = 0;
+            document.getElementById("lightbox").style.zIndex = 0;
+        }
+    }
+
+    $(document).ready(function () {
+    	
+    	$('.close-sidebar').click(()=>{
+
+           	$('.sidebar').hide("slide", { direction: "left" }, 400);
+         	$('.capa-menu').hide(0);
+
+
+
+    	});
+
+
+    	$('.open-sidebar').click(()=>{
+
+           	$('.sidebar').show("slide", { direction: "left" }, 400);
+           	$('.capa-menu').show(0);
+
+    	});
+
+
+    	{% if  user.is_authenticated %}
+            $('.marcasCarrusel').owlCarousel({
+
+                loop: false,
+                center: false,
+                dots: false,
+                margin: 5,
+                responsiveClass: true,
+                animateOut: 'fadeOut',
+                nav: false,
+                autoWidth: false,
+                //autoplay:true,
+                //autoplayTimeout:5000,
+                // autoplayHoverPause:true,
+                rewind: true,
+                responsive: {
+                    0: {
+                        items: 4,
+                        dots: false
+                    },
+                    600: {
+                        items: 6,
+                        dots: false
+                    }
+                }
+            });
+
+            {% endif %}
+
+
+            $(".dropdownClick").click(function () {
+                var tab = $(this).attr("tab");
+                if ($(window).width() < 768) {
+                    changeTabs(tab);
+                } else {
+                    $('.dropdown-menu').stop(true, true).slideUp("fast");
+                    $(".dropdownClick").removeClass('open');
+                    event.stopPropagation();
+
+                    $('.dropdown-menu', $(this).parent('.notificaciones')[0]).stop(true, true).slideDown("fast");
+                    $(this).parent('.dropdown-menu').toggleClass('open');
+                }
+
+            });
+
+            $(".dropdownClick2").click(function () {
+
+                $('.dropdown-menu').stop(true, true).slideUp("fast");
+                $(".dropdownClick").removeClass('open');
+                event.stopPropagation();
+
+                $('.dropdown-menu', $(this).parent('.dropdown-toggle-div')[0]).stop(true, true).slideDown("fast");
+                $(this).parent('.dropdown-menu').toggleClass('open');
+
+
+            });
+
+
+        $(".dropdownClickClose").click(function (event) {
+
+            if ($(window).width() < 768) {
+
+                changeTabs('2');
+
+            }
+
+            $('.dropdown-menu').stop(true, true).slideUp("fast");
+            $(".dropdownClick").removeClass('open');
+            event.stopPropagation();
+        });
+
+    });
+
+    function cambiarSemana(input) {
+        if (input == -1) {
+            window.location.href = '?fecha={{pasada|date:"Y-m-d"}}'
+        } else if (input == 0) {
+            window.location.href = '?fecha={{ahora|date:"Y-m-d"}}';
+        } else {
+            window.location.href = '?fecha={{fin_de_sem|date:"Y-m-d"}}'
+        }
+    }
+
+
+
+          function clearField(input) {
+              input.value = "";
+              if (input.name == "password") {
+                  input.type = "password";
+              }
+
+          }
+
+	function alert_noti(text, close){
+
+		$('.noti-new').html(text);
+		$('.vic-noti-box').show();
+
+	}
+
+    function modichange(v) {
+                if (v) {
+                    $("#cambio").text("EDITAR ACTIVIDAD");
+                    $("#cambiar2").text("Editar Actividad");
+                    $("#cambiar3").text("Editar Actividad");
+                    $("#cambiar4").text("Editar Actividad");
+                } else {
+                    $("#cambio").text("AGREGAR ACTIVIDAD");
+                    $("#cambiar2").text("Agregar Actividad");
+                    $("#cambiar3").text("Agregar Actividad");
+                    $("#cambiar4").text("Agregar Actividad");
+                }
+            }
+
+            $(document).mousemove(function (event) {
+                setTimeout(sacaMensaje, 2000);
+            });
+            $(document).keyup(function (event) {
+                setTimeout(sacaMensaje, 500);
+            });
+
+            function sacaMensaje() {
+                $("#vicMessage").remove();
+            }
+
+            $('#username_reg').keyup(function (event) {
+                $('#username_reg').val($('#username_reg').val().toLowerCase());
+            });
+
+            $('#username').keyup(function (event) {
+                $('#username').val($('#username').val().toLowerCase());
+            });
+
+
+
+
+            $(document).ready(function () {
+
+            	var URLactual = window.location.href;
+
+            	var historyLog = {};
+
+            	if (localStorage.getItem("historyLog") != null ) {
+
+            		 historyLog = JSON.parse(localStorage.getItem("historyLog"));
+
+                      if(historyLog[Object.keys(historyLog).length] != URLactual){
+
+                      	$(".show-back").show(50);
+
+                 		 historyLog[Object.keys(historyLog).length + 1] = URLactual;
+
+                    	 localStorage.setItem("historyLog", JSON.stringify(historyLog))
+
+
+            		  }
+
+
+            	 }else{
+
+            			historyLog[Object.keys(historyLog).length + 1] = URLactual;
+                    	localStorage.setItem("historyLog", JSON.stringify(historyLog))
+
+            	 }
+
+            });
+
+            function goBack() {
+
+
+
+            	if (localStorage.getItem("historyLog") != null ) {
+
+            		 historyLog = JSON.parse(localStorage.getItem("historyLog"));
+
+
+            		 if(Object.keys(historyLog).length > 1){
+
+
+                       	console.log(historyLog);
+
+                       	delete historyLog[Object.keys(historyLog).length];
+
+
+
+                    	localStorage.removeItem("historyLog");
+                    	localStorage.setItem("historyLog", JSON.stringify(historyLog));
+
+
+
+                        var urlRedirect  = historyLog[Object.keys(historyLog).length];
+
+                      	console.log(localStorage.getItem("historyLog"));
+
+
+
+
+
+                    	window.location.href = urlRedirect;
+
+
+            		 }
+
+
+            	 }
+
+
+
+            }
+
+
+</script>
+
+                        {% include "muestraMensajes.html" %}
+                        {% include "atletafast.html" with valor=pk %}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="84px" viewBox="0 0 80 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 37</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-303.000000, -969.000000)" fill-rule="nonzero">
+            <g id="Group-37" transform="translate(303.000000, 969.000000)">
+                <g id="Group-36">
+                    <path d="M72,8 L60,8 L60,0 L56,0 L56,8 L24,8 L24,0 L20,0 L20,8 L8,8 C3.5817872,8 0,11.5817872 0,16 L0,76 C0,80.4182128 3.5817872,84 8,84 L72,84 C76.4184572,84 80,80.4182128 80,76 L80,16 C80,11.5817872 76.4184572,8 72,8 Z" id="Path" fill="#FFFFFF"></path>
+                    <path d="M76,76 C76,78.2055664 74.2055664,80 72,80 L8,80 C5.7944336,80 4,78.2055664 4,76 L4,36 L76,36 L76,76 Z" id="Path" fill="#000000"></path>
+                    <path d="M76,32 L4,32 L4,16 C4,13.7944336 5.7944336,12 8,12 L20,12 L20,20 L24,20 L24,12 L56,12 L56,20 L60,20 L60,12 L72,12 C74.2055664,12 76,13.7944336 76,16 L76,32 Z" id="Path" fill="#000000"></path>
+                    <polygon id="Path" fill="#FFFFFF" points="58.083496 42.3015136 60.9116208 45.1298828 34.041748 72 20 57.958252 22.8283692 55.1298828 34.0419924 66.3432616"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

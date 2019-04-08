@@ -1,0 +1,23 @@
+<!-- calendario-marca.html -->
+
+{% extends 'calendario-marca-mensajes.html' %}
+
+{% load filtrosEspeciales %}
+
+{% block tabs %}
+
+{% endblock tabs %}
+
+{% block contenido %}
+    <div class="row seccionPrincipal">
+        <div class="seccionPagina">
+            {% include 'calendario-marca-table.html' %}
+        </div>
+    </div>
+{% endblock contenido %}
+
+{% block accionPagineo %}
+    {{ block.super }}
+{% endblock accionPagineo %}
+
+

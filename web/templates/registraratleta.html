@@ -1,0 +1,21 @@
+<!--AGREGAR ATLETA-->
+
+<script type="text/javascript">
+      function clearField(input) {
+          input.value = "";
+          if (input.name=="password"){
+            input.type="password";
+          }
+
+      }
+</script>
+
+<script type="text/javascript">
+      function registrar() {
+          $.ajax({data: {'correo':document.getElementById('r-correo').value,'alias':document.getElementById('r-alias').value,'nombre':document.getElementById('r-nombre').value,'apellido':document.getElementById('r-apellido').value,'tel':document.getElementById('r-telefono').value,'actividad':{{marca_actual.pk}}},url: '/registrarusuario',type:'get',success: function(data){
+                console.log(data);
+                document.getElementById("agregaratleta").style.display="none";
+                reserva(actividad);   
+            },});
+      }
+   </script>

@@ -1,0 +1,604 @@
+<!-- edo-cuenta.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load filtrosEspeciales %}
+    {% include "head.html" %}
+    {% include "scriptsPagos.html" %}
+
+
+    <script type="text/javascript">
+        function focus_date(param) {
+
+            $('#' + param).focus();
+
+        }
+
+    </script>
+
+    <style type="text/css">
+        .vic-ma-header:after {
+            position: absolute;
+            letter-spacing: -6px;
+            content: 'TODOS';
+            line-height: 1em;
+            
+            color: rgba(155, 155, 155, 0.1);
+            font-size: 5em;
+            height: 75px;
+            overflow: hidden;
+            box-sizing: border-box;
+            margin-top: 10px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "scriptsPagos.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+<link rel="stylesheet" type="text/css"
+      href="../static/css/nuevo_calendario.css"/>
+
+<style>
+    .vic-ma-header:after {
+        content: '{{ iniciales }}';
+    }
+
+
+</style>
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="container">
+
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="vic-marca-agua vic-ma-header col-xs-12" style="padding: 0">
+                <div class="pull-left vic-ma-perfil-texto ">
+                    <div class="vic-calendar-title">Estado de Cuenta</div>
+                </div>
+
+
+                <div class="pull-right movil-md " style="margin-top: 36px;">
+                    <div class="vic-icon text-center">
+                        <table style="width: 100%">
+
+                            <tbody>
+
+                            <tr>
+
+                                <td class="vic-icon  text-center" style="padding-right : 15px;">
+                                    <div class="search-plus"><i class="fa fa-search-plus fa-1-5x "></i></div>
+                                    <div style="display: none;" class="search-minus"><i
+                                            class="fa fa-search-minus fa-1-5x "></i></div>
+                                    <div class="vic-icon-text">Buscar</div>
+                                </td>
+
+
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class=" col-md-4 ">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-11 ">
+
+                        <div class="row vic-calendar-box gray">
+                            <div class="col-xs-6" style="padding-left: 5px;padding-right: 5px;
+                        ">
+
+                                <table style="width: 100%">
+                                    <colgroup>
+                                        <col style="width: 80%">
+                                        <col style="width: 20%">
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            <div class="vic-calendar-filtro-label">MES</div>
+                                            <input readonly
+                                                   id="mesCalendar" autocomplete="off" name="mes"
+                                                   class="btn-block vic-calendar-filtro-input-fecha  mesCalendar"
+                                                   type="text" value="{{ mesCalendar }}"
+                                                   placeholder="MM">
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+
+                            </div>
+
+                            <div class="col-xs-6" style="padding-left: 5px;padding-right: 5px;
+                        ">
+                                <div style="border-left:1px #8B96AA solid;padding-left: 5px;">
+                                    <table style="width: 100%">
+                                        <colgroup>
+                                            <col style="width: 80%">
+                                            <col style="width: 20%">
+                                        </colgroup>
+                                        <tr>
+                                            <td>
+                                                <div class="vic-calendar-filtro-label">AÑO</div>
+                                                <input readonly
+                                                       id="annoCalendar" autocomplete="off"
+                                                       name="fechaFinalizacion"
+                                                       class="btn-block vic-calendar-filtro-input-fecha annoCalendar"
+                                                       type="text" value="{{ annoCalendar }}"
+                                                       placeholder="YYYY">
+                                            </td>
+                                            <td>
+                                                <i onclick="focus_date('fechaFinalizacion')"
+                                                   class="fas fa-calendar-alt fa-1-5x "></i>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="destop-md  vic-search  col-md-6 ">
+
+
+                <div class="row vic-calendar-box gray">
+                    <div class="col-xs-10" style="padding-left: 5px;">
+
+                        <input id="searchString" autocomplete="off" name="afecha"
+                               class="btn-block  vic-calendar-filtro-input-search "
+                               type="text" value="" placeholder="Buscar... (referencia o alias)" style="text-transform:lowercase">
+
+                    </div>
+                    <div class="col-xs-2" style="border-left:1px #8B96AA solid;height: 34px;text-align: center;">
+
+                        <i  onclick="clear_form_search();" class="fa fa-search "></i>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row ">
+
+            <div class="col-md-8 vic-filtro">
+                <form action="">
+
+                    <div class="row vic-calendar-box gray box2">
+                        <div class="col-xs-3">
+
+                            <div class="vic-calendar-filtro-label ">ESTATUS</div>
+                            <select id="idStatus" name="idStatus" class="vic-calendar-filtro-select ">
+                                <option value="" style="color: #777">Todos</option>
+                                {% for key,status in tiposDeStatus %}
+                                    <option value="{{ key }}" style="color: #777">{{ status }}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <div class=" col-xs-3">
+                            <div class="vic-calendar-filtro-label ">MEDIO</div>
+                            <select id="idMedio" name="idMedio" class="vic-calendar-filtro-select ">
+                                <option value="" style="color: #777">Todos</option>
+                                {% for key,medio in mediosDePago %}
+                                    <option value="{{ key }}" style="color: #777">{{ medio }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class=" col-xs-3">
+                            <div class="vic-calendar-filtro-label ">PLAN</div>
+                            <select id="idPlan" name="idPlan" class="vic-calendar-filtro-select ">
+                                <option value="" style="color: #777">Todos</option>
+                                {% for plan in pm.marcaProductosVigentes %}
+                                    {% if plan.productoNombre != 'Referenciado' %}
+                                        <option value="{{ plan.productoId }}"
+                                                style="color: #777">{{ plan.productoNombre }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class=" col-xs-3">
+                                <div class="vic-calendar-filtro-label ">BANCO</div>
+                                <select id="idPlan" name="idPlan" class="vic-calendar-filtro-select ">
+                                    <option value="" style="color: #777">Todos</option>
+                                   
+                                </select>
+                            </div>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="aplicar-btn">
+                <button id="btnAplicar" onclick="actualizar();" type="button" class="btn  vic-btn-aplicar  ">
+                    Aplicar
+                </button>
+            </div>
+
+
+        </div>
+        <br>
+        <div
+                class=" vc-perf-atleta-menu2-tab   vc-perf-atleta-menu2-tab-2 animated fadeIn">
+            <!-- bucle -->
+
+
+            <div class="  col-12 text-center">
+
+
+            <div class=" section_dashboard">
+
+
+                <!-- comienso de la iterción -->
+
+                <div class=" vc-perf-atleta-menu2-tab   vc-perf-atleta-menu2-tab-2 animated fadeIn">
+
+                    <div class=" section_pagos">
+
+                        {% include 'table_body_estado_cuenta.html' %}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+
+
+<!-- fin codigo nuevo  -->
+
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".vic-calendar-toogle").click(function () {
+            $(".vic-calendar-toogle-div").toggle();
+        });
+
+
+        $("#searchString").keyup(function (e) {
+            if (e.which == 13) {
+                clear_form_search();
+            }
+        });
+
+
+        $(".vic-calendar-filter-close").click(function () {
+
+            $(".vic-filtro").hide(100);
+
+        });
+
+
+        $(".vic-calendar-filter-open").click(function () {
+
+            $(".vic-filtro").show(100);
+
+        });
+
+
+        $('.mesCalendar').datetimepicker({
+            //defaultDate: myDate.setDate(myDate.getDate()),
+            icons: {
+                time: 'fas fa-clock',
+                date: 'fas fa-calendar-alt',
+                up: 'fa fa-chevron-up',
+                down: 'fa fa-chevron-down',
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'glyphicon glyphicon-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-times'
+            },
+            useCurrent: false,
+            ignoreReadonly: true,
+            locale: 'es',
+            format: 'MM',
+        }).on("dp.change", function (e) {
+        });
+
+
+        $('.annoCalendar').datetimepicker({
+            //defaultDate: myDate.setDate(myDate.getDate()),
+            icons: {
+                time: 'fas fa-clock',
+                date: 'fas fa-calendar-alt',
+                up: 'fa fa-chevron-up',
+                down: 'fa fa-chevron-down',
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'glyphicon glyphicon-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-times'
+            },
+            useCurrent: false,
+            ignoreReadonly: true,
+            locale: 'es',
+            format: 'YYYY',
+        }).on("dp.change", function (e) {
+
+
+        });
+
+
+        $(window).resize(function () {
+
+
+            if ($(this).width() > 767) {
+
+                {% if vs.tipoSesion == vs.MARCA %}
+                    $('.search-plus').hide(1, function () {
+
+                        $('.search-minus').show();
+
+                    });
+
+                    $('.vic-search').show();
+
+                {% endif %}
+
+                {% if vs.tipoSesion == vs.ATLETA %}
+                    $(".vic-calendar-toogle-div").show();
+                {% endif %}
+
+
+
+
+            } else {
+
+                if (parseInt($(this).width()) > 450) {
+
+
+                    {% if vs.tipoSesion == vs.MARCA %}
+                        $('.search-minus').hide(1, function () {
+
+                            $('.search-plus').show();
+
+                        });
+
+                        $('.vic-search').hide();
+
+                    {% endif %}
+
+                    {% if vs.tipoSesion == vs.ATLETA %}
+                        $(".vic-calendar-toogle-div").hide();
+                    {% endif %}
+
+                }
+
+            }
+
+
+        });
+
+
+        $('.vic-list-detallado').click(function () {
+
+            vic_list_detallado();
+
+        });
+
+
+        $('.vic-list-simple').click(function () {
+
+            vic_list_simple();
+
+        });
+
+        {% if comenzando %}
+            actualizar();
+        {% endif %}
+
+    });
+
+    function actualizar() {
+
+        vic_list_simple();
+        var parametros = '?pk=' + '{{ vs.marcaEnUsoAlias }}'
+        parametros += '&mes=' + $('#mesCalendar').val();
+        parametros += '&anno=' + $('#annoCalendar').val();
+        parametros += '&idStatus=' + $('#idStatus').val();
+        parametros += '&idMedio=' + $('#idMedio').val();
+        parametros += '&idPlan=' + $('#idPlan').val();
+        parametros += '&searchString=' + $('#searchString').val();
+        parametros = parametros.split(' ').join('+');
+        var url;
+        $('.vic-load').show();
+
+        url = "{% url 'web:table_body_estado_cuenta' %}";
+
+        $('.section_pagos').addClass('opasiti-list');
+
+        Pace.restart();
+
+        $('.section_pagos').load(url + parametros, function () {
+
+            var section_pagos = $(this);
+            $('.section_pagos').removeClass('opasiti-list');
+            $('.vic-load').hide();
+
+            if (vic_tipo_acti_label != '') {
+
+                $('.vic_tipo_acti_label').text(vic_tipo_acti_label);
+            }
+
+            vic_tipo_acti_label = '';
+
+            $('.vic-load').hide();
+
+        });
+
+
+    }
+
+    function vic_list_detallado() {
+
+
+        $('.vic-div-list-simple').show(100);
+
+
+        $('.vic-list-detallado').parent().parent().removeClass('disabled');
+        $('.vic-list-simple').parent().parent().addClass('disabled');
+
+        $('.vic-list-detallado-col').show(100);
+        $('.vic-list-simple-col').hide(100);
+
+
+    }
+
+    function vic_list_simple() {
+
+        $('.vic-div-list-simple').hide(100);
+
+        $('.vic-list-detallado').parent().parent().addClass('disabled');
+        $('.vic-list-simple').parent().parent().removeClass('disabled');
+
+        $('.vic-list-detallado-col').hide(100);
+        $('.vic-list-simple-col').show(100);
+
+    }
+
+    function vic_periodo(tipo, text, obj) {
+
+        $('.o-clock').removeClass('vic-negrita');
+
+        $(obj).addClass('vic-negrita');
+
+
+        if (tipo != '') {
+
+
+            if (tipo == 1) {
+                vicFechaMes();
+
+            } else if (tipo == 2) {
+
+                vicFechaMesPasado();
+            } else if (tipo == 3) {
+
+                vicFechaUlimosNoventa();
+
+            } else if (tipo == 4) {
+                vicFechaEsteAgno();
+
+
+            } else if (tipo == 5) {
+
+                vicFechaAgnoPasado();
+
+            } else if (tipo == 6) {
+
+                vicFechaEstaSemana();
+
+            } else if (tipo == 7) {
+
+                vicProximas();
+
+            }
+
+        }
+
+    }
+
+    var vic_tipo_acti_label = '';
+
+
+    function clear_form_search() {
+        $('#idPlan').val('');
+        $('#idMedio').val('');
+        $('#idStatus').val('');
+        actualizar();
+    }
+
+    $('.search-plus').click(function () {
+
+        $('.search-plus').hide(1, function () {
+
+            $('.search-minus').show();
+
+        });
+
+        $('.vic-search').show();
+
+    });
+
+    $('.search-minus').click(function () {
+
+        $('.search-minus').hide(1, function () {
+
+            $('.search-plus').show();
+
+        });
+
+        $('.vic-search').hide();
+
+
+    });
+
+
+    function cambiarStatusPago(callback, pago, opcion) {
+
+        $.ajax({
+            data: {
+                'pago': pago,
+                'opcion': opcion,
+            },
+            url: '/cambiarstatuspago',
+            type: 'get',
+            success: function (data) {
+                callback();
+            },
+        })
+    }
+
+    function mostrarPagoPendientePorCobrar(pagoId) {
+        $.ajax({
+            data: {'pagoId': pagoId,},
+            url: '/mostrarPagoPendientePorCobrar',
+            type: 'get',
+            success: function (data) {
+                procesarPagoPendientePorCobrar(actualizar, data[0], data[1]);
+            },
+        });
+        return false;
+    }
+
+</script>
+
+</body>
+
+</html>

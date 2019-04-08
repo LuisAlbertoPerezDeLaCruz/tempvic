@@ -1,0 +1,316 @@
+<!-- pagos-pendientes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+    {% load i18n %}
+    {% load filtrosEspeciales %}
+
+</head>
+<body>
+
+{% include "header.html" %}
+{% include "atletafast.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    {% language 'es' %}
+        <div class="container-fluid fondo-atletas fondo-fijo block-1pg" id="nombre-display">
+            <div class="row block-2pg-row">
+                <div class="col-xs-offset-1  col-xs-10  col-sm-offset-2  col-sm-8  col-md-offset-0  col-md-12  ">
+                    {% for m,f,t in mesesprevios reversed %}
+                        <span id="mes{{ forloop.counter0 }}" class="block-1s1">{{ user.get_full_name }}</span>
+                    {% endfor %}
+                    <span class="block-1s2">Edo. Cuenta</span>
+                </div>
+                <div class="col-xs-offset-1  col-xs-10  col-sm-offset-2  col-sm-8 col-md-offset-4 col-md-4 ">
+                    <form>
+                        <input id="elInput" onkeyup="return myFiltrodeDetalle()" type="search"
+                               class="buscar-atleta destop">
+                    </form>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 block-2c">
+
+            <div class="col-xs-1 col-md-offset-1 col-md-1 destop ">
+                <a id="next" href="?fecha={{ mesesprevios.5.0|date:'Y-m-d' }}">
+                    <img src="../static/images/prev.png"
+                         class="blank-img  hvr-grow close-left-all" onclick="">
+                </a>
+            </div>
+
+            <div class="col-xs-1 col-md-offset-1 col-md-1 movil ">
+                <a id="next" href="?fecha={{ mesesprevios.5.0|date:'Y-m-d' }}">
+                    <img src="../static/images/prev.png"
+                         class="blank-img  hvr-grow close-left-all" onclick="">
+                </a>
+            </div>
+            <div class=" col-xs-10 col-md-8  block-2c-c">
+
+                {% for m,f,t in mesesprevios reversed %}<a onclick="cambio({{ forloop.counter0 }})">
+                    <div id="d{{ forloop.counter0 }}"
+                         class="col-xs-2 div-fecha-c {% if m.month == fecha.month %}active{% endif %} destop">
+                        <div class="fecha-c"
+                             style="text-transform: uppercase;">{{ m|date:"d" }}-{{ f|date:"d" }} {{ m|date:"b Y" }} </div>
+                        <div class="dia-c">{% if t == None %}0.0
+                            {% else %}{{ t }} {% endif %} {{ marca_actual.m_moneda }}</div>
+                    </div>
+                </a>
+                    {% if forloop.counter > 3 and forloop.counter < 7 %}
+                        <a onclick="cambio({{ forloop.counter0 }})">
+                            <div id="m{{ forloop.counter0 }}"
+                                 class="col-xs-4 div-fecha-c {% if m.month == fecha.month %}active{% endif %} movil">
+                                <div class="fecha-c" style="text-transform: uppercase;">{{ m|date:"b Y" }}</div>
+                                <div class="dia-c">{% if t == None %}0.0{% else %}
+                                    {{ t }}{% endif %} {{ marca_actual.m_moneda }}</div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+            {% if not esultimo %}
+                <div class="col-xs-1 col-md-1 destop ">
+                    <a id="next" href="?fecha={{ sixmonths.1|date:'Y-m-d' }}"><img src="../static/images/next.png"
+                                                                                   class="blank-img  hvr-grow close-right-all"
+                                                                                   onclick="">
+                    </a>
+                </div>
+                <div class="col-xs-1 col-md-1 movil ">
+                    <a id="next" href="?fecha={{ sixmonths.3|date:'Y-m-d' }}"><img src="../static/images/next.png"
+                                                                                   class="blank-img  hvr-grow close-right-all"
+                                                                                   onclick="">
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="col-xs-12 block-3c" style="text-align: center;">
+            <div class="fecha-c col-xs-12">EDO. CUENTA</div>
+            <div class="resumen-c col-xs-12" style="margin-bottom: 20px;">RESUMEN DEL PERIODO</div>
+            {% for t,p,b in totalesprevios reversed %}
+                <div id="totales{{ forloop.counter0 }}" class="resumen-c col-xs-12" style="margin-bottom: 20px;">
+                    <div class="resumen-c col-xs-4  col-lg-2  col-lg-offset-3   ">
+                        <div class="resumen-c">{{ t|bolivares }}</div>
+                        <div class="fecha-c">Creditos</div>
+                    </div>
+                    <div class="resumen-c col-xs-4  col-lg-2 ">
+                        <div class="resumen-c">{{ p|bolivares }}</div>
+                        <div class="fecha-c">Bonos</div>
+                    </div>
+                    <div class="resumen-c col-xs-4  col-lg-2 ">
+                        <div class="resumen-c">{{ b|bolivares }}</div>
+                        <div class="fecha-c">Totales</div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% for pag in mostrar reversed %}
+                {% if not pag %}
+                    <div id="pag{{ forloop.counter0 }}" class=" col-xs-12 vacio" style="top: 30px;">
+                        <div class="row">
+                            <div class="col-xs-12">
+			  <span class="vacioTxt">Oops no hay pagos registrados... <strong><br>
+			para este mes.</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div id="pag{{ forloop.counter0 }}" class=" col-xs-12" style="top: 30px;">
+                        <table class=' table-compra t-consumen' border="0">
+                            <colgroup class='destop'>
+                                <col width='5%'>
+                                <col width='10%'>
+                                <col width='20%'>
+                                <col width='15%'>
+                                <col width='10%'>
+                                <col width='10%'>
+                                <col width='10%'>
+                                <col width='10%'>
+                                <col width='10%'>
+                            </colgroup>
+                            <colgroup class='movil'>
+                                <col width='10%'>
+                                <col width='40%'>
+                                <col width='30%'>
+                                <col width='20%'>
+                            </colgroup>
+                            <tr style="border-bottom: 1.5px solid #8B96AA;">
+                                <th class="destop" style="text-align: center;">#</th>
+                                <th style="text-align: center;">FECHA</th>
+                                <th class="destop" style="text-align: center;">HORA</th>
+                                <th>CLASE</th>
+                                <th>DISCIPLINA</th>
+                                <th class="destop">ESTATUS</th>
+                                <th>MONTO</th>
+                                <th class="destop">BONO</th>
+                                <th class="destop">ATLETAS</th>
+                                <th style="text-align: center;"><i class="fa fa-cog fa-spin fa-2x fa-fw margin-bottom "
+                                                                   style="cursor: pointer;"></i></th>
+                                <th class="destop"></th>
+
+
+                            </tr>
+                            {% for m in pag %}
+                                <tr id="r-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+                                    style="border-bottom: 1px solid #E7EAEF;">
+                                    <td class="destop">{{ forloop.counter }}</td>
+                                    <td class="destop" style="text-align: center;">{{ m.ac_fecha }}</td>
+                                    <td class="movil" style="text-align: center;">{{ m.ac_fecha|date:"d-m" }}</td>
+                                    <td class="destop" style="text-align: center;"><span
+                                            class="time"></span>{{ m.ac_hora_ini |date:"H:i a" }}
+                                        - {{ m.ac_hora_fin|date:"H:i a" }}</td>
+                                    <td style="text-align: center;" class="destop">
+                                        <a href="clase-{{ m.pk }}">{{ m.ac_nombre }}</a>
+                                    </td>
+                                    <td id="n-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+                                        style="text-align: center;" class="movil">
+                                        {{ m.ac_nombre }}
+                                    </td>
+
+                                    <td id="d-{{ forloop.parentloop.counter }}-{{ forloop.counter }}">{{ m.ac_disciplina }}</td>
+
+                                    <td class="destop">
+                                        {% if m.ac_estado.ea_estado == "Culminada" %}
+                                            <div class="col-md-1"><span class="label-asistida">EJECUTADA</span></div>
+                                        {% elif m.ac_estado.ea_estado == "Cancelada" %}
+                                            <div class="col-md-1"><span class="label-cancelada">CANCELADA</span></div>
+                                        {% else %}
+                                            <div class="col-md-1"></div>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ m.ac_precio|bolivares }}</td>
+                                    <td class="destop">{{ m.ac_bono|bolivares }}</td>
+                                    <td class="destop">
+                                        <div class="col-md-8 cake">{{ m.ac_cupos_reservados }}/<strong>{{ m.ac_cap_max }}</strong>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+        </div>
+    {% endlanguage %}
+
+{% include "fin-content-tabs.html" %}
+{% include "footer.html" %}
+
+<script>
+    function moneda(value) {
+        v = parseFloat(value);
+        v = v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        return v;
+    }
+</script>
+<script src="../static/js/sameHeight.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                $(this).toggleClass('open');
+            },
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                $(this).toggleClass('open');
+            }
+        );
+    });
+</script>
+
+<script>
+    for (i = 0; i < 10; i++) {
+        var content = document.getElementById("m" + i + "-" + j).innerHTML;
+        if (content == "None") {
+            document.getElementById("m" + i).innerHTML = moneda(0) + " {{marca_actual.d_marca.m_moneda}}";
+        } else {
+            document.getElementById("m" + i).innerHTML = moneda(content) + " {{marca_actual.d_marca.m_moneda}}";
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
+    function cambio(input) {
+        for (i = 0; i < 6; i++) {
+            document.getElementById("pag" + i).style.display = "none";
+            $("#d" + i).removeClass("active");
+            $("#mes" + i).hide();
+            $("#totales" + i).hide();
+        }
+        document.getElementById("pag" + input).style.display = "";
+        $("#d" + input).addClass("active");
+        $("#mes" + input).show();
+        $("#totales" + input).show();
+
+    }
+
+    cambio(5);
+
+    function myFiltrodeDetalle() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("elInput");
+        filter = input.value.toUpperCase();
+        {%for pag in mostrar reversed%}
+            for (i = 1; i <= parseInt('{{pag|length}}'); i++) {
+                palabra = document.getElementById('n-{{forloop.counter}}-' + i);
+                console.log(palabra.innerHTML);
+                console.log(filter);
+                if (palabra.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    $('#r-{{forloop.counter}}-' + i).show();
+                    console.log("Mostro");
+                } else {
+                    $('#r-{{forloop.counter}}-' + i).hide();
+                    console.log("Oculto");
+
+                }
+            }
+        {%endfor%}
+    }
+</script>
+
+<!--Registrar pago como consolidado-->
+<script type="text/javascript">
+    function registrarpago(pago) {
+        $.ajax({
+            data: {'pago': pago,},
+            url: '/registrarpago',
+            type: 'get',
+            success: function (data) {
+                console.log(data);
+                alertVictorius("Pago conciliado", 1);
+            },
+        })
+    }
+</script>
+
+<script type="text/javascript">
+    function mostrar(pago) {
+        $.ajax({
+            data: {'pago': pago,},
+            url: '/mostrarpago',
+            type: 'get',
+            success: function (data) {
+                console.log(data);
+                procesarCompra(data[0], data[1], pago);
+            },
+        })
+    }
+</script>
+
+<script>
+    var div = $("#nombre-display");
+    document.querySelector('div#resultados-tabla').style.marginTop = div.outerHeight() + 'px';
+</script>
+
+</body>
+</html>

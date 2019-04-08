@@ -1,0 +1,250 @@
+<!-- contactos.html -->
+
+{% extends 'base-index.html' %}
+
+{% block contenido %}
+
+<div class="container-fluid   bg-black container-fluid-p0 text-white ">
+
+    <div class="container  div-amarillo text-center">
+
+        <div class="ml-auto mr-auto">
+
+            <div class="">
+
+                <h2 class="text-center  h3">CONTÁCTANOS</h2>
+
+                <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+                    <div class="col-xs-6 menu-movil sin-left tabIzquierdo  active">
+                        <div class="cell">
+                            CENTROS
+                        </div>
+                    </div>
+                    <div class="col-xs-6 menu-movil tabDerecho ">
+                        <div class="cell">
+                            ATLETAS
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row  hidden-xs hidden-sm ">
+                    <div class="col-xs-3 col-xs-offset-3 menu-movil sin-left tabIzquierdo  active">
+                        <div class="cell">
+                            CENTROS
+                        </div>
+                    </div>
+                    <div class="col-xs-3 menu-movil tabDerecho ">
+                        <div class="cell">
+                            ATLETAS
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <h3 class="text-center  h3 ">
+
+
+                    Conoce como VICTORIUS puede ayudarte a crecer tu negocio.<br><br>
+
+                </h3>
+
+                <form id="formProspectsMarcas" method="post" action="/" novalidate="novalidate" class="aniview tabIzquierdoBox" data-av-animation="pulse">
+                    <input type="hidden" name="form-type"
+                           value="prospectsMarcas">
+                    {% csrf_token %}
+                    <div class="row" style="text-align: left;">
+                        <div class="col-xs-12">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group ">
+                                        <label for="nombre"
+                                               class="label-form-pago control-label label-white">NOMBRE</label>
+
+                                        <input id="nombre" name="nombre" class="btn-block input-agregar form-control"
+                                               type="text" value="" placeholder="nombre" data-error="Campo requerido"
+                                               onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group ">
+                                        <label for="apellido"
+                                               class="label-form-pago control-label label-white">APELLIDO</label>
+
+                                        <input id="apellido" name="apellido" class="btn-block input-agregar form-control"
+                                               type="text" value="" placeholder="Apellido" data-error="Campo requerido"
+                                               onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="correo"
+                                               class="label-form-pago control-label label-white">EMAIL</label>
+
+                                        <input id="correo" name="correo" class="btn-block input-agregar form-control"
+                                               type="email" value="" placeholder="email" data-error="Correo Invalido"
+                                               onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6 ">
+                                    <div class="form-group">
+                                        <label for="lugarOperacion" class="label-form-pago control-label label-white ">DONDE OPERA
+                                            TU NEGOCIO</label>
+
+                                        <input id="lugarOperacion" name="lugarOperacion" class="btn-block input-agregar form-control"
+                                               type="text" value="" placeholder="Donde opera" data-error="Campo requerido"
+                                               onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6 ">
+                                    <div class="form-group">
+                                        <label for="nombreNegocio" class="label-form-pago control-label label-white">NOMBRE DE TU
+                                            NEGOCIO</label>
+
+                                        <input id="nombreNegocio" name="nombreNegocio" class="btn-block input-agregar form-control"
+                                               type="text" value="" placeholder="Nombre de tu negocio "
+                                               data-error="Campo requerido" onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-8 ">
+                                    <div class="form-group">
+                                        <label for="descripcionNegocio" class="label-form-pago control-label label-white">CUENTANOS
+                                            SOBRE TU NEGOCIO</label>
+
+                                        <textarea autocomplete="off" id="descripcionNegocio" name="descripcionNegocio"
+                                                  class="btn-block input-grey form-control bind"
+                                                  type="text" value="" placeholder="Cuentanos sobre tu negocio "
+                                                  rows="4"></textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 ">
+                                    <input type="submit" class="btn-block  submit text-black btn-form disabled"
+                                           value="Solicitar Información">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+                <form id="formProspectsAtletas" style="display: none;" method="post" action="/" novalidate="novalidate" class="aniview tabDerechoBox" data-av-animation="pulse">
+                    <input type="hidden" name="form-type"
+                           value="prospectsAtletas">
+                    {% csrf_token %}
+                    <div class="row" style="text-align: left;">
+                        <div class="col-xs-12">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group ">
+                                        <label for="nombre"
+                                               class="label-form-pago control-label label-white">NOMBRE</label>
+
+                                        <input id="nombre" name="nombre" class="btn-block input-agregar form-control"
+                                               type="text" value="" placeholder="nombre" data-error="Campo requerido"
+                                               onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group ">
+                                        <label for="apellido"
+                                               class="label-form-pago control-label label-white">APELLIDO</label>
+
+                                        <input id="apellido" name="apellido" class="btn-block input-agregar form-control"
+                                               type="text" value="" placeholder="Apellido" data-error="Campo requerido"
+                                               onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="correo"
+                                               class="label-form-pago control-label label-white">EMAIL</label>
+
+                                        <input id="correo" name="correo" class="btn-block input-agregar form-control"
+                                               type="email" value="" placeholder="email" data-error="Correo Invalido"
+                                               onkeyup="return forceLower(this);" required="">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-8 ">
+                                    <div class="form-group">
+                                        <label for="aspiraciones" class="label-form-pago control-label label-white">CUENTANOS
+                                            SOBRE TUS ASPIRACIONES</label>
+
+                                        <textarea autocomplete="off" id="objetivos" name="aspiraciones"
+                                                  class="btn-block input-grey form-control bind"
+                                                  type="text" value="" placeholder="Cuentanos sobre tus aspiraciones "
+                                                  rows="4"></textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-8 " >
+                                    <div class="form-group">
+                                        <label for="centrosFrecuentados" class="label-form-pago control-label label-white">CUALES
+                                            CENTROS FRECUENTAS</label>
+
+                                        <textarea autocomplete="off" id="centrosFrecuentados" name="centrosFrecuentados"
+                                                  class="btn-block input-grey form-control bind"
+                                                  type="text" value=""
+                                                  placeholder="Cuentanos sobre los centros que frecuentas "
+                                                  rows="4"></textarea>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 ">
+                                    <input type="submit" class="btn-block  submit text-black btn-form disabled"
+                                           value="Solicitar Información">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid   bg-white  ">
+
+    <div class="container" style="padding-bottom: 10px;padding-top: 10px">
+
+        <div class="ml-auto mr-auto">
+            <h4 class="text-center">
+
+
+                Unete a nuestro movimiento <br><br>
+
+                <i class="fab fa-instagram fa-2x" style="    margin-right: 100px;"></i>
+                <i class="fab fa-twitter fa-2x"></i>
+
+
+            </h4>
+
+
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom: 50px;"></div>
+
+{% endblock contenido %}

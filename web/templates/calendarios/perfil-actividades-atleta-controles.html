@@ -1,0 +1,79 @@
+<!-- perfil-actividades-atleta-controles.html -->
+
+{% extends 'calendario-atleta.html' %}
+
+{% load filtrosEspeciales %}
+
+{% load staticfiles %}
+
+{% block controlFiltro %}
+{% endblock controlFiltro %}
+
+{% block controlCarrusel %}
+    {% if vs.tipoSesion == vs.ATLETA %}
+        {% if perfilAtleta.atletaTieneRelacionConMarcas == True %}
+            <!-- CARROUSEL DE CIRCULOS-->
+            <div class="row vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn">
+                <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px">
+
+                    <div class="owl-carousel owl-theme customCarruselAtleta m-t-10">
+                        <!-- GUIA PARA EL ENCARGADO DEL BACK-->
+                        <!-- EL CIRCULO QUE NO ESTA SELECCIONADO SE LE DEBE AGREGAR LA CLASE yellow, si esta seleccionado se le quita la clase yellow-->
+                        <!-- EL EVENTO ON CLICK, TIENE UNA FUNCION DE NOMBRE event(1), ES DE PRUEBAS Y DEBE SER REEMPLAZADO POR LA FUNCION E IDENTIFICADOR CORRECTO-->
+
+                        <div>
+                            <div id="idDiv_Todos" class="idDiv_Todos vic-circle-calendar-carrusel-65
+                                " style="display: table;margin: auto"
+                                 onClick="seleccionCirculoMarca('Todos')">
+                                <div style="font-size: 18px; font-weight:normal; display: table-cell;vertical-align:middle;">
+
+                                    <img id="fotoPerfil" class="vic-circle-calendar-carrusel-65 "
+                                         src="{% static '/images/todas_afiliaciones.png' %}">
+
+                                </div>
+                            </div>
+                            <div class="line-clamp" style="font-size:12px">
+                                Todos
+                            </div>
+                        </div>
+
+                        {% with perfilAtleta.atletaMarcas as marcasAprobadas %}
+
+                            {% for marca in marcasAprobadas %}
+
+                                <div>
+                                    <div id="idDiv_{{ marca.m_alias }}" class="idDiv_{{ marca.m_alias }} vic-circle-calendar-carrusel-65
+                                    " style="display: table;margin: auto"
+                                         onClick="seleccionCirculoMarca('{{ marca.m_alias }}')">
+                                        <div style="font-size: 18px; font-weight:normal; display: table-cell;vertical-align:middle;">
+
+                                            <img id="fotoPerfil" class="vic-circle-calendar-carrusel-65 "
+                                                 src="{{ marca.full_ruta_avatar }}"
+                                                 onerror=src="{% static '/images/AvatarCentro1.png' %}">
+
+                                        </div>
+                                    </div>
+                                    <div class="line-clamp" style="font-size:12px">
+                                        {{ marca.m_nombre }}
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endwith %}
+
+                    </div>
+                </div>
+                <div class="vic-hr "></div>
+
+            </div>
+            <script>
+                $('.idDiv_Todos').addClass('selected');
+            </script>
+        {% endif %}
+    {% endif %}
+{% endblock controlCarrusel %}
+
+
+

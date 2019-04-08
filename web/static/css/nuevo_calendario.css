@@ -1,0 +1,656 @@
+.vic-ma-header:after {
+    content: '{{ iniciales }}';
+}
+
+.vic-ma-header:after {
+    position: absolute;
+    letter-spacing: -6px;
+    content: 'TODOS';
+    line-height: 1em;
+
+    color: rgba(155, 155, 155, 0.1);
+    font-size: 5em;
+    height: 75px;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+
+.vic-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.vic-calendar-title {
+    color: #4A4A4A;
+
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-top: 20px
+
+}
+
+@media ( max-width: 991px) {
+
+    .vic-calendar-box {
+        margin-bottom: 10px;
+    }
+
+}
+
+.vic-calendar-sub-title-header {
+    color: #333333;
+
+    color: #4A4A4A;
+
+    font-size: 15px;
+    background: white;
+    border: 0;
+    font-weight: 500;
+    text-decoration: unset;
+}
+
+.text-size1 {
+    font-size: 15px;
+    padding-bottom: 15px;
+}
+
+.vic-calendar-box {
+    min-height: 52px;
+    padding-top: 7px;
+    padding-bottom: 3px;
+
+}
+
+.vic-calendar-box.box2 {
+    margin-top: 15px;
+
+}
+
+.aplicar-btn {
+    min-height: 52px;
+    padding-top: 32px;
+}
+
+.vic-icon.disabled {
+
+    color: #bbb;
+}
+
+.vic-icon-text {
+
+    font-size: 10px;
+    font-weight: 600;
+
+}
+
+.vic-calendar-box.gray {
+    border: 1px solid #8B96AA;
+
+}
+
+.vic-calendar-box i {
+    margin-top: 7px;
+    cursor: pointer;
+
+}
+
+.vic-calendar-box i.fa-search {
+    font-size: 20px;
+
+}
+
+.vic-calendar-filtro-label {
+
+    color: rgb(139, 150, 170);
+    font-size: 12px;
+    margin-bottom: -3px;
+
+}
+
+.vic-calendar-filtro-select {
+    color: #333333;
+
+    font-size: 12px;
+    line-height: 16px;
+    background: white;
+    border: 0;
+}
+
+.vic-calendar-filtro-input-fecha {
+    box-shadow: none;
+    font-size: 12px;
+    height: 20px;
+    border: 0;
+    color: black;
+}
+
+.vic-calendar-filter-close {
+
+    margin-top: -10px;
+
+}
+
+.vic-calendar-filtro-input-search {
+    box-shadow: none;
+    font-size: 15px;
+    border: 0;
+    color: black;
+}
+
+.vic-calendar-filtro-input-fecha::placeholder, .vic-calendar-filtro-input-search::placeholder {
+    color: #555;
+    opacity: 1; /* Firefox */
+}
+
+.vic-calendar-filtro-input-fecha:-ms-input-placeholder, .vic-calendar-filtro-input-search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+}
+
+.vic-calendar-filtro-input-fecha::-ms-input-placeholder, .vic-calendar-filtro-input-search::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+}
+
+.vic-filtro {
+    /*display: none;*/
+}
+
+.vic-hr.gris-oscuro {
+
+    border-bottom: 1px solid #E7EAEF;
+}
+
+.vic-hr.gris-oscuro-title {
+
+    border-bottom: 1px solid #333;
+}
+
+/*propias del html*/
+
+.t-consumen td {
+
+    height: 40px;
+}
+
+.moreOpsBt {
+    position: relative;
+    /* bottom: 0; */
+    /* right: 0px; */
+    z-index: 4;
+    height: 21px;
+}
+
+.active-perf {
+    background: white;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.t-consumen td {
+
+    text-align: inherit;
+
+}
+
+.vic-ma2 {
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.vic-hr {
+    margin-bottom: 0;
+}
+
+.vic-table-perf-atle-title {
+    margin-top: 20px;
+    text-align: left;
+}
+
+/*///////////////////////////////////////////////////////////////////*/
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+.flex-container > div {
+    text-align: left;
+/* border: blue solid 1px;*/
+
+    min-width: 50px;
+}
+
+/*******  marca    ********/
+
+.vic-table-marca-c1 {
+    width: 150px;
+    text-align: center !important;
+    vertical-align: top;
+    padding-left: 10px;
+}
+
+/***************/
+
+.flex-container.vic-marca-vigente > div.vic-marca-c1 {
+    width: 25%;
+
+}
+
+.flex-container.vic-marca-vigente > div.vic-marca-c2 {
+    width: 20%;
+    text-align: center;
+}
+
+.flex-container.vic-marca-vigente > div.vic-marca-c3 {
+    width: 20%
+}
+
+.flex-container.vic-marca-vigente > div.vic-marca-c4 {
+    width: 20%
+}
+
+.flex-container.vic-marca-vigente > div.vic-marca-c5 {
+    flex-grow: 1;
+    width: 10%;
+    text-align: center;
+            margin-top: 10px;
+    
+}
+
+.flex-container.vic-marca-vigente > div.vic-marca-c6 {
+    width: 100%;
+    text-align: left;
+    max-width: inherit;
+
+}
+
+.aplicar-btn .btn {
+
+    margin-left: 15px;
+    text-transform: uppercase;
+
+}
+
+@media ( max-width: 767px) {
+    .label-sm {
+        padding-top: 10px;
+
+    }
+
+    .aplicar-btn {
+        padding-top: 0;
+        min-height: auto;
+    }
+
+    .aplicar-btn .btn {
+
+        margin-left: 0;
+        float: right;
+    }
+
+    .vic-table-marca-c1 {
+        width: 90px;
+        text-align: center !important;
+        padding-left: 0;
+    }
+
+    .vic-table-marca-c1 > div {
+        margin-left: -15px;
+    }
+
+    .flex-container.vic-marca-vigente > div.vic-marca-c1 {
+        width: 75%;
+        font-size: 16px;
+
+    }
+
+    .flex-container.vic-marca-vigente > div.vic-marca-c2 {
+        width: 25%;
+        text-align: right;
+    }
+
+    .flex-container.vic-marca-vigente > div.vic-marca-c3 {
+        width: 60%;
+        font-size: 16px;
+    }
+
+    .flex-container.vic-marca-vigente > div.vic-marca-c4 {
+        width: 40%;
+        text-align: right;
+    }
+
+    .flex-container.vic-marca-vigente > div.vic-marca-c5 {
+        width: 40%;
+        text-align: right;
+                    margin-top: 0;
+        
+    }
+}
+
+/***************/
+.flex-container.vic-marca-reciente > div.vic-marca-c1 {
+    width: 25%
+}
+
+.flex-container.vic-marca-reciente > div.vic-marca-c2 {
+    width: 20%
+}
+
+.flex-container.vic-marca-reciente > div.vic-marca-c3 {
+    width: 20%;
+    
+}
+
+.flex-container.vic-marca-reciente > div.vic-marca-c4 {
+    width: 20%
+}
+
+@media ( max-width: 767px) {
+
+    .flex-container.vic-marca-reciente > div.vic-marca-c1 {
+        width: 75%;
+        font-size: 16px;
+    }
+
+    .flex-container.vic-marca-reciente > div.vic-marca-c2 {
+        width: 25%;
+        text-align: right;
+    }
+
+    .flex-container.vic-marca-reciente > div.vic-marca-c3 {
+        width: 60%;
+        font-size: 16px;
+    }
+
+    .flex-container.vic-marca-reciente > div.vic-marca-c4 {
+        width: 40%;
+        text-align: right;
+    }
+}
+
+/*******  atleta    ********/
+
+.vic-table-atleta-c1 {
+    width: 150px;
+    text-align: center !important;
+    padding: 5px 0 5px 0;
+    vertical-align: top;
+    padding-left: 10px;
+}
+
+/***************/
+.flex-container.vic-atleta-vigente > div.vic-atleta-c1 {
+    width: 30%
+}
+
+.flex-container.vic-atleta-vigente > div.vic-atleta-c2 {
+    width: 15%
+}
+
+.flex-container.vic-atleta-vigente > div.vic-atleta-c3 {
+    width: 25%
+}
+
+.flex-container.vic-atleta-vigente > div.vic-atleta-c4 {
+    width: 10%
+}
+
+.flex-container.vic-atleta-vigente > div.vic-atleta-c5 {
+    width: 10%
+}
+
+.flex-container.vic-atleta-vigente > div.vic-atleta-c6 {
+    flex-grow: 1;
+    text-align: center;
+    max-width: 20%;
+}
+
+@media ( max-width: 767px) {
+
+    .vic-table-atleta-c1 {
+        width: 90px;
+        text-align: center !important;
+        padding-left: 0;
+    }
+
+    .vic-table-atleta-c1 > div {
+        margin-left: -15px;
+    }
+
+    .flex-container.vic-atleta-vigente > div.vic-atleta-c1 {
+        width: 70%;
+        font-size: 16px;
+    }
+
+    .flex-container.vic-atleta-vigente > div.vic-atleta-c2 {
+        width: 30%;
+        text-align: right;
+    }
+
+    .flex-container.vic-atleta-vigente > div.vic-atleta-c3 {
+        width: 60%;
+        font-size: 16px;
+    }
+
+    .flex-container.vic-atleta-vigente > div.vic-atleta-c4 {
+        width: 25%;
+        text-align: right;
+    }
+
+    .flex-container.vic-atleta-vigente > div.vic-atleta-c5 {
+        width: 40%;
+        align-self: center;
+        text-align: right;
+    }
+
+    .flex-container.vic-atleta-vigente > div.vic-atleta-c6 {
+        width: 40%;
+        text-align: right;
+        max-width: inherit;
+    }
+
+    .vic-puesto-new {
+
+    }
+}
+
+/***************/
+.flex-container.vic-atleta-reciente > div.vic-atleta-c1 {
+    width: 30%
+}
+
+.flex-container.vic-atleta-reciente > div.vic-atleta-c2 {
+    width: 15%
+}
+
+.flex-container.vic-atleta-reciente > div.vic-atleta-c3 {
+    width: 25%
+}
+
+.flex-container.vic-atleta-reciente > div.vic-atleta-c4 {
+    width: 10%
+}
+
+.flex-container.vic-atleta-reciente > div.vic-atleta-c5 {
+    width: 10%
+}
+
+.flex-container.vic-atleta-reciente > div.vic-atleta-c6 {
+    max-width: 20%;
+    text-align: right;
+}
+
+@media ( max-width: 767px) {
+
+    .flex-container.vic-atleta-reciente > div.vic-atleta-c1 {
+        width: 60%;
+        font-size: 16px;
+    }
+
+    .flex-container.vic-atleta-reciente > div.vic-atleta-c2 {
+        width: 40%;
+        text-align: right;
+    }
+
+    .flex-container.vic-atleta-reciente > div.vic-atleta-c3 {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .flex-container.vic-atleta-reciente > div.vic-atleta-c4 {
+        width: 40%;
+        text-align: right;
+    }
+
+    .flex-container.vic-atleta-reciente > div.vic-atleta-c5 {
+        width: 60%;
+        align-self: center;
+        text-align: right;
+
+    }
+
+    .flex-container.vic-atleta-reciente > div.vic-atleta-c6 {
+        width: 100%;
+        max-width: inherit;
+        text-align: right;
+        align-self: center;
+
+    }
+}
+
+@media ( max-width: 350px) {
+
+    .vic-table-marca-c1, .vic-table-atleta-c1 {
+        width: 70px;
+    }
+
+    .vic-perfil-atl-inst-sub-title {
+
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+}
+
+@media ( max-width: 767px) {
+
+    .vic-search {
+        margin-top: 15px;
+    }
+
+}
+
+.puesto_salon {
+    margin: 0;
+}
+
+.vic-gray-c1 {
+
+    color: #bbb;
+}
+
+.vic-anarillo-c1 {
+
+    color: #FFD302;
+
+}
+
+.fechaSelect {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+.opasiti-list {
+
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+
+}
+
+.vic-recientes-opacity {
+
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+}
+
+.vic-ma2-letras {
+    color: rgba(255, 205, 1, 0.17);
+
+}
+
+.vic-puesto-new {
+
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    color: #777;
+    font-size: 85%;
+}
+
+@media ( max-width: 767px) {
+
+    .vic-puesto-new {
+
+        text-align: right;
+        width: 100% !important;
+
+    }
+}
+
+.vic-text-puesto-new {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: none;
+    font-weight: normal;
+    color: black;
+    padding-bottom: 5px;
+
+}
+
+.table-compra.tc {
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.vic-negrita {
+    font-weight: bold !important;
+}
+
+.menu-tab-calendar {
+    display: inline;
+}
+
+.menu-tab-calendar.vic-left {
+    margin-left: 15px;
+}
+
+.menu-tab-calendar:hover, .menu-tab-calendar.active {
+
+    border-bottom: 2px solid #FFD302;
+
+}
+
+.vic-filtro select {
+
+    width: 100%;
+    border-bottom: .8px solid rgba(175, 175, 175, 0.22)
+
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+}
+
+
+

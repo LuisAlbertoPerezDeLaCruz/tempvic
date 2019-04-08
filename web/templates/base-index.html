@@ -1,0 +1,470 @@
+<!-- base-index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+
+    <script type="text/javascript">
+        function toogle_eye(params) {
+        	
+        	console.log("hola mundo");
+
+            if (!params) {
+
+                $(".vic-eye-slash").hide();
+                $(".vic-eye").show();
+                $(".password").attr("type", "password");
+
+            } else {
+
+                $(".vic-eye-slash").show();
+                $(".vic-eye").hide();
+                $(".password").attr("type", "text")
+
+            }
+
+        }
+
+        $(document).ready(function () {
+            $('.aniview').AniView();
+        });
+    </script>
+
+    <style>
+    
+    
+.vic-load {
+	display: none;
+}
+
+        .text-black {
+
+            color: #555;
+
+        }
+
+        .btn-form {
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .container-fluid-p0 {
+            padding: 0;
+        }
+
+        h2.h2 {
+
+            text-transform: uppercase;
+
+            line-height: normal;
+            text-align: center !important;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        h2.h3 {
+
+            text-transform: uppercase;
+
+            line-height: normal;
+            text-align: center !important;
+            font-size: 32px;
+            font-weight: bold;
+
+        }
+
+        .div-amarillo {
+            margin-top: 3em;
+            margin-bottom: 3em;
+        }
+
+
+        .div-amarillo h3.h3 {
+            text-align: center !important;
+            float: none !important;
+            width: 100%;
+            font-size: 20px;
+
+
+        }
+
+        .div-1 {
+
+            height: 750px;
+            min-height: 100%
+
+        }
+
+        h3.h3 {
+            text-align: center !important;
+            float: none !important;
+            width: 100%;
+            line-height: normal;
+
+
+        }
+
+        .flex-container-index {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: center;
+        }
+
+        .flex-container-index > div {
+            text-align: center;
+            width: 100%;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+        }
+
+        .flex-container > div {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 0 !important;
+        / / border: 1 px solid red;
+
+        }
+
+        .flex-container.vic {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        .flex-container.vic > div.vic-c1 {
+            width: 15%;
+        }
+
+        .flex-container.vic > div.vic-c2 {
+            width: 5%;
+        }
+
+        .flex-container.vic > div.vic-c3 {
+            width: 15%;
+        }
+
+        .flex-container.vic > div.vic-c4 {
+            width: 5%;
+        }
+
+        .flex-container.vic > div.vic-c5 {
+            width: 15%;
+        }
+
+        .flex-container.vic > div.vic-c6 {
+            width: 5%;
+        }
+
+        .flex-container.vic > div.vic-c7 {
+            width: 15%;
+        }
+
+        @media ( max-width: 767px) {
+
+            .flex-container.vic > div.vic-c1 {
+                width: 15%;
+            }
+
+            .flex-container.vic > div.vic-c2 {
+                width: 5%;
+            }
+
+            .flex-container.vic > div.vic-c3 {
+                width: 15%;
+            }
+
+            .flex-container.vic > div.vic-c4 {
+                width: 5%;
+            }
+
+            .flex-container.vic > div.vic-c5 {
+                width: 15%;
+            }
+
+            .flex-container.vic > div.vic-c6 {
+                width: 5%;
+            }
+
+            .flex-container.vic > div.vic-c7 {
+                width: 15%;
+            }
+
+
+            h3 {
+                font-size: 19px;
+                line-height: normal;
+            }
+
+
+            h3.h3 {
+                font-size: 18px !important;
+            }
+
+            h2.h2 {
+                text-align: center !important;
+                font-size: 25px;
+            }
+
+            h2.h3 {
+                text-align: center !important;
+                font-size: 22px;
+            }
+
+            .icon-vic-actions {
+                width: 35px !important;
+                height: 35px !important;
+            }
+
+            .icon-vic-actions2 {
+                width: 15px !important;
+                height: 15px !important;
+            }
+
+            .botton-div {
+                margin-bottom: 30px !important;
+            }
+
+            .text-box {
+                display: none;
+            }
+
+            .div-1 {
+
+                height: 100%;
+
+            }
+
+            .flex-container.vic {
+                width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .fa-3x {
+                font-size: 2em;
+            }
+        }
+
+        @media ( max-width: 570px) {
+            form [class*="col-"] {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        .bg-black {
+            background: black;
+        }
+
+        .bg-amarillo {
+            background: #ffcd00 !important
+        }
+
+
+        .text-white {
+            color: white;
+        }
+
+        .vic-plan {
+            font-size: 20px
+        }
+
+        .icon-vic-actions {
+            width: 40px;
+            height: 40px
+        }
+
+        .icon-vic-actions2 {
+            width: 25px;
+            height: 25px;
+            margin-top: 12px;
+        }
+
+
+        a.underLine-amarillo {
+            color: white;
+            border-bottom: 1.2px solid rgba(255, 205, 0, 1);
+            padding-bottom: 2px;
+            font-size: 16px;
+            text-decoration: none;
+
+        }
+
+        a.underLine-amarillo:HOVER {
+            color: white;
+
+            border-bottom: 2px solid lightslategrey;
+
+        }
+
+        .botton-div {
+            margin-bottom: 80px;
+        }
+
+
+        .pt-5 {
+            padding-top: 5px;
+        }
+
+
+        label {
+            color: white;
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        .drop-disciplina, .input-agregar {
+
+            border: solid 1px #777;
+        }
+
+        .label-white {
+            color: white;
+        }
+
+
+        .bg-grey {
+
+            background: #f5f7fa;
+            background: url(https://futurelondonacademy.co.uk/theme/academy/images/menu-bg.png) repeat center;
+        }
+
+        .bg-white {
+            background: white;
+            background: url(https://futurelondonacademy.co.uk/theme/academy/images/body-bg.png) repeat center;
+            border-bottom: 5px #ffcd00 solid;
+
+        }
+
+
+        .menu-movil {
+            display: table;
+            height: 40px;
+            border-left: 0;
+            border-bottom: .5px solid white;
+            font-size: 12px;
+            text-align: center;
+            padding-top: 13px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+
+        .menu-movil:HOVER {
+            color: white;
+        }
+
+        .menu-movil.active {
+            border-bottom: 2px solid #FFCD01;
+            color: white;
+        }
+    </style>
+
+</head>
+{% load static %}
+<body>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static "/js/bootstrap.js" %}"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+
+<script src="{% static "/includes/pace-master/pace.min.js" %}"></script>
+<script src="{% static "/includes/jAlert-master/jAlert.js" %}"></script>
+
+<script type="text/javascript">
+
+</script>
+<!--LOADER.GIF ESTE ELEMENTO ESTÁ COMO COMENTARIO-->
+<!--<div class="loading"><img src="{% static "/images/loader.gif" %}" width="100" height="55" alt=""/></div>-->
+
+{% block header %}
+
+{% include "header.html" %}
+
+{% endblock header %}
+
+{% block contenido %}
+{% endblock contenido %}
+
+{% block footer %}
+
+    {% include "footer.html" %}
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static "/js/sameHeight.js" %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.tabIzquierdo').click(function () {
+
+            $('.tabDerecho').removeClass('active');
+            $('.tabIzquierdo').addClass('active');
+
+            $('.tabDerechoBox').hide(0);
+            $('.tabIzquierdoBox').show(0);
+
+            $('#formProspectsAtletas').validator().off();
+            $('#formProspectsMarcas').validator();
+
+
+        });
+
+        $('.tabDerecho').click(function () {
+
+
+            $('.tabIzquierdo').removeClass('active');
+            $('.tabDerecho').addClass('active');
+
+
+            $('.tabDerechoBox').show(0);
+            $('.tabIzquierdoBox').hide(0);
+
+            $('#formProspectsMarcas').validator().off();
+            $('#formProspectsAtletas').validator();
+
+        });
+
+        $(".vicAlertalert").click(function () {
+
+            $(".vicAlertalert").hide();
+
+        });
+
+        $(".dropdown").hover(function () {
+            $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+            $(this).toggleClass('open');
+        }, function () {
+            $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+            $(this).toggleClass('open');
+        });
+        $('#formLogin').validator();
+        $('#formRegister').validator();
+        $('#formProspectsMarcas').validator();
+        $('#username_reg').val('username');
+    });
+</script>
+
+
+<script>
+    login();
+    document.getElementById("login").style.display = "";
+</script>
+
+{% endblock scripts %}
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!-- gestionarCuentas.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+       
+<head>
+        {% load filtrosEspeciales %}
+        {% include "head.html" %}
+        <script type="text/javascript">
+    
+            $(document).ready(function () {
+    
+                var editando = false
+                if ('{{ editando }}' == 'True') {
+                    editando = true
+                } else {
+                    editando = false
+                }
+    
+                if (editando) {
+                    $('#idCuenta').val("{{ cuentaId}}");
+                    $('#idBanco').val("{{ banco}}");
+                    $('#idNumero').val("{{ numero}}");
+                    if ('{{ statusLiteral }}'=='INACTIVA')
+                        $('#idLeyenda').val("Activar Cuenta");
+                    else
+                        $('#idLeyenda').val("Desactivar Cuenta");
+                    $('#idDivCrearEditarCuenta').html('Editar Cuentas Bancarias');
+                }else{
+                    $('.vc-status').hide();
+                }
+    
+            });
+    
+        </script>
+    
+    
+    </head>
+
+<body>
+	{% include "scriptsActividades.html" %}
+	 {% include "header.html" %} {% include "content-tabs.html" %}
+	  {% include "tabs_entrenador-calendario.html" %}
+
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="container">
+
+
+        <form method="post" class="nf" action="gestionar_cuentas" data-toggle="validator">
+
+
+            {% csrf_token %}
+
+            <input type="hidden" id="idEditando" name="idEditando" value="{{ editando }}">
+            <input type="hidden" id="idCuenta" name="idCuenta" value="{{ cuentaId }}">
+
+            <div class="step-form  step-form-gp-1 w-100 animated fadeIn">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                    <br>
+                                <div id="idDivCrearEditarCuenta" class="vc-form-t1"
+                                     >Crear Cuentas
+                                    Bancarias
+                                </div>
+                                <br> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-10">Tus cuentas bancaria te permiten
+                                        llevar el control y la conciliación de los pagos asociados a
+                                        la compra de planes por parte de los usuarios (transferencia,
+                                        punto de venta (POS) o depósito).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        {{ pm.marcaNombre }}
+                                        <br>
+                                        {% if pm.marcaTipoCuenta == 'J' %}
+                                            RIF: {{ pm.marcaRif }}
+                                        {% endif %}
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="idBanco" class="label-form-pago control-label ">BANCO</label>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <input id="idBanco" name="idBanco"
+                                                   class="btn-block input-grey form-control" type="text"
+                                                   value="" placeholder="Por  ejemplo “Mercantil”"
+                                                   data-error="Nombre del banco es requerido" required>
+                                            <div class="help-block with-errors error-label"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="idNumero" class="label-form-pago control-label ">NUMERO
+                                        DE CUENTA</label>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <input id="idNumero" name="idNumero"
+                                                   class="btn-block input-grey form-control" type="text"
+                                                   value="" placeholder="" data-error="Numero de cuenta es requerida" required>
+                                            <div class="help-block with-errors error-label"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row vc-status" >
+                            <div class="col-lg-6">
+                                <div class="">
+                                    <label for="idStatusLiteral" class="label-form-pago control-label ">ESTATUS
+                                        :
+                                        <input style="border: none" type="text" readonly id="idStatusLiteral" value="{{ statusLiteral }}"></input>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <br>
+                        <div class="row vc-status" >
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-10">Si no vas a utilizar más esta cuenta y quisieras desactivarla
+                                        como alternativa para tus usuarios, puedes hacerlo. De necesitar reactivarla,
+                                        ingresa nuevamente en la seccion de cuentas, selecciona editar y actívala. .
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row vc-status" >
+                            <div class="col-md-8 col-lg-8">
+
+                                <div class="radio">
+
+                                  <input type="checkbox" id="idCambioStatus" name="idCambioStatus"
+                                   style="transform: scale(1);margin-right: 10px"/>
+
+                                  <input style="border: none" type="text" readonly id="idLeyenda" value="">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-lg-6 col-xs-12  pull-right">
+                                <div class="form-group ">
+                                    <div class="row">
+                                        <div style=" margin-bottom: 20px;" class="col-xs-12 col-md-4 col-md-offset-8 ">
+                                            <button type="submit" id="idGuardar"
+                                                    class="btn-block botones-agregar "
+                                                    style="float: left; font-size: 16px; text-align: center"
+                                            >Guardar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- fin codigo nuevo  -->
+
+{% include "fin-content-tabs.html" %}
+{% include "footer.html" %}
+
+</body>
+
+</html>

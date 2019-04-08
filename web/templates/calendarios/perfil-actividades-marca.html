@@ -1,0 +1,31 @@
+<!-- perfil-actividades-marca.html -->
+
+{% extends 'calendario-marca-base.html' %}
+
+{% block head %}
+{% endblock head %}
+
+{% load filtrosEspeciales %}
+
+{% block titulos %}
+{% endblock titulos %}
+
+{% block tabs %}
+{% endblock tabs %}
+
+{% block controlFiltro %}
+{% endblock controlFiltro %}
+
+{% block contenido %}
+    <div class="seccionPrincipal">
+        <div class="seccionPagina">
+            {% include 'calendario-marca-table.html' %}
+        </div>
+    </div>
+{% endblock contenido %}
+
+{% block accionPagineo %}
+    {{ block.super }}
+{% endblock accionPagineo %}
+
+

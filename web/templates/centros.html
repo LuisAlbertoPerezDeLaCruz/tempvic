@@ -1,0 +1,293 @@
+<!--centros.html-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load filtrosEspeciales %}
+    {% include "head.html" %}
+
+</head>
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+    function confirmarDesactivacion(usuario, marcaId, marcaNombre, url) {
+        parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea usted dejar de seguir a ' + marcaNombre + ' ?</div>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Desafiliar</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Desafiliar marca ' + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+
+        // redirect(url);
+
+        return false;
+
+    }
+
+    function confirmarCancelacionSolicitud(usuario, marcaId, marcaNombre, url) {
+        parametrosDesafiliar = '0,' + usuario + "," + marcaId;
+
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Desea eliminar la solicitud de afiliación a ' + marcaNombre + ' ?</div>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="seguirDejar(' + parametrosDesafiliar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminación de solicitud ' + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+
+        // redirect(url);
+
+        return false;
+
+    }
+
+    function redirect(url) {
+
+        window.location.href = url;
+
+    }
+
+
+    function seguirDejar(opcion, usuario, marca) {
+        $.ajax({
+            data: {'opcion': opcion, 'usuario': usuario, 'marca': marca},
+            url: '/solicitudusuario',
+            type: 'get',
+            success: function (data) {
+                location.reload();
+            },
+        });
+    }
+
+</script>
+
+<style>
+
+    .vic-ma-caja {
+        min-height: 240px;
+    }
+</style>
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="container-fluid ">
+
+        <div class="row">
+            <div class="vic-marca-agua vic-ma-header col-xs-12">
+                <div class="vic-ma-texto ">CENTROS</div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="container-fluid menu-disciplina raleway">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 acordeon-disciplina">
+                    <div class="panel-group" id="accordion1" role="tablist"
+                         aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-body contenido-acordeon">
+                                <input type="text" id="myInput" onkeyup="return myFilter()"
+                                       placeholder="Filtrar por nombre.." title="Type in a name"
+                                       class="buscar-usuario">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+
+            {% for centro in centros %}
+
+                {% siguiendo_esta_marca centro.marcaId vs.userId as seguidor %}
+                {% pendiente_con_esta_marca centro.marcaId vs.userId as pendiente %}
+
+                {% with pmInfo=centro.marcaInfoGeneral %}
+
+                    <style type="text/css">
+                        .vic-ma-header:after {
+                            letter-spacing: -6px;
+                            content: "Dónde Entrenar";
+                            line-height: 1em;
+                            
+                            color: rgba(255, 205, 1, 0.17);
+                            font-size: 7em;
+                            height: 137px;
+                            overflow: hidden;
+                        }
+
+                        .vic-ma-caja-letter-{{forloop.counter}}:after {
+                            content: '{{ pmInfo.m_iniciales }}';
+                        }
+
+                        @media ( max-width: 713px) {
+
+                            .vic-ma-header:after {
+                                color: rgba(255, 205, 1, 0.17);
+                                font-size: 5em;
+
+                            }
+                        }
+                    </style>
+
+                    <div class="col-xs-12 col-md-6 col-lg-4 vic-marca-agua vic-ma-caja vic-ma-caja-letter-{{ forloop.counter }}">
+
+                        <a href="../{{ centro.marcaAlias }}">
+                            <div class="vic-ma-caja-texto">
+
+                                <div class="vic-ma-caja-texto-header">
+
+                                    {{ centro.marcaNombre }}
+
+                                </div>
+
+                                @{{ centro.marcaAlias }}
+                                <div><br>
+                                    {% if vs.tipoSesion == vs.ATLETA %}
+                                        {% if centro.marcaDuenoAlias != vs.userAlias %}
+                                            {% if seguidor or pendiente %}
+                                                {% if seguidor %}
+                                                    <button style="margin-right: 40px;margin-top: -2px;"
+                                                            type="button"
+                                                            class="btn btn-xs  vic-btn-outline-reservar "
+                                                            onclick='return confirmarDesactivacion({{ vs.userId }},{{ centro.marcaId }},"{{ centro.marcaNombre }}","../{{ centro.marcaAlias }}");'
+                                                    >Afiliado <i class="fa fa-check"></i>
+                                                    </button>
+                                                {% else %}
+                                                    <button style="margin-right: 40px;margin-top: -2px;"
+                                                            type="button"
+                                                            class="btn btn-xs  vic-btn-outline-reservar  Afiliado "
+                                                            onclick='return confirmarCancelacionSolicitud({{ vs.userId }},{{ centro.marcaId }},"{{ centro.marcaNombre }}","../{{ centro.marcaAlias }}");'
+                                                    >ESPERANDO AFILIACIÓN <i class="fas fa-clock"></i>
+                                                    </button>
+
+                                                {% endif %}
+                                            {% else %}
+                                                {% if centro.marcaEsPublica %}
+                                                    <button style="margin-right: 40px;margin-top: -2px;"
+                                                            type="button" class="btn btn-xs  vic-btn-reservar "
+                                                            onclick="seguirDejar(1,{{ vs.userId }},{{ centro.marcaId }});"
+                                                    >Afiliarse
+                                                    </button>
+                                                {% else %}
+                                                    <button style="margin-right: 40px;margin-top: -2px;"
+                                                            type="button" class="btn btn-xs  vic-disabled "
+                                                    >PRIVADO
+                                                    </button>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% else %}
+                                            <button style="margin-right: 40px;margin-top: -2px;"
+                                                    type="button"
+                                                    class="btn btn-xs  vic-btn-outline-reservar vic-disabled"
+                                                    onclick=""
+                                            >Mi Marca <i class="fa fa-check"></i>
+                                            </button>
+                                        {% endif %}
+                                    {% endif %}
+
+                                </div>
+                                <br>
+                                <p class="restrict">
+                                    {{ centro.marcaDescripcion }}
+                                </p>
+
+                                {% if centro.marcaTelefono1 or centro.marcaTelefono2 %}
+                                    <i class="fas fa-phone" aria-hidden="true"></i>
+                                    {% if centro.marcaTelefono1  %}
+                                        {{ centro.marcaTelefono1 }}
+                                    {% endif %}
+                                    {% if centro.marcaTelefono2  %}
+                                        /{{ centro.marcaTelefono2 }}
+                                    {% endif %}
+                                {% endif %}
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                {% endwith %}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.restrict').each(function () {
+
+            var txt = "";
+
+            txt = $(this).text().trim();
+
+            if (txt.length > 129) {
+
+                txt = txt.substring(0, 129) + '.....';
+
+
+                $(this).text(txt);
+            }
+
+
+        });
+
+
+    });
+
+</script>
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+</body>
+</html>

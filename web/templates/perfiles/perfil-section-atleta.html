@@ -1,0 +1,124 @@
+{% load filtrosEspeciales %}
+
+<div class="container" style="padding-top: 15px;">
+
+    <div class="vc-perf-menu1-tab vc-perf-menu1-tab-1 animated fadeIn">
+    <div class="btn-group  vic-btn-default btn-group-justified m-t-20" role="group" aria-label="...">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default vic-perfil-dash-opt border-active vic-perfil-menu-opt" onclick="changeOptionPerfil('vic-perfil-dash')">DASHBOARD</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default vic-perfil-planes-opt vic-perfil-menu-opt"  onclick="changeOptionPerfil('vic-perfil-planes')">PLANES</button>
+  </div>
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default  vic-perfil-actividadesAtleta-opt vic-perfil-menu-opt"  onclick="changeOptionPerfil('vic-perfil-actividadesAtleta')">ACTIVIDADES</button>
+  </div>
+</div>
+    
+    <div class="vic-perfil-planes vic-perfil-menu">
+    <br>
+        {% if vs.tipoSesion == vs.MARCA or soyYoMismo %}
+            {% if perfil.atletaEstadoConfiguracion > 1 %}
+                {% include "perfil-section-atleta-planes.html" %}
+                
+            {% elif perfil.atletaEstadoConfiguracion == 1 %}
+                <div id="idDivBienvenida" class="text-center col-md-8 col-md-offset-2 ">
+
+
+                    <i class="fas fa-battery-quarter fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+
+                    {% if vs.tipoSesion == vs.MARCA %}
+                        <div class=" vic-calendar-title">{{ perfil.atletaPrimerNombre }} no cuenta aún con un historial con {{ vs.marcaEnUsoNombre }}
+                        </div>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Cuando contrate planes y reserve actividades podrás verlas aquí
+                            <br>
+                        </div>
+                    {% else %}
+                        <div class=" vic-calendar-title">No cuentas con ningún plan activo</div>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Explora los
+                            planes de tus centros afiliados <br>
+                            y sigue las indicaciones de pago<br>
+                            <br>
+                        </div>
+                    {% endif %}
+
+                    <br>
+
+                </div>
+
+            {% endif %}
+    </div>
+    <div class="vic-perfil-actividadesAtleta vic-perfil-menu">
+
+            {% if perfil.atletaEstadoConfiguracion > 2 %}
+            
+                {% include "perfil-section-atleta-actividades.html" %}
+                
+            {% elif perfil.atletaEstadoConfiguracion == 2 %}
+            
+
+                {% if vs.tipoSesion == vs.MARCA %}
+                    <div class="vic-perfil-atl-inst-sub-title ">
+                        ACTIVIDADES
+                    </div>
+                    <div class="text-center col-xs-12 ">
+                        <hr>
+                        <img src="../../static/images/moon.svg">
+                        <div class=" vic-calendar-title">{{ perfil.atletaPrimerNombre }} no tiene actividades
+                            planificadas...
+                        </div>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Cuando haya
+                            reservado podras verlas aquí <br>
+                            <br>
+                            <br class="md-movil">
+                        </div>
+                        <br>
+                    </div>
+                {% else %}
+                    <br><hr>
+                    <div class="vic-perfil-atl-inst-sub-title ">
+                        MIS ACTIVIDADES
+                    </div>
+                    <br>
+                    <div class="vic-perfil-atl-inst-sub-title " style="margin-bottom: 32px;">
+                        <div class="pull-left" style="position: absolute;">
+                        <div id="tabProximas" class="menu-tab-calendar active">Próximas</div>
+                    </div>
+                    </div>
+
+                    <div class="text-center col-xs-12 ">
+
+                        <img src="../../static/images/moon.svg">
+                        <div class=" vic-calendar-title">No tienes actividades planificadas...</div>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">¡Activate!
+                            Explora las actividades que tus centros<br>tienen abiertas y reservate.
+                            <br class="md-movil">
+                        </div>
+                        <br>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% else %}
+        
+            {% if esAmigo or modoInstructor %}
+                {% if modoInstructor %}
+                    {% include "perfil-section-instructor-actividades.html" %}
+                {% else %}
+                    {% include "perfil-section-atleta-actividades.html" %}
+                {% endif %}
+            {% else %}
+                <div>
+                    <div id="idDivBienvenida" class="text-center col-xs-12 ">
+                        <hr>
+                        <i class="fa fa-lock fa-4x" aria-hidden="true"></i>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                            Esta cuenta es privada
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+</div>
+</div>
+</div>
+

@@ -1,0 +1,974 @@
+<!-- registroMarca.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load filtrosEspeciales %} {% include "head.html" %}
+    <script type="text/javascript">
+
+
+        function continuarForma(forma, id, a, b) {
+            var temp = false;
+
+            $('#' + forma).validator('validate');
+
+            $('.' + id).find('.with-errors').each(function (index) {
+
+                if ($.trim($(this).text()) != '') {
+                    temp = true;
+                }
+            });
+
+            if (temp) {
+
+                return temp;
+
+            } else {
+
+                $('#' + forma).validator('destroy');
+                $('#' + forma).validator('update');
+
+                setTimeout(function () {
+                    nextStepForm(a, b);
+
+                }, 300);
+            }
+
+        }
+
+
+        $(document).ready(function () {
+            $(".telefono")
+                .mask("(99) 999-999-9999")
+                .focusout(function (event) {
+                    var target, phone, element;
+                    target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+                    phone = target.value.replace(/\D/g, ''); //Remove tudo o que não é dígito
+                    element = $(target);
+                    element.unmask();
+                    if (phone.length > 10) {
+                        element.mask("(99) 999-999-9999");
+                    } else {
+                        element.mask("(99) 999-999-9999");
+                    }
+                });
+
+
+            $(".hide-show-desc").click(function () {
+
+                obj = $(this).parent('label').parent('.form-group').find('.vc-form-d1');
+
+                $(obj).toggle();
+
+            });
+
+            $(".select-tc").change(function () {
+
+                if ($(this).val() == 1) {
+
+
+                    $(".vc-fn").show();
+                    $(".vc-fj").hide();
+
+
+                } else {
+
+                    $(".vc-fj").show();
+                    $(".vc-fn").hide();
+
+
+                }
+
+            });
+
+            var editando = false
+            if ('{{ editando }}' == 'True') {
+                editando = true
+            } else {
+                editando = false
+            }
+
+            if (editando) {
+
+
+                if ('{{ perfilMarca.marcaTipoCuenta }}' == 'J') {
+                    $('#idTipoDeCuenta').val("2").change();
+                    //   $('#idRazonSocial').val("{{ perfilMarca.marcaRazonSocial }}");
+                    $('#idRif').val("{{ perfilMarca.marcaRif }}");
+                } else {
+                    $('#idTipoDeCuenta').val("1").change();
+                    $('#idCedula').val("{{ perfilMarca.marcaCedula }}");
+                }
+                // $('#idMarcaNombre').val("{{ perfilMarca.marcaNombre }}");
+                //  $('#idIniciales').val("{{ perfilMarca.marcaIniciales }}");
+                // $('#idAlias').val("{{ perfilMarca.marcaAlias }}");
+                // $('#idCorreo').val("{{ perfilMarca.marcaCorreo }}");
+
+                // $('#idTelefonoPrimario').val("{{ perfilMarca.marcaTelefono1 }}");
+                // $('#idTelefonoSecundario').val("{{ perfilMarca.marcaTelefono2 }}");
+
+                // $('#idDescripcion').html("{{ perfilMarca.marcaDescripcion }}");
+
+                //  $('#idAvenidaCalle').val("{{ perfilMarca.marcaCalleAvenida }}");
+                // $('#idEdificioCasa').val("{{ perfilMarca.marcaEdificioCasa }}");
+                //  $('#idUrbanizacion').val("{{ perfilMarca.marcaUrbanizacion }}");
+                $('#idMunicipio').val("{{ perfilMarca.marcaMunicipio }}");
+                $('#idCiudad').val("{{ perfilMarca.marcaCiudad }}");
+                $('#idPais').val("{{ perfilMarca.marcaPais }}");
+
+                $('#idTiempoReversible').val("{{ perfilMarca.marcaTiempoReversible }}");
+                $('#idTiempoIreversible').val("{{ perfilMarca.marcaTiempoIreversible }}");
+
+                $('#idFacebook').val("{{ perfilMarca.marcaFacebook}}");
+                $('#idInstagram').val("{{ perfilMarca.marcaInstagram}}");
+                $('#idTwitter').val("{{ perfilMarca.marcaTwitter}}");
+
+                $('#formMarca').validator('validate');
+
+
+            }
+
+            $('#idTipoDeCuenta').change(function () {
+                if (this.value == 2) {
+                    $('#idDir').html('DIRECCIÓN');
+                    $('#idTlf1').html('teléfono primario');
+                    $('#idTelefonoPrimario').prop("required", true);
+                    $('#idEdificioCasa').prop("required", true);
+                    $('#idAvenidaCalle').prop("required", true);
+                    $('#idUrbanizacion').prop("required", true);
+                    $('#idCiudad').prop("required", true);
+                    $('#idMunicipio').prop("required", true);
+                    $('#idPais').prop("required", true);
+                    $('#idRif').prop("required", true);
+                    $('#idRazonSocial').prop("required", true);
+                    $('#idCedula').prop("required", false);
+                } else {
+                    $('#idDir').html('DIRECCIÓN (OPCIONAL)');
+                    $('#idTlf1').html('teléfono primario (OPCIONAL)');
+                    $('#idTelefonoPrimario').prop("required", false);
+                    $('#idEdificioCasa').prop("required", false);
+                    $('#idAvenidaCalle').prop("required", false);
+                    $('#idUrbanizacion').prop("required", false);
+                    $('#idCiudad').prop("required", false);
+                    $('#idMunicipio').prop("required", false);
+                    $('#idPais').prop("required", false);
+                    $('#idRif').prop("required", false);
+                    $('#idRazonSocial').prop("required", false);
+                    $('#idCedula').prop("required", true);
+                }
+
+            });
+
+            setTimeout(() => {
+
+                $('#formMarca').show(0, () => {
+
+                    $('body').scrollTop(0);
+                });
+            }, 200);
+
+
+        });
+
+
+        function nextStepForm(a, b) {
+
+            $('.step-form').hide(0, function () {
+
+                $('.' + b).show(0);
+                $('body').scrollTop(0);
+
+            });
+
+
+        }
+
+
+        function prevtStepForm(a) {
+
+            $('.step-form').hide(0, function () {
+
+                $('.' + a).show(0);
+                $('body').scrollTop(0);
+
+
+            });
+
+        }
+
+
+    </script>
+    <style type="text/css">
+
+        .radio label, .checkbox label {
+            /* min-height: 20px; */
+            padding-left: 0 !important;
+
+        }
+    </style>
+
+</head>
+
+<body>
+{% include "scriptsActividades.html" %}
+{% include "header.html" %} {% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="container">
+
+
+        <form id="formMarca" method="POST" action="registro-marca" class="nf"
+              data-toggle="validator" style="display: unset">
+
+
+            {% csrf_token %}
+
+            <!-- 1 seccion -->
+
+
+            <input type="hidden" id="idEditando" name="idEditando" value="{{ editando }}">
+
+
+            <div class="step-form  step-form-gm-1 w-100 animated fadeIn">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <br>
+                        {% if editando %}
+                            <div class="vc-form-t1">Actualiza tu cuenta de negocio</div>
+                        {% else %}
+                            <div class="vc-form-t1">Registra tu cuenta de negocio</div>
+                        {% endif %}
+
+                        <hr>
+                        <div class="vc-form-t1" style="font-weight: 500">Datos de la cuenta de negocios</div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="username" class="label-form-pago control-label ">
+                                        TIPO DE CUENTA DE NEGOCIOS
+                                    </label>
+
+                                    <select id="idTipoDeCuenta"
+                                            name="idTipoDeCuenta" data-error="Campo requerido"
+                                            class="form-control btn-block input-grey select-tc">
+                                        <option value="1">Persona Natural</option>
+
+                                        <option value="2">Persona Jurídica</option>
+
+                                    </select>
+
+                                    <div class="help-block with-errors error-label"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idMarcaNombre" class="label-form-pago control-label ">Nombre de la
+                                        cuenta de negocios<i
+                                                class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                    </label>
+
+                                    <div class="vc-form-d1">El nombre que verán tus usuarios
+                                        en tu perfil
+                                    </div>
+
+
+                                    <input id="idMarcaNombre" name="idMarcaNombre"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="{{ perfilMarca.marcaNombre }}"
+                                           placeholder="Por  ejemplo “Victorius A Center”"
+                                           data-error="campo requerido" required>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idIniciales" class="label-form-pago control-label ">iniciales
+                                        <i class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                    </label>
+
+                                    <div class="vc-form-d1">
+                                        Las iniciales de tu marca representan un distintivo de 2 o 3 letras para
+                                        personalizar la experiencia de tus usuarios. Por ejemplo Victorius Athletic
+                                        Center sus iniciales VIC
+                                    </div>
+                                    <input data-toggle="tooltip" data-placement="top"
+                                           title="Las iniciales de tu marca representan un distintivo de 2 o 3 letras para personalizar la experiencia de tus usuarios. Por ejemplo Victorius Athletic Center sus iniciales VIC"
+                                           id="idIniciales" name="idIniciales"
+                                           class="btn-block input-grey form-control" type="text" maxlength="3"
+                                           style="text-transform:uppercase"
+                                           value="{{ perfilMarca.marcaIniciales }}" placeholder="Por ejemplo VIC"
+                                           data-error="Campo requerido" required>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row vc-fn">
+
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idCedula" class="label-form-pago control-label ">cedula de identidad
+                                    </label>
+                                    <input id="idCedula" name="idCedula"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="" placeholder="V-00000000"
+                                           data-error="">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="row vc-fj">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idRazonSocial" class="label-form-pago control-label ">RAZON
+                                        SOCIAL <i class="far fa-1x fa-question-circle hide-show-desc"></i></label>
+
+                                    <div class="vc-form-d1">El nombre como van a salir tus
+                                        facturas
+                                    </div>
+
+
+                                    <input id="idRazonSocial" name="idRazonSocial"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="{{ perfilMarca.marcaRazonSocial }}"
+                                           placeholder="Por  ejemplo “10 Sesiones de Spinning”"
+                                           data-error="Por  ejemplo “Victorius A Center”">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="row vc-fj">
+
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idRif" class="label-form-pago control-label ">RIF
+                                    </label>
+                                    <input id="idRif" name="idRif"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="" placeholder="Por ejemplo “J-0000000-0”"
+                                           data-error="">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idAlias" class="label-form-pago control-label ">ALIAS <i
+                                            class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                    </label>
+
+                                    <div class="vc-form-d1">Identificador único con el que
+                                        tus usuarios podrán ubicarte
+                                    </div>
+
+                                    <input value="{{ perfilMarca.marcaAlias }}" style="padding-left: 164px" id="idAlias"
+                                           {% if editando %}readonly{% endif %}
+                                           name="idAlias" class="btn-block input-grey form-control"
+                                           type="text" value="" placeholder="vicfitcenter"
+                                           data-error="Campo requirido" required>
+                                    <div style="position: absolute; margin-top: -34px; margin-left: 10px">
+                                        http://www.victorius.io/
+                                    </div>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idCorreo" class="label-form-pago control-label ">correo <i
+                                            class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                    </label>
+
+                                    <div class="vc-form-d1">Correo de tu cuenta de negocios para que tus usuarios te
+                                        contacten
+                                    </div>
+
+
+                                    <input id="idCorreo" name="idCorreo" style="text-transform:lowercase"
+                                           class="btn-block input-grey form-control" type="email"
+                                           value="{{ perfilMarca.marcaCorreo }}"
+                                           placeholder="Por ejemplo info@victorius.io”"
+                                           data-error="Correo Invalido" required>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label id="idTlf1" for="idTelefonoPrimario" class="label-form-pago control-label ">teléfono
+                                        primario (OPCIONAL)
+                                    </label>
+                                    <input id="idTelefonoPrimario" name="idTelefonoPrimario"
+                                           class="btn-block input-grey form-control telefono" type="tel"
+                                           value="{{ perfilMarca.marcaTelefono1 }}" placeholder=""
+                                           data-error="Por  ejemplo “Victorius A Center”">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idTelefonoSecundario" class="label-form-pago control-label ">teléfono
+                                        secundario (opcional)
+                                    </label> <input id="idTelefonoSecundario" name="idTelefonoSecundario"
+                                                    class="btn-block input-grey form-control telefono" type="tel"
+                                                    value="{{ perfilMarca.marcaTelefono2 }}" placeholder=""
+                                                    data-error="Por  ejemplo “Victorius A Center”">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="idDescripcion" class="label-form-pago control-label ">DESCRIPCIÓN <i
+                                            class="far fa-1x fa-question-circle hide-show-desc"></i></label>
+
+                                    <div class="vc-form-d1">Describe tus capacidades.</div>
+
+                                    <textarea autocomplete="off" id="idDescripcion"
+                                              name="idDescripcion"
+                                              class="btn-block input-grey form-control bind"
+                                              bind="formclase-descrip-clase" type="text" value=""
+                                              placeholder="Por ejemplo, “Centro de adecuación física especializado en trenamiento funcional.” "
+                                              data-error="Campo requerido" required=""
+                                              rows="6">{{ perfilMarca.marcaDescripcion }}</textarea>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="idDir" class="vc-form-sub-t1">DIRECCIÓN (opcional)</div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idAvenidaCalle" class="label-form-pago control-label ">Calle,
+                                        avenida </label>
+                                    <input id="idAvenidaCalle" name="idAvenidaCalle"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="{{ perfilMarca.marcaCalleAvenida }}" placeholder=""
+                                           data-error="Campo requerido"
+                                    >
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idUrbanizacion" class="label-form-pago control-label ">URBANIZACION
+                                    </label>
+                                    <input id="idUrbanizacion" name="idUrbanizacion"
+                                           class="btn-block input-grey form-control" type="text"
+                                           value="{{ perfilMarca.marcaUrbanizacion }}" placeholder=""
+                                           data-error="Campo requerido">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idEdificioCasa" class="label-form-pago control-label ">edificio,
+                                        casa o centro </label>
+                                    <input id="idEdificioCasa" name="idEdificioCasa"
+                                           class="btn-block input-grey form-control"
+                                           type="text"
+                                           value="{{ perfilMarca.marcaEdificioCasa }}" placeholder=""
+                                           data-error="Campo requerido">
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idCiudad" class="label-form-pago control-label ">CIUDAD
+                                    </label>
+                                    <select id="idCiudad" name="idCiudad"
+                                            data-error="Campo requerido"
+                                            class="form-control btn-block input-grey">
+                                        <option value="" selected="">Seleccione...</option>
+                                        {% for c in ciudad %}
+                                            <option value="{{ c.pk }}">{{ c.c_nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idMunicipio" class="label-form-pago control-label ">municipio
+                                    </label>
+                                    <select id="idMunicipio" name="idMunicipio"
+                                            data-error="Campo requerido"
+                                            class="form-control btn-block input-grey">
+                                        <option value="" selected="">Seleccione...</option>
+                                        {% for m in municipio %}
+                                            <option value="{{ m.pk }}">{{ m.z_municipio }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idPais" class="label-form-pago control-label ">PAÍS
+                                    </label> <select id="idPais" name="idPais"
+                                                     data-error="Campo requerido"
+                                                     class="form-control btn-block input-grey">
+                                    <option value="" selected="">Seleccione...</option>
+                                    {% for p in pais %}
+                                        <option value="{{ p.pk }}">{{ p.p_nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {% if not editando %}
+
+                            <div class="form-group ">
+                                <div class="row">
+                                    <div style="margin-top: 24px; margin-bottom: 20px;"
+                                         class="col-xs-6 col-md-4 col-xs-offset-6 col-md-offset-8">
+                                        <button class=" btn-block botones-agregar" type="button"
+                                                onclick="continuarForma('formMarca','step-form-gm-1','step-form-gm-1','step-form-gm-2');">
+                                            Continuar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- 2 seccion -->
+
+
+            <div class="step-form  step-form-gm-2 w-100 animated fadeIn"
+                 style="display: {% if not editando %}none;{% else %}unset;{% endif %}">
+                <div class="row">
+                    <div class="col-md-10  col-md-offset-1">
+                        <div class="vc-form-t1">Políticas de Privacidad</div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-8 col-lg-8">
+                                <div class="form-group">
+                                    <label for="idPublicoPrivado" class="label-form-pago control-label ">Perfíl </label>
+
+
+                                    <div class="radio">
+                                        <label>
+                                            {% if not editando %}
+                                                <input style="transform: scale(2);margin-right: 10px;margin-left: 5px"
+                                                       type="checkbox" checked="checked" id="idPublicoPrivado"
+                                                       name="idPublicoPrivado">
+                                            {% else %}
+                                                <input style="transform: scale(2);margin-right: 10px;margin-left: 5px"
+                                                       type="checkbox" id="idPublicoPrivado"
+                                                       name="idPublicoPrivado" {% if perfilMarca.marcaEsPublica %}
+                                                       checked {% endif %} >
+                                            {% endif %}
+
+
+                                            PUBLICO
+                                        </label>
+                                    </div>
+
+                                    <div class="vc-form-d1 " style="display: block;">Cuando tu cuenta es pública tu
+                                        perfil esta disponible en nuestro directorio para todos nuestros usuarios
+                                        registrados. Al desactivar esta opción solo usuarios que tu invites podrán ver
+                                        tu perfil.
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="vc-form-t1" style="display: block;">Políticas de Reserva</div>
+
+
+                        <div class="vc-form-d1" style="display: block;">Permite definir las reglas de negocio para las
+                            reservaciones y las cancelaciones de reserva.
+                        </div>
+
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="idTiempoReversible" class="label-form-pago control-label ">TIEMPO REVERSIBLE <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">El tiempo (en días) en el que tus usuarios pueden reservar o
+                                cancelar su reserva sin ningún impacto económico. Por ejemplo, 7 días, permite que tus
+                                usuarios se reserven/cancelen en tus actividades con 7 días de anticipación.
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input min="0" style="padding-right: 80px;" id="idTiempoReversible"
+                                           name="idTiempoReversible"
+                                           name="username" class="btn-block input-grey form-control"
+                                           type="number" value=""
+                                           placeholder="Por  ejemplo “7”"
+                                           data-error="Por  ejemplo “30”" required>
+                                    <div
+                                            style="position: absolute; right: 24px; margin-top: -34px;">días
+                                    </div>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="idTiempoIreversible" class="label-form-pago control-label ">TIEMPO IRREVERSIBLE
+                                <i
+                                        class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">El tiempo antes de comenzar la actividad (en minutos) en el que tus
+                                usuarios ya no pueden cancelar la reserva sin devolución del dinero.
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input min="0" style="padding-right: 80px;" id="idTiempoIreversible"
+                                           name="idTiempoIreversible"
+                                           name="username" class="btn-block input-grey form-control"
+                                           type="number" value=""
+                                           placeholder="Por  ejemplo “120”"
+                                           data-error="Por  ejemplo “7”" required>
+
+                                    <div
+                                            style="position: absolute; right: 24px; margin-top: -34px;">minutos
+                                    </div>
+
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="vc-form-t1">Planes</div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-8 col-lg-8">
+                                <div class="form-group">
+                                    <label for="idReferenciado" class="label-form-pago control-label ">Plan
+                                        Referenciado </label>
+
+
+                                    <div class="radio">
+                                        <label>
+                                            <input style="transform: scale(2);margin-right: 10px;margin-left: 5px"
+                                                   type="checkbox" id="idReferenciado"
+                                                   name="idReferenciado"
+                                                    {% if editando and perfilMarca.marcaPermiteReferenciados %}
+                                                   checked {% endif %}>
+
+                                            PLAN REFERENCIADO
+                                        </label>
+                                    </div>
+
+
+                                    <div class="vc-form-d1 " style="display: block;">Permite a tus usuarios reservarse
+                                        en actividades sin adquirir un plan.
+                                        Estos planes solo podran ser utilizados en actividades con salas referenciadas.
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="vc-form-t1" style="display: block;">Disciplinas</div>
+                        <div class="vc-form-d1" style="display: block;">Selecciona los tipos de disciplinas que
+                            prefieres!
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idFacebook" class="label-form-pago control-label ">Primera disciplina
+                            </label>
+
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <select name="idDisciplina1" data-error="Campo requerido" required
+                                            class="input-grey form-control btn-block ">
+                                        <option value="" style="color: #777">Seleccionar...
+                                        </option> {% for c in disciplinas %}
+                                        <option value="{{ c.id }}"
+                                                {% if c.id == perfilMarca.marcaDisciplina1Id %}selected{% endif %}>{{ c.d_nombre }}</option> {% endfor %}
+                                    </select>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="idFacebook" class="label-form-pago control-label ">Segunda disciplina
+                            </label>
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <select name="idDisciplina2" data-error="Campo requerido" required
+                                            class="input-grey form-control btn-block ">
+                                        <option value="" style="color: #777">Seleccionar...
+                                        </option> {% for c in disciplinas %}
+                                        <option value="{{ c.id }}"
+                                                {% if c.id == perfilMarca.marcaDisciplina2Id %}selected{% endif %}>{{ c.d_nombre }}</option> {% endfor %}
+                                    </select>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="idFacebook" class="label-form-pago control-label ">Tercera disciplina
+                            </label>
+
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <select name="idDisciplina3" data-error="Campo requerido" required
+                                            class="input-grey form-control btn-block ">
+                                        <option value="" style="color: #777">Seleccionar...
+                                        </option> {% for c in disciplinas %}
+                                        <option value="{{ c.id }}"
+                                                {% if c.id == perfilMarca.marcaDisciplina3Id %}selected{% endif %}>{{ c.d_nombre }}</option> {% endfor %}
+                                    </select>
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <div class="vc-form-t1" style="display: block;">Redes Sociales (opcional)</div>
+
+                        <div class="vc-form-d1" style="display: block;">Define tus cuentas en redes sociales
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label for="idFacebook" class="label-form-pago control-label ">Cuenta en Facebook <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">Si tienes cuenta en Facebook incluye solamenmte
+                                tu usuario
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <input style="text-transform:lowercase"
+                                           id="idFacebook"
+                                           name="idFacebook"
+                                           class="btn-block input-grey form-control"
+                                           type="text"
+                                           value=""
+                                           placeholder="Por  ejemplo “victorius”">
+
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="idInstagram" class="label-form-pago control-label ">Cuenta en Instagram <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">Si tienes cuenta en Instagram incluye solamenmte
+                                tu usuario
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input min="0" style="text-transform:lowercase"
+                                           id="idInstagram"
+                                           name="idInstagram"
+                                           class="btn-block input-grey form-control"
+                                           style="text-transform:lowercase"
+                                           type="text" value=""
+                                           placeholder="Por  ejemplo “victorius”">
+
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <label for="idTwitter" class="label-form-pago control-label ">Cuenta en Twitter <i
+                                    class="far fa-1x fa-question-circle hide-show-desc"></i>
+                            </label>
+
+                            <div class="vc-form-d1">Si tienes cuenta en Twitter incluye solamenmte
+                                tu usuario
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+
+                                    <input min="0" style="text-transform:lowercase"
+                                           id="idTwitter"
+                                           name="idTwitter"
+                                           class="btn-block input-grey form-control"
+                                           style="text-transform:lowercase"
+                                           type="text" value=""
+                                           placeholder="Por  ejemplo “victorius”">
+
+                                    <div class="help-block with-errors error-label"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <div class="form-group ">
+                            <div class="row">
+
+                                <div class="col-xs-6 col-md-8 "
+                                     style="display: {% if editando %}none;{% else %}unset;{% endif %}">
+                                    <div class="pull-left" style="margin-top: 40px;">
+                                        <a href="#" style="font-weight: bold"
+                                           onclick="prevtStepForm('step-form-gm-1');"><i
+                                                class="fas fa-chevron-left"> </i> Atrás</a>
+                                    </div>
+
+                                </div>
+                                <div style="margin-top: 24px; margin-bottom: 20px;"
+                                     class="col-xs-6 col-md-offset-8 col-md-4 ">
+
+                                    <button type="submit" id="idGuardar" class="btn-block botones-agregar"
+                                            style="float: left; font-size: 16px; text-align: center"
+                                    >Guardar
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+    $("#idAlias").change(function () {
+        var alias = $(this).val();
+        $.ajax({
+            url: '/ajax/validate_marcaalias/',
+            data: {
+                'marcaalias': alias
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken) {
+                    alertVictorius("alias ya existe", 2);
+                    hubo_error = true;
+                } else {
+                    hubo_error = false;
+                }
+                if (hubo_error) {
+                    $('#idContinuar').attr('disabled', true);
+                    $('#idContinuar').removeClass('botones-agregar');
+                    $('#idContinuar').addClass('vic-disabled');
+                } else {
+                    $('#idContinuar').attr('disabled', false);
+                    $('#idContinuar').removeClass('vic-disabled');
+                    $('#idContinuar').addClass('botones-agregar');
+                }
+            }
+        });
+    });
+
+</script>
+
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+
+</body>
+
+</html>

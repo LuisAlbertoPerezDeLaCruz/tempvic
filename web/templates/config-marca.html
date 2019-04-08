@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<!--config-marca.html-->
+<html lang="en">
+<head>
+    {% include "head.html" %}
+</head>
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+<div id="vic-tab-2" class="tab-pane in active fondo-index"
+     style="height:100vh; top: 0;bottom: 0;position: fixed;overflow-x:auto">
+
+    <div class="container sin-paddign-cols" style="margin-bottom: 60px; ">
+        <div class="col-xs-12 movil-min" style="margin-top: 60px;"></div>
+        <div class="col-xs-12 ">
+
+            <div class=" col-xs-12 modulo-blanco sin-paddign-cols">
+
+
+                <h3>Configuración</h3>
+
+                <form method="POST" action="actualizarConfigMarca" id="formMarca" style="text-align: left;"
+                      data-toggle="validator">
+                    {% csrf_token %}
+
+                    <div class="col-xs-12" style="margin-left: 0;margin-right: 0">
+
+                        <br>
+
+                        <fieldset>
+
+                            <legend>Generales:</legend>
+
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <input name="publica" type="checkbox"
+                                               {% if marca_actual.m_public %}checked{% endif %}>publica
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <input id="esReferenciado" name="esReferenciado" type="checkbox"
+                                               {% if marca_actual.m_permite_referenciados %}checked{% endif %}>Desea
+                                        utilizar el plan Referenciado
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        <label for="username" class="label-form-pago control-label  error-label">Nombre
+                                            Comercial</label>
+
+                                        <input name="nombreComercial" id="nombreComercial"
+                                               class="btn-block input-agregar form-control" type="text"
+                                               value="{{ marca_actual.m_nombre }}" placeholder="Nike"
+                                               data-error="Campo requerido" required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        <label for="username" class="label-form-pago control-label  error-label">Razon
+                                            Social</label>
+
+                                        <input name="razonSocial" id="razonSocial"
+                                               class="btn-block input-agregar form-control" type="text"
+                                               value="{{ marca_actual.m_razon_social }}"
+                                               placeholder="Inverciónes Nike C.A"
+                                               data-error="Campo requerido" required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username"
+                                               class="label-form-pago control-label  error-label">Alias</label>
+
+                                        <input name="alias" id="alias"
+                                               class="btn-block input-agregar form-control" type="text" readonly
+                                               value="{{ marca_actual.m_alias }}" placeholder="jperez"
+                                               data-error="Campo requerido"
+                                               required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username"
+                                               class="label-form-pago control-label  error-label">Rif</label>
+
+                                        <input name="rif" id="rif"
+                                               class="btn-block input-agregar form-control" type="text"
+                                               value="{{ marca_actual.m_doc_ident }}" placeholder="J-00000000"
+                                               data-error="Campo requerido"
+                                               required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Descripción</label>
+
+                                        <textarea rows="4" id="descripcion" name="descripcion"
+                                                  class="btn-block input-agregar form-control" type="text"
+                                                  value="" placeholder="Descripción"
+                                                  data-error="Correo Invalido"
+                                                  required>{{ marca_actual.m_descripcion }}</textarea>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Calle o
+                                            avenida</label>
+
+                                        <input name="calle" id="calle"
+                                               class="btn-block input-agregar form-control" type="text"
+                                               value="{{ marca_actual.m_calle }}" placeholder="Calle o avenida"
+                                               data-error="Campo requerido"
+                                               required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Urbanizacion</label>
+
+                                        <input name="urbanizacion" id="urbanizacion"
+                                               class="btn-block input-agregar form-control" type="text"
+                                               value="{{ marca_actual.m_urbanizacion }}" placeholder="Urbanizacion"
+                                               data-error="Campo requerido"
+                                               required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Edificio
+                                            o casa, piso/nro</label>
+
+                                        <input name="edificioCasa" id="edificioCasa"
+                                               class="btn-block input-agregar form-control" type="text"
+                                               value="{{ marca_actual.m_edificioCasa }}"
+                                               placeholder="Edificio o casa, piso/nro" data-error="Campo requerido"
+                                               required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username"
+                                               class="label-form-pago control-label  error-label">Ciudad</label>
+
+                                        <select id="ciudad" name="ciudad" data-error="Campo requerido"
+                                                class="form-control btn-block input-agregar">
+                                            <option style="color: #777">Seleccione...</option> {% for c in ciudad %}
+                                            <option {% if c.pk == marca_actual.m_ciudad.pk %}selected{% endif %}
+                                                    value="{{ c.pk }}">{{ c.c_nombre }}</option> {% endfor %}
+                                        </select>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Municipio</label>
+
+                                        <select id="municipio" name="municipio" data-error="Campo requerido"
+                                                class="form-control btn-block input-agregar">
+                                            <option value="" style="color: #777">Seleccione...</option>
+                                            {% for c in municipio %}
+                                                <option {% if c.pk == marca_actual.m_municipio.pk %}selected{% endif %}
+                                                        value="{{ c.pk }}">{{ c.z_municipio }}</option> {% endfor %}
+                                        </select>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username"
+                                               class="label-form-pago control-label  error-label">Pais</label>
+
+                                        <select id="pais" name="pais" data-error="Campo requerido"
+                                                class="form-control btn-block input-agregar">
+                                            <option style="color: #777">Seleccione...</option> {% for p in pais %}
+                                            <option {% if p.pk == marca_actual.m_pais.pk %}selected{% endif %}
+                                                    value="{{ p.pk }}">{{ p.p_nombre }}</option> {% endfor %}
+                                        </select>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Configuración de tiempos de reserva de Actividades:</legend>
+
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Tiempo
+                                            Reversible (días)</label>
+                                        <input name="tiempoReversible" id="tiempoReversible"
+                                               class="btn-block input-agregar form-control" type="number"
+                                               max="9" min="1" maxlength="1" value="{{ marca_actual.m_est_rrev }}"
+                                               placeholder="5 (días)"
+                                               data-error="Campo requerido" title="Días" required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Tiempo
+                                            Irreversible (Minutos)</label>
+
+                                        <input name="tiempoIrreversible" id="tiempoIrreversible"
+                                               class="btn-block input-agregar form-control" type="number"
+                                               max="240" min="0" maxlength="3" value="{{ marca_actual.m_est_irrev }}"
+                                               placeholder="5 (Minutos)"
+                                               data-error="Campo requerido" title="Minutos" required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Cuentas Bancarias:
+                                <a style="cursor: pointer;" class="fa fa-plus" aria-hidden="true" href="#"
+                                   onclick="cuentaB();"></a>
+                            </legend>
+                            <div class="col-xs-12">
+                                <table class="table table-hover " style="background-color: white;">
+
+                                    <tr>
+                                        <th>Banco
+                                        </th>
+                                        <th>Cta. Bancaria
+                                        </th>
+                                        <th>Estatus
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                    {% for b in cuentas %}
+                                        <tr>
+                                            <td>{{ b.c_banco }}
+                                            </td>
+                                            <td>{{ b.c_numero_cuenta }}
+                                            </td>
+                                            {% if b.c_status %}
+                                                <td class="text-success">Activo
+                                                    {% else %}
+                                                <td class="text-danger">Inactivo
+                                            {% endif %}
+                                            </td>
+                                            <td style="cursor: pointer;" class=" hvr-bounce-in"
+                                                onclick="editarCtaBancaria({{ b.id }},'{{ b.c_banco }}','{{ b.c_numero_cuenta }}','{{ b.c_status }}')">
+                                                <i
+                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                </table>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Salas:
+                                <a style="cursor: pointer;" class="fa fa-plus" aria-hidden="true" href="#"
+                                   onclick="sala();"></a>
+                            </legend>
+
+                            <div class="col-xs-12">
+                                <table class="table table-hover border" style="background-color: white;">
+
+                                    <tr>
+                                        <th>Nombre de la sala
+                                        </th>
+                                        <th>Capacidad
+                                        </th>
+                                        <th>Diciplina
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                    {% for b in salas %}
+                                        <tr>
+                                            <td>{{ b.s_nombre }}
+                                            </td>
+                                            <td>{{ b.s_capacidad }}
+                                            </td>
+                                            <td>{{ b.s_disciplina }}
+                                            </td>
+                                            <td style="cursor: pointer;" class=" hvr-bounce-in"
+                                                onclick="editarSala({{ b.id }},'{{ b.s_nombre }}',{{ b.s_capacidad }},'{{ b.s_disciplina }}','{{ b.s_referenciado }}')">
+                                                <i
+                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                </table>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <legend>Suscripción:</legend>
+                            <div class="col-xs-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username"
+                                               class="label-form-pago control-label  error-label">Plan</label>
+
+                                        <select name="planContratado" id="planContratado" data-error="Campo requerido"
+                                                class="form-control btn-block input-agregar">
+                                            <option value="" style="color: #777">Seleccione...</option>
+                                            {% for p in planesVictorius %}
+                                                <option {% if p.p_nombrePlan == marca_actual.m_planVictorius_id %}selected{% endif %}
+                                                        value="{{ p.p_nombrePlan }}">{{ p.p_nombrePlan }}</option> {% endfor %}
+                                        </select>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username" class="label-form-pago control-label  error-label">Instructores
+                                            Contratados</label>
+
+                                        <input name="instructoresContratados" id="instructoresContratados"
+                                               class="btn-block input-agregar form-control" type="number"
+                                               min="1" max=20 value="{{ marca_actual.m_instructoresContratados }}"
+                                               placeholder="Instructores Contratados"
+                                               data-error="Campo requerido" required>
+                                        <div class="help-block with-errors error-label"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <div class="col-xs-12">
+                            <div class="col-xs-12 col-sm-6">
+                                <!--<br> <input type="submit" value="Actualizar"-->
+                                <!--class="btn-block botones-agregar">-->
+                                <button type="submit" id="Actualizar" class="btn btn-block btn-black hvr-shrink"
+                                        style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                >Actualizar
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown").hover(function () {
+            $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+            $(this).toggleClass('open');
+        }, function () {
+            $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+            $(this).toggleClass('open');
+        });
+    });
+</script>
+<script>
+    function editarCtaBancaria(id, nombreBanco, nroCuenta, estatusCuenta) {
+        $("#accionCuenta").text("Editar Cuenta");
+        document.getElementById("idCuenta").value = id;
+        document.getElementById("bancoCuent").value = nombreBanco;
+        document.getElementById("numCuenta").value = nroCuenta;
+        document.getElementById("estatusCuent").value = (estatusCuenta == 'False') ? '0' : '1';
+        document.getElementById("cuenta").style.maxHeight = parseInt(document.getElementById("cuenta").scrollHeight) * 2.5 + "px";
+    }
+</script>
+<script>
+    function editarSala(id, nameSala, capSala, dicSala, esReferenciado) {
+        console.log(id, nameSala, capSala, dicSala,esReferenciado);
+        $("#accionSala").text("Editar Sala");
+        document.getElementById("idSala").value = id;
+        document.getElementById("nameSala").value = nameSala;
+        document.getElementById("capSala").value = capSala;
+        document.getElementById("dicSala").value = dicSala;
+        $('#idReferenciado').prop('checked', (esReferenciado=='True')?true:false);
+        document.getElementById("sala").style.maxHeight = parseInt(document.getElementById("sala").scrollHeight) * 2.5 + "px";
+    }
+</script>
+
+</body>
+</html>

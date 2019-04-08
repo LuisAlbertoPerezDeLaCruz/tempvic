@@ -1,0 +1,46 @@
+<!-- perfil-section-atleta-actividades.html -->
+
+{% load filtrosEspeciales %}
+
+<link rel="stylesheet" type="text/css"
+      href="../../static/css/nuevo_calendario.css"/>
+
+
+<div
+        class=" vc-perf-atleta-menu2-tab   vc-perf-atleta-menu2-tab-2 animated fadeIn">
+
+
+
+    <div class=" section_perfilAtleta">
+
+
+    </div>
+
+</div>
+
+<script>
+
+function cargarActividadesAtleta(){
+	
+	var urlViCcalendar;
+    var parametros = '?pk2=' + '{{ perfil.atletaAlias }}'
+    urlViCcalendar = "{% url 'web:table_body_perfil_atleta' %}";
+    $('.section_perfilAtleta').addClass('opasiti-list');
+    Pace.restart();
+    $('#idDivBienvenida').hide();
+    $('.vic-load').show();
+    $('.section_perfilAtleta').load(urlViCcalendar + parametros, function () {
+
+        var section_perfilAtleta = $(this);
+        $('.section_perfilAtleta').removeClass('opasiti-list');
+        $('.vic-load').hide();
+        $('#idDivBienvenida').show();
+        $('.vic-load').hide();
+    });
+}
+
+    $(document).ready(function () {
+        
+    });
+
+</script>

@@ -1,0 +1,332 @@
+<!--table_body_remuneraciones_instructor.html -->
+
+{% load filtrosEspeciales %}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.marcasCarrusel').owlCarousel({
+
+            loop: false,
+            center: false,
+            dots: false,
+            margin: 5,
+            responsiveClass: true,
+            animateOut: 'fadeOut',
+            nav: false,
+            autoWidth: false,
+            //autoplay:true,
+            //autoplayTimeout:5000,
+            // autoplayHoverPause:true,
+            rewind: true,
+            responsive: {
+                0: {
+                    items: 4,
+                    dots: false
+                },
+                600: {
+                    items: 6,
+                    dots: false
+                }
+            }
+        });
+    });
+
+</script>
+
+
+{% esAmigo perfil.atletaId vs.user.id as esAmigo %}
+{% soy_yo_mismo perfil.atletaId as soyYoMismo %}
+
+{% with paInfo=perfil.atletaInfoGeneral %}
+
+    <div id="vic-tab-2" class="tab-pane in active">
+
+        <div class="container">
+            {% if vs.tipoSesion == vs.MARCA or soyYoMismo %}
+                <div class=" vic-perfil-menu ">
+
+                     {% if programadoMeses %}
+                        <div class="vic-perfil-atl-inst-history pull-right" onclick="vcPerfilInstructorMenu1(this,2)">
+                            Ver Historial <i
+                                class="fa fa-calendar"></i>
+                        </div>
+                    {% endif %}
+
+                    <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+                        <div class="col-xs-6 menu-movil sin-left vic-centro-d-menu-link tabPendientes active "
+                             onclick="vcPerfilInstructorMenu1(this,1)">
+                            <div class="cell">
+                                PENDIENTES
+                            </div>
+                        </div>
+                        <div class="col-xs-6 menu-movil  vic-centro-d-menu-link tabRecientes "
+                             onclick="vcPerfilInstructorMenu1(this,2)">
+                            <div class="cell">
+                                RECIENTES
+
+                            </div>
+                        </div>
+                        <div class="" style=" margin-top: 8px;float: left;margin-left: 15px;">
+                            <b>Filtrar por</b>
+                        </div>
+                    </div>
+
+                    <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+                        <div>
+
+                            <div class="menu-tab-calendar vic-centro-d-menu-link tabPendientes active"
+                                 onclick="vcPerfilInstructorMenu1(this,1)">
+                                PENDIENTES
+                            </div>
+                            <div class="menu-tab-calendar vic-centro-d-menu-link vic-left tabRecientes"
+                                 onclick="vcPerfilInstructorMenu1(this,2)">
+                                RECIENTES
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {% with paInfo=perfil.atletaInfoGeneral %}
+
+                        {% if vs.tipoSesion == vs.ATLETA %}
+
+                            <!-- CARROUSEL DE CIRCULOS-->
+                            <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn ">
+                                <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px">
+                                    <div class="owl-carousel owl-theme marcasCarrusel m-t-10">
+                                        <!-- GUIA PARA EL ENCARGADO DEL BACK-->
+                                        <!-- EL CIRCULO QUE NO ESTA SELECCIONADO SE LE DEBE AGREGAR LA CLASE yellow, si esta seleccionado se le quita la clase yellow-->
+                                        <!-- EL EVENTO ON CLICK, TIENE UNA FUNCION DE NOMBRE event(1), ES DE PRUEBAS Y DEBE SER REEMPLAZADO POR LA FUNCION E IDENTIFICADOR CORRECTO-->
+                                        <div>
+                                            <!-- Dibuja el circulo-->
+                                            <div id="idDiv_Todos" class="vic-circle-calendar-carrusel selected "
+                                                 style="display: table;margin: auto"
+                                                 onClick="seleccionCirculoMarca('')">
+                                                <div style="font-size: 18px; display: table-cell;vertical-align:middle">
+                                                    <i
+                                                            class="fas fa-building"></i></div>
+                                            </div>
+                                            <!-- Agrega el texto -->
+                                            <div style="font-size:12px">
+                                                Todos
+                                            </div>
+                                        </div>
+
+                                        {% with perfil.instructorMarcas as marcasAprobadas %}
+
+                                            {% for marca in marcasAprobadas %}
+
+                                                <div>
+                                                    <div id="idDiv_{{ marca.m_alias }}" class="vic-circle-calendar-carrusel active
+                                        {% if marca.m_alias == marcaAlias %}
+                                           selected
+                                        {% endif %}
+                                        " style="display: table;margin: auto"
+                                                         onClick="seleccionCirculoMarca('{{ marca.m_alias }}')">
+                                                        <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;">
+                                                            {{ marca.m_iniciales }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="line-clamp" style="font-size:12px">
+                                                        {{ marca.m_nombre }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endfor %}
+
+                                        {% endwith %}
+
+                                        {% with perfil.atletaMarcasPendientes as marcasPendientes %}
+
+                                            {% for marca in marcasPendientes %}
+
+                                                <div>
+
+                                                    <div id="idDiv_{{ marca.m_alias }}"
+                                                         class="vic-circle-calendar-carrusel "
+                                                         style="display: table;margin: auto;pointer-events:none;"
+                                                         onClick="seleccionCirculoMarca('{{ marca.m_alias }}')">
+                                                        <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;">
+                                                            {{ marca.m_iniciales }}
+                                                        </div>
+                                                    </div>
+                                                    <div style="font-size:12px">
+                                                        {{ marca.m_nombre }}
+                                                    </div>
+
+                                                </div>
+
+                                            {% endfor %}
+
+                                        {% endwith %}
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vic-hr  "></div>
+
+                        {% endif %}
+
+
+                        <div class="resultado_div" style="display: none;">
+                            <div style=" margin-top: 8px" c>
+                                <b>Resultado para</b>
+                            </div>
+                            <div class="resultado" style="font-style: italic;"></div>
+                            <hr>
+                        </div>
+
+                    {% endwith %}
+
+                    <div class=" vc-perf-instructor-menu1-tab   vc-perf-instructor-menu1-tab-1 animated fadeIn">
+
+                        <div class="columns" style="text-align: center; padding-top: 10px;">
+
+                            {% with programadoMeses=ingresosPorPercibir %}
+
+                                {% if programadoMeses %}
+
+
+                                    {% for monthInfo in programadoMeses %}
+                                        <br>
+                                        <div class="flex-container vic-rem-atleta">
+
+                                            <div class="box-1">
+                                                <div><b>{{ monthInfo.mes }}</b></div>
+                                                <div>    {{ monthInfo.marca }}</div>
+
+                                            </div>
+
+                                            <div class="box-2">
+                                                <div>
+                                                    <small>CLASES POR REALIZAR
+                                                    </small>
+                                                </div>
+                                                <div>{{ monthInfo.cantidad }}</div>
+                                            </div>
+
+                                            <div class="box-3">
+                                                <div>
+                                                    <small>TOTAL</small>
+                                                </div>
+                                                <div><b>{{ monthInfo.total }}</b></div>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+
+                                    {% endfor %}
+
+
+
+
+                                {% else %}
+                                    <div class="row">
+
+                                        <div class="text-center col-xs-12 ">
+                                            <br><br><br>
+                                            <i class="fa fa-money-check fa-4x" style="color: #ffcd00"
+                                               aria-hidden="true"></i>
+                                        <div class=" vic-title-ms">No encontré remuneraciones {% if vs.tipoSesion == vs.MARCA %}
+                                         para {{ perfil.atletaNombreCompleto }}
+                                        {% endif %}</div>
+                                            <div class="vic-calendar-sub-title-header vic-tex-inic "
+                                                 style="margin-top: 10px;">Cuando tenga remuneraciones pendientes <br>
+                                                podrás verlas aquí.
+                                                <br class="md-movil">
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                    </div>
+
+                                {% endif %}
+
+                            {% endwith %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="display: none;"
+                         class="vc-perf-instructor-menu1-tab   vc-perf-instructor-menu1-tab-2 animated fadeIn">
+
+                        {% with devengadoMeses=ingresosYaPercibidos %}
+
+                            {% if devengadoMeses %}
+
+                                {% for monthInfo in devengadoMeses %}
+                                    <br>
+                                    <div class="flex-container vic-rem-atleta">
+
+                                        <div class="box-1">
+                                            <div><b>{{ monthInfo.mes }}</b></div>
+                                            <div>    {{ monthInfo.marca }}</div>
+
+                                        </div>
+
+                                        <div class="box-2">
+                                            <div>
+                                                <small>CLASES REALIZADAS
+                                                </small>
+                                            </div>
+                                            <div>{{ monthInfo.cantidad }}</div>
+                                        </div>
+
+                                        <div class="box-3">
+                                            <div>
+                                                <small>TOTAL</small>
+                                            </div>
+                                            <div><b>{{ monthInfo.total }}</b></div>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+
+
+                                {% endfor %}
+
+
+
+
+
+
+                            {% else %}
+
+                                <div class="row">
+
+                                    <div class="text-center col-xs-12 ">
+                                        <br><br><br>
+                                        <i class="fa fa-money-check fa-4x" style="color: #ffcd00"
+                                           aria-hidden="true"></i>
+                                        <div class=" vic-title-ms">No encontré remuneraciones {% if vs.tipoSesion == vs.MARCA %}
+                                         para {{ perfil.atletaNombreCompleto }}
+                                        {% endif %}</div>
+                                        <div class="vic-calendar-sub-title-header vic-tex-inic "
+                                             style="margin-top: 10px;">Cuando tenga remuneraciones <br> podrás verlas
+                                            aquí.
+                                            <br class="md-movil">
+                                        </div>
+                                        <br>
+                                    </div>
+
+                                </div>
+
+
+                            {% endif %}
+
+                        {% endwith %}
+
+                    </div>
+                    <br>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endwith %}

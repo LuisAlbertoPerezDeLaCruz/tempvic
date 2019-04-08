@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{% include "head.html" %}
+
+</head>
+<body class="fondo-index">
+
+	{% include "header.html" %} 
+	{% include "content-tabs.html"%} 
+	{% include "tabs_entrenador-calendario.html"%}
+
+	<div id="vic-tab-2" class="tab-pane in active">
+		<div class="container" style="margin-bottom: 60px;">
+			<div class="row">
+				<div class=" col-xs-12  col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8col-lg-offset-2 col-lg-8 modulo-blanco">
+					<h3>Registro</h3>
+					<form method="POST" action="updateajax" id="registroToken" style="text-align: left;">
+						{% csrf_token %}
+						
+						<div class="col-xs-12">
+							<div class="row">
+								<br>
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<input type="hidden" name="form-type" value="registro" />
+										<div class="form-group">
+				 							<label for="username" class="label-form-pago control-label  error-label">Correo Electrónico</label>
+											<input id="username" name="username"
+												class="btn-block input-agregar form-control" type="email"
+												value="{{usuario.username}}" placeholder="{{usuario.username}}" readOnly
+												data-error="Campo requerido" required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>									
+
+									<div class="col-sm-6">
+										<div class="form-group">
+					 						<label for="alias" class="label-form-pago control-label  error-label">Alias</label>
+											<input id="alias" name="alias"
+												class="btn-block input-agregar form-control" type="text"
+												value="{{profile.u_alias}}" placeholder="alias" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>									
+								</div>
+
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+					 						<label for="primerNombre" class="label-form-pago control-label  error-label">Primer nombre</label>
+											<input name="primerNombre" id="primerNombre"
+												class="btn-block input-agregar form-control" type="text"
+												value="{{usuario.first_name}}" placeholder="Primer Nombre" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											 <label for="segundoNombre" class="label-form-pago control-label  error-label">Segundo Nombre</label>
+											<input name="segundoNombre" id="segundoNombre"
+												class="btn-block input-agregar form-control" type="text"
+												value="" placeholder="Segundo Nombre" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+					 						<label for="primerApellido" class="label-form-pago control-label  error-label">Primer Apellido</label>
+											<input name="primerApellido" id="primerApellido"
+												class="btn-block input-agregar form-control" type="text"
+												value="{{usuario.last_name}}" placeholder="Primer Apellido" data-error="Campo requerido" 
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+					 						<label for="segundoApellido" class="label-form-pago control-label  error-label">Segundo Apellido</label>
+											<input name="segundoApellido" id="segundoApellido"
+												class="btn-block input-agregar form-control" type="text"
+												value="" placeholder="Segundo Apellido" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+											 <label for="fechaNacimiento" class="label-form-pago control-label  error-label" >Fecha de Nacimiento</label>
+											<input id="fechaNacimiento" name="fechaNacimiento"
+												class="btn-block input-agregar form-control" type="date"
+												value="" placeholder="Fecha de Nacimiento"
+												data-error="Campo requerido" required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+						 					<label for="telefono" class="label-form-pago control-label  error-label">Teléfono</label>
+											<input id="telefono" name="telefono"
+												class="btn-block input-agregar form-control" type="text"
+												value="" placeholder="telefono" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+			 								<label for="calle" class="label-form-pago control-label  error-label">Calle o avenida</label>
+											<input name="calle" id="calle"
+												class="btn-block input-agregar form-control" type="text"
+												value="" placeholder="Calle o avenida" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+			 								<label for="urbanizacion" class="label-form-pago control-label  error-label">Urbanizacion</label>
+											<input name="urbanizacion" id="urbanizacion"
+												class="btn-block input-agregar form-control" type="text"
+												value="" placeholder="Urbanizacion" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+									
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+			 								<label for="edificioCasa" class="label-form-pago control-label  error-label">Edificio o casa, piso/nro</label>
+											<input name="edificioCasa" id="edificioCasa"
+												class="btn-block input-agregar form-control" type="text"
+												value="" placeholder="Edificio o casa, piso/nro" data-error="Campo requerido"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+								 			<label for="ciudad" class="label-form-pago control-label  error-label">Ciudad</label>
+											<select id="ciudad" name="ciudad" data-error="Campo requerido"
+												class="form-control btn-block input-agregar">
+												<option style="color: #777">Seleccione...</option> {% for c in ciudades %}
+												<option {%if c.pk == marca_actual.m_ciudad.pk %}selected{%endif%} value="{{c.pk}}">{{c.c_nombre}}</option> {% endfor%}
+											</select>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+									
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+ 											<label for="municipio" class="label-form-pago control-label  error-label">Municipio</label>
+											<select id="municipio" name="municipio" data-error="Campo requerido"
+												class="form-control btn-block input-agregar">
+												<option value="" style="color: #777">Seleccione...</option> {% for c in municipios %}
+												<option {%if c.pk == marca_actual.m_municipio.pk %}selected{%endif%} value="{{c.pk}}">{{c.z_municipio}}</option> {% endfor%}
+											</select>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="pais" class="label-form-pago control-label  error-label">Pais</label>
+											<select id="pais" name="pais" data-error="Campo requerido"
+												class="form-control btn-block input-agregar">
+												<option style="color: #777">Seleccione...</option> {% for p in paises %}
+												<option {%if p.pk == marca_actual.m_pais.pk %}selected{%endif%} value="{{p.pk}}">{{p.p_nombre}}</option> {% endfor%}
+											</select>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+					 						<label for="dic1" class="label-form-pago control-label  error-label">Selec. 1º disciplina</label>
+											<select id="dic1" name="dic1" data-error="Campo requerido"
+												class="form-control btn-block input-agregar" required>
+												<option value="" style="color: #777">Seleccione...</option> {% for c in disciplinas %}
+												<option>{{c.d_nombre}}</option> {% endfor%}
+											</select>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label for="dic2" class="label-form-pago control-label  error-label">Selec. 2º disciplina</label>
+											<select id="dic2" name="dic2" data-error="Campo requerido"
+												class="form-control btn-block input-agregar" required>
+												<option value="" style="color: #777">Seleccione</option>
+												 {% for c in disciplinas %}
+												<option>{{c.d_nombre}}</option> {% endfor%}
+											</select>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-xs-12">
+									<div class="col-sm-6">
+										<div class="form-group">
+								 			<label for="passwordIn" class="label-form-pago control-label  error-label">Contraseña</label>
+											<input id="passwordIn" name="passwordIn"
+												class="btn-block input-agregar form-control" type="password"
+												value="" placeholder="Contraseña"
+												data-error="Campo requerido" required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+								 			<label for="passwordConfirm" class="label-form-pago control-label  error-label">Confirmar Contraseña</label>
+											<input id="passwordConfirm" name="passwordConfirm"
+												class="btn-block input-agregar form-control" type="password"
+												value="" placeholder="Confirmar contraseña"
+												data-match="#passwordIn" data-error="Confirme la contraseña"
+												required>
+											<div class="help-block with-errors error-label"></div>
+										</div>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="col-xs-12">
+								<br> 
+								<button type="submit" value="Registrar" id="botonRegistrar" 
+									class="btn btn-block btn-black hvr-shrink"   
+									style="float: left; font-size: 16px; font-weight: bold; text-align: center">
+									Registrar
+								</button> 
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include "fin-content-tabs.html"%} {% include "footer.html" %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".dropdown").hover(function() {
+				$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+				$(this).toggleClass('open');
+			}, function() {
+				$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+				$(this).toggleClass('open');
+			});
+		});
+	</script>
+
+</body>
+</html>

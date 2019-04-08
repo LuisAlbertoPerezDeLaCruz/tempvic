@@ -1,0 +1,54 @@
+<!-- correoIntencionCompra.html -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <style media="all" type="text/css">
+    </style>
+    {% load filtrosEspeciales %}
+</head>
+
+<body style='font-family: "serif'>
+
+
+<div style="width: 900px; margin: 13px; padding: 15px; padding-bottom: 33px; text-align: center; margin-left: auto; margin-right: auto;">
+
+    <div style="margin-left: auto; margin-right: auto; margin-bottom: 20px; width: 618px; font-size: 15px; line-height: 24px; text-align: left;">
+        <b>{{ marcaNombre }}</b><br>@{{ marcaAlias }}<br><br>
+        Estimad@ {{ nombres }}<br><br><br>
+        Ya estás casi list@. El plan solicitado es <b>"{{ productoNombre }}"</b><br><br>
+        Solo te falta realizar pago por Bs. {{ productoPrecio|bolivares }} a {{ marcaNombre }}.<br>
+
+        &nbsp;1. Realiza el pago a cualquiera de las cuentas abajo indicadas<br>
+        &nbsp;2. Reporta el pago a {{ marcaNombre }}<br><br>
+
+        Responde a este correo<br><br>
+
+            &nbsp;&bull;&nbsp;Anexa el soporte de tu pago<br>
+            &nbsp;&bull;&nbsp;Si es transferencia de otro banco el plan será registrado cuando se haga efectivo<br><br>
+
+        Nuestras cuentas a nombre de {{ marcaRazonSocial }} RIF {{ marcaRIF }}<br><br>
+
+        {% for cuenta in marcaCuentas %}
+            &bull;&nbsp;{{ cuenta.banco }}&nbsp;Cta.# {{ cuenta.numero }}<br>
+        {% endfor %}
+        <br><br>
+        Para mayor información puedes contactar a {{ marcaNombre }} a {{ marcaCorreo }} o {{ marcaTelefono }}<br><br><br>
+
+
+    Gracias,<br><br>
+
+    El equipo {{ marcaNombre }}<br>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

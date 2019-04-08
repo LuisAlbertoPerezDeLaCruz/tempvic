@@ -1,0 +1,438 @@
+<!-- calendario-atleta-base.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        {% load staticfiles %}
+        {% load filtrosEspeciales %}
+        {% include "head.html" %}
+        {% include "header.html" %}
+        {% include "content-tabs.html" %}
+        {% include "tabs_entrenador-calendario.html" %}
+        {% include "scriptsActividades.html" %}
+        <link rel="stylesheet" type="text/css"
+              href="../../static/css/nuevo_calendario.css"/>
+
+        <script>
+            $('.vic-load').show();
+        </script>
+
+    </head>
+{% endblock head %}
+
+<body style="padding-bottom: 100px">
+
+{% block modales %}
+
+    <div class="modal fade modalTabRecarga" role="dialog" style="z-index: 9999">
+        <div class="modal-dialog">
+            <div class="prdId" hidden><</div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div
+                            style="margin-bottom: 5px; text-transform: initial; line-height: 16px;">
+
+                        Te enviaremos un correo con los detalles para el pago por transferencia.
+
+                    </div>
+                    <hr>
+
+
+                    <div class="vic-table-perf-atle-title tr-n">
+                    </div>
+                    <div class="m-t-10">Mensualidad HTP. Incluye luenes a jueves
+                        cualquier horario. Libre para cualquier disciplina.
+                    </div>
+
+
+                    <br>
+
+
+                    <table class=" tc table-compra t-consumen" border="0"
+                           style="font-size: 16px; vertical-align: middle;">
+                        <tbody>
+                        <tr>
+                            <td>
+
+                            </td>
+
+                            <td style="    width: 109px;
+    text-align: right;
+    font-size: 12px;
+    line-height: 18px;">
+
+                                <b>INVERSIÓN</b>
+
+                                <div class="tr-p" style="font-size: 16px;
+    line-height: 16px;    font-weight: 500;
+   "></div>
+                                <div style="font-size: 14px; padding-bottom: 6px;"><span class="tr-c"></span>% Dcto.
+                                </div>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                    <hr>
+
+                    <div class="container-fuid text-right">
+                        <button onclick="continuarTabRecarga()"
+                                type="button"
+                                class="btn btn-md   vic-btn-reservar-reverse ">
+                            Continuar
+                        </button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade filtroCalendarioAtleta" role="dialog">
+
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row ">
+
+                        <div class=" col-md-4 ">
+                            <br class=" hidden-md hidden-lg">
+                            <div class="row">
+                                <div class="col-xs-11 col-md-10 ">
+
+                                    <div class="row vic-calendar-box gray">
+                                        <div class="col-xs-6" style="padding-left: 5px;padding-right: 5px;
+                        ">
+
+                                            <table style="width: 100%">
+                                                <colgroup>
+                                                    <col style="width: 80%">
+                                                    <col style="width: 20%">
+                                                </colgroup>
+                                                <tr>
+                                                    <td>
+                                                        <div class="vic-calendar-filtro-label">INICIO</div>
+                                                        <input readonly
+                                                               autocomplete="off" name="fechaInicio"
+                                                               class="btn-block vic-calendar-filtro-input-fecha fechaInicioCalendar fechaInicio"
+                                                               type="text" value="{{ fechaInicio }}"
+                                                               placeholder="DD/MM/YYYY">
+                                                    </td>
+                                                    <td>
+                                                        <i onclick="focus_date('fechaInicio')"
+                                                           class="fas fa-calendar-alt fa-1-5x "></i>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+
+                                        </div>
+
+                                        <div class="col-xs-6" style="padding-left: 5px;padding-right: 5px;
+                        ">
+                                            <div style="border-left:1px #8B96AA solid;padding-left: 5px;">
+                                                <table style="width: 100%">
+                                                    <colgroup>
+                                                        <col style="width: 80%">
+                                                        <col style="width: 20%">
+                                                    </colgroup>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="vic-calendar-filtro-label">FIN</div>
+                                                            <input readonly
+                                                                   autocomplete="off"
+                                                                   name="fechaFinalizacion"
+                                                                   class="btn-block vic-calendar-filtro-input-fecha fechaFinalizacionCalendar fechaFinalizacion"
+                                                                   type="text" value="{{ fechaFinalizacion }}"
+                                                                   placeholder="DD/MM/YYYY">
+                                                        </td>
+                                                        <td>
+                                                            <i onclick="focus_date('fechaFinalizacion')"
+                                                               class="fas fa-calendar-alt fa-1-5x "></i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-1 col-md-2">
+                                    <div class="row">
+
+
+                                        <div>
+
+                                            <i class="fas fa-clock fa-1-5x dropdown-toggle " data-toggle="dropdown"
+                                               aria-hidden="true"
+                                               style="margin-top:18px;margin-left: 10px;"></i>
+
+                                            <ul class="dropdown-menu clock" style="right: 30px; top: 0px;">
+
+
+                                                <li role="presentation"><a onclick="prepararFechasProximas()"
+                                                                           href="#">Próximas</a>
+                                                </li>
+                                                <li role="presentation"><a class="o-clock"
+                                                                           onclick="vic_periodo(6,'Esta Semana',this)"
+                                                                           href="#">Esta
+                                                    Semana</a></li>
+                                                <li role="presentation"><a class="o-clock"
+                                                                           onclick="vic_periodo(1,'Este Mes',this)"
+                                                                           href="#">Este Mes</a>
+                                                </li>
+                                                <li role="presentation"><a class="o-clock"
+                                                                           onclick="vic_periodo(2,'Mes Pasado',this)"
+                                                                           href="#">Mes Pasado</a>
+                                                </li>
+                                                <li role="presentation"><a class="o-clock"
+                                                                           onclick="vic_periodo(3,'Ultimos 90 Dias',this)"
+                                                                           href="#">Ultimos
+                                                    90 Dias</a></li>
+                                                <li role="presentation"><a class="o-clock"
+                                                                           onclick="vic_periodo(4,'Este Año',this)"
+                                                                           href="#">Este Año</a>
+                                                </li>
+                                                <li role="presentation"><a class="o-clock"
+                                                                           onclick="vic_periodo(5,'Año Pasado',this)"
+                                                                           href="#">Año Pasado</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class=" col-md-4 ">
+                            <div class="row vic-calendar-box gray">
+                                <div class="col-xs-10" style="padding-left: 5px;">
+
+                                    <input autocomplete="off" name="afecha"
+                                           class="btn-block  vic-calendar-filtro-input-search  searchString"
+                                           type="text" value="" placeholder="Buscar Actividades">
+
+                                </div>
+                                <div class="col-xs-2"
+                                     style="border-left:1px #8B96AA solid;height: 34px;text-align: center;">
+                                    <i onclick="clear_form_search();" class="fa fa-search "></i>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8  vic-filtro   ">
+                            <form action="">
+                                <!--  <div class="pull-right vic-calendar-filter-close"><i class="fa fa-close"></i></div> -->
+
+                                <div class="row vic-calendar-box gray box2 ">
+                                    <div class="col-xs-6" style="margin-bottom: 6px;">
+
+                                        <div class="vic-calendar-filtro-label ">CENTROS</div>
+                                        <select id="idMarcaAliasModal" name="marcaAlias"
+                                                class="vic-calendar-filtro-select marcaAlias marcaAliasFiltro">
+                                            <option value="Suscripciones" style="color: #777">Suscripciones</option>
+                                            <option value="Todos" style="color: #777">Todos</option>
+                                            {% for marca in perfilAtleta.atletaMarcas %}
+                                                <option value="{{ marca.m_alias }}">{{ marca.m_nombre }}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6" style="margin-bottom: 6px;">
+                                        <div class="vic-calendar-filtro-label ">DICIPLINA</div>
+                                        <select name="disciplina" class="vic-calendar-filtro-select disciplina">
+                                            <option value="" style="color: #777">Todas</option>
+
+                                            {% for disciplina in perfilAtleta.atletaDisciplinas %}
+                                                <option value="{{ disciplina.nombreDisciplina }}">{{ disciplina.nombreDisciplina }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="row vic-calendar-box gray box2 ">
+
+                                    <div class=" col-xs-6" style="margin-bottom: 6px;">
+
+                                        <div class="vic-calendar-filtro-label">INSTRUCTOR</div>
+                                        <select name="instructor" class="vic-calendar-filtro-select instructor">
+                                            <option value="">Todos</option>
+
+                                            {% for instructor in perfilAtleta.atletaInstructores %}
+                                                <option value="{{ instructor.nombreInstructor }}">{{ instructor.nombreInstructor }}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                    </div>
+
+                                    <div class=" col-xs-6  " style="margin-bottom: 6px;">
+                                        <div class="vic-calendar-filtro-label ">LOCALIDAD</div>
+                                        <select name="localidad" class="vic-calendar-filtro-select localidad">
+                                            <option value="" style="color: #777">Todas</option>
+
+                                            {% for localidad in perfilAtleta.atletaLocalidades %}
+                                                <option value="{{ localidad.nombreLocalidad }}">{{ localidad.nombreLocalidad }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="aplicar-btn  ">
+                            <button id="btnAplicar" onclick="resetearCentrosEnCarrusel();seleccionCirculoMarca(marcaAlias);" type="button"
+                                    class="btn  vic-btn-aplicar  ">
+                                Aplicar
+                            </button>
+
+                            <br class=" hidden-md hidden-lg">
+                            <hr class=" hidden-md hidden-lg">
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock modales %}
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="container">
+
+        {% block titulo %}
+            <div class=" titulo-principal box row">
+                Explorar Actividades
+            </div>
+        {% endblock titulo %}
+
+        {% block controlFiltro %}
+        {% endblock controlFiltro %}
+
+        {% block tabs %}
+        {% endblock tabs %}
+
+        {% block controlCarrusel %}
+        {% endblock controlCarrusel %}
+
+        {% block resultados %}
+            <div class="resultado_div" style="display: none">
+                <div style=" margin-top: 8px" c>
+                    <b>Resultado para</b>
+                </div>
+                <div class="resultado" style="font-style: italic;"></div>
+                <hr>
+            </div>
+        {% endblock resultados %}
+
+        {% block contenido %}
+        {% endblock contenido %}
+
+        {% block accionPagineo %}
+            {% if numPagesIZQ > 1 %}
+
+                <div class="container text-center">
+                    <br> <br>
+                    <a id="idAccionPagineoIZQ" href="javascript:void(0)" class="accionPagineoIZQ"></a>
+
+                    <button style="text-align: center" id="idAccionPagineoIZQ" type="button"
+                            class="btn btn-block  vic-btn-reservar-reverse accionPagineoIZQ"
+                            style="margin-top: 15px">
+                        Próximas
+                    </button>
+                </div>
+            {% endif %}
+            {% if numPagesDER > 1 %}
+                <div class="container text-center">
+                    <br> <br>
+                    <a id="idAccionPagineoDER" href="javascript:void(0)" class="accionPagineoDER"></a>
+                    <button style="text-align: center" id="idAccionPagineoDER" type="button"
+                            class="btn btn-block  vic-btn-reservar-reverse accionPagineoDER"
+                            style="margin-top: 15px">
+                        Próximas
+                    </button>
+                </div>
+            {% endif %}
+        {% endblock accionPagineo %}
+
+        {% block mensajes %}
+        {% endblock mensajes %}
+
+
+    </div>
+
+</div>
+
+{% block footer %}
+    {% include "fin-content-tabs.html" %}
+    {% include "footer.html" %}
+{% endblock %}
+
+
+<script src="{% static "/js/calendario-atleta.js" %}"></script>
+
+<script>
+    numPagesIZQ ={{ numPagesIZQ }};
+    numPagesDER ={{ numPagesDER }};
+    urlIZQ = '{{ urlPagineo }}';
+    urlDER = '{{ urlPagineo }}';
+    pka = '{{ perfilAtleta.atletaAlias }}'
+</script>
+
+</body>
+</html>

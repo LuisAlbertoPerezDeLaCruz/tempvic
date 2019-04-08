@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!-- edo-cuenta.html -->
+<html lang="en">
+<head>
+    {% include "head.html" %}
+    {% load i18n %}
+</head>
+<body>
+
+{% include "header.html" %}
+{% include "atletafast.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+<div id="vic-tab-2" class="tab-pane in active ">
+
+    {% language 'es' %}
+
+
+
+        <div class="container-fluid fondo-atletas" id="nombre-display">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 margen">
+                        <center>
+                            {% for m,t in mesesprevios reversed %}
+                                <h1 id="mes{{ forloop.counter0 }}">{{ m|date:"E" }}</h1>
+                            {% endfor %}
+                            <h4>Edo. Cuenta</h4>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 block-2c">
+
+            <div class="col-xs-1 col-md-offset-1 col-md-1 destop ">
+                <a id="next" href="/{{ pk }}/edo-cuenta?fecha={{ sixmonths.0|date:'Y-m-d' }}">
+                    <img src="../static/images/prev.png"
+                         class="blank-img  hvr-grow close-left-all" onclick="">
+                </a>
+            </div>
+
+            <div class="col-xs-1 col-md-offset-1 col-md-1 movil ">
+                <a id="next" href="/{{ pk }}/edo-cuenta?fecha={{ sixmonths.2|date:'Y-m-d' }}">
+                    <img src="../static/images/prev.png"
+                         class="blank-img  hvr-grow close-left-all" onclick="">
+                </a>
+            </div>
+            <div class=" col-xs-10 col-md-8  block-2c-c">
+
+                {% for m,t in mesesprevios reversed %}<a onclick="cambio({{ forloop.counter0 }})">
+                    <div id="d{{ forloop.counter0 }}"
+                         class="col-xs-2 div-fecha-c {% if m.month == fecha.month %}active{% endif %} destop">
+                        <div class="fecha-c" style="text-transform: uppercase;">{{ m|date:"b Y" }} </div>
+                        <div class="dia-c numberFormat">{% if t.p_monto__sum == None %}0.0
+                            {% else %}{{ t.p_monto__sum }} {% endif %} {{ marca_actual.m_moneda }}</div>
+                    </div>
+                </a>
+                    {% if forloop.counter > 3 and forloop.counter < 7 %}
+                        <a onclick="cambio({{ forloop.counter0 }})">
+                            <div id="m{{ forloop.counter0 }}"
+                                 class="col-xs-4 div-fecha-c {% if m.month == fecha.month %}active{% endif %} movil">
+                                <div class="fecha-c" style="text-transform: uppercase;">{{ m|date:"b Y" }}</div>
+                                <div class="dia-c numberFormat">{% if t.p_monto__sum == None %}0.0
+                                    {% else %}{{ t.p_monto__sum }} {% endif %} {{ marca_actual.m_moneda }}</div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+            {% if not esultimo %}
+                <div class="col-xs-1 col-md-1 destop ">
+                    <a id="next" href="/{{ pk }}/edo-cuenta?fecha={{ sixmonths.1|date:'Y-m-d' }}"><img
+                            src="../static/images/next.png"
+                            class="blank-img  hvr-grow close-right-all" onclick="">
+                    </a>
+                </div>
+                <div class="col-xs-1 col-md-1 movil ">
+                    <a id="next" href="/{{ pk }}/edo-cuenta?fecha={{ sixmonths.3|date:'Y-m-d' }}"><img
+                            src="../static/images/next.png"
+                            class="blank-img  hvr-grow close-right-all" onclick="">
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="col-xs-12 block-3c" style="text-align: center;">
+            <div class="fecha-c col-xs-12">EDO. CUENTA</div>
+            <div class="resumen-c col-xs-12" style="margin-bottom: 20px;">RESUMEN DEL MES</div>
+            {% for t,p,b,c in totalesprevios reversed %}
+                <div id="totales{{ forloop.counter0 }}" class="resumen-c col-xs-12" style="margin-bottom: 20px;">
+                    <div class="resumen-c col-xs-3  col-lg-2  col-lg-offset-3   ">
+                        <div class="resumen-c numberFormat vic-edocta" onclick="filtrarEstadoCuenta('');">{% if t.p_monto__sum == None %}0{% else %}
+                            {{ t.p_monto__sum }}{% endif %} {{ marca_actual.m_moneda }}</div>
+                        <div class="fecha-c vic-edocta" onclick="filtrarEstadoCuenta('');">Total Ventas</div>
+                    </div>
+                    <div class="resumen-c col-xs-3  col-lg-2 ">
+                        <div class="resumen-c numberFormat vic-edocta" onclick="filtrarEstadoCuenta('PORCOBRAR');">{% if p.p_monto__sum == None %}0{% else %}
+                            {{ p.p_monto__sum }}{% endif %} {{ marca_actual.m_moneda }}</div>
+                        <div class="fecha-c vic-edocta" onclick="filtrarEstadoCuenta('PORCOBRAR');">Total Por Cobrar</div>
+                    </div>
+                    <div class="resumen-c col-xs-3  col-lg-2">
+                        <div class="resumen-c vic-edocta" onclick="filtrarEstadoCuenta('BECA');">{{ b }}</div>
+                        <div class="fecha-c vic-edocta" onclick="filtrarEstadoCuenta('BECA');">Becas</div>
+                    </div>
+                    <div class="resumen-c col-xs-3  col-lg-2 ">
+                        <div class="resumen-c vic-edocta" onclick="filtrarEstadoCuenta('DESCUENTO');">{{ c }}</div>
+                        <div class="fecha-c vic-edocta" onclick="filtrarEstadoCuenta('DESCUENTO');">Descuentos</div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% for pag in pagos reversed %}
+                {% if not pag %}
+
+
+                    <div id="pag{{ forloop.counter0 }}" class="container-fluid vc-vacio-block">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+							  <span class="vacioTxt">Oops no hay pagos registrados... <strong><br>
+			para este mes.</strong></span>
+                            </div>
+                            <div class="col-xs-12 text-center">
+                                <img class="vc-vacio-img"
+                                     src="../static/images/No_pagos.png" alt="">
+
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <div id="pag{{ forloop.counter0 }}" class=" col-xs-12" style="top: 30px;">
+                        <table class=' table-compra t-consumen' border="0">
+                            <colgroup class='destop'>
+                                <col width='25%'>
+                                <col width='25%'>
+                                <col width='20%'>
+                                <col width='15%'>
+                                <col width='15%'>
+                            </colgroup>
+                            <colgroup class='movil'>
+                                <col width='30%'>
+                                <col width='30%'>
+                                <col width='30%'>
+                                <col width='10%'>
+                            </colgroup>
+                            <tr style="border-bottom: 1.5px solid #8B96AA;">
+                                <th style="text-align: center;">FECHA</th>
+                                <th>CLIENTE</th>
+                                <th class="destop">ITEM</th>
+                                <th class="destop">MONTO</th>
+                                <th class="movil">CLASE & MONTO</th>
+                                <th style="text-align: center;"></th>
+
+
+                            </tr>
+                            {% for p,a,t in pag %}
+                                <tr id="r-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" style="border-bottom: 1px solid #E7EAEF;">
+
+                                    <td class="destop" style="text-align: center;">{{ p.p_fecha_registro }}</td>
+                                    <td class="movil" style="text-align: center;">{{ p.p_fecha_registro }}</td>
+
+                                    <td style="text-align: center;" class="destop">
+
+                                        <div class="col-xs-4" style="text-align: right;">
+
+                                            <img class='foto-perfil img-avatar'
+                                                 style='height: 40px; width: 40px; margin: 0px !important; border: solid 2px #ffcd00; float: none;'
+                                                 src='http://{{ request.META.HTTP_HOST }}/static/images/Fotoperfil.png'>
+
+                                        </div>
+                                        <div class="col-xs-8" style="text-align: left;">
+                                            <div class="user-c">{{ p.p_pagador.first_name }} {{ p.p_pagador.last_name }}</div>
+                                            <div class="alias-c">@{{ a.u_alias }}</div>
+                                        </div>
+                                    </td>
+
+                                    <td style="text-align: center;" class="movil">
+
+                                        <div class="col-xs-12">
+                                            <div class="resumen-c"
+                                                 style="font-weight: normal;">{{ p.p_pagador.first_name }} {{ p.p_pagador.last_name }}</div>
+                                            <div class="fecha-c"
+                                                 style="color: #393939; margin-top: 0px; font-weight: bold;">
+                                                @{{ a.u_alias }}</div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="col-xs-12">
+                                            <div class="resumen-c"
+                                                 style="font-weight: normal;">{{ p.p_producto.p_nombre }}</div>
+                                            <div class="fecha-c"
+                                                 style="color: #393939;margin-top: 0px;font-weight: bold;">{{ p.p_plan.p_creditos_usados }}/{{ p.p_plan.p_creditos_totales }}</div>
+
+                                            <div class="resumen-c movil"
+                                                 style="font-weight: normal;font-size: 12px;{% if p.p_producto.p_descuento == 100 %}text-decoration: line-through;{% endif %}">
+
+                                                <span class="numberFormat">{{ p.p_monto }} {{ marca_actual.m_moneda }}</span>
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+                                    <td class="destop numberFormat"
+                                        style="{% if p.p_producto.p_descuento == 100 %}text-decoration: line-through;{% endif %}">{{ p.p_monto }} {{ marca_actual.m_moneda }}</td>
+                                    <td style="text-align: center;">
+
+                                        <div class="btn-group">
+                                            <button style="margin-right: 10px;" type="button"
+                                                    class="vermas btn-xs btn-default"
+                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false"
+                                                    onclick="muestraReciboPago({{ p.p_plan_id }});">
+                                            </button>
+                                        </div>
+
+                                        {% if not p.p_status %}
+                                             <div class='btn-group moreOpsBt'
+                                                 style='position: relative; '>
+                                                <button type='button'
+                                                        class='btn btn-sm btn-default dropdown-toggle '
+                                                        data-toggle='dropdown' aria-haspopup='true'
+                                                        aria-expanded='false'>&nbsp;
+                                                </button>
+                                                <ul class='dropdown-menu' style='right: 30px; top: 0;'>
+                                                    {% if p.p_porcobrar %}
+                                                        <li role="presentation"><a onclick="mostrarPagoPendientePorCobrar('{{ p.pk }}')"
+                                                                                   href="#">REGISTRAR PAGO</a></li>
+                                                    {% else %}
+                                                        <li role="presentation"><a onclick="registrarpago('{{ p.pk }}')"
+                                                                                   href="#">CONCILIAR PAGO</a></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        {% else %}
+                                            <img src="../static/images/aceptar.png" width="25" height="25" alt=""/>
+                                        {% endif %}
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+        </div>
+    {% endlanguage %}
+
+{% include "fin-content-tabs.html" %}
+
+{% include "footer.html" %}
+
+<script>
+    function moneda(value) {
+        v = parseFloat(value);
+        v = v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        return v;
+    }
+</script>
+<script src="../static/js/sameHeight.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                $(this).toggleClass('open');
+            },
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                $(this).toggleClass('open');
+            }
+        );
+    });
+</script>
+
+<script>
+    for (i = 0; i < 10; i++) {
+        var content = document.getElementById("m" + i + "-" + j).innerHTML;
+        if (content == "None") {
+            document.getElementById("m" + i).innerHTML = moneda(0) + " {{marca_actual.d_marca.m_moneda}}";
+        } else {
+            document.getElementById("m" + i).innerHTML = moneda(content) + " {{marca_actual.d_marca.m_moneda}}";
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
+    function cambio(input) {
+        for (i = 0; i < 6; i++) {
+            document.getElementById("pag" + i).style.display = "none";
+            $("#d" + i).removeClass("active");
+            $("#mes" + i).hide();
+            $("#totales" + i).hide();
+        }
+        document.getElementById("pag" + input).style.display = "";
+        $("#d" + input).addClass("active");
+        $("#mes" + input).show();
+        $("#totales" + input).show();
+
+    }
+
+    cambio(5);
+
+    function myFilter() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        for (i = 1; i <= parseInt('{{pagos|length}}'); i++) {
+            palabra = document.getElementById('n' + i);
+            console.log(palabra.innerHTML);
+            if (palabra.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                document.getElementById('r' + i).style.display = "";
+            } else {
+                document.getElementById('r' + i).style.display = "none";
+
+            }
+        }
+    }
+
+
+
+</script>
+
+<!--Registrar pago como consolidado-->
+<script type="text/javascript">
+    function registrarpago(pago) {
+        $.ajax({
+            data: {'pago': pago,},
+            url: '/registrarpago',
+            type: 'get',
+            success: function (data) {
+                console.log(data);
+                alertVictorius("Pago conciliado", 1);
+                location.reload();
+            },
+        })
+    }
+</script>
+
+<script type="text/javascript">
+    function filtrarEstadoCuenta(tipoFiltro){
+
+        i=0;
+
+        {% for pag in pagos reversed %}
+
+            {% for p,a,t in pag %}
+
+{% comment %}                if (tipoFiltro=='{{ t }}'){
+                    $('#r-'+'{{ forloop.parentloop.counter }}-{{ forloop.counter }}').show();
+                }else{
+                    if (tipoFiltro==''){
+                        $('#r-'+'{{ forloop.parentloop.counter }}-{{ forloop.counter }}').show();
+                    }else {
+                        $('#r-' + '{{ forloop.parentloop.counter }}-{{ forloop.counter }}').hide();
+                    }
+                }{% endcomment %}
+
+                if ('{{ t }}'.indexOf(tipoFiltro)>-1){
+                    $('#r-'+'{{ forloop.parentloop.counter }}-{{ forloop.counter }}').show();
+                }else{
+                    if (tipoFiltro==''){
+                        $('#r-'+'{{ forloop.parentloop.counter }}-{{ forloop.counter }}').show();
+                    }else {
+                        $('#r-' + '{{ forloop.parentloop.counter }}-{{ forloop.counter }}').hide();
+                    }
+                }
+
+            {% endfor %}
+
+        {% endfor %}
+
+    }
+
+</script>
+
+<script type="text/javascript">
+    function mostrar(pago) {
+        $.ajax({
+            data: {'pago': pago,},
+            url: '/mostrarpago',
+            type: 'get',
+            success: function (data) {
+                procesarCompra(data[0], data[1], pago);
+            },
+        })
+    }
+</script>
+
+<script type="text/javascript">
+    function mostrarPagoPendientePorCobrar(pagoId) {
+        $.ajax({
+            data: {'pagoId': pagoId,},
+            url: '/mostrarPagoPendientePorCobrar',
+            type: 'get',
+            success: function (data) {
+                procesarPagoPendientePorCobrar(data[0],data[1]);
+            },
+        })
+    }
+</script>
+
+<script>
+    var div = $("#nombre-display");
+    document.querySelector('div#resultados-tabla').style.marginTop = div.outerHeight() + 'px';
+</script>
+
+</body>
+</html>

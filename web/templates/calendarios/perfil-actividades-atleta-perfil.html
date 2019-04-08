@@ -1,0 +1,89 @@
+<!-- perfil-actividades-atleta-perfil.html -->
+
+{% extends 'perfil-actividades-atleta-controles.html' %}
+
+{% block head %}
+{% endblock head %}
+
+{% block tabs %}
+
+    <div class="row vc-perf-atleta-menu2-tab  vc-perf-atleta-menu2-tab-2 animated fadeIn">
+
+        <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+            <div class="col-xs-6 menu-movil sin-left tabIzquierdo  active">
+                <div class="cell">
+                    PRÓXIMAS
+                </div>
+            </div>
+            <div class="col-xs-6 menu-movil tabDerecho ">
+                <div class="cell">
+                    RECIENTES
+                </div>
+            </div>
+        </div>
+
+        <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+            <div>
+                <div class="col-6 menu-tab-calendar active tabIzquierdo">
+                    PRÓXIMAS
+                </div>
+                <div class="col-6 menu-tab-calendar vic-left tabDerecho">
+                    RECIENTES
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock tabs %}
+
+{% block titulo %}
+    <div class=" titulo-principal box row">
+        {% if vs.tipoSesion == vs.MARCA %}
+            Actividades {{ perfilAtleta.atletaNombreCompleto }}
+        {% else %}
+            Mis Actividades
+        {% endif %}
+    </div>
+{% endblock titulo %}
+
+{% block controlFiltro %}
+    <input type="text" id="idMarcaAlias" name="marcaAlias" class="marcaAlias marcaAliasFiltro" hidden>
+{% endblock controlFiltro %}
+
+{% block mensajes %}
+    {% if not actividadesIZQ %}
+        <div class="text-center col-xs-12 soloIZQ">
+            <br>
+            <i class="fas fa-robot fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+            <div class="vic-title-ms">No encontré actividades para {{ perfilAtleta.atletaNombreCompleto }}
+            </div>
+            <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                Cuando hayan actividades podrás verlas aquí.
+            </div>
+        </div>
+        <div>
+            <hr>
+        </div>
+    {% endif %}
+    {% if not actividadesDER %}
+        <div class="text-center col-xs-12 soloDER">
+            <br>
+            <i class="fas fa-robot fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+            <div class="vic-title-ms">No encontré actividades para {{ perfilAtleta.atletaNombreCompleto }}
+            </div>
+            <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                Cuando hayan actividades podrás verlas aquí.
+            </div>
+        </div>
+        <div>
+            <hr>
+        </div>
+    {% endif %}
+{% endblock mensajes %}
+
+{% block footer %}
+{% endblock footer %}
+
+
+

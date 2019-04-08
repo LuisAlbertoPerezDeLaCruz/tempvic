@@ -1,0 +1,23 @@
+<!-- perfi-dropdown.html -->
+<div class="col-xs-12">
+	<a class="dropdownClickClose" href="javascript:void(0);"
+		style="float: right;"><img src="../static/images/close2.png"
+		class="blank-img hvr-grow" style="margin: 5px;"></a> <img id="fotoPerfil"
+		class="foto-perfil"
+		style="height: 60px; width: 60px; border: solid 2px #ffcd00; float: left; margin-top: 8px;"
+		src="../static/{{request.user}}.png"
+		onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/Fotoperfil.png'" /> <span
+		style="float: left; margin-top: 6px; margin-left: 12px; top: 0">
+		<span> {{request.user.first_name}} {{request.user.last_name}}<br>
+			<b> {% if esmarca %}@{{marca_actual.m_alias}} {%else%}@{{perfil.u_alias}}{%endif%}</b>
+	</span> <br>
+		<a href="confmarca"><button class="btn-block  btn-black disabled hvr-shrink"
+			style="font-size: 12px; font-weight: bold; height: 20px; margin-top: 5px;">CONFIGURACIÓN</button></a>
+	</span>
+
+</div>
+
+<div class="col-xs-12"
+	style="text-align: center; border-bottom: 1px solid #8B96AA; color: #8B96AA; font-size: 10px;">
+	<b>MI INFORMACIÓN </b>
+</div>

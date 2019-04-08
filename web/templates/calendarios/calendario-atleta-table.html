@@ -1,0 +1,757 @@
+<!-- calendario-atleta-table.html -->
+
+{% load filtrosEspeciales %}
+
+<script>
+    numPagesIZQ ={{ numPagesIZQ }};
+    numPagesDER ={{ numPagesDER }};
+</script>
+
+<div id="idDivContenidoIZQ" class=" seccionPaginaIzq">
+    {% for actividad in actividadesIZQ %}
+
+        {% esta_reservado actividad.actividadId perfilAtleta.atletaId as tieneReserva %}
+        {% puesto_reserva actividad.actividadId perfilAtleta.atletaId as puestoReserva %}
+        {% puesto_espera actividad.actividadId perfilAtleta.atletaId as puestoEspera %}
+        {% puede_reservar actividad.actividadId perfilAtleta.atletaId as puedeReservar %}
+        {% atleta_asistio actividad.actividadId perfilAtleta.atletaId as asistio %}
+
+        {% ifchanged actividad.actividadFecha %}
+
+            <div class="vic-table-perf-atle-title">{{ actividad.actividadFecha|fechaEspecial }}</div>
+            <div class="vic-hr gris-oscuro-title2"></div>
+
+        {% else %}
+
+        {% endifchanged %}
+
+        <div class="
+            {% if actividad.actividadAbiertaParaGestionar %} pl-m15 pr-m15
+            {% else %}{% if actividad.actividadEstado == 'Culminada' %} pl-m15 pr-m15{% else %} pl-m15 pr-m15{% endif %}{% endif %}
+        " {% if actividad.actividadEstado == 'Culminada' %} style="vertical-align: middle; opacity: .7;"{% endif %}>
+
+            <table class=" table-compra tc t-consumen" border="0" style="vertical-align: middle;">
+
+                <tbody>
+
+                <tr>
+                    <td class="vic-table-atleta-c1">
+                        <a href="./clase-{{ actividad.actividadId }}">
+                            {% if actividad.actividadEstado == 'Culminada' %}
+                                <div class="vic-circle-calendar-1" style="border: solid 2px #ccc;">
+
+                            {% else %}
+
+                                <div class="vic-circle-calendar-1">
+
+                            {% endif %}
+
+                            {% if actividad.actividadEstado == 'Cancelada' %}
+                                <div class="linea-suspendido"></div>
+                            {% endif %}
+
+                            {% if actividad.actividadEstado == 'Culminada' %}
+                                {% if tieneReserva %}
+                                    {% if asistio %}
+                                        <div class="vic-icon-nc" title="Asistió"><i class="fa fa-check"
+                                                                                    aria-hidden="true"></i>
+
+                                        </div>
+                                    {% else %}
+                                        <div class="vic-icon-nc" title="No asistió"><i class="fas fa-times"
+                                                                                       aria-hidden="true"></i>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if tieneReserva %}
+
+                                    <div class="vic-icon-nc" title="Reservado"><i class="fas fa-thumbtack"
+                                                                                  aria-hidden="true"></i>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
+                            <img src="{{ actividad.actividadDisciplinaImagenNegra }}"
+                                 style="width: 30px; height: 30px; display: inline-block"><br>
+                            </div>
+                            <div class="clickable-col d2 vic-black-c1"
+                                 data-href="./clase-{{ actividad.actividadId }}">{{ actividad.actividadDisciplinaNombre }}
+                            </div>
+                        </a>
+                    </td>
+
+                    <td>
+
+                        <div class="flex-container vic-atleta-vigente">
+
+                            <div class="vic-atleta-c1">
+
+                                <a href="./clase-{{ actividad.actividadId }}">
+
+                                    {% if actividad.actividadEstado == 'Cancelada' %}
+                                        <div style="color: #777">
+                                    {% else %}
+                                        <div>
+
+                                    {% endif %}
+
+
+                                    <b class="min-24">{{ actividad.actividadNombre }}</b>
+                                    </div>
+                                    <div>
+
+
+                                        {% if actividad.actividadInstructorAlias == vs.userAlias %}
+
+                                            <span style=" background: rgba(255,204,0,0.6);
+    padding: 0px 1px 1px 5px;
+    margin-top: 2px;
+    border-radius: 9px;
+    font-size: 15px;
+                                    "> {{ actividad.actividadNombreInstructor }} </span>
+                                            <span style="margin-left: 3px;" class=""> <b>(Tú) </b> </span>
+
+                                        {% else %}
+                                            <span style="">   {{ actividad.actividadNombreInstructor }}</span>
+
+
+                                        {% endif %}
+
+
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="vic-atleta-c2">
+                                <div><b>{{ actividad.actividadHoraInicio|horaCivil }}</b>
+                                </div>
+                            </div>
+
+                            <div class="vic-atleta-c3">
+                                <small style="text-transform: uppercase;">
+                                    <b>{{ actividad.actividadNombreMarca }}</b></small>
+                                <div>
+
+                                    {% if actividad.actividadReferenciada %}
+
+                                        <span style="">  {{ actividad.actividadSalonNombre }}</span>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                            {% if actividad.actividadAbiertaParaGestionar %}
+
+                                {% if not tieneReserva %}
+
+                                    {% if actividad.actividadCapacidadLlena %}
+                                        <div class="vic-atleta-c6">
+                                            <div class="vic-puesto-new ">
+                                                <div style="color: #D0021B;text-transform: none;">
+
+                                                    Agotado
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+
+                                        {% if actividad.actividadEsperandoLocacion == True %}
+
+                                            <div class="vic-text-puesto-new">
+                                                <div style="color: #D0021B;text-transform: none;">
+
+                                                    Agotado
+                                                </div>
+                                            </div>
+
+                                        {% else %}
+
+                                            {% if actividad.actividadCapacidadMaxima <= actividad.actividadReservados %}
+
+
+                                                <div class="vic-atleta-c6">
+                                                    <div class="vic-puesto-new">
+
+                                                        {% if actividad.actividadCapacidadLlena %}
+
+                                                            <div class="vic-text-puesto-new">
+                                                                <div style="color: #D0021B;text-transform: none;">
+
+                                                                    Agotado
+                                                                </div>
+                                                            </div>
+                                                        {% else %}
+                                                            {% if actividad.actividadInstructorAlias != vs.userAlias %}
+
+                                                                {% if not puedeReservar %}
+
+
+                                                                    <img onclick="preparaTabNew({{ actividad.actividadId }})"
+                                                                         class="icon-vic-actions" alt=""
+                                                                         src="../../static/images/reservar_con_plan.svg">
+
+                                                                {% else %}
+
+                                                                    <img class="icon-vic-actions" alt=""
+                                                                         src="../../static/images/lista_de_espera.svg"
+                                                                         onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)">
+
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endif %}
+
+
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="vic-atleta-c6">
+                                                    <div class="vic-puesto-new">
+                                                        <div class="vic-text-puesto-new">{{ actividad.actividadAvisoQuedanPuestos }}</div>
+
+                                                        {% if not puedeReservar %}
+
+                                                            {% if actividad.actividadInstructorAlias == vs.userAlias %}
+                                                            {% else %}
+
+                                                                <img onclick="preparaTabNew({{ actividad.actividadId }})"
+                                                                     class="icon-vic-actions" alt=""
+                                                                     src="../../static/images/reservar.svg">
+                                                            {% endif %}
+
+
+                                                        {% else %}
+
+
+                                                            <img onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                                 class="icon-vic-actions" alt=""
+                                                                 src="../../static/images/reservar_con_plan.svg">
+                                                        {% endif %}
+
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        {% endif %}
+
+
+
+                                    {% endif %}
+                                {% else %}
+                                    <div class="vic-atleta-c6">
+                                        {% if puestoEspera %}
+                                            <div class="vic-puesto-new">
+                                                {% if actividad.actividadEspera == 1 %}
+                                                    <div class="vic-text-puesto-new ">Próximo en la lista
+                                                    </div>
+                                                {% else %}
+                                                    <div class="vic-text-puesto-new ">{{ actividad.actividadEspera }} en
+                                                        espera
+                                                    </div>
+                                                {% endif %}
+
+                                                <img class="icon-vic-actions" alt=""
+                                                     src="../../static/images/esperando.svg"
+                                                     onclick="cancelarListaUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)">
+
+
+                                            </div>
+                                        {% else %}
+                                            <div class="vic-puesto-new">
+                                                <div class="vic-text-puesto-new"></div>
+
+
+                                                <img onclick="cancelarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                     class="icon-vic-actions" alt=""
+                                                     src="../../static/images/cancelar_reserva.svg">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div class="vic-div-list-simple  vic-atleta-c5"></div>
+
+                                <div class="vic-atleta-c6">
+                                    <div class="vic-puesto-new">
+                                        {% if actividad.actividadEstado == 'Culminada' %}
+                                            {% if tieneReserva %}
+                                                <img class="icon-vic-actions" alt=""
+                                                     src="../../static/images/reservado_terminada.svg">
+                                            {% endif %}
+
+                                        {% else %}
+
+
+
+                                            {% if actividad.actividadEstado == "Planifico" %}
+
+
+                                                <img class="icon-vic-actions" alt=""
+                                                     src="../../static/images/reservar_proximamente.svg"
+                                                     onclick=" prepararLLamadoTabProximas('{{ actividad.actividadFecha|fechaLarga }}','{{ actividad.actividadFechaParaReservar|fechaLarga }}','{{ actividad.actividadHoraInicio|horaCivil }}', '{{ actividad.actividadTiempoFaltanteParaReservar }}');">
+
+
+                                            {% endif %}
+                                            {% if actividad.actividadEstado == 'Activa' %}
+
+                                                {% if tieneReserva %}
+
+                                                    <img class="icon-vic-actions" alt=""
+                                                         src="../../static/images/reservado_terminada.svg">
+
+                                                    <div class="text-success" style="text-transform: capitalize;"><b>En
+                                                        progreso</b></div>
+
+
+                                                {% else %}
+                                                    <img class="icon-vic-actions size-15" alt=""
+                                                         src="../../static/images/en_progreso.svg">
+
+                                                    <div class="text-success" style="text-transform: capitalize;"><b>En
+                                                        progreso</b></div>
+
+                                                {% endif %}
+
+
+                                            {% endif %}
+
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                    <td>
+                        <!--Estoy forzando con la variable foo a que no aparezca lo de abajo-->
+                        {% if actividad.actividadAbiertaParaGestionar and not actividad.actividadEsperandoLocacion %}
+
+                            <td class="text-right" style="padding-top: 10px; vertical-align: top;width: 25px;">
+                                {% if not actividad.actividadCapacidadLlena %}
+
+                                    <div class="btn-group moreOpsBt menuOpciones" display="none">
+                                        <button type="button"
+                                                class="btn btn-sm btn-default dropdown-toggle "
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                onclick="bloquearUlsVacios('{{ actividad.actividadId }}')">&nbsp;
+                                        </button>
+                                        <ul id="idUl{{ actividad.actividadId }}" class="dropdown-menu uldropdown"
+                                            style="right: 30px; top: 0;">
+                                            {% if tieneReserva %}
+                                                {% if puestoReserva %}
+                                                    <li role="presentation"><a
+                                                            onclick="cancelarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                            href="#">Cancelar Reserva</a></li>
+                                                {% else %}
+                                                    <li role="presentation"><a
+                                                            onclick="cancelarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                            href="#">Salir de Lista</a></li>
+                                                {% endif %}
+                                            {% elif actividad.actividadInstructorAlias != vs.userAlias %}
+                                                {% if not actividad.actividadCapacidadLlena %}
+                                                    {% if actividad.actividadCapacidadMaxima >= actividad.actividadReservados %}
+                                                        {% if not puedeReservar %}
+                                                            <li role="presentation">
+                                                                <a onclick="preparaTabNew({{ actividad.actividadId }})"
+                                                                   href="#">Recargar
+                                                                </a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li role="presentation"><a
+                                                                    onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                                    href="#">Reservar</a></li>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if not puedeReservar %}
+                                                            <li role="presentation"><a
+                                                                    onclick="preparaTabNew({{ actividad.actividadId }})"
+                                                                    href="#">Recargar</a></li>
+                                                        {% else %}
+                                                            <li role="presentation"><a
+                                                                    onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                                    href="#">Entrar en Lista de Espera</a></li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+
+                                {% endif %}
+                            </td>
+
+                        {% else %}
+
+                            <td class="text-right" style="padding-top: 10px; vertical-align: top;width: 25px;"></td>
+
+                        {% endif %}
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+<div id="idDivContenidoDER" class="seccionPaginaDer" style="display: none">
+
+    {% for actividad in actividadesDER %}
+
+        {% esta_reservado actividad.actividadId vs.userId as tieneReserva %}
+        {% puesto_reserva actividad.actividadId vs.userId as puestoReserva %}
+        {% puesto_espera actividad.actividadId vs.userId as puestoEspera %}
+        {% puede_reservar actividad.actividadId vs.userId as puedeReservar %}
+        {% atleta_asistio actividad.actividadId vs.userId as asistio %}
+
+
+        {% ifchanged actividad.actividadFecha %}
+
+            <div class="vic-table-perf-atle-title">{{ actividad.actividadFecha|fechaEspecial }}</div>
+
+        {% else %}
+
+        {% endifchanged %}
+
+
+        <div class="
+            {% if actividad.actividadAbiertaParaGestionar %}vic-hr gris-oscuro-title2
+            {% else %}{% if actividad.actividadEstado == 'Culminada' %} vic-hr{% else %} vic-recientes-opacity vic-hr{% endif %}{% endif %}
+        " {% if actividad.actividadEstado == 'Culminada' %}style="vertical-align: middle; opacity: .7;"{% endif %}>
+
+            <table class=" table-compra tc t-consumen" border="0"
+                   style="vertical-align: middle;">
+
+                <tbody>
+
+                <tr>
+
+                    <td class="vic-table-atleta-c1">
+
+
+                        {% if actividad.actividadEstado == 'Culminada' %}
+                            <div class="vic-circle-calendar-1" style="border: solid 2px #ccc;">
+
+                        {% else %}
+
+                            <div class="vic-circle-calendar-1">
+
+                        {% endif %}
+
+                        {% if actividad.actividadEstado == 'Culminada' %}
+
+                            {% if tieneReserva %}
+                                {% if asistio %}
+                                    <div class="vic-icon-nc" title="Asistió"><i class="fa fa-check"
+                                                                                aria-hidden="true"></i>
+                                    </div>
+                                {% else %}
+                                    <div class="vic-icon-nc" title="No asistió"><i class="fas fa-times"
+                                                                                   aria-hidden="true"></i>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
+                        {% else %}
+                            {% if tieneReserva %}
+                                <div class="vic-icon-nc" title="Reservado"><i class="fas fa-thumbtack"
+                                                                              aria-hidden="true"></i>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+
+
+                        <img src="{{ actividad.actividadDisciplinaImagenNegra }}"
+                             style="width: 30px; height: 30px; display: inline-block"><br>
+                        </div>
+                        <div class="clickable-col d2 vic-black-c1"
+                             data-href="./clase-{{ actividad.actividadId }}">{{ actividad.actividadDisciplinaNombre }}
+                        </div>
+                    </td>
+
+
+                    <td>
+
+                        <div class="flex-container vic-atleta-vigente">
+
+                            <div class="vic-atleta-c1">
+
+                                <a href="./clase-{{ actividad.actividadId }}">
+                                    <div>
+                                        <b>{{ actividad.actividadNombre }} </b>
+                                    </div>
+                                    <div>
+                                        {% if actividad.actividadInstructorAlias == vs.userAlias %}
+
+                                            <span style=""> {{ actividad.actividadNombreInstructor }} </span>
+                                            <span style="" class="text-success"> (Tú) </span>
+
+                                        {% else %}
+                                            <span style="">   {{ actividad.actividadNombreInstructor }}</span>
+
+
+                                        {% endif %}
+                                    </div>
+
+                                </a>
+                            </div>
+
+                            <div class="vic-atleta-c2">
+                                <div><b>{{ actividad.actividadHoraInicio|horaCivil }}</b>
+                                </div>
+                            </div>
+
+                            <div class="vic-atleta-c3">
+                                <small style="text-transform: uppercase;">
+                                    <b>{{ actividad.actividadNombreMarca }}</b></small>
+                                <div>
+
+                                    {% if actividad.actividadReferenciada %}
+
+                                        <span style="">  {{ actividad.actividadSalonNombre }}</span>
+                                    {% endif %}
+                                    {% if actividad.actividadReferenciada %}
+
+                                        <span style="">  {{ actividad.actividadSalonNombre }}</span>
+                                    {% endif %}
+
+
+                                </div>
+                            </div>
+
+                            {% if actividad.actividadAbiertaParaGestionar %}
+
+
+                                {% if not tieneReserva %}
+
+                                    {% if actividad.actividadCapacidadLlena %}
+                                        <div class="vic-atleta-c6">
+                                            <div class="vic-puesto-new">
+                                                <div style="color: #D0021B;text-transform: none;">
+                                                    Agotado
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    {% else %}
+                                        {% if actividad.actividadCapacidadMaxima <= actividad.actividadReservados %}
+                                            <div class="vic-atleta-c6">
+                                                <div class="vic-puesto-new">
+                                                    <div class="vic-text-puesto-new">
+                                                        <div style="color: #D0021B;text-transform: none;">
+
+                                                            Agotado
+                                                        </div>
+                                                    </div>
+
+                                                    <img class="icon-vic-actions" alt=""
+                                                         src="../../static/images/lista_de_espera.svg"
+                                                         onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)">
+
+                                                    <button type="button"
+                                                            class="btn btn-xs  vic-btn-reservar  "
+                                                            onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                    >LISTA DE ESPERA
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="vic-atleta-c6">
+
+                                                {% if actividad.actividadInstructorAlias == vs.userAlias %}
+                                                    <div class="vic-puesto-new">
+                                                        <div class="vic-text-puesto-new">{{ actividad.actividadAvisoQuedanPuestos }}</div>
+
+                                                        <img onclick="{% if puedeReservar %}  reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0);  {% endif %}"
+                                                             class="icon-vic-actions" alt=""
+                                                             src="../../static/images/reservar_con_plan.svg">
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+                                    {% endif %}
+                                {% else %}
+                                    <div class="vic-atleta-c6">
+                                        {% if puestoEspera %}
+                                            <div class="vic-puesto-new">
+                                                {% if actividad.actividadEspera == 1 %}
+                                                    <div class="vic-text-puesto-new ">Próximo en la lista
+                                                    </div>
+                                                {% else %}
+                                                    <div class="vic-text-puesto-new ">{{ actividad.actividadEspera }} en
+                                                        espera
+                                                    </div>
+                                                {% endif %}
+                                                <img class="icon-vic-actions" alt=""
+                                                     src="../../static/images/esperando.svg"
+                                                     onclick="cancelarListaUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)">
+
+
+                                            </div>
+                                        {% else %}
+                                            <div class="vic-puesto-new">
+                                                <div class="vic-text-puesto-new"></div>
+
+
+                                                <img onclick="cancelarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                     class="icon-vic-actions" alt=""
+                                                     src="../../static/images/cancelar_reserva.svg">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                            {% endif %}
+
+
+                        </div>
+
+                    <td>
+
+
+                        {% if actividad.actividadAbiertaParaGestionar %}
+                            <td class="text-right" style="padding-top: 10px; vertical-align: top;width: 25px;">
+
+                                <div class="btn-group moreOpsBt ">
+                                    <button type="button"
+                                            class="btn btn-sm btn-default dropdown-toggle "
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            onclick="bloquearUlsVacios('{{ actividad.actividadId }}')">&nbsp;
+                                    </button>
+                                    <ul class="dropdown-menu uldropdown" style="right: 30px; top: 0;">
+                                        {% if tieneReserva %}
+                                            {% if puestoReserva %}
+                                                <li role="presentation"><a
+                                                        onclick="cancelarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                        href="#">Cancelar Reserva</a></li>
+                                            {% else %}
+                                                <li role="presentation"><a
+                                                        onclick="cancelarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                        href="#">Salir de Lista</a></li>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if not actividad.actividadCapacidadLlena %}
+                                                {% if actividad.actividadCapacidadMaxima >= actividad.actividadReservados %}
+                                                    <li role="presentation"><a
+                                                            onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                            href="#">Reservar</a></li>
+                                                {% else %}
+                                                    <li role="presentation"><a
+                                                            onclick="reservarUsuario('{{ vs.userId }}','{{ actividad.actividadId }}',0.0)"
+                                                            href="#">Entrar en Lista de Espera</a></li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                            </td>
+
+                        {% else %}
+
+                            <td class="text-right" style="padding-top: 10px; vertical-align: top;width: 25px;"></td>
+
+                        {% endif %}
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% block mensajesPlus %}
+{% endblock %}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('.customCarruserActividades').owlCarousel({
+            loop: false,
+            margin: 5,
+            animateOut: 'fadeOut',
+            responsiveClass: true,
+            rewind: true,
+            dots: false,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 2
+                }
+            }
+        });
+
+
+        /**
+         *
+
+         loop: false,
+         center: false,
+         dots: false,
+         margin: 5,
+         responsiveClass: true,
+
+         autoWidth:true,
+         rewind: true,
+         responsive: {
+                            0: {
+                                items: 1,
+                                dots: false
+                            },
+                            600: {
+                                items: 1,
+                                dots: false
+                            }
+                        }
+         * */
+
+
+        $(".min-24").each(function (index, element) {
+
+            if ($(this).text()) {
+
+                var temp = $(this).text().trim();
+
+
+                if (temp.length > 19) {
+
+                    $(this).text(temp.substr(0, 20) + "...");
+
+                }
+
+            }
+
+        });
+        {% for actividad in actividadesIZQ %}
+            bloquearUlsVacios('{{ actividad.actividadId }}')
+        {% endfor %}
+        {% for actividad in actividadesDER %}
+            bloquearUlsVacios('{{ actividad.actividadId }}')
+        {% endfor %}
+    });
+
+    function bloquearUlsVacios(actividadId) {
+        var id = '#idUl' + actividadId
+        var l = $(id).children().length;
+        if (l <= 0) {
+            $(id).hide();
+            $(id).parent().hide();
+        }
+    }
+
+</script>
+

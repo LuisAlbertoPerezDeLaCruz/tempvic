@@ -1,0 +1,435 @@
+<!-- table_body_estado_cuenta.html -->
+
+{% load filtrosEspeciales %}
+
+<div class="vic-perfil-atl-inst-sub-title "> Resumen {{ fechaLiteral }}</div>
+<div class="vic-hr gris-oscuro-title"></div>
+<br>
+
+<!-- /----/  -->
+<div class="">
+
+    <table class=" tc table-compra t-consumen edo-min" border="0" style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td>
+                <div class="flex-container vic-edocuenta-2">
+
+                    <div class="vic-edocuenta-c1">
+                        <div>CONCILIADO</div>
+                    </div>
+
+                    <div class="vic-edocuenta-c2">
+                        {% if totales %}
+                            <div>{{ totales.Conciliado|bolivares }}</div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="vic-hr gris-oscuro"></div>
+
+</div>
+
+<div class="">
+
+    <table class=" tc table-compra t-consumen  edo-min" border="0" style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td>
+                <div class="flex-container vic-edocuenta-2">
+
+                    <div class="vic-edocuenta-c1">
+                        <div>POR CONCILIAR</div>
+                    </div>
+
+                    <div class="vic-edocuenta-c2">
+
+                        {% if totales %}
+                            <div>{{ totales|getkey:'Por Conciliar'|bolivares }}</div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="vic-hr gris-oscuro"></div>
+
+</div>
+
+<div class="">
+
+    <table class=" tc table-compra t-consumen  edo-min" border="0" style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td>
+                <div class="flex-container vic-edocuenta-2">
+
+                    <div class="vic-edocuenta-c1">
+                        <div>NO CONCILIADO</div>
+                    </div>
+
+                    <div class="vic-edocuenta-c2">
+
+                        {% if totales %}
+                            <div>{{ totales|getkey:'No Conciliado'|bolivares }}</div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="vic-hr gris-oscuro"></div>
+
+</div>
+
+<div class="">
+
+    <table class=" tc table-compra t-consumen  edo-min" border="0" style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td>
+                <div class="flex-container vic-edocuenta-2">
+
+                    <div class="vic-edocuenta-c1">
+                        <div>PENDIENTE DE PAGO</div>
+                    </div>
+
+                    <div class="vic-edocuenta-c2">
+
+                        {% if totales %}
+                            <div>{{ totales|getkey:'Pendiente de Pago'|bolivares }}</div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="vic-hr gris-oscuro"></div>
+
+</div>
+
+<div class="">
+
+    <table class=" tc table-compra t-consumen  edo-min" border="0" style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td>
+                <div class="flex-container vic-edocuenta-2">
+
+                    <div class="vic-edocuenta-c1">
+                        <div><b>TOTAL</b></div>
+                    </div>
+
+                    <div class="vic-edocuenta-c2">
+
+                        {% if totales %}
+                            <div><b>{{ totales.Total|bolivares }}</b></div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="vic-hr gris-oscuro"></div>
+
+</div>
+
+<div class="">
+
+    <table class=" tc table-compra t-consumen  edo-min" border="0" style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td>
+                <div class="flex-container vic-edocuenta-2">
+
+                    <div class="vic-edocuenta-c1">
+                        <div>DESCUENTOS</div>
+                    </div>
+
+                    <div class="vic-edocuenta-c2">
+
+                        {% if totales %}
+                            <div>{{ totales.Descuentos|bolivares }}</div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="vic-hr gris-oscuro"></div>
+
+</div>
+
+<div class="">
+
+    <table class=" tc table-compra t-consumen  edo-min" border="0" style="vertical-align: middle;">
+
+        <tbody>
+
+        <tr>
+
+            <td>
+                <div class="flex-container vic-edocuenta-2">
+
+                    <div class="vic-edocuenta-c1">
+                        <div>BECAS</div>
+                    </div>
+
+                    <div class="vic-edocuenta-c2">
+
+                        {% if totales %}
+                            <div>{{ totales.Becas|bolivares }}</div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="vic-hr gris-oscuro"></div>
+
+</div>
+
+
+<br><br>
+
+<!--  /----/   -->
+
+
+<div class="vic-perfil-atl-inst-sub-title "> Movimientos</div>
+<div class="vic-hr gris-oscuro-title"></div>
+<br>
+
+{% if not pagos %}
+
+    <div class="text-center col-xs-12 ">
+        <br> <br> <br>
+        <i class="fas fa-minus-circle fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+        <div class=" vic-calendar-title">{{ pm.marcaNombre }} No hay transacciones registradas</div>
+        <div class="vic-calendar-sub-title-header vic-tex-inic "
+             style="margin-top: 10px;">Cuando se registren transacciones podrás verlas aquí
+        </div>
+        <br>
+    </div>
+
+{% endif %}
+
+{% for pago in pagos %}
+
+    {% ifchanged pago.fechaRegistro.date %}
+
+        <div class="vic-table-perf-atle-title">{{ pago.fechaRegistro.date|fechaEspecial }}</div>
+        <div class="vic-hr gris-oscuro"></div>
+
+    {% endifchanged %}
+
+
+    <div class="">
+
+        <table class=" tc table-compra t-consumen" border="0" style="vertical-align: middle;">
+
+            <tbody>
+
+            <tr>
+
+                <td class="vic-table-edocuenta-c1">
+
+                    <div id="idDivClase1-{{ pago.id }}" class="{{ pago.clase1CSS }} ">
+                        <div class="{{ pago.clase2CSS }}"></div>
+                        <i class="fas fa-check " aria-hidden="true"> </i>
+                    </div>
+                </td>
+
+
+                <td>
+                    <div class="flex-container vic-edocuenta">
+
+                        <div class="vic-edocuenta-c1">
+                            <div>
+                                <a href="#" onclick="muestraReciboPago('{{ pago.planId }}')">
+                                    <b>
+                                        {{ pago.nombrePlan }}
+                                    </b>
+                                </a>
+                            </div>
+                            <small>@{{ pago.pagadorAlias }}</small>
+                            <br>
+                            <small>{{ pago.fechaRegistro|fechaCortaConHora }}</small>
+                        </div>
+
+                        <div class="vic-edocuenta-c2">
+                            <b>{{ pago.monto|bolivares }}</b>
+                            {% if pago.descuento %}
+                                <br>
+                                <small>DESCUENTO ({{ pago.descuento }})</small>
+                            {% endif %}
+                            <br>
+                            <small>REF: {{ pago.codigoInterno }}</small>
+                        </div>
+
+                        <div class=" vic-edocuenta-c3">
+                            <div>
+                                <i class="fas fa-credit-card " aria-hidden="true"> </i>
+
+                                <small style="text-transform: uppercase;margin-left: 5px">{{ pago.medio }}
+                                </small>
+                                {% if pago.referencia %}
+                                    <br>
+                                    <small style="margin-left:20px;">REF: {{ pago.referencia }}</small>
+                                {% endif %}
+                                {% if pago.fechaTransaccion %}
+                                    <br>
+                                    <small style="margin-left:20px;">{{ pago.fechaTransaccion|fechaCorta }}</small>
+                                {% endif %}
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="vic-edocuenta-c4">
+                            <div>
+                                <i class="fas fa-receipt" aria-hidden="true"> </i>
+
+                                <small id="idStatus-{{ pago.id }}"
+                                       style="text-transform: uppercase;margin-left: 5px">{{ pago.statusLiteral }}</small>
+                                <br>
+                                {% if pago.fechaConciliacion %}
+                                    <small style="margin-left:20px;">{{ pago.fechaConciliacion|fechaCortaConHora }}</small>
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td class="text-right" style="padding-top: 10px; vertical-align: top;width: 50px;">
+
+
+                    <div class="vic-marca-c6">
+
+                        <div class="btn-group moreOpsBt pull-right">
+                            <button type="button" class="btn btn-sm btn-default dropdown-toggle " data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">&nbsp;
+                            </button>
+                            <ul class="dropdown-menu" style="right: 30px; top: 0;">
+
+                                {% if pago.statusLiteral == 'Por Conciliar' %}
+
+                                    <li role="presentation">
+                                        <a href='javascript:void(0)'
+                                           onclick="return cambiarStatusPago(actualizar,{{ pago.id }},1)">Conciliar
+                                        </a>
+                                    </li>
+
+                                    <li role="presentation">
+                                        <a href='javascript:void(0)'
+                                           onclick="return cambiarStatusPago(actualizar,{{ pago.id }},2)">No Conciliar
+                                        </a>
+                                    </li>
+
+                                {% elif pago.statusLiteral == 'Conciliado' %}
+
+                                    <li role="presentation">
+                                        <a href='javascript:void(0)'
+                                           onclick="return cambiarStatusPago(actualizar,{{ pago.id }},0)">Revertir
+                                        </a>
+                                    </li>
+
+                                {% elif pago.statusLiteral == 'No Conciliado' %}
+
+                                    <li role="presentation">
+                                        <a href='javascript:void(0)'
+                                           onclick="return cambiarStatusPago(actualizar,{{ pago.id }},0)">Revertir
+                                        </a>
+                                    </li>
+
+                                {% elif pago.statusLiteral == 'Pendiente de Pago' %}
+
+                                    <li role="presentation">
+                                        <a href='javascript:void(0)'
+                                           onclick="return mostrarPagoPendientePorCobrar({{ pago.id }},0)">Pagar
+                                        </a>
+                                    </li>
+
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+{% endfor %}
+
+
+<body>
+
+</body>
+</html>

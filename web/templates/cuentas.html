@@ -1,0 +1,213 @@
+<!-- cuentas.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>{% load filtrosEspeciales %} {% include "head.html" %}
+</head>
+
+<body>
+{% include "scriptsActividades.html" %}
+{% include "header.html" %} {% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+    <div class="container">
+        <br>
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="vc-form-t1">Formas de Pago</div>
+            <div class="vc-form-sub-t1">
+                En esta seccion se definen las formas de pago que quieres ofrecerle a tus usuarios en la compra de
+                planes (selecciona todas las que apliquen)
+            </div>
+
+            <br>
+            <div class="form-group">
+
+                <div class="radio">
+                    <label> <input
+                            style="transform: scale(1.5); margin-right: 10px; margin-left: 5px"
+                            type="checkbox" checked="checked" id="terms"
+                            data-error="Before you wreck yourself" disabled> Transferencia
+                    </label>
+                </div>
+
+                <div class="vc-form-d1 " style="display: block;"></div>
+
+                <div class="radio">
+                    <label> <input
+                            style="transform: scale(1.5); margin-right: 10px; margin-left: 5px"
+                            type="checkbox" checked="checked" id="terms"
+                            data-error="Before you wreck yourself" disabled> Depósito
+                    </label>
+                </div>
+
+                <div class="vc-form-d1 " style="display: block;"></div>
+
+
+                <div class="radio">
+                    <label> <input
+                            style="transform: scale(1.5); margin-right: 10px; margin-left: 5px"
+                            type="checkbox" checked="checked" id="terms"
+                            data-error="Before you wreck yourself" disabled> Pagar después
+                    </label>
+                </div>
+
+                <div class="vc-form-d1 " style="display: block;">Esta forma de pago permite a los usuarios habilitar un
+                    plan de (1) una actividad para poder reservarse y realizar el pago en las siguientes 24h
+                </div>
+
+
+            </div>
+            <div class="vc-form-t1">Política de Pago</div>
+            <br>
+            <div class="form-group">
+                <div class="radio">
+                    <label> <input
+                            style="transform: scale(1.5); margin-right: 10px; margin-left: 5px"
+                            type="checkbox" checked="checked" id="terms"
+                            data-error="Before you wreck yourself" disabled>Habilitar una actividad
+                    </label>
+                </div>
+
+                <div class="vc-form-d1 " style="display: block;">Una vez que tus usuarios envien el soporte de su pago,
+                    aun sin estar conciliado, es posible habilitar una actividad del plan seleccionado, para permitir su
+                    reserva.
+                </div>
+
+
+            </div>
+
+            <div class="vc-form-t1">Cuentas Bancarias</div>
+            <div class="vc-form-sub-t1">Cuentas bancarias asociadas a las formas de pago para el control del estado de
+                cuenta y el proceso de conciliación.
+            </div>
+
+            <br><br>
+
+
+            <a href="gestionar_cuentas" type="button" class="btn  vic-btn-aplicar  ">
+                Agregar Cuenta Bancaria
+            </a>
+            
+
+            <div class="row">
+
+                {% with perfilMarca.marcaCuentas as cuentas %}
+
+                    {% for cuenta in cuentas %}
+
+                        <div class="col-sm-6 col-md-4   m-t-20 ">
+                            <div class="rectangle-3 ">
+                                <div class=" m-b-20" >
+                                        <b> <a class="w-100" href="gestionar_cuentas?cta={{ cuenta.idCuenta }}"> {{ cuenta.banco }} </a></b>
+                                        <div class="btn-group moreOps vc-avatar-atle-user-moreOps"
+                                             style="right: 15px; margin-top: 10px;">
+                                            <button type="button"
+                                                    class="btn btn-sm btn-default dropdown-toggle "
+                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <!--<span class="caret"></span>-->
+                                                &nbsp;
+                                            </button>
+
+
+                                            <ul class="dropdown-menu" style="left: -200px; top: 0;">
+                                                <li role="presentation"><a
+                                                        href="gestionar_cuentas?cta={{ cuenta.idCuenta }}">Editar</a></li>
+                                                {% if cuenta.status %}
+                                                    <li role="presentation"><a href="#" onclick="return activarDesactivarCuenta(0,{{ cuenta.idCuenta }})">Desactivar</a></li>
+                                                {% else %}
+                                                    <li role="presentation"><a href="#" onclick="return activarDesactivarCuenta(1,{{ cuenta.idCuenta }})">Activar</a></li>
+                                                {% endif %}
+                                            </ul>
+
+
+                                        </div>
+                                    </b>
+
+                                </div>
+                                <div class="f-w-500 r3">NUMERO DE CUENTA</div>
+                                <div class="f-w-100">{{ cuenta.numero }}</div>
+                                <br>
+                                <div class="f-w-500 r3">MEDIOS DE PAGO</div>
+                                <div class="f-w-100 ">Todos</div>
+
+                                <div id="idDivClaseStatus" class="pull-right">
+                                    {% if cuenta.status %}
+                                        ACTIVA
+                                    {% else %}
+                                        INACTIVA
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endwith %}
+
+            </div>
+
+
+            <br>
+            <div class="form-group ">
+                <div class="row">
+
+                    <div style="margin-top: 24px; margin-bottom: 20px;"
+                         class="col-xs-12 col-md-4 col-md-offset-8 " hidden>
+                        <button class=" btn-block botones-agregar"
+                                onclick="nextStepForm('step-form-gm-2','step-form-gm-3');">Guardar
+                        </button>
+                    </div>
+
+               
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- fin codigo nuevo  -->
+
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+
+<script>
+
+     function activarDesactivarCuenta(opcion, cuentaId) {
+        var opcionStr;
+        var content='';
+        if (opcion==0)
+            opcionStr='desactictivada'
+        else
+            opcionStr='activada'
+        $.ajax({
+            data: {'opcion': opcion, 'cuentaId': cuentaId},
+            url: '/activarDesactivarCuenta',
+            type: 'get',
+            success: function (data) {
+                resultado=data;
+                if (resultado==1){
+                    alertVictorius('Cuenta '+opcionStr,1)
+                    location.reload();
+                }
+                else
+                    alertVictorius('Cuenta no pudo ser '+opcionStr,2)
+            },
+        });
+     }
+
+</script>
+
+</body>
+
+</html>
+

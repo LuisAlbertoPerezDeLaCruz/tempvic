@@ -1,0 +1,137 @@
+<!-- calendario-atleta-mensajes.html -->
+
+{% extends 'calendario-atleta-controles.html' %}>
+
+{% block mensajes %}
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('div.expandable').expander({
+
+                afterExpand: function () {
+                    $(this).find($('span.details')).css('display', 'inline');
+                },
+                slicePoint: 300, // si eliminamos por defecto es 100 caracteres
+                expandText: '[...]', // por defecto es 'read more...'
+                //collapseTimer: 5000, // tiempo de para cerrar la expanción si desea poner 0 para no cerrar
+                userCollapseText: ' [^]' // por defecto es 'read less...',
+
+            });
+        });
+
+
+    </script>
+
+    <div class="mensajesAtleta">
+
+        {% if perfilAtleta.atletaTieneRelacionConMarcas == False %}
+
+            <div class="w-100 text-center">
+
+
+                <br><br>
+                <div class=" animated fadeIn w-100 ">
+
+
+                    <i class="fa fa-bolt fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                    <div class=" vic-calendar-title">Bienvenido {{ perfilMarca.marcaNombre }} </div>
+                    <br>
+
+
+                    <div class="vic-calendar-sub-title-header vic-tex-inic ">Antes de empezar configura tu
+                        cuenta
+                        afiliandote a los centros de tu preferencia
+                    </div>
+
+                    <br>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic ">Para comenzar</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic "><b>Afíliate a un centro</b></div>
+
+
+                </div>
+
+
+                <div class=" animated fadeIn w-100">
+
+                    <br><br>
+
+                    <div class="expandable  vic-calendar-sub-title-header vic-tex-inic box-msn">
+
+                        <b>Pro Tip: </b> Para comenzar debes afiliarte a un centro. Explora los centros y
+                        solicita
+                        la afiliación en los de tu preferencia. Cuando la solicitud de afiliasción haya sido
+                        probada
+                        podrás contratar sus planes y servicios
+
+                        <br><br>Cuando la solicitud haya sido aprobada podrás explorar el calendario de
+                        actividades
+                        para reservate.
+
+                        <br><br>
+                        <b>Una vez aprobado</b>
+                        <br><br>
+
+                        Los centros pueden ofrecer dos tipos de actividades según la política de cada centro.
+                        Actividades de acceso libre o actividades que requieren de la suscripción de un paquete
+                        o
+                        plan de servicio el cual debe ser contratado para poder optar a la reserva. Las reservas
+                        se
+                        van descontando de cada plan según sea la política de cada plan previamente definido por
+                        cada centro.
+                        <br><br>
+                        - Recuerda que luego debes contrata el plan de servicios
+                        <br><br>
+                        - Reservar tus actividades
+
+                    </div>
+
+
+                    <br><br> <a href="perfil-afiliaciones-atleta-{{ vs.userAlias }}" type="button"
+                                class="destop-md  btn  vic-btn-aplicar btn-steps-configurar">
+                    Configurar</a>
+
+
+                    <a style="text-align: center;padding-top: 9px" href="planes" type="button"
+                       class="movil-md  btn btn-block  vic-btn-reservar-reverse  btn-steps-configurar">
+                        Configurar</a>
+
+
+                </div>
+            </div>
+
+        {% else %}
+
+            {% if numPagesIZQ == 0 %}
+                <div class="text-center col-xs-12 soloIZQ PREVIA">
+                    <br> <br> <br>
+                    <img src="../static/images/moon.svg">
+                    <div class=" vic-title-ms">No encontre actividades</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                        Cuando hayan actividades en tus centros afiliados<br> podrás verlas aquí.
+                    </div>
+                    <br>
+                </div>
+            {% endif %}
+
+            {% if numPagesDER == 0 %}
+                <div class="text-center col-xs-12 soloDER PREVIA">
+                    <br>
+                    <img src="../../static/images/moon.svg">
+                    <div class=" vic-calendar-title">No tienes actividades planificadas...</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">¡Activate!
+                        Explora las actividades que tus centros<br>tienen abiertas y reservate.
+                        <br class="md-movil">
+                    </div>
+                    <br>
+                </div>
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+{% endblock mensajes %}

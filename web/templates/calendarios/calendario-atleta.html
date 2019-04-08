@@ -1,0 +1,62 @@
+<!-- calendario-atleta.html -->
+
+{% extends 'calendario-atleta-mensajes.html' %}
+
+{% load filtrosEspeciales %}
+
+{% block tabs %}
+
+    <div class="row vc-perf-atleta-menu2-tab  vc-perf-atleta-menu2-tab-2 animated fadeIn">
+
+        <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+            <div class="col-xs-6 menu-movil sin-left tabIzquierdo  active">
+                <div class="cell">
+                    MIS AFILIACIONES
+                </div>
+            </div>
+            <div class="col-xs-6 menu-movil tabDerecho ">
+                <div class="cell">
+                    MI CALENDARIO
+                </div>
+            </div>
+        </div>
+
+        <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+            <div>
+                <div class="col-6 menu-tab-calendar active tabIzquierdo">
+                    MIS AFILIACIONES
+                </div>
+                <div class="col-6 menu-tab-calendar vic-left tabDerecho">
+                    MI CALENDARIO
+                </div>
+            </div>
+        </div>
+
+
+        <div class="active-calendar hidden-md hidden-lg " onclick="showModalAtleta()"
+             style=" margin-top: 8px;float: right;margin-right: 15px;">
+            <i class="fa fa-search fa-1-5x "></i></div>
+
+    </div>
+
+{% endblock tabs %}
+
+{% block contenido %}
+    <div class="row seccionPrincipal">
+        <div class="seccionPagina">
+            {% include 'calendario-atleta-table.html' %}
+        </div>
+    </div>
+{% endblock contenido %}
+
+{% block accionPagineo %}
+    {{ block.super }}
+    {% block carruselMisActividades %}
+        <div class="sectionCarruselMisActividades">
+            {% include 'calendario-atleta-carrusel-misActividades.html' %}
+        </div>
+    {% endblock carruselMisActividades %}
+{% endblock accionPagineo %}
+
+
+

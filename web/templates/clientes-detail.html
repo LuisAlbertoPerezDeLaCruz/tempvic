@@ -1,0 +1,366 @@
+<!-- clientes-detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    {% include "head.html" %}
+
+    <script type="text/javascript">
+
+        function entrenador(usuario, estado) {
+            valor = estado ? 2 : 1
+            $.ajax({
+                data: {'usuario': usuario, 'estado': valor},
+                url: '/{{pk}}/estadoentrenador',
+                type: 'get',
+                success: function (data) {
+                    //console.log(data);
+                    //alertBack('/notifhandler', "El usuario ha sido promovido", '{{pk}}/atletas', 1);
+                    //window.location= "/{{pk}}/atletas/notifhandler/"+data;
+                    location.reload();
+                },
+            })
+        }
+
+
+        function a_p_entrenador(title, value, value2) {
+            console.log("entro: ", title, value, value2);
+
+            var r = confirm(title);
+            if (r == true) {
+                entrenador(value, value2);
+            } else {
+                return false;
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+
+{% load filtrosEspeciales %}
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+
+
+{% include "registraratleta.html" %}
+{% include "atletafast.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+<div id="vic-tab-2" class="tab-pane in active">
+    <!--BLOQUE PLANES DISPONIBLES-->
+    <div id="planesdisponibles"
+         style="position:absolute;width:100%;z-index:100;max-height: 0px;overflow: hidden;transition: max-height 1.0s ease-out;padding-top: 0px;padding-bottom: 0px;"
+         class="container-fluid modulo-reservar">
+        <a href="#">
+            <div onclick="document.getElementById('planesdisponibles').style.maxHeight='0px'" class="close-btn"></div>
+        </a>
+        <div class="col-sm-4 col-sm-offset-4 borde-invitar-atletas" style="padding-top:55px;padding-bottom:55px;">
+            <span id="usuariodecompra" class="back-btn"><i class="fa fa-angle-left"></i>ALBERTO QUINTERO</span>
+            <strong class="name">PLANES DISPONIBLES</strong>
+            <div id="planes" class="col-xs-12 resultados">
+            </div>
+        </div>
+    </div>
+    <!--FIN BLOQUE PLANES DISPONIBLES-->
+
+
+    <div class="container-fluid fondo-atletas" id="nombre-display">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 margen">
+                    <center>
+                        <h1>{% if instructores == 's' %}INSTRUCTORES {% else %}CONTACTOS {% endif %}
+                            <h4>{{ marca_actual }}</h4></h1>
+                    </center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <form>
+                        <input id="meuInput" type="search" onkeyup="return meuFilter()" class="buscar-atleta">
+                    </form>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="resultados-display">
+        <div class="row">
+            <div class="col-lg-12 no-padding">
+
+                {% if users %}
+
+                    {% if instructores == 'n' %}
+
+                        <a href="#"
+                           onclick="desde=false;intentodecobro();limpiarCamposNuevoAtleta();return changeTabs('nuevoAtleta')"
+                           class=" col-lg-4 col-sm-6 col-xs-12 vc-box-atleta-barras new ">
+
+                    {% else %}
+
+                        <a href="#"
+                           onclick="desde=false;intentodecobro();limpiarCamposNuevoAtleta();tituloInstructores();return changeTabs('nuevoAtleta')"
+                           class=" col-lg-4 col-sm-6 col-xs-12 vc-box-atleta-barras new ">
+
+                    {% endif %}
+
+                {% endif %}
+
+                {% if users %}
+                    <table class="w-100" style="margin-top: 10px">
+                        <tr>
+                            <td style="" class="text-right"><i class="fas fa-plus-circle "></i></td>
+
+                            {% if instructores == 's' %}
+
+                                <td class="text-left"><span id="nombre22"
+                                                            class="vic-ma-caja-texto-header ">Agregar Instructor</span>
+                                </td>
+
+                            {% else %}
+
+                                <td class="text-left"><span id="nombre22"
+                                                            class="vic-ma-caja-texto-header ">Agregar Contactos</span>
+                                </td>
+
+                            {% endif %}
+
+                        </tr>
+                    </table>
+                {% endif %}
+
+
+
+                </a>
+
+                {% if not users %}
+                    <div id="idDivBienvenida" class="text-center col-md-8 col-md-offset-2 ">
+
+                        <br>
+                        <i class="fas fa-minus-circle fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+
+
+                        <div class=" vic-calendar-title">No tienes instructores registrados</div>
+                        <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Tus atletas
+                            pueden ser autorizados como instructores.
+                        </div>
+
+                        <br>
+
+                        <a href="#" type="button" class="btn btn-xs  vic-btn-reservar-reverse  "
+                           onclick="desde=false;intentodecobro();limpiarCamposNuevoAtleta();tituloInstructores();return changeTabs('nuevoAtleta')">
+                            Agregar Instructor
+                        </a>
+                    </div>
+
+                {% else %}
+
+                    {% for a in users %}
+                        <div id="r{{ forloop.counter }}"
+                             class=" col-lg-4 col-sm-6 col-xs-12 vc-box-atleta-barras atleta">
+
+                            <table class="" border="0" style="width: 100%">
+                                <tr>
+                                    <td class="vc-avatar-atle-user" style=" vertical-align: top; width: 62px">
+                                        <a
+                                                href="./perfil-atleta-{{ a.0.u_alias }}">
+                                            <img id="fotoPerfil" class="foto-perfil vc-avatar-img-atle-user"
+                                                 src="{{ a.0.full_ruta_avatar }}?dummy={{ dummy }}"
+                                                 onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/victorius_avatar_medium.svg'"/>
+                                        </a>
+                                    </td>
+
+                                    <td class="vc-avatar-atle-user ">
+                                        <div class="users ">
+                                            {% if a.0.u_user.is_active %}
+                                                <a href="./perfil-atleta-{{ a.0.u_alias }}">
+                                                    <span id="n{{ forloop.counter }}"
+                                                          class="usuario museo  vc-text1-atle-user ">{{ a.0.u_user.first_name }} {{ a.0.u_user.last_name }}
+                                                    </span>
+                                                </a>
+                                            {% else %}
+                                                <div id="n{{ forloop.counter }}"
+                                                      class="usuario museo  vc-text1-atle-user ">{{ a.0.u_user.first_name }} {{ a.0.u_user.last_name }}
+                                                </div>
+                                            {% endif %}
+                                            <span class="identidad"><strong>@ {{ a.0.u_alias }}
+                                                {% if a.1 %}
+                                                    {% if a.0.u_user.is_active %}
+                                                        <strong class='puesto_salon'> INSTRUCTOR </strong><br>
+                                                    {% else %}
+                                                        <strong style="background-color: lightgrey"> INSTRUCTOR </strong><br>
+                                                    {% endif %}
+                                                {% endif %}</strong>
+                                            </span>
+                                            <span class="contacto destop-min"><strong>TLF</strong> {{ a.0.u_telefono }}</span>
+                                            <span class="correo destop-min">{{ a.0.u_user.username }}</span>
+                                        </div>
+
+                                    </td>
+
+                                    {% if request.user.is_authenticated %}
+                                        {% if instructores == 's' %}
+                                            <td style=" vertical-align: top;text-align:center;">
+                                                <!--   <div class="btn-group">
+                                                    <button type="button"
+                                                            class="vermas btn-xs btn-default dropdown-toggle drop-status"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false"></button>
+                                                    <ul class="dropdown-menu dropdown-detalle">
+                                                           <span style=""><a
+                                                                   href="./{{ a.0.u_alias }}-pagos">Periodo (acum): {{ a.3.ac_precio__sum|bolivares }} </a><br>
+                                                                <a href="./h-{{ a.0.u_user.pk }}-4">Clases ejecutadas: {{ a.4 }}</a><br>
+                                                                <a href="./h-{{ a.0.u_user.pk }}-3">Clases programadas: {{ a.5 }}</a>
+                                                           </span>
+                                                    </ul>
+                                                </div>-->
+
+                                            </td>
+                                        {% else %}
+
+
+                                            {% if a.2 %}
+                                                {% comment %}Aqui va el saldo que quitamos{% endcomment %}
+                                                {% comment %}                                                <td class="vc-avatar-atle-user"
+                                                    style="    padding-right: 10px; vertical-align: top;text-align:center;">
+                                                    <i class="fas fa-ticket-alt fa-2x" aria-hidden="true" style="color: #FFCD00"></i>
+                                                    <strong style="font-size: 16px;vertical-align: inherit;">{{ a.4.s_bloqueado }}/{{ a.4.s_saldo|add:a.4.s_bloqueado}}
+                                                        {% if a.3 %}+{% else %}&nbsp;{% endif %}
+                                                    </strong>
+                                                </td>{% endcomment %}
+                                            {% endif %}
+
+                                        {% endif %}
+
+                                        {% if a.0.u_user.is_active %}
+                                            <td style="width: 10px;">
+                                            <div class="btn-group moreOps vc-avatar-atle-user-moreOps">
+                                                <button type="button" class="btn btn-sm btn-default dropdown-toggle "
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false"><!--<span class="caret"></span>-->&nbsp;
+                                                </button>
+                                                <ul class="dropdown-menu" style="left: -200px; top:0;">
+                                                    <li role="presentation"><a href="./perfil-atleta-{{ a.0.u_alias }}">Ver
+                                                        detalle atleta</a></li>
+                                                    <li role="presentation"><a
+                                                            onclick="intentodecobro();comprarplan2({{ a.0.u_user.pk }})">Comprar
+                                                        Saldo</a></li>
+                                                    <li role="presentation">
+
+
+                                                        {% if a.1 %}
+
+                                                            <a onclick="a_p_entrenador('¿Está seguro que desea quitar como  entrenador? ','{{ a.0.u_user.pk }}',false )"
+
+
+                                                        {% else %}
+
+                                                            <a
+                                                            onclick="a_p_entrenador('¿Está seguro que desea promover al  entrenador? ','{{ a.0.u_user.pk }}',true )"
+
+
+                                                        {% endif %}
+
+
+                                                            href="#">
+                                                            {% if a.1 %}  Desautorizar como instructor
+                                                            {% else %}    Autorizar como instructor
+                                                            {% endif %}
+                                                            {% if a.1 %}
+                                                                <li role="presentation">
+                                                                    <a href="./{{ a.0.u_alias }}-pagos">Remuneraciones</a>
+                                                                </li>
+                                                            {% endif %}
+                                        </a></li>
+                                        {% endif %}
+
+                                        </ul>
+                                        </div>
+                                        </td>
+
+
+                                    {% endif %}
+
+                        </tr>
+
+                        </table>
+
+
+                        </div>
+                    {% endfor %}
+                    </div>
+                    </div>
+                    </div>
+
+                {% endif %}
+
+</div>
+
+{% include "fin-content-tabs.html" %}
+{% include "footer.html" %}
+
+<script src="../static/js/sameHeight.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                $(this).toggleClass('open');
+            },
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                $(this).toggleClass('open');
+            }
+        );
+
+        function tituloInstructores() {
+            $('#divIdAtletaInstructorTabs').html('AGREGAR INSTRUCTOR');
+            $('#chkInstructor').prop('checked', true);
+            $('#chkInstructor').attr({'disabled': true});
+        }
+
+    });
+</script>
+
+<!--Promover o no entrenador-->
+<script type="text/javascript">
+
+    function meuFilter() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("meuInput");
+        filter = input.value.toUpperCase();
+        for (i = 1; i <= parseInt('{{users|length}}'); i++) {
+            palabra = document.getElementById('n' + i);
+            console.log(palabra.innerHTML);
+            console.log(filter);
+            if (palabra.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                $('#r' + i).show();
+                console.log("Mostro");
+            } else {
+                $('#r' + i).hide();
+                console.log("Oculto");
+
+            }
+        }
+    }
+</script>
+
+<script>
+    var div = $("#nombre-display");
+    document.querySelector('div#resultados-tabla').style.marginTop = div.outerHeight() + 'px';
+
+    function intentodecobro() {
+        return true;
+    }
+
+</script>
+
+
+</body>
+</html>

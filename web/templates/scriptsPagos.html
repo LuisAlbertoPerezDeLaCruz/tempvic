@@ -1,0 +1,544 @@
+<!-- scriptsPagos.html -->
+
+<script type="text/javascript">
+
+    <!--Scripts utilizados en Pagos-->
+
+    $(document).ready(function () {
+        /*
+            Este script hace que se actualice el total a pagarcuando el
+            usuario cambia el monto del pago en el tab 6
+        */
+        $("#montoMod").change(function () {
+            $("#totalPagar").html(this.value + ' ' + $("#moneda").val());
+            $("#totalPagar2").html(this.value + ' ' + $("#moneda").val());
+        });
+
+        /*
+            Este script busca en el back si la referencia intruducida en el tab6 ya existe
+        */
+
+        $("#ref-pago").unbind();
+        $("#ref-pago").change(function () {
+            var marcaId = {{ vs.marcaEnUsoId }};
+            refpago = $(this).val();
+            montoModOrigen = $("#montoModOrigen").val();
+            $("#montoMod").prop('disabled', false);
+            $("#btnPagar").prop('disabled', false);
+            if (refpago != '') {
+                $.ajax({
+                    url: '/ajax/validate_refpago/',
+                    data: {
+                        'refpago': refpago,
+                        'marcaId': marcaId,
+                        'tipo': $("#modalidadPago").val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.existeEnEsteMedio) {
+                            if (data.diferencia >= montoModOrigen) {
+                                alertVictorius("referencia ya existe en este medio", 1);
+                                $("#montoMod").val(montoModOrigen);
+                                $("#montoMod").keyup();
+                                $("#montoMod").change();
+                                $("#montoMod").prop('disabled', true);
+
+                            } else {
+                                alertVictorius("referencia ya existe en este medio", 2);
+                                $("#btnPagar").prop('disabled', true);
+                            }
+                        }
+                        else if (data.existeEnCualquierMedio) {
+                            alertVictorius("referencia existe en otro medio", 2);
+                            $("#btnPagar").prop('disabled', true);
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+    /*Comprar Plan
+        Esta funcion muestra la lista de los planes con sus precios y creditos
+        incluye un boton multifuncion donde se puede escoger las opcionde de descuentos
+        ya sea Beca, precio2 o precio3 dependiendo de lo que el producto permita.
+        Es llamado dentro de atletafast.html
+    */
+
+
+    function comprarplan2(usuario,actividadId,quitarAtras) {
+        if (typeof quitarAtras=='undefined'){
+            quitarAtras=false;
+        }
+        if (quitarAtras){
+            $('#idDivAtrasTab4').hide();
+            $('#volverclases').hide();
+        }
+        if (typeof actividadId =='undefined'){
+            actividadId=null;
+        }
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = dd + '/' + mm + '/' + yyyy;
+
+        $('#banco-pago').val('');
+        $('#fecha-pago').val(today);
+        $('#ref-pago').val('');
+        $('#montoMod').val('');
+        $
+            .ajax({
+                data: {
+                    'usuario': usuario,
+                    'actividadId':actividadId,
+                },
+                url: '/{{vs.marcaEnUsoAlias}}/comprarplan',
+                type: 'get',
+                success: function (data) {
+                    var planes = JSON.parse(data[0]);
+                    var user = data[1];
+                    var nombre = data[3];
+                    var correo = data[4];
+                    var splanes = document.getElementById("planesdisponibles");
+                    document.getElementById("detailplanesclases").innerHTML = document.getElementById("detailclases").innerHTML;
+                    $(".usuariodecompra").html("@" + user);
+                    content = [];
+                    document.getElementById("usuariocompraplan").innerHTML = "<img class='foto-perfil img-avatar' style='height: 80px; width: 80px; margin: 0px !important; border: solid 2px #ffcd00' src='../static/" + correo + ".png'/ onerror=\"this.src='http://{{ request.META.HTTP_HOST }}/static/images/Fotoperfil.png'\"><div class='block-1-vic'><b> " + nombre + "<br>@" + user + "</b></div></div>";
+                    var dto = "";
+                    for (i = 0; i < planes.length; i++) {
+                        dto = (planes[i].fields.p_descuento > 0) ? "  -" + planes[i].fields.p_descuento + "%" : "";
+                        content += "<tr><td style='text-align: left;'><span";
+                        content += " class=''";
+                        content += ">" + planes[i].fields.p_nombre
+                            + "</span></td><td class='text-center'><b>";
+                        content += planes[i].fields.p_tipo==1 ? 'ꝏ' : planes[i].fields.p_creditos;
+                        content += "</b></td><td class='text-center'>" + formatMoney(planes[i].fields.p_precio, 0, ',', '.')
+                            + "</td>"
+                            + "<td class='text-center'>" + dto + "</td>"
+                            + "<td class='text-center'><a onclick='descuento=0;procesarCompra("
+                            + usuario
+                            + ","
+                            + planes[i].pk
+                            + ",-1)' ><b class='hvr-float-shadow' style='text-decoration: underline;cursor: pointer;'>COMPRAR</b></a></td><td style='width: 5px;'><div class='btn-group moreOpsBt' style='position: relative; float: right;'><button type='button' class='btn btn-sm btn-default dropdown-toggle ' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>&nbsp;</button><ul class='dropdown-menu' style='right: 30px; top:0;'><li role='presentation'><a onclick='procesarCompra("
+                            + usuario
+                            + ","
+                            + planes[i].pk
+                            + ",-1,100)' href='#'>Beca</a></li>";
+                        if (planes[i].fields.p_precio2 > 0) {
+                            content += "<li role='presentation'><a onclick='procesarCompra("
+                                + usuario
+                                + ","
+                                + planes[i].pk
+                                + ",-1," + planes[i].fields.p_precio2 + ")' href='#'>Descuento " + planes[i].fields.p_precio2 + "%</a></li>";
+                        }
+                        if (planes[i].fields.p_precio3 > 0) {
+                            content += "<li role='presentation'><a onclick='procesarCompra("
+                                + usuario
+                                + ","
+                                + planes[i].pk
+                                + ",-1," + planes[i].fields.p_precio3 + ")' href='#'>Descuento " + planes[i].fields.p_precio3 + "%</a></li>";
+                        }
+                        content += "</ul></div><div class='col-xs-9'> <span id='p"
+                            + planes[i].pk + "'></div></td></tr>";
+                        $("#planesactivos").html(content);
+                        $(".planesactivosmensajes").hide(0);
+                    }
+                    
+                   
+                    changeTabs(4);
+                    
+                },
+
+            })
+    }
+
+
+    /*Procesar compra de  un plan*/
+
+    function procesarCompra(usuario, plan, editar, descuento=0) {
+        des = 0;
+        splanes = document.getElementById("formasdepago2");
+        document.getElementById("detailplanesclases2").innerHTML = document.getElementById("detailplanesclases").innerHTML;
+        document.getElementById("detalleusuario2").innerHTML = document.getElementById("usuariocompraplan").innerHTML;
+        $.ajax({
+            data: {'plan': plan, 'descuento': descuento},
+            url: '/getplan',
+            async: false,
+            type: 'get',
+            success: function (data) {
+                $("#nombreplan").html(data[0]);
+                $("#precioPlan").html(formatMoney(data[2], 0, ',', '.'));
+                $("#moneda").val(data[3]);
+                $("#montoMod").val(data[8]);
+                $("#montoMod").attr({"min": data[8]});
+                $("#montoModOrigen").val(data[8]);
+                $("#vencimientoplan").html(data[5]);
+                $("#creditosplan").html(data[9]==1?'oo':data[1]);
+                $("#montocreditosplan").html(data[9]==1?'--':formatMoney(data[4], 0, ',', '.'));
+                $("#dtoGeneral").html(formatMoney(data[6], 0, ',', '.'));
+                $("#dtoParticular").html(formatMoney(data[7], 0, ',', '.'));
+                $("#totalPagar").html(formatMoney(data[8], 0, ',', '.'));
+                $("#precioPlanNumerico").val(data[2]);
+                
+                $("#montoMod").keyup();
+
+            },
+        });
+        $('#ref-pago').val('');
+        $("#ptransferencia").attr("onclick", "datosCompra(" + usuario + "," + plan + ",0)");
+        $("#pdeposito").attr("onclick", "datosCompra(" + usuario + "," + plan + ",1)");
+        $("#ppos").attr("onclick", "datosCompra(" + usuario + "," + plan + ",2)");
+        $("#pvpos").attr("onclick", "datosCompra(" + usuario + "," + plan + ",3)");
+        $("#pcheque").attr("onclick", "datosCompra(" + usuario + "," + plan + ",4)");
+        $("#pefectivo").attr("onclick", "datosCompra(" + usuario + "," + plan + ",5)");
+        $("#pporcobrar").attr("onclick", "datosCompra(" + usuario + "," + plan + ",6)");
+        if (descuento == 100)
+            pagar(7, usuario, plan, "{{vs.marcaEnUsoId}}", -1);
+        else {
+            changeTabs(5);
+        }
+    }
+
+    /*Datos de la compra*/
+
+    function datosCompra(usuario, plan, modalidad, editar) {
+
+    	$("#formpago").find('.form-group').show();
+    	$(".formpago-title").show();
+        $('#btnPagar').text('PAGAR');
+    	
+
+        var monto = $("#precioPlan").html();
+        document.getElementById("detailplanesclases3").innerHTML = document.getElementById("detailplanesclases").innerHTML;
+        document.getElementById("detalleusuario3").innerHTML = document.getElementById("usuariocompraplan").innerHTML;
+        $("#nombreplan2").html($("#nombreplan").html());
+        $("#precioPlan2").html($("#precioPlan").html());
+        $("#vencimientoplan2").html($("#vencimientoplan").html());
+        $("#creditosplan2").html($("#creditosplan").html());
+        $("#montocreditosplan2").html($("#montocreditosplan").html());
+        $("#dtoGeneral2").html($("#dtoGeneral").html());
+        $("#dtoParticular2").html($("#dtoParticular").html());
+        $("#totalPagar2").html($("#totalPagar").html());
+        tipos = ['Transferencia', 'Deposito', 'POS','VPOS', 'Cheque',
+            'Efectivo','Por Cobrar'];
+        $("#modalidadPago").val(tipos[modalidad]);
+        $("#tipoplan").html(tipos[modalidad]);
+        if (editar == -1) {
+            //var formulario = document.getElementById("formasdepago");
+            //formulario = document.getElementById("formulariodepago");
+            span = $(".usuariodecompra")[0];
+            var u = span.innerHTML;
+            span = document.getElementById("p" + plan);
+            nombre_plan = span.innerHTML;
+        }
+        var content = document.getElementById("funcionpago");
+        content.innerHTML = "<button class='btn-block  btn-black disabled hvr-shrink' style='float: right; font-size: 14px; font-weight: bold;' onclick='pagar(" + modalidad + "," + usuario + "," + plan + ",{{vs.marcaEnUsoId}},-1)'>CONTINUAR</button>"
+        console.log("m" + modalidad);
+
+        $('#banco-pago').show().parent(".form-group ").find("label").show();
+        $('#fecha-pago').show().parent(".form-group ").find("label").show();
+        $('#ref-pago').show().parent(".form-group ").find("label").show();
+        $('#montoMod').show().parent(".form-group ").find("label").show();
+        $("label[for='ref-pago']").text("REFERENCIA");
+        if (modalidad < 1){
+            $('#ref-pago').prop('required',true);
+        }
+        if (modalidad == 1) { 														//deposito
+            //$('#banco-pago').hide().parent(".form-group ").find("label").hide();
+        } else if (modalidad == 2) {												//pos
+            //$('#banco-pago').hide().parent(".form-group ").find("label").hide();
+        } else if (modalidad == 3) {												//vpos
+            $('#banco-pago').hide().parent(".form-group ").find("label").hide();
+        } else if (modalidad == 4) {												//cheque
+            $('#banco-pago').hide().parent(".form-group ").find("label").hide();
+            $("label[for='ref-pago']").text("NUMERO DEL CHEQUE");
+        } else if (modalidad == 5) {												//efectivo
+            $('#banco-pago').hide().parent(".form-group ").find("label").hide();
+            $('#banco-pago').prop('required',false);
+            $('#ref-pago').hide().parent(".form-group ").find("label").hide();
+        } else if (modalidad == 6) {												//cobrar
+        	 $('#btnPagar').text('REGISTRAR');
+        	
+        	$("#formpago").find('.form-group').hide();
+        	$(".formpago-title").hide();
+
+            $('#banco-pago').hide().parent(".form-group ").find("label").hide();
+            $('#fecha-pago').hide().parent(".form-group ").find("label").hide();
+            $('#ref-pago').hide().parent(".form-group ").find("label").hide();
+            $('#montoMod').hide().parent(".form-group ").find("label").hide();
+            $('#grupoPagoRef').hide();
+
+        }
+        ;
+        if (modalidad < 7) {
+            $.ajax({
+                data: {
+                    'marca': '{{vs.marcaEnUsoAliass}}'
+                },
+                url: '/cuentasajax-{{vs.marcaEnUsoId}}',
+                type: 'get',
+                success: function (data) {
+                    console.log(data);
+                    cuentas = JSON.parse(data[0]);
+                    var scuentas = document.getElementById("banco-pago");
+                    scuentas.innerHTML = "";
+                    for (i = 0; i < cuentas.length; i++) {
+                        scuentas.innerHTML += "<option value='" + cuentas[i].fields.c_numero_cuenta.toString() + "'>"
+                            + cuentas[i].fields.c_banco + '\xa0\xa0\xa0' + '( ...' + cuentas[i].fields.c_numero_cuenta.toString().substr(cuentas[i].fields.c_numero_cuenta.toString().length - 4) + ' )'
+                            + "</option>";
+                    }
+                },
+            });
+        } else {
+            pagar(7, usuario, plan, "{{vs.marcaEnUsoId}}", -1);
+        }
+        $("#ref-pago").change();
+        changeTabs(6);
+    }
+
+
+    function validarPago() {
+
+        temp = false;
+
+        $('#formpago').validator('validate');
+
+        $("#formpago").find('.with-errors').each(function (index) {
+
+            if ($.trim($(this).text()) != '') {
+                temp = true;
+            }
+        });
+
+        if (!temp) {
+            document.getElementById("detailplanesclases4").innerHTML = document.getElementById("detailplanesclases3").innerHTML;
+            document.getElementById("detalleusuario4").innerHTML = document.getElementById("detalleusuario3").innerHTML;
+            document.getElementById("resumen2").innerHTML = document.getElementById("resumen").innerHTML;
+            document.getElementById("pagobanco").innerHTML = $("#banco-pago option:selected").html();
+            if ($('#modalidadPago').val() == 'Efectivo') {
+                $('#grupoPagoBanco').hide();
+                $('#grupoPagoRef').hide();
+            }
+            document.getElementById("pagofecha").innerHTML = document.getElementById("fecha-pago").value;
+            document.getElementById("pagoref").innerHTML = document.getElementById("ref-pago").value;
+            document.getElementById("pagototal").innerHTML = document.getElementById("totalPagar2").innerHTML;
+            changeTabs(7);
+        }
+
+        return false;
+
+    }
+
+    function pagar(tipo, usuario, plan, marca, editar) {
+        var referencia = document.getElementById('pagoref').innerHTML;
+        var fecha = document.getElementById('pagofecha').innerHTML;
+        var cuenta = document.getElementById('banco-pago').value;
+        var precio = valorLimpio(document.getElementById('precioPlanNumerico').value, ',', '.');
+        var dtoGeneral = valorLimpio(document.getElementById('dtoGeneral2').innerHTML, ',', '.');
+        var dtoParticular = valorLimpio(document.getElementById('dtoParticular2').innerHTML, ',', '.');
+        var monto = valorLimpio(document.getElementById('montoMod').value, ',', '.');
+        if (tipo == 7) {    //caso de beca 100%
+            monto = 0;
+            dtoGeneral = 0;
+            precio = document.getElementById('precioPlan').innerText.replace('.', '').replace(',', '.');
+            fecha = hoy();
+            dtoParticular = precio;
+            cuenta = null;
+            referencia = null;
+        }
+
+        if ($('#pporcobrar').val() == 'ppcobrar') {
+            //este codigo aplica unicamente en el caso de pago de un
+            //plan pendiente por cobrar y es llamado desde edo-cuenta.html
+            $.ajax({
+                data: {
+                    'tipo': tipo,
+                    'referencia': referencia,
+                    'fecha': fecha,
+                    'cuenta': cuenta,
+                    'plan': plan,
+                },
+                url: '/procesarpagoPorCobrar',
+                async: false,
+                type: 'get',
+                success: function (data) {
+                    mensaje = data.mensaje;
+                    planId = data.planId;
+                    alertVictorius(mensaje, 1);
+                    location.reload();
+                    ;
+                }, error: function (result) {
+                    alertVictorius(mensaje, 2);
+                }
+            });
+
+        } else {
+
+            $.ajax({
+                data: {
+                    'editar': editar,
+                    'tipo': tipo,
+                    'referencia': referencia,
+                    'fecha': fecha,
+                    'cuenta': cuenta,
+                    'pagador': usuario,
+                    'marca': marca,
+                    'plan': plan,
+                    'precio': precio,
+                    'dtoGeneral': dtoGeneral,
+                    'dtoParticular': dtoParticular,
+                    'monto': monto,
+                },
+                url: '/procesarpago',
+                async: false,
+                type: 'get',
+                success: function (data) {
+                    mensaje = data.mensaje;
+                    planId = data.planId;
+                    if (mensaje=='Compra de plan realizada con exito')
+                        alertVictorius(mensaje, 1);
+                    else
+                        alertVictorius(mensaje, 2);
+                    if (typeof idactividad === 'undefined') {
+                        if (planId>0)
+                            doThis(andThenThis(),planId);
+                        else
+                            location.reload();
+                    } else {
+                        if (idactividad != 0) {
+                            reserva(idactividad);
+                            changeTabs(3);
+                        } else {
+                            doThis(andThenThis(),planId)
+                        }
+                    }
+                    ;
+                }, error: function (result) {
+                    alertVictorius(mensaje, 2);
+                }
+            });
+        }
+    }
+
+    function doThis(callback,planId) {
+        muestraReciboPago(planId);
+        callback();
+    }
+
+    function andThenThis() {
+        location.reload;
+    }
+
+    function hoy() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = dd + '/' + mm + '/' + yyyy;
+        return today;
+    }
+
+    function muestraReciboPago(planId) {
+        $.ajax({
+            url: '/ajax/getReciboPagoInfo/',
+            async: false,
+            data: {
+                'planId': planId,
+            },
+            dataType: 'json',
+            success: function (data) {
+                $("#recibo_centro").text(data.centro);
+                $("#recibo_nombre").text(data.nombre);
+                $("#recibo_alias").text('@' + data.alias);
+                $("#recibo_fecha").text(data.fecha);
+                $("#recibo_totalArriba").text(data.total);
+                $("#recibo_numero").text(data.numeroRecibo);
+                $("#recibo_tipoMedioPago").text(data.medioPago);
+                $("#recibo_banco").text(data.banco);
+                $("#recibo_referencia").text(data.referencia);
+                $("#recibo_planNombre").text(data.planNombre);
+                $("#recibo_planCreditos").text(data.planCreditos);
+                $("#recibo_planFechaVencimiento").text(data.planFechaVencimiento);
+                $("#recibo_planPrecio").text(data.planPrecio);
+                $("#recibo_planDescuento").text(data.planDescuento);
+                $("#recibo_totalAbajo").text(data.total);
+            }
+        });
+
+        changeTabs('recibo-pago');
+    }
+
+
+    function procesarPagoPendientePorCobrar(callback,usuario, planId) {
+        des = 0;
+        splanes = document.getElementById("formasdepago2");
+        document.getElementById("detailplanesclases2").innerHTML = document.getElementById("detailplanesclases").innerHTML;
+        document.getElementById("detalleusuario2").innerHTML = document.getElementById("usuariocompraplan").innerHTML;
+        $.ajax({
+            data: {'planId': planId},
+            url: '/getplanPendientePorCobrar',
+            type: 'get',
+            success: function (data) {
+                $("#nombreplan").html(data[0]);
+                $("#precioPlan").html(data[2] + " " + data[3]);
+                $("#moneda").val(data[3]);
+                $("#montoMod").val(data[8]);
+                $("#montoMod").change();
+                $("#montoMod").keyup();
+                $("#montoMod").attr({"min": data[8]});
+                $("#montoModOrigen").val(data[8]);
+                $("#vencimientoplan").html(data[5]);
+                $("#creditosplan").html(data[1]);
+                $("#montocreditosplan").html(data[4]);
+                $("#dtoGeneral").html(data[6]);
+                $("#dtoParticular").html(data[7]);
+                $("#totalPagar").html(data[8]);
+                $("#precioPlanNumerico").val(data[2]);
+                callback();
+            },
+        });
+        $('#ref-pago').val('');
+        $("#ptransferencia").attr("onclick", "datosCompra(" + usuario + "," + planId + ",0)");
+        $("#pdeposito").attr("onclick", "datosCompra(" + usuario + "," + planId + ",1)");
+        $("#ppos").attr("onclick", "datosCompra(" + usuario + "," + planId + ",2)");
+        $("#pvpos").attr("onclick", "datosCompra(" + usuario + "," + planId + ",3)");
+        $("#pcheque").attr("onclick", "datosCompra(" + usuario + "," + planId + ",4)");
+        $("#pefectivo").attr("onclick", "datosCompra(" + usuario + "," + planId + ",5)");
+        $("#pporcobrar").val('ppcobrar');
+        $("#trppcobrar").hide();
+        $("#patrasMovil").hide();
+        $("#patrasDestop").hide();
+        changeTabs(5);
+        return false;
+    }
+
+    function valorLimpio(n, d, t) {
+        valor = 0;
+        do {
+            prev_n=n;
+            n = n.replace(t, '').replace(d, '.')
+        }while (prev_n!=n);
+
+        valor = parseFloat(n);
+        return valor;
+    }
+
+</script>

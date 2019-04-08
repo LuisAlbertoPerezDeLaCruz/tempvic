@@ -1,0 +1,1381 @@
+<!-- scriptsActividades.html -->
+
+
+<script>
+
+    var monedaMarca = '{{ vs.marcaEnUsoMoneda }}';
+
+    var salonesReservados = ''
+
+    function formatMoney(n, c, d, t) {
+        var c = isNaN(c = Math.abs(c)) ? 2 : c,
+            d = d == undefined ? "." : d,
+            t = t == undefined ? "," : t,
+            s = n < 0 ? "-" : "",
+            i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        vr = s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        vr += ' ' + monedaMarca;
+        return vr;
+    };
+
+    function revisarHoras() {
+        var fecha = $('#afecha').val();
+        ahoraFin = $('#ahora_fin').val();
+        ahoraIni = $('#ahora_ini').val();
+        ahoraIni = pad(parseInt(ahoraIni.substring(0, ahoraIni.indexOf(':'))), 2) + ':' + pad(parseInt(ahoraIni.substring(ahoraIni.indexOf(':') + 1, ahoraIni.length)), 2) + ' ' + ahoraIni.substr(ahoraIni.length - 2);
+        ahoraFin = pad(parseInt(ahoraFin.substring(0, ahoraFin.indexOf(':'))), 2) + ':' + pad(parseInt(ahoraFin.substring(ahoraFin.indexOf(':') + 1, ahoraFin.length)), 2) + ' ' + ahoraIni.substr(ahoraFin.length - 2);
+        if (timeDiff(ampmTo24(ahoraIni), ampmTo24(ahoraFin)) < 900000) { //menos de quince minutos de diferencia no se considera
+            $('#cont001').prop('disabled', true);
+            $('#cont002').prop('disabled', true);
+            $('#fin001').prop('disabled', true);
+        } else {
+            $('#cont001').prop('disabled', false);
+            $('#cont002').prop('disabled', false);
+            $('#fin001').prop('disabled', false);
+        }
+        var currentdate = new Date();
+        var datetime = pad(currentdate.getDate(), 2) + "/"
+            + pad(currentdate.getMonth() + 1, 2) + "/"
+            + pad(currentdate.getFullYear())
+
+        if (fecha == datetime) {
+            var hours = currentdate.getHours();
+            var minutes = currentdate.getMinutes();
+
+            if (minutes > 0) {
+                minutes = 0;
+            }
+            ampm = 'AM';
+            if (hours == 12) {
+                ampm = 'PM';
+            }
+            if (hours > 12) {
+                hours -= 12;
+                ampm = 'PM';
+            }
+            ahoraIniWork = hours + ':' + pad(minutes, 2) + ' ' + ampm;
+            if (ampmTo24(ahoraIni) < ampmTo24(ahoraIniWork)) {
+                $('#cont001').prop('disabled', true);
+                $('#cont002').prop('disabled', true);
+                $('#fin001').prop('disabled', true);
+            }
+        }
+    }
+
+    function ampmTo24(time) {
+        var hours = Number(time.match(/^(\d+)/)[1]);
+        var minutes = Number(time.match(/:(\d+)/)[1]);
+        var AMPM = time.match(/\s(.*)$/)[1];
+        if (AMPM == "PM" && hours < 12) hours = hours + 12;
+        if (AMPM == "AM" && hours == 12) hours = hours - 12;
+        var sHours = hours.toString();
+        var sMinutes = minutes.toString();
+        if (hours < 10) sHours = "0" + sHours;
+        if (minutes < 10) sMinutes = "0" + sMinutes;
+        return sHours + ":" + sMinutes;
+    }
+
+    function timeDiff(t1, t2) {
+        d1 = new Date('01/01/1900' + ' ' + t1);
+        d2 = new Date('01/01/1900' + ' ' + t2);
+        diff = d2 - d1;
+        return diff;
+    }
+
+    $(document).ready(function () {
+
+        $("#planReferenciado").change(function () {
+
+            var existeReferenciado;
+            if ($(this).val() == 0) {
+                $('#productosPermitidos').prop('disabled', true);
+                existeReferenciado = true;
+            } else {
+                $('#productosPermitidos').prop('disabled', false);
+                existeReferenciado = false;
+            }
+
+            if (existeReferenciado) {
+                $("#divInfoExtra").hide();
+                var salones = ''
+                salones += '<option value="">Seleccione</option>'
+                salones += '<option value="-1">Sin Asignar</option>'
+                {% for salon in perfilMarca.marcaSalones %}
+                    {%  if salon.esReferenciado %}
+                        salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                    {% endif %}
+                {% endfor %}
+                $("#aubicacion").html(salones);
+            }
+            else {
+                $("#divInfoExtra").show();
+                var salones = ''
+                salones += '<option value="">Seleccione</option>'
+                salones += '<option value="-1">Sin Asignar</option>'
+                {% for salon in perfilMarca.marcaSalones %}
+                    {%  if not salon.esReferenciado %}
+                        salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                    {% endif %}
+                {% endfor %}
+                $("#aubicacion").html(salones);
+            }
+
+        });
+
+        {% comment %}        $("#planReferenciado").change(function () {
+
+                    var existeReferenciado;
+                    if ($(this).val() == '1') {
+                        $('#productosPermitidos').prop('disabled', true);
+                        existeReferenciado = true;
+                    } else {
+                        $('#productosPermitidos').prop('disabled', false);
+                        existeReferenciado = false;
+                    }
+
+                    if (existeReferenciado) {
+                        $("#divInfoExtra").hide();
+                        var salones = ''
+                        salones += '<option value="">Seleccione</option>'
+                        salones += '<option value="-1">Sin Asignar</option>'
+                        {% for salon in perfilMarca.marcaSalones %}
+                            {%  if salon.esReferenciado %}
+                                salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                            {% endif %}
+                        {% endfor %}
+                        $("#aubicacion").html(salones);
+                    }
+                    else {
+                        $("#divInfoExtra").show();
+                        var salones = ''
+                        salones += '<option value="">Seleccione</option>'
+                        salones += '<option value="-1">Sin Asignar</option>'
+                        {% for salon in perfilMarca.marcaSalones %}
+                            {%  if not salon.esReferenciado %}
+                                salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                            {% endif %}
+                        {% endfor %}
+                        $("#aubicacion").html(salones);
+                    }
+
+                });{% endcomment %}
+
+        $("#ahora_fin").change(function () {
+            // revisarHoras();
+        });
+
+        $("#ahora_ini").change(function () {
+            // revisarHoras();
+        });
+
+        $(document).keyup(function () {
+            //revisarHoras();
+        });
+
+        $(document).mousemove(function () {
+            //  revisarHoras();
+        });
+
+        $("#aOpcionSerie").val('No');
+
+        $("#ainversion").val("");
+
+        $("#aubicacion").change(function () {
+            ubicacion = $(this).val();
+            if (ubicacion == '') {
+                $("#amax").prop('disabled', true);
+                $("#amin").prop('disabled', true);
+                $("#aespera").prop('disabled', true);
+                $("#amax").val('');
+                $("#amin").val('');
+                $("#aespera").val('');
+            } else {
+                if (ubicacion > '0') {
+                    $("#amax").prop('disabled', false);
+                    $("#amin").prop('disabled', true);
+                    $("#aespera").prop('disabled', true);
+                } else {
+                    $("#amax").append("<option value='-1'>Sin Asignar</option>");
+                    $("#amin").append("<option value='-1'>Sin Asignar</option>");
+                    $("#aespera").append("<option value='-1'>Sin Asignar</option>");
+                    $("#amax").val('-1');
+                    $("#amin").val('-1');
+                    $("#aespera").val('-1');
+                    $("#amax").prop('disabled', true);
+                    $("#amin").prop('disabled', true);
+                    $("#aespera").prop('disabled', true);
+                }
+            }
+
+        });
+
+        $("#amax").change(function () {
+            amax = $(this).val();
+            amin = $("#amin").val();
+            capacidadMin = amax;
+            if (amax != '') {
+                $("#amin").prop('disabled', false);
+                $("#aespera").prop('disabled', false);
+            } else {
+                $("#amin").prop('disabled', true);
+                $("#aespera").prop('disabled', true);
+            }
+            if (amax == '-1') {
+                $("#amin").append("<option value='-1'>Sin Asignar</option>");
+                $("#aespera").append("<option value='-1'>Sin Asignar</option>");
+                $("#amin").val('-1');
+                $("#aespera").val('-1');
+                $("#amin").prop('disabled', true);
+                $("#aespera").prop('disabled', true);
+            } else {
+                $("#amin").children('option:not(:first)').remove();
+
+                for (i = 1; i <= capacidadMin; i++) {
+                    $("#amin").append("<option value='" + i + "'>" + i + "</option>");
+                }
+                $("#aespera").children('option:not(:first)').remove();
+
+                for (i = 0; i <= capacidadMin; i++) {
+                    $("#aespera").append("<option value='" + i + "'>" + i + "</option>");
+                }
+                $("#amin").val(amin);
+                $("#aespera").val('0');
+            }
+        });
+
+        $(function () {
+            $("#slider-range-max").slider({
+                range: "max",
+                min: 1,
+                max: 5,
+                value: 1,
+                slide: function (event, ui) {
+                    $("#amount").val(ui.value);
+                    $(".formclase-dif").html($("#amount").val());
+                }
+            });
+            $("#amount").val($("#slider-range-max").slider("value"));
+        });
+
+        $("#ainversion").change(function () {
+            var valor = this.value;
+            var valorFormateado = formatMoney(valor, 0, ',', '.');
+            $(".formclase-invint").html(valorFormateado);
+        });
+
+        $("#ainversion").keyup(function () {
+            var valor = this.value;
+            var valorFormateado = formatMoney(valor, 0, ',', '.');
+            $(".formclase-invint").html(valorFormateado);
+        });
+
+        $("#acosto").change(function () {
+            $(".formclase-costo").html($("#acosto").val());
+        });
+
+        $("#abonificacion").change(function () {
+            var valor = this.value;
+            var valorFormateado = formatMoney(valor, 0, ',', '.');
+            $(".formclase-bonif").html(valorFormateado);
+        });
+
+        $("#abonificacion").keyup(function () {
+            var valor = this.value;
+            var valorFormateado = formatMoney(valor, 0, ',', '.');
+            $(".formclase-bonif").html(valorFormateado);
+        });
+
+        $("#ainstructor").change(function () {
+            habilitaInhabilita();
+        })
+        $("#acolaborador1").change(function () {
+            habilitaInhabilita();
+        })
+        $("#acolaborador2").change(function () {
+            habilitaInhabilita();
+        })
+        $("#despd").change(function () {
+            if ($("#despd").val() == 0) {
+                $("#do").val(1);
+            } else {
+                $("#do").val('');
+            }
+        })
+
+
+    });
+
+
+    function habilitaInhabilita() {
+        habilitarElementos();
+        inhabilitarElementosSeleccionados();
+    }
+
+    function habilitarElementos() {
+        $("#ainstructor > option").each(function () {
+            $(this).prop('disabled', false);
+        });
+        $("#acolaborador1 > option").each(function () {
+            $(this).prop('disabled', false);
+        });
+        $("#acolaborador2 > option").each(function () {
+            $(this).prop('disabled', false);
+        });
+    }
+
+    function inhabilitarElementosSeleccionados() {
+        $("#ainstructor > option").each(function () {
+            if (parseInt($(this).val()) >= 1) {
+                if ($(this).prop('selected') == true) {
+                    $("#acolaborador1 option[value='" + $(this).val() + "']").prop('disabled', true)
+                    $("#acolaborador2 option[value='" + $(this).val() + "']").prop('disabled', true)
+                }
+            }
+        });
+        $("#acolaborador1 > option").each(function () {
+            if (parseInt($(this).val()) >= 1) {
+                if ($(this).prop('selected') == true) {
+                    $("#ainstructor option[value='" + $(this).val() + "']").prop('disabled', true)
+                    $("#acolaborador2 option[value='" + $(this).val() + "']").prop('disabled', true)
+                }
+            }
+        });
+        $("#acolaborador2 > option").each(function () {
+            if (parseInt($(this).val()) >= 1) {
+                if ($(this).prop('selected') == true) {
+                    $("#ainstructor option[value='" + $(this).val() + "']").prop('disabled', true)
+                    $("#acolaborador1 option[value='" + $(this).val() + "']").prop('disabled', true)
+                }
+            }
+
+        });
+    }
+
+    obligatorioFecha = false;
+
+    function newActividad(fecha) {
+
+        limpiarformulariosactividad();
+        $('.dgenerales').show(100);
+        $('.recr').hide(100);
+        $('.cup').hide(100);
+        $('.cons').hide(100);
+        $('.respons').hide(100);
+
+        $(".agre-option").show();
+        $(".modi-option").hide();
+
+
+        $('#aBotonSerie').show();
+        $('#lblBotonSerie').show();
+        modi = false;
+
+        if (fecha != false) {
+
+            var currentdate = new Date();
+            var datetime = pad(currentdate.getDate(), 2) + "/"
+                + pad(currentdate.getMonth() + 1, 2) + "/"
+                + pad(currentdate.getFullYear())
+
+            if (fecha == datetime) {
+                var hours = currentdate.getHours();
+                var minutes = currentdate.getMinutes();
+
+                if (minutes > 0) {
+                    minutes = 0;
+                }
+                ampm = 'AM';
+                if (hours > 12) {
+                    hours -= 12;
+                    ampm = 'PM';
+                }
+                ahoraIni = hours + ':' + pad(minutes, 2) + ' ' + ampm;
+
+                $('#ahora_ini').val(ahoraIni)
+
+                hours++;
+                if (hours > 12 && ampm == 'AM') {
+                    hours -= 12;
+                    ampm = 'PM';
+                }
+
+                ahoraFin = hours + ':' + pad(minutes, 2) + ' ' + ampm;
+                $('#ahora_fin').val(ahoraFin)
+            }
+
+            obligatorioFecha = true;
+            $("#afecha").val(fecha);
+            $("#afecha").attr("disabled", true);
+        } else {
+            obligatorioFecha = false;
+            $("#afecha").val("");
+            $("#afecha").attr("disabled", false);
+        }
+
+        $("input.bind").each(function () {
+            var bind = $(this).attr("bind");
+            var param = $(this).val() != '' ? $(this).val().trim() : '-';
+            $("." + bind).text(param);
+        });
+        $('#ac_actividadBaseSerieId').val(0);
+        {% if perfilMarca.marcaUnicoProductoEsReferenciado == True %}
+            $("#planReferenciado").val('0');
+            $("#planReferenciado").change();
+            $("#planReferenciado").parent().addClass('vic-disabled');
+        {% endif %}
+        changeTabs(9);
+        return false;
+    }
+
+    function limpiarformulariosactividad() {
+        for (i = 1; i <= 4; i++) {
+            $('#formclase' + i)[0].reset();
+        }
+    }
+
+
+    function crearactividad() {
+        var diasTMP = ''
+        if ($('#repetirComo').val() == 'SM') {
+            if ($('#slu').is(':checked')) {
+                diasTMP += 'LUNES,'
+            }
+            if ($('#sma').is(':checked')) {
+                diasTMP += 'MARTES,';
+            }
+            if ($('#smi').is(':checked')) {
+                diasTMP += 'MIERCOLES,';
+            }
+            if ($('#sju').is(':checked')) {
+                diasTMP += 'JUEVES,';
+            }
+            if ($('#svi').is(':checked')) {
+                diasTMP += 'VIERNES,';
+            }
+            if ($('#ssa').is(':checked')) {
+                diasTMP += 'SABADO,';
+            }
+            if ($('#sdo').is(':checked')) {
+                diasTMP += 'DOMINGO';
+            }
+        }
+        var data = {
+            'actividadId': $("#actividadPK").val(),
+            'instructor': $('#ainstructor').val(),
+            'colaborador1': $('#acolaborador1').val(),
+            'colaborador2': $('#acolaborador2').val(),
+            'disciplina': $('#acategoria').val(),
+            'fecha': $('#afecha').val(),
+            'hora_ini': $('#ahora_ini').val(),
+            'hora_fin': $('#ahora_fin').val(),
+            'descripcion': $('#adescripcioncontenido').val(),
+            'nombre': $('#anombre').val(),
+            'min': $('#amin').val(),
+            'max': $('#amax').val(),
+            'espera': $('#aespera').val(),
+            'dificultad': $('.formclase-dif').html(),
+            'instrucciones': $('#adescripcioninstrucciones').val(),
+            'sala': $('#aubicacion').val(),
+            'inversion': $('#ainversion').val(),
+            'costo': $('#acosto').val(),
+            'bonificacion': $('#abonificacion').val(),
+            'serie': $('#aOpcionSerie').val(),
+            'nunca': $('#nunca').val(),
+            'repetirComo': $('#repetirComo').val(),
+            'diasTipoSM': diasTMP,
+            'despd': $('#despd').val(),
+            'do': $('#do').val(),
+            'enf': $('#enf').val(),
+            'fdesp': $('#fdesp').val(),
+            'marca': '{{vs.marcaEnUsoId}}',
+            'ac_actividadBaseSerieId': $('#ac_actividadBaseSerieId').val(),
+            'productosPermitidos': '' + $('#productosPermitidos').val(),
+            'planReferenciado': $('#planReferenciado').val(),
+        };
+
+        var conflictos;
+
+        $.ajax({
+            async: true,
+            data: data,
+            url: '/crearactividad',
+            type: 'get',
+            success: function (data) {
+                if (JSON.stringify(data)=='[-1,-1]')
+                    location.reload();
+                conflictos = data[2];
+                if (conflictos.length > 0) {
+                    contenido = '<table style="width:100%">'
+                    contenido += '<tr><th>Fecha</th><th>Horas</th><th>Localizador</th><th>Descripcion del conflicto</th></tr>'
+                    for (i = 0; i <= conflictos.length - 1; i++) {
+                        contenido += '<tr><td>' + conflictos[i]['fecha'] + '</td><td>' + conflictos[i]['horas'] + '</td><td>' + conflictos[i]['localizador'] + '</td><td>' + conflictos[i]["tipo"] + '</td></tr>'
+                    }
+                    $('#idDivConflictos').html(contenido);
+                    contenido = '</table>'
+                }
+
+                if (data[0] == 1) {
+                    thisUrl = "{{ request.path }}";
+                    var str = "Actividad creada exitosamente";
+                    alertVictorius(str, 1);
+                    p = thisUrl.indexOf('dashboard');
+                    newUrl = thisUrl.substr(0, p);
+                    if (data[1] > 0) {
+                        window.location.href = newUrl + 'clase-' + data[1];
+                    }
+                    else {
+                        location.reload();
+                    }
+                } else if (data[0] == 2) {
+                    thisUrl = "{{ request.path }}";
+                    var str = "Actividad creada con conflictos. Revise los detalles";
+                    alertVictorius(str, 1);
+                    p = thisUrl.indexOf('dashboard');
+                    newUrl = thisUrl.substr(0, p);
+                    if (data[1] > 0) {
+                        window.location.href = newUrl + 'clase-' + data[1];
+                    }
+                    else {
+                        location.reload();
+                    }
+                } else if (data[0] == 3) {
+                    thisUrl = "{{ request.path }}";
+                    p = thisUrl.indexOf('dashboard');
+                    var str = "Actividad modificada exitosamente.";
+                    alertVictorius(str, 1);
+                    newUrl = thisUrl.substr(0, p);
+                    if (newUrl == '') newUrl == thisUrl;
+                    window.location.href = newUrl + 'clase-' + data[1];
+                } else if (data[0] == 4) {
+                    thisUrl = "{{ request.path }}";
+                    var str = "Actividad modificada con conflictos. Revise los detalles.";
+                    alertVictorius(str, 1);
+                    p = thisUrl.indexOf('dashboard');
+                    newUrl = thisUrl.substr(0, p);
+                    if (data[1] > 0) {
+                        window.location.href = newUrl + 'clase-' + data[1];
+                    }
+                    else {
+                        location.reload();
+                    }
+                } else if (data[0] == 5) {
+                    var str = "Actividad no pudo ser incluida. Revise la fecha/hora de inicio";
+                    alertVictorius(str, 2);
+                    window.location.href = newUrl + 'dashboard';
+                } else if (data[0] == 6) {
+                    var str = "No hubo cambios";
+                    alertVictorius(str, 1);
+                    window.location.href = newUrl + 'dashboard';
+                } else if (data[0] == 7) {
+                    var str = "Serie no creada, falta ocurrencia";
+                    alertVictorius(str, 2);
+                    location.reload();
+                }
+                else  {
+                    var str = "Hubo un error en la creacion de la actividad";
+                    alertVictorius(str, 2);
+                    window.location.href = newUrl + 'dashboard';
+                }
+            }
+        });
+
+        return false;
+
+    }
+
+    function setearCapacidad(salonId, max, min, esp, estado, reservados) {
+        if (salonId <= 0) return;
+        {% if perfilActividad %}
+            if (typeof(reservados) === 'undefined') {
+                max ={{ perfilActividad.actividadCapacidadMaxima }};
+                min ={{ perfilActividad.actividadCapacidadMinima }};
+                min ={{ perfilActividad.actividadCapacidadEspera }};
+                estado = '{{ perfilActividad.actividadEstado }}';
+                reservados ={{ perfilActividad.actividadReservados }};
+            }
+        {% else %}
+            if (typeof(reservados) === 'undefined') reservados = 0;
+        {% endif %}
+        var capacidad = 0;
+        $.ajax({
+            url: '/ajax/validate_salon/',
+            data: {
+                'salonId': salonId,
+            },
+            dataType: 'json',
+            success: function (data) {
+                capacidadMax = data.capacidad;
+                overflow = data.overflow;
+                $("#amax").children('option:not(:first)').remove();
+
+                for (i = reservados; i <= (capacidadMax + overflow); i++) {
+                    $("#amax").append("<option value='" + i + "'>" + i + "</option>");
+                }
+                $("#amin").children('option:not(:first)').remove();
+
+                for (i = 1; i <= (capacidadMax + overflow); i++) {
+                    $("#amin").append("<option value='" + i + "'>" + i + "</option>");
+                }
+
+                $("#aespera").children('option:not(:first)').remove();
+                for (i = 0; i <= (capacidadMax + overflow); i++) {
+                    $("#aespera").append("<option value='" + i + "'>" + i + "</option>");
+                }
+
+                if (typeof max === 'undefined') {
+                    max = capacidadMax.toString();
+                }
+                if (typeof min === 'undefined') {
+                    min = '1';
+                }
+                if (typeof esp === 'undefined') {
+                    esp = '0';
+                }
+                if (typeof estado === 'undefined') {
+                    estado = 'Planifico';
+                }
+                if (estado != 'Abierta Irreversible') {
+                    $("#aubicacion").prop('disabled', false);
+                    $("#amax").prop('disabled', false);
+                    $("#amin").prop('disabled', false);
+                    $("#aespera").prop('disabled', false);
+                } else {
+                    $("#aubicacion").prop('disabled', true);
+                    $("#amax").prop('disabled', true);
+                    $("#amin").prop('disabled', true);
+                    $("#aespera").prop('disabled', true);
+                }
+                $("#amax").val(max);
+                $("#amin").val(min);
+                $("#aespera").val(esp);
+            }
+        });
+        $('.vic-btn-finalizar').show();
+    }
+
+    function modificar(actividad, serieRequest) {
+        var reservados = null
+        if (typeof serieRequest === 'undefined') {
+            serieRequest = false;
+        }
+        if (serieRequest) {
+            $("#aOpcionSerie").val('Si');
+        } else {
+            $("#aOpcionSerie").val('No');
+        }
+        $(".agre-option").hide();
+        $(".modi-option").show();
+        modi = true;
+        $("#cambio").text("EDITAR ACTIVIDAD");
+        $("#cambiar2").text("Editar Actividad");
+        $("#cambiar3").text("Editar Actividad");
+        $("#cambiar4").text("Editar Actividad");
+        $.ajax({
+            data: {'actividad': actividad},
+            url: '/obteneractividad',
+            type: 'get',
+            success: function (data) {
+                instructoresReservados = data[7];
+                if (instructoresReservados.length > 0) {
+                    for (i = 0; i <= instructoresReservados.length - 1; i++) {
+                        $('#ins' + instructoresReservados[i]).hide();
+                    }
+                }
+                salonesReservados = data[8];
+                actividad = JSON.parse(data[0])[0];
+                $("#actividadPK").val(actividad.pk);
+                var productosPermitidos = []
+                var productosPermitidosIn = actividad.fields.ac_productos_permitidos.split(",");
+                var actividadReferenciada = actividad.fields.ac_referenciado;
+
+                if (productosPermitidosIn[0] == '[]') {
+                    productosPermitidos[0] = 0;
+                } else {
+                    for (i = 0; i <= productosPermitidosIn.length - 1; i++) {
+                        productosPermitidos[i] = productosPermitidosIn[i].replace(/\D/g, '');
+                    }
+                }
+
+
+                if (actividadReferenciada == true) {
+                    $("#planReferenciado").val('0');
+                    $("#planReferenciado").change();
+                    {% if perfilMarca.marcaUnicoProductoEsReferenciado == True %}
+                        $("#planReferenciado").parent().addClass('vic-disabled');
+                    {% endif %}
+                    $("#divInfoExtra").hide();
+                    $('#productosPermitidos').prop('disabled', true);
+                    var salones = ''
+                    salones += '<option value="">Seleccione</option>'
+                    salones += '<option value="-1">Sin Asignar</option>'
+                    {% for salon in perfilMarca.marcaSalones %}
+                        {%  if salon.esReferenciado %}
+                            salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                        {% endif %}
+                    {% endfor %}
+                    $("#aubicacion").html(salones);
+                } else {
+                    $("#planReferenciado").val('1');
+                    $("#planReferenciado").change()
+                    $('#productosPermitidos').prop('disabled', false);
+                    $("#divInfoExtra").show();
+                    var salones = ''
+                    salones += '<option value="">Seleccione</option>'
+                    salones += '<option value="-1">Sin Asignar</option>'
+                    {% for salon in perfilMarca.marcaSalones %}
+                        {%  if not salon.esReferenciado %}
+                            salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                        {% endif %}
+                    {% endfor %}
+                    $("#aubicacion").html(salones);
+                }
+
+                actividadLast = JSON.parse(data[1])[0];
+                ultimaFecha = actividadLast.fields.ac_fecha;
+                $('#anombre').val(actividad.fields.ac_nombre);
+                $('#adescripcioncontenido').val(actividad.fields.ac_descripcion);
+
+
+                fecha = actividad.fields.ac_fecha.slice(8, 10) + "/" + actividad.fields.ac_fecha.slice(5, 7) + "/" + actividad.fields.ac_fecha.slice(0, 4);
+
+                inicio = toStandardTime(actividad.fields.ac_hora_ini);
+                fin = toStandardTime(actividad.fields.ac_hora_fin);
+
+                serie = actividad.fields.ac_OpcionSerie;
+                if (!serieRequest) serie = 'No';
+                $('#afecha').val(fecha);
+                $('#ahora_ini').val(inicio);
+                $('#ahora_fin').val(fin);
+
+                $('#nunca').val((actividad.fields.ac_nunca == 'Si') ? '1' : '0');
+                $('#repetirComo').val((actividad.fields.ac_repetirComo == 'Si') ? '1' : '0');
+
+                if (actividad.fields.ac_despd == 'Si') {
+                    $('#despd').click();
+                }
+
+                $('#do').val(actividad.fields.ac_do);
+                if ($('#do').val() == 0)
+                    $('#do').val('');
+                if (actividad.fields.ac_enf == 'Si') {
+                    $('#enf').click();
+                    fdesp = actividad.fields.ac_fdesp.slice(8, 10) + "/" + actividad.fields.ac_fdesp.slice(5, 7) + "/" + actividad.fields.ac_fdesp.slice(0, 4);
+                    $('#fdesp').val(fdesp);
+                }
+                $('#repetirComo').val(actividad.fields.ac_repetirComo);
+                $('#acategoria').val(actividad.fields.ac_disciplina);
+                $('#productosPermitidos').val(productosPermitidos);
+                $('#productosPermitidos').change();
+
+                $('#aubicacion').val((actividad.fields.ac_salon == 0) ? '-1' : actividad.fields.ac_salon);
+
+                salonId = parseInt(actividad.fields.ac_salon);
+                max = parseInt(actividad.fields.ac_cap_max);
+                min = parseInt(actividad.fields.ac_cap_min);
+                esp = parseInt(actividad.fields.ac_cap_max_espera);
+                estado = actividad.fields.ac_estado;
+                reservados = actividad.fields.ac_cupos_reservados;
+                $('#aBotonSerie').prop('disabled', true);
+
+                if (estado == 'Planifico') {
+                    if (serie == 'Si') {
+                        $('.repetir-clase').show();
+                        $('#enf').click();
+                        $('#fdesp').val(ultimaFecha);
+                        $('#enf').prop('disabled', true);
+                        $('#fdesp').prop('disabled', true);
+                        $('#repetirComo').prop('disabled', true);
+                        $('#aBotonSerie').prop('disabled', true);
+                    } else {
+                        $('#aBotonSerie').hide();
+                        $('#lblBotonSerie').hide();
+                    }
+                } else {
+                    $('#aBotonSerie').prop('disabled', true);
+                    $('#aBotonSerie').hide();
+                    $('#lblBotonSerie').hide();
+                    $('#acosto').prop('disabled', true);
+                    if (reservados > 0) {
+                        $('#afecha').prop('disabled', true);
+                        $('#ahora_ini').prop('disabled', true);
+                        $('#ahora_fin').prop('disabled', true);
+                        $('#productosPermitidos').prop('disabled', true);
+                    } else {
+                        $('#afecha').prop('disabled', false);
+                        $('#ahora_ini').prop('disabled', false);
+                        $('#ahora_fin').prop('disabled', false);
+                        $('#productosPermitidos').prop('disabled', false);
+                    }
+                }
+                setearCapacidad(salonId, max, min, esp, estado, reservados);
+                dificultad = parseInt(actividad.fields.ac_intensidad);
+                $('#amount').val(dificultad);
+                $("#slider-range-max").slider('value', dificultad);
+                $('.formclase-dif').html(dificultad);
+                $('#adescripcioninstrucciones').val(actividad.fields.ac_instrucciones);
+                $('#ainstructor').val((actividad.fields.ac_instructor == 0) ? '-1' : actividad.fields.ac_instructor);
+                $('#acolaborador1').val((actividad.fields.ac_colaborador1 == 0) ? '-1' : actividad.fields.ac_colaborador1);
+                $('#acolaborador2').val((actividad.fields.ac_colaborador2 == 0) ? '-1' : actividad.fields.ac_colaborador2);
+                $('#ainversion').val(actividad.fields.ac_precio);
+                $('#invintAlterno').val(formatMoney(actividad.fields.ac_precio, 0, ',', '.'));
+                $('#abonificacion').val(actividad.fields.ac_bono);
+                $('#bonifAlterno').val(formatMoney(actividad.fields.ac_bono, 0, ',', '.'));
+                $('#acosto').val(actividad.fields.ac_creditos);
+                $('#ac_actividadBaseSerieId').val(actividad.fields.ac_actividadBaseSerieId);
+                habilitaInhabilita();
+
+                $('#formclase1').validator('validate');
+                modi = true;
+                if (actividadReferenciada == true) {
+                    $('#productosPermitidos').prop('disabled', true);
+                }
+
+
+                $(".bind").each(function () {
+                    var bind = $(this).attr("bind");
+                    var param = $(this).val() != '' ? $(this).val().trim() : '-';
+                    $("." + bind).text(param);
+
+
+                    console.log(bind + ": " + $(this).val());
+                });
+
+                changeTabs(9);
+            }
+        });
+    }
+
+    function toStandardTime(militaryTime) {
+        militaryTime = militaryTime.split(':', 2);
+        if (militaryTime[0].charAt(0) == 1 && militaryTime[0].charAt(1) > 2) {
+            return (militaryTime[0] - 12) + ':' + militaryTime[1] + ' PM';
+        } else {
+            if (militaryTime[0] >= 12)
+                return militaryTime.join(':') + ' PM';
+            else
+                return militaryTime.join(':') + ' AM';
+        }
+    }
+
+    function suspender(actividad) {
+        $.ajax({
+            data: {'actividad': actividad,},
+            url: '/suspenderActividad',
+            type: 'get',
+            success: function (data) {
+                opcion = data[0]
+                if (opcion == 1) {
+                    alertVictorius("Actividad suspendida satifactoriamente", 1);
+                } else {
+                    alertVictorius("Suspension de actividad con errores", 2);
+                }
+                location.reload();
+            },
+        });
+    }
+
+    function reactivarActividad(actividad) {
+        $.ajax({
+            data: {'actividad': actividad,},
+            url: '/reactivarActividad',
+            type: 'get',
+            success: function (data) {
+                opcion = data[0]
+                if (opcion == 1) {
+                    alertVictorius("Actividad reactivada satifactoriamente", 1);
+                } else {
+                    alertVictorius("reactivacion de actividad con errores", 2);
+                }
+                location.reload();
+            },
+        });
+    }
+
+    function suspenderActividad(actividadId) {
+        $.ajax({
+            data: {'actividad': actividadId},
+            url: '/obteneractividad',
+            type: 'get',
+            success: function (data) {
+                actividad = JSON.parse(data[0])[0];
+                disciplina = JSON.parse(data[2])[0];
+                instructor = JSON.parse(data[3])[0];
+                salon = JSON.parse(data[4])[0];
+                marca = JSON.parse(data[5])[0];
+                disciplinaNombre = disciplina.fields.d_nombre;
+                disciplinaImagen = disciplina.fields.d_imagen
+                nombreActividad = actividad.fields.ac_nombre;
+                fechaActividad = actividad.fields.ac_fecha;
+                aliasInstructor = (typeof instructor === 'undefined') ? 'Sin Instructor' : instructor.fields.u_alias;
+                salonNombre = (typeof salon === 'undefined') ? 'Sin Sala' : salon.fields.s_nombre;
+                marcaNombre = marca.fields.m_nombre;
+                reservados = actividad.fields.ac_cupos_reservados
+                espera = actividad.fields.ac_cupos_en_espera
+                suspender_Actividad(actividadId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, disciplinaImagen, reservados, espera);
+            }
+        });
+    }
+
+    function eliminarActividad(actividadId, serieRequest) {
+        if (typeof serieRequest === 'undefined') {
+            serieRequest = false;
+        }
+        elimTipo = serieRequest ? 'Serie' : 'Actividad';
+        $.ajax({
+            data: {'actividad': actividadId},
+            url: '/obteneractividad',
+            type: 'get',
+            success: function (data) {
+                actividad = JSON.parse(data[0])[0];
+                disciplina = JSON.parse(data[2])[0];
+                instructor = JSON.parse(data[3])[0];
+                salon = JSON.parse(data[4])[0];
+                marca = JSON.parse(data[5])[0];
+                disciplinaNombre = disciplina.fields.d_nombre;
+                disciplinaImagen = disciplina.fields.d_imagen
+                nombreActividad = actividad.fields.ac_nombre;
+                fechaActividad = actividad.fields.ac_fecha;
+                aliasInstructor = (typeof instructor === 'undefined') ? 'Sin Instructor' : instructor.fields.u_alias;
+                salonNombre = (typeof salon === 'undefined') ? 'Sin Sala' : salon.fields.s_nombre;
+                marcaNombre = marca.fields.m_nombre;
+                eliminar_Actividad(elimTipo, actividadId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, disciplinaImagen);
+            }
+        });
+    }
+
+    function eliminarSerie(actividadId, serieRequest) {
+        if (typeof serieRequest === 'undefined') {
+            serieRequest = false;
+        }
+        elimTipo = serieRequest ? 'Serie' : 'Actividad';
+        $.ajax({
+            data: {'actividad': actividadId},
+            url: '/obteneractividad',
+            type: 'get',
+            success: function (data) {
+                actividad = JSON.parse(data[0])[0];
+                cantidadEnSerie = JSON.parse(data[6]);
+                disciplina = JSON.parse(data[2])[0];
+                instructor = JSON.parse(data[3])[0];
+                salon = JSON.parse(data[4])[0];
+                marca = JSON.parse(data[5])[0];
+                disciplinaNombre = disciplina.fields.d_nombre;
+                disciplinaImagen = disciplina.fields.d_imagen
+                nombreActividad = actividad.fields.ac_nombre;
+                fechaActividad = actividad.fields.ac_fecha;
+                aliasInstructor = (typeof instructor === 'undefined') ? 'Sin Instructor' : instructor.fields.u_alias;
+                salonNombre = (typeof salon === 'undefined') ? 'Sin Sala' : salon.fields.s_nombre;
+                marcaNombre = marca.fields.m_nombre;
+                eliminar_Serie(elimTipo, actividadId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, disciplinaImagen, cantidadEnSerie);
+            }
+        });
+    }
+
+    function suspender_Actividad(actividadId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, imagen, reservados, espera) {
+        parametrosSuspender = actividadId;
+        mensajeReservados = ''
+        if (reservados > 0)
+            mensajeReservados += 'Esta activida tiene ' + reservados + ' cupos reservados'
+        if (espera > 0)
+            mensajeReservados += ' y ' + espera + ' cupos en espera'
+        if ((reservados + espera) > 0)
+            mensajeReservados += '.<br>Al suspender se eliminan las reservas y listas de espera.'
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">' + mensajeReservados + '<br>Esta seguro que desea suspender esta actividad ?</div>';
+        params += '<hr>';
+        params += '<div style="	color: #8B96AA;		font-size: 10px;	font-weight: 900;	line-height: 21px;">' + formatoFecha(fechaActividad);
+        +'</div>';
+
+
+        params += '<table class=" table-compra t-consumen" border="0" style="vertical-align: middle;">';
+        params += '	<colgroup><col width="20%"><col width="30%"><col width="50%"></colgroup>';
+
+        params += '<tbody><tr style="padding-top: 10px">';
+        params += '<td style="text-align: left;"><img src = "' + imagen + '" style = "width: 30px; height: 30px; display: inline-block"></i><div style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 20px; ">' + disciplinaNombre + '</div></td>';
+        params += '<td style="text-align: left;" ><div style="font-family: Roboto; font-size: 14px; font-weight: bold; line-height: 11px;" >' + nombreActividad + '</div>';
+        params += '<div style="font-family: Roboto; font-size: 14px; font-weight: normal; line-height: 14px;" ><em>con @' + aliasInstructor + '</em></div></td>';
+        params += '<td><div style="font-family: Roboto; font-size: 14px; font-weight: normal; text-align: left;">' + marcaNombre + '<div>' + salonNombre + '</div></div></td>';
+        params += '</tr></tbody>';
+
+        params += '</table><hr>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="ejecutarSuspencion(' + parametrosSuspender + ')" class="vc-link-perf-active">Suspender</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Suspender ' + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+    }
+
+
+    function eliminar_Actividad(elimTipo, actividadId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, imagen) {
+        parametrosEliminar = actividadId + ",'" + elimTipo + "','" + fechaActividad + "'";
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Esta usted seguro que desea eliminar esta ' + elimTipo + ' ?</div>';
+        params += '<hr>';
+        params += '<div style="	color: #8B96AA;		font-size: 10px;	font-weight: 900;	line-height: 21px;">' + formatoFecha(fechaActividad);
+        +'</div>';
+
+
+        params += '<table class=" table-compra t-consumen" border="0" style="vertical-align: middle;">';
+        params += '	<colgroup><col width="20%"><col width="30%"><col width="50%"></colgroup>';
+
+        params += '<tbody><tr style="padding-top: 10px">';
+        params += '<td style="text-align: left;"><img src = "' + imagen + '" style = "width: 30px; height: 30px; display: inline-block"></i><div style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 20px; ">' + disciplinaNombre + '</div></td>';
+        params += '<td style="text-align: left;" ><div style="font-family: Roboto; font-size: 14px; font-weight: bold; line-height: 11px;" >' + nombreActividad + '</div>';
+        params += '<div style="font-family: Roboto; font-size: 14px; font-weight: normal; line-height: 14px;" ><em>con @' + aliasInstructor + '</em></div></td>';
+        params += '<td><div style="font-family: Roboto; font-size: 14px; font-weight: normal; text-align: left;">' + marcaNombre + '<div>' + salonNombre + '</div></div></td>';
+        params += '</tr></tbody>';
+
+        params += '</table><hr>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="ejecutarEliminacion(' + parametrosEliminar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminar ' + elimTipo + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+    }
+
+    function eliminar_Serie(elimTipo, actividadId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, imagen, cantidadEnSerie) {
+        parametrosEliminar = actividadId + ",'" + elimTipo + "','" + fechaActividad + "'";
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Esta usted seguro que desea eliminar esta ' + elimTipo + ' ?</div>';
+        params += '<hr>';
+        params += '<div style="	color: #8B96AA;		font-size: 10px;	font-weight: 900;	line-height: 21px;">' + formatoFecha(fechaActividad);
+        +'</div>';
+
+
+        params += '<table class=" table-compra t-consumen" border="0" style="vertical-align: middle;">';
+        params += '	<colgroup><col width="20%"><col width="30%"><col width="50%"></colgroup>';
+
+        params += '<tbody><tr style="padding-top: 10px">';
+        params += '<td style="text-align: left;"><img src = "' + imagen + '" style = "width: 30px; height: 30px; display: inline-block"></i><div style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 20px; ">' + disciplinaNombre + '</div></td>';
+        params += '<td style="text-align: left;" ><div style="font-family: Roboto; font-size: 14px; font-weight: bold; line-height: 11px;" >' + nombreActividad + '</div>';
+        params += '<div style="font-family: Roboto; font-size: 14px; font-weight: normal; line-height: 14px;" ><em>con @' + aliasInstructor + '</em></div></td>';
+        params += '<td><div style="font-family: Roboto; font-size: 14px; font-weight: normal; text-align: left;">' + marcaNombre + '<div>' + salonNombre + '</div></div></td>';
+        params += '</tr></tbody>';
+
+        params += '</table><hr>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="ejecutarEliminacion(' + parametrosEliminar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminando ' + elimTipo + ' de ' + cantidadEnSerie + ' actividades.' + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+    }
+
+    function ejecutarEliminacion(actividadId, elimTipo, fechaActividad) {
+        $.ajax({
+            data: {'actividadId': actividadId, 'elimTipo': elimTipo, 'fechaActividad': fechaActividad},
+            url: '/eliminarActividad',
+            type: 'get',
+            success: function (data) {
+                thisUrl = "{{ request.path }}";
+                p = thisUrl.indexOf('clase-');
+                newUrl = thisUrl.substr(0, p);
+                if (data[0] == 1) {
+                    var str = "Actividad eliminada exitosamente";
+                    alertVictorius(str, 1);
+                    cerrarModal();
+                    window.location.href = newUrl + 'dashboard';
+                }
+                if (data[0] == 2) {
+                    var str = "Serie eliminada exitosamente";
+                    alertVictorius(str, 1);
+                    cerrarModal();
+                    window.location.href = newUrl + 'dashboard';
+                }
+                if (data[0] == -1) {
+                     cerrarModal();
+                    window.location.href = newUrl + 'dashboard';
+                }
+            }
+        });
+    }
+
+    function ejecutarSuspencion(actividadId) {
+        $.ajax({
+            data: {'actividad': actividadId,},
+            url: '/suspenderActividad',
+            type: 'get',
+            success: function (data) {
+                thisUrl = "{{ request.path }}";
+                p = thisUrl.indexOf('clase-');
+                newUrl = thisUrl.substr(0, p);
+                opcion = data[0]
+                if (opcion == 1) {
+                    alertVictorius("Actividad suspendida satifactoriamente", 1);
+                    cerrarModal();
+                    window.location.href = newUrl + 'dashboard';
+                } else {
+                    alertVictorius("Suspension de actividad con errores", 2);
+                    cerrarModal();
+                    window.location.href = newUrl + 'dashboard';
+                }
+            },
+        });
+    }
+
+    function suspender(actividad) {
+        $.ajax({
+            data: {'actividad': actividad,},
+            url: '/suspenderActividad',
+            type: 'get',
+            success: function (data) {
+                opcion = data[0]
+                if (opcion == 1) {
+                    alertVictorius("Actividad suspendida satifactoriamente", 1);
+                } else {
+                    alertVictorius("Suspension de actividad con errores", 2);
+                }
+                location.reload();
+            },
+        });
+    }
+
+
+    function cerrarModal() {
+        $("#myModal").modal('toggle');
+    }
+
+
+    function formatoFecha(fecha) {
+        dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+        meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        fecha = fecha.replace('-', '/');
+        fecha = new Date(fecha);
+        d = fecha.getDay() - 1;
+        dd = fecha.getDate();
+        m = fecha.getMonth();
+        y = fecha.getFullYear();
+        fechaFormateada = dias[d] + ', ' + dd + ' de ' + meses[m] + ' de ' + y;
+        return fechaFormateada;
+    }
+
+
+    function eliminarreserva(usuarioId, actividadId, elimTipo) {
+        $.ajax({
+            data: {'actividad': actividadId},
+            url: '/obteneractividad',
+            type: 'get',
+            success: function (data) {
+                actividad = JSON.parse(data[0])[0];
+                disciplina = JSON.parse(data[2])[0];
+                instructor = JSON.parse(data[3])[0];
+                salon = JSON.parse(data[4])[0];
+                marca = JSON.parse(data[5])[0];
+                disciplinaNombre = disciplina.fields.d_nombre;
+                disciplinaImagen = disciplina.fields.d_imagen
+                nombreActividad = actividad.fields.ac_nombre;
+                fechaActividad = actividad.fields.ac_fecha;
+                aliasInstructor = (typeof instructor === 'undefined') ? 'Sin Instructor' : instructor.fields.u_alias;
+                salonNombre = (typeof salon === 'undefined') ? 'Sin Sala' : salon.fields.s_nombre;
+                marcaNombre = marca.fields.m_nombre;
+                eliminar_reserva(elimTipo, actividadId, usuarioId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, disciplinaImagen);
+            }
+        });
+    }
+
+    function eliminar_reserva(elimTipo, actividadId, usuarioId, nombreActividad, disciplinaNombre, fechaActividad, aliasInstructor, salonNombre, marcaNombre, imagen) {
+
+        parametrosEliminar = 'actualizar,' + usuarioId + "," + actividadId;
+        $('.modal-body').attr('style', 'text-align: left;');
+        var params = '';
+
+        var params = '<div style=" text-align: left; color: #393939;	font-family: Roboto;	font-size: 12px;	line-height: 17px;">Esta usted seguro que desea eliminar esta ' + elimTipo + ' ?</div>';
+        params += '<hr>';
+        params += '<div style="	color: #8B96AA;		font-size: 10px;	font-weight: 900;	line-height: 21px;">';
+        +'</div>';
+
+        params += '<table class=" table-compra t-consumen" border="0" style="vertical-align: middle;">';
+        params += '	<colgroup><col width="20%"><col width="30%"><col width="50%"></colgroup>';
+
+        params += '<tbody><tr style="padding-top: 10px">';
+        params += '<td style="text-align: left;"><img src = "' + imagen + '" style = "width: 30px; height: 30px; display: inline-block"></i><div style="color: #FFD302; font-family: Roboto; font-size: 12px; font-weight: 900; line-height: 20px; ">' + disciplinaNombre + '</div></td>';
+        params += '<td style="text-align: left;" ><div style="font-family: Roboto; font-size: 14px; font-weight: bold; line-height: 11px;" >' + nombreActividad + '</div>';
+        params += '<div style="font-family: Roboto; font-size: 14px; font-weight: normal; line-height: 14px;" ><em>con @' + aliasInstructor + '</em></div></td>';
+        params += '<td><div style="font-family: Roboto; font-size: 14px; font-weight: normal; text-align: left;">' + marcaNombre + '<div>' + salonNombre + '</div></div></td>';
+        params += '</tr></tbody>';
+
+        params += '</table><hr>';
+
+        params += '<div class="container-fluid"><div class="pull-right"><a style="background: #FFCD00; padding: 13px; margin-left:15px;cursor: pointer; " onclick="cerrarModal();cancelarActualizar(' + parametrosEliminar + ')" class="vc-link-perf-active">Eliminar</a> </div><div>';
+        params += '<div style="margin-bottom: 10px; " class="container-fluid"><div class="pull-right"><a  style="cursor: pointer;" onclick="cerrarModal();" class="vc-link-perf-active">Cancelar</a> </div><div>';
+
+
+        $("#myModal").find(".modal-title").html(' <span class="	color: #393939;	font-family: Roboto;	font-size: 16px;	font-weight: bold;	line-height: 17px;"> Eliminar ' + elimTipo + '<span>');
+        $("#myModal").find(".modal-body").html(params);
+        $("#myModal").modal();
+    }
+
+    function reservarActualizar(callback, usuario, actividad, costo) {
+        $
+            .ajax({
+                data: {
+                    'usuario': usuario,
+                    'actividad': actividad,
+                    'costo': costo
+                },
+                url: 'reservado',
+                type: 'get',
+                success: function (data) {
+                    var str = data[0]
+                        + ", " + data[1];
+                    if (data[2] == 1) {
+                        alertVictorius(str, data[2]);
+                        actualizar();
+                        if (typeof callback == 'function') callback();
+                    }
+                    if (data[2] == -1){
+                        location.reload();
+                    }
+                },
+            });
+
+    }
+
+
+    function cancelarActualizar(callback, usuario, actividad, costo) {
+        $
+            .ajax({
+                data: {
+                    'usuario': usuario,
+                    'actividad': actividad,
+                    'costo': costo
+                },
+                url: 'cancelarreserva',
+                type: 'get',
+                success: function (data) {
+                    var str = data[0]
+                        + " "
+                        + data[1];
+                    if (data[2] == -1){
+                        location.reload();
+                    }else {
+                        alertVictorius(str, 1);
+                        actualizar();
+                        if (typeof callback == 'function') {
+                            callback();
+                        }
+                    }
+                },
+            });
+    }
+
+
+    function reservarpuestoActulizar(callback, usuario, actividad, costo) {
+        if (puesto_setect.trim() != '') {
+            $.ajax({
+                data: {
+                    'usuario': usuario,
+                    'actividad': actividad,
+                    'costo': costo,
+                    'cupo': puesto_setect
+                },
+                url: 'reservadocupo',
+                type: 'get',
+                success: function (data) {
+                    reserva(actividad);
+                    var str = data[0]
+                        + " "
+                        + data[1];
+                    alertVictorius(str, 1);
+                },
+            })
+        } else {
+
+            $(".error-puesto").show(250);
+
+            return false;
+        }
+
+    }
+
+    function preparaTabNew(actividadId) {
+        var parametros = '?pk=' + '{{ vs.userAlias }}'
+        parametros += '&actividadId=' + actividadId;
+        parametros = parametros.split(' ').join('+');
+
+        urlTabRecarga = "{% url 'web:tabRecarga' %}";
+        $('.vic-load').show();
+        $('.section-tab-plan-new').load(urlTabRecarga + parametros, function () {
+            $('.vic-load').hide();
+            var section_tabRecarga = $(this);
+
+            changeTabs('plan-new');
+            $('.vic-load').hide();
+        });
+    }
+
+    function preparaTabNewCentros(marcaId) {
+        var parametros = '?pk=' + '{{ vs.userAlias }}'
+        parametros += '&marcaId=' + marcaId;
+        parametros = parametros.split(' ').join('+');
+        urlTabRecarga = "{% url 'web:tabPlanesCentros' %}";
+        $('.vic-load').show();
+        $('.section-tab-plan-new').load(urlTabRecarga + parametros, function () {
+            $('.vic-load').hide();
+            var section_tabRecarga = $(this);
+
+            changeTabs('plan-new');
+            $('.vic-load').hide();
+        });
+    }
+
+
+    $('#productosPermitidos').change(function () {
+        var productosPermitidos = $('#productosPermitidos').val();
+        var existeReferenciado = false
+        var productoReferenciadoId = -1;
+        {%  if  perfilMarca.marcaProductoTipoReferenciado %}
+            productoReferenciadoId = {{ perfilMarca.marcaProductoTipoReferenciado.id }}
+        {% endif %}
+        for (i = 0; i <= productosPermitidos.length - 1; i++) {
+            if (productosPermitidos[i] == productoReferenciadoId) existeReferenciado = true;
+        }
+        if (existeReferenciado) {
+            $("#productosPermitidos").attr({'multiple': false});
+            $("#divInfoExtra").hide();
+            var salones = ''
+            salones += '<option value="">Seleccione</option>'
+            salones += '<option value="-1">Sin Asignar</option>'
+            {% for salon in perfilMarca.marcaSalones %}
+                {%  if salon.esReferenciado %}
+                    salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                {% endif %}
+            {% endfor %}
+            $("#aubicacion").html(salones);
+        }
+        else {
+            $("#productosPermitidos").attr({'multiple': true});
+            $("#divInfoExtra").show();
+            var salones = ''
+            salones += '<option value="">Seleccione</option>'
+            salones += '<option value="-1">Sin Asignar</option>'
+            {% for salon in perfilMarca.marcaSalones %}
+                {%  if not salon.esReferenciado %}
+                    salones += '<option id=\"sala{{ salon.idSalon }}\" value=\"{{ salon.idSalon }}\">' + '{{ salon.nombreSalon }}' + '</option>'
+                {% endif %}
+            {% endfor %}
+            $("#aubicacion").html(salones);
+        }
+
+        if (salonesReservados.length > 0) {
+            for (i = 0; i <= salonesReservados.length - 1; i++) {
+                $('#sala' + salonesReservados[i]).hide();
+            }
+        }
+
+    });
+
+</script>
+

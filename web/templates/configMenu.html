@@ -1,0 +1,95 @@
+<!-- nuevo-calendario.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>{% load filtrosEspeciales %} {% include "head.html" %}
+</head>
+
+<body>
+	{% include "scriptsActividades.html" %}
+	 {% include "header.html" %} {% include "content-tabs.html" %}
+	  {% include "tabs_entrenador-calendario.html" %}
+
+
+	<div id="vic-tab-2" class="tab-pane in active">
+
+<div class="container">
+         
+ 	<div class="row">
+				<div class="col-lg-10 col-lg-offset-1 " >
+					<br><br>
+				<div class="vc-form-t1 m-t-20	 m-b-20">
+				Configuración de la
+				Cuenta
+				</div>
+					<div class="row">
+					
+						<a href="confmarca" class="col-sm-6 col-md-4 m-b-35">
+							<div class="rectangle-2 ">
+							<div class="text-center"><b>
+									Configuración General
+							</b>
+							</div>
+							<div class="m-t-15 text-center">
+							Datos generales, politicas de privacidad, politicas de reserva, planes y redes sociales
+							</div>
+							</div>
+						</a>
+						
+						
+						<a href="cuentas" class="col-sm-6 col-md-4   m-b-35">
+							<div class="rectangle-2 ">
+							<div class="text-center"><b>
+							Pagos y Cuentas Bancarias
+							</b>
+							</div>
+							<div class="m-t-15 text-center">
+Cuentas bancarias, formas de pago y politicas de pago							
+</div>
+							</div>
+						</a>
+						
+						
+						<a href="salas" class="col-sm-6 col-md-4  m-b-35">
+							<div class="rectangle-2 ">
+							<div class="text-center"><b>
+							Salas
+							</b>
+							</div>
+							<div class="m-t-15 text-center">
+Ubicaciones para las actividades							</div>
+							</div>
+						</a>
+						
+						<a href="planes" class="col-sm-6 col-md-4  m-b-35">
+							<div class="rectangle-2 ">
+							<div class="text-center"><b>
+							Planes
+							</b>
+							</div>
+							<div class="m-t-15 text-center"> Productos y servicios asociados a la cuenta de negocios</div>
+							</div>
+						</a>
+						
+						
+					
+					</div>
+				</div>
+			</div>
+ 
+
+
+</div>
+</div>
+	
+	
+
+
+	<!-- fin codigo nuevo  -->
+
+	{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+
+</body>
+
+</html>

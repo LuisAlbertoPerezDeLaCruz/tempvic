@@ -1,0 +1,391 @@
+<!-- perfil-section-atleta-planes.html-->
+
+{% load filtrosEspeciales %} {% with planes=perfil.planesActivosPagos %}
+
+<br> {% if planes %}
+
+<div class="vic-perfil-atl-inst-sub-title ">
+
+            PLANES
+        <div class="vic-perfil-atl-inst-history pull-right p sap-vh" onclick="vcPerfilAtletaMenu1(this,2)">
+
+ Ver Historial
+    <i class="fa fa-calendar"></i>
+
+</div>
+
+
+<div class="vic-perfil-atl-inst-history pull-right sap-va" style="display: none;" onclick="vcPerfilAtletaMenu1(this,1)">
+    Ver Actuales
+    <i class="fa fa-calendar"></i>
+
+</div>
+    </div>
+
+
+
+{% endif %}
+
+
+
+<div class="   vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn">
+    <div class="columns" style="text-align: center; padding-top: 10px; ">
+
+        {% if planes %}
+
+        <div class="owl-carousel owl-theme vc-multi hidden-xs">
+
+            {% for plan in planes %}
+            <div class="item" style="cursor: pointer" onclick="muestraReciboPago({{ plan.planId }})">
+
+                <div class="vic-perfil-atl-inst-caja-text">
+
+                    <b>{{ plan.planMarcaNombre }}
+                        <br>
+                        <br>
+                        <div class="vic-perfil-atl-inst-caja-rango ">{{ plan.planEstadoConsumo }}</div>
+                        <div> {{ plan.planNombre }}</div>
+                    </b>
+
+                    {{ plan.planPrecio|bolivares }}
+
+
+                    <span class="grey">{{ plan.planDescuentoArmado }}</span>
+
+                    <br>
+                    <br>
+                    <div class="progress progress-striped" style="height: 9px; margin-bottom: 7px">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ plan.planCreditosUsados }}" aria-valuemin="0"
+                            aria-valuemax="{{ plan.planCreditosTotales }}" style="width: {{ plan.planPorcentajeUtilizado }}; background-color: #FFCD00">
+                        </div>
+                    </div>
+                    {% if plan.planTipo != 1 %}
+                    <div>{{ plan.planPorcentajeUtilizado }} completado</div>
+                    {% endif %}
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div>Comprado</div>
+                            <div>{{ plan.planFechaCompra|fechaCortaPlus }}</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div>Vence</div>
+                            <div>{{ plan.planFechaVencimiento|fechaCortaPlus }}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+          
+            
+
+        </div>
+        
+        
+        
+              <div class="  hidden-sm hidden-md hidden-lg" style="text-align: center;">
+
+            {% for plan in planes %}
+            <div class="item" style="cursor: pointer;border: 1px solid #ccc;margin-bottom: 20px;padding: 15px;text-align: left;" onclick="muestraReciboPago({{ plan.planId }})">
+
+            
+                <div class="vic-perfil-atl-inst-caja-text">
+
+                    <b>{{ plan.planMarcaNombre }}
+                        <br>
+                        <br>
+                        <div class="vic-perfil-atl-inst-caja-rango ">{{ plan.planEstadoConsumo }}</div>
+                        <div> {{ plan.planNombre }}</div>
+                    </b>
+
+                    {{ plan.planPrecio|bolivares }}
+
+
+                    <span class="grey">{{ plan.planDescuentoArmado }}</span>
+
+                    <br>
+                    <br>
+                    <div class="progress progress-striped" style="height: 9px; margin-bottom: 7px">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ plan.planCreditosUsados }}" aria-valuemin="0"
+                            aria-valuemax="{{ plan.planCreditosTotales }}" style="width: {{ plan.planPorcentajeUtilizado }}; background-color: #FFCD00">
+                        </div>
+                    </div>
+                    {% if plan.planTipo != 1 %}
+                    <div>{{ plan.planPorcentajeUtilizado }} completado</div>
+                    {% endif %}
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div>Comprado</div>
+                            <div>{{ plan.planFechaCompra|fechaCortaPlus }}</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div>Vence</div>
+                            <div>{{ plan.planFechaVencimiento|fechaCortaPlus }}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+            
+</div>
+
+        {% else %} {% if perfil.atletaMarcas %} {% comment %}
+        <div class="row">
+            <div class="col-xs-12 vic-ma2">
+
+                <div class="col-xs-12  vic-text">
+                    <div class="vic-left">
+                        <i class="fa fa-exclamation-triangle"></i> Recarga tu plan! No te quedes sin entrenar.
+                    </div>
+
+                    {% if vs.tipoSesion == vs.MARCA %}
+                    <div class="vic-right">
+
+                        <button onclick="comprarplan2('{{ perfil.atletaId }}')" type="button" class="btn btn-xs  vic-btn-reservar">Comprar
+                        </button>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="vic-right">
+
+                        <button type="button" class="btn btn-xs  vic-btn-reservar dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Comprar
+                        </button>
+                        {% for marca in perfil.atletaMarcas %}
+                        <ul class="dropdown-menu" style="right: 30px; top: 0px;">
+                            <li role="presentation">
+                                <a href="#" onclick="preparaTabNewCentros('{{ marca.id }}');">{{ marca.m_nombre }}</a>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+
+                    {% endif %}
+                </div>
+            </div>
+            <div class="vic-ma2-letras"></div>
+
+        </div>
+        {% endcomment %}
+
+
+        <div class="row">
+            <div class="col-xs-12 vic-ma2">
+                <div class="text-center col-xs-12 ">
+
+                    <i class="fas fa-battery-quarter fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+
+                    {% if vs.tipoSesion == vs.MARCA %}
+                    <div class=" vic-calendar-title">Sin planes activos</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                        Recárgale para que continúe entrenando
+                    </div>
+                    <br> {% else %}
+                    <div class=" vic-calendar-title">Recarga</div>
+                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">No cuentas con ningún plan activo.
+                        <br> Recarga para poder continuar entrenando
+                    </div>
+                    <br> {% endif %} {% if vs.tipoSesion == vs.MARCA %}
+                    <div class="">
+
+                        <button onclick="comprarplan2('{{ perfil.atletaId }}',actividadId=null,quitarAtras=true)" type="button" class="btn btn-xs  vic-btn-reservar">Comprar
+                        </button>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="vic-center">
+
+                        <table style="margin-left: auto;margin-right: auto;">
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-xs  vic-btn-reservar dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Comprar
+                                    </button>
+
+                                    <ul class="dropdown-menu" style="right:auto;z-index: 9999">
+                                        {% for marca in perfil.atletaMarcas %}
+                                        <li role="presentation">
+                                            <a href="#" onclick="preparaTabNewCentros('{{ marca.id }}');">{{ marca.m_nombre }}</a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="vic-ma2-letras"></div>
+        </div>
+
+        {% else %}
+
+        <div class="row">
+            <div class="col-xs-12 vic-ma2">
+                <div class="col-xs-12  vic-text">
+                    <div class="vic-left">
+                        <i class="fa fa-exclamation-triangle"></i> No cuentas con ningun plan. Una vez afiliado a tus centros podrás contratar tus planes.
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %} {% endif %} {% endwith %}
+
+    </div>
+
+</div>
+
+
+<div style="display: none;" class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-2 animated fadeIn">
+
+    <div class="columns" style="text-align: center; padding-top: 10px;">
+
+        {% with historicos=perfil.planesHistoricos %} 
+        
+        {% if historicos %}
+        <div class="owl-carousel owl-theme vc-multi hidden-xs">
+
+            {% for plan in historicos %}
+
+            <div class="item" style="cursor: pointer" onclick="muestraReciboPago({{ plan.planId }})">
+
+                <div class="vic-perfil-atl-inst-caja-text">
+
+                    <b>{{ plan.planMarcaNombre }}
+                        <br>
+                        <br>
+                        <div class="vic-perfil-atl-inst-caja-rango ">{{ plan.planEstadoConsumo }}</div>
+                        <div> {{ plan.planNombre }}</div>
+                    </b>
+
+                    {{ plan.planPrecio|bolivares }}
+
+
+                    <span class="grey">{{ plan.planDescuentoArmado }}</span>
+
+                    <br>
+                    <br>
+                    <div class="progress progress-striped" style="height: 9px; margin-bottom: 7px">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ plan.planCreditosUsados }}" aria-valuemin="0"
+                            aria-valuemax="{{ plan.planCreditosTotales }}" style="width: {{ plan.planPorcentajeUtilizado }}; background-color: #FFCD00">
+                        </div>
+                    </div>
+                    <div>{{ plan.planPorcentajeUtilizado }} completado</div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div>Comprado</div>
+                            <div>{{ plan.planFechaCompra|fechaCortaPlus }}</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div>Vencido</div>
+                            <div>{{ plan.planFechaVencimiento|fechaCortaPlus }}</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+        
+        <div class="  hidden-sm hidden-md hidden-lg" style="text-align: center;">
+
+            {% for plan in historicos %}
+
+            <div class="item" style="cursor: pointer;border: 1px solid #ccc;margin-bottom: 20px;padding: 15px;text-align: left;" onclick="muestraReciboPago({{ plan.planId }})">
+
+                <div class="vic-perfil-atl-inst-caja-text">
+
+                    <b>{{ plan.planMarcaNombre }}
+                        <br>
+                        <br>
+                        <div class="vic-perfil-atl-inst-caja-rango ">{{ plan.planEstadoConsumo }}</div>
+                        <div> {{ plan.planNombre }}</div>
+                    </b>
+
+                    {{ plan.planPrecio|bolivares }}
+
+
+                    <span class="grey">{{ plan.planDescuentoArmado }}</span>
+
+                    <br>
+                    <br>
+                    <div class="progress progress-striped" style="height: 9px; margin-bottom: 7px">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ plan.planCreditosUsados }}" aria-valuemin="0"
+                            aria-valuemax="{{ plan.planCreditosTotales }}" style="width: {{ plan.planPorcentajeUtilizado }}; background-color: #FFCD00">
+                        </div>
+                    </div>
+                    <div>{{ plan.planPorcentajeUtilizado }} completado</div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div>Comprado</div>
+                            <div>{{ plan.planFechaCompra|fechaCortaPlus }}</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div>Vencido</div>
+                            <div>{{ plan.planFechaVencimiento|fechaCortaPlus }}</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="row">
+            <div class="col-xs-12 vic-ma2">
+
+                <div class="col-xs-12  vic-text">
+                    <div class="vic-left">
+                        <i class="fa fa-exclamation-triangle"></i> $No hay histórico de planes.
+
+                    </div>
+                    {% if vs.tipoSesion == vs.MARCA %}
+                    <div class="vic-right">
+
+                        <button onclick="alert('aqui va la llamada a comprar');" type="button" class="btn btn-xs  vic-btn-reservar">Comprar
+                        </button>
+
+                    </div>
+                    {% else %}
+                    <div class="vic-right">
+
+                        <button onclick="alertVictorius('Comuniquese para comprar',1)" type="button" class="btn btn-xs  vic-btn-reservar">Comprar
+                        </button>
+
+                    </div>
+                    {% endif %}
+
+                </div>
+                <div class="vic-ma2-letras"></div>
+
+            </div>
+        </div>
+
+        {% endif %} {% endwith %}
+
+    </div>
+</div>

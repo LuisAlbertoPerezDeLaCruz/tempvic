@@ -1,0 +1,157 @@
+<!-- logon.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+</head>
+<body>
+
+{% include "content-tabs.html" %}
+<div id="vic-tab-2" class="tab-pane in active">
+
+
+
+
+<div class="container">
+    <div class="" style="max-width: 417px;margin-left:auto ;margin-right: auto;">
+
+
+        <div class="w-100 vic-log-reg text-center">
+            <img style="width: 180px" src="../static/images/Victorius_version_negro.svg" alt="" class="big-logo ">
+        </div>
+
+        <div class="vic-register-title ">Ingresa a Victorius</div>
+        <br>
+        <div class="vic-register-sub-title">¿Nuevo en  Victorius?<br><b><a style="text-decoration: underline;"
+                                                                                         href="register">Regístrate aqui</a></b>
+        </div>
+        <br><br>
+
+
+     <form method="post" action="/" id="logon">
+                {% csrf_token %}
+                <input type="hidden" name="form-type" value="logon"/>
+                <div
+                        class="form-group">
+                    <label for="username"class="label-form-pago control-label ">Correo
+                        Electrónico</label>
+
+                    <input id="username" name="username"
+                           class="btn-block input-grey form-control" type="email" value=""
+                           placeholder="Correo Electrónico" data-error="Correo Invalido"
+                           required>
+                    <div class="help-block with-errors error-label"></div>
+
+
+                </div>
+
+                <div
+
+                        class="form-group ">
+
+                    <label for="username" class="label-form-pago control-label ">Contraseña</label>
+                    <span for="username" class="label-form-pago control-label "
+                          style="color: #333;font-weight: bold;float: right;" onclick="changeTabs('olvido-contra')">Olvido la Contraseña ?</span>
+
+                    <input id="password" name="password"
+                           class="btn-block input-grey form-control" type="password"
+                           value="" placeholder="******" data-error="Campo requerido"
+                           required>
+                    <div class="help-block with-errors error-label"></div>
+
+                </div>
+
+
+            <div style="margin-top: 24px;margin-bottom: 20px;" class="col-sm-6 col-sm-offset-3 ">
+                <input type="submit" class="btn-block botones-agregar submit"
+                       value="Login">
+            </div>
+            </form>
+    </div>
+
+</div>
+
+</div>
+
+<div id="vic-tab-olvido-contra" class="tab-pane fade">
+
+
+
+<div class="container">
+    <div class="" style="max-width: 417px;margin-left:auto ;margin-right: auto;">
+
+
+        <div class="w-100 vic-log-reg text-center">
+            <img style="width: 180px" src="../static/images/Victorius_version_negro.svg" alt="" class="big-logo ">
+        </div>
+
+        <div class="vic-register-title ">Recuperar contraseña</div>
+        <br>
+        <div class="vic-register-sub-title">¿Nuevo en  Victorius?<br><b><a style="text-decoration: un"
+                                                                                         href="">Regístrate aqui</a></b>
+        </div>
+        <br><br>
+
+            <form method="post" action="/" id="logonOlvido">
+                {% csrf_token %}
+
+                <div
+
+                        class="form-group ">
+
+                    <label for="username" class="label-form-pago control-label">Correo Electrónico</label>
+                    <!--<span for="username" class="label-form-pago control-label " style="color: #333;font-weight: bold;float: right;" onclick="changeTabs('2')">Iniciar session</span>-->
+
+                    <input id="olvidocorreo" name="olvidocorreo"
+                           class="btn-block input-grey form-control" type="email"
+                           value="" placeholder="Correo Electrónico" data-error="Campo requerido"
+                           required>
+                    <div class="help-block with-errors error-label"></div>
+
+                </div>
+
+                 <div style="margin-top: 24px;margin-bottom: 20px;" class="col-sm-6 col-sm-offset-3 ">
+                		<input type="submit" onclick="return enviarolvido()" class="btn-block botones-agregar submit"
+                       value="Enviar">
+            </div>
+            </form>
+    </div>
+
+</div>
+
+</div>
+
+
+{% include "fin-content-tabs.html" %}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#formLogin').validator();
+
+        $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                $(this).toggleClass('open');
+            },
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                $(this).toggleClass('open');
+            }
+        );
+    });
+</script>
+
+<script type="text/javascript">
+
+    function showcontent(bool) {
+        var text = "none";
+        if (bool) {
+            text = "";
+        }
+        document.getElementById("nombre-display").style.display = text;
+        document.getElementById("resultados-display").style.display = text;
+    }
+
+</script>
+</body>
+</html>

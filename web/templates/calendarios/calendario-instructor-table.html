@@ -1,0 +1,226 @@
+<!-- calendario-instructor-table.html -->
+
+{% load filtrosEspeciales %}
+
+<script>
+    numPagesIZQ={{ numPagesIZQ }};
+    numPagesDER={{ numPagesDER }};
+</script>
+
+<div id="idDivContenidoIZQ" class="seccionPaginaIzq" style="display: unset">
+    {% for actividad in actividadesIZQ %}
+        {% siguiendo_esta_marca actividad.actividadMarcaId vs.userId as seguidor %}
+        {% if seguidor %}
+
+            <div class=" vc-perf-instructor-menu2-tab   vc-perf-instructor-menu2-tab-1 animated fadeIn">
+                {% ifchanged actividad.actividadFecha %}
+
+                    <div class="vic-table-perf-atle-title">{{ actividad.actividadFecha|fechaEspecial }}</div>
+                    <div class="vic-hr gris-oscuro-title2"></div>
+                {% else %}
+
+                {% endifchanged %}
+
+                <div class="search-vic">
+
+                    <table class=" table-compra t-consumen" border="0"
+                           style="vertical-align: middle;">
+
+                        <tbody>
+
+                        <tr>
+
+                            <td class="vic-table-atleta-c1">
+
+                                <div class="vic-circle-calendar-1">
+
+                                    {% if actividad.actividadEstado == 'Cancelada' %}
+                                        <div class="linea-suspendido"></div>
+                                    {% endif %}
+
+
+                                    <img src="{{ actividad.actividadDisciplinaImagenNegra }}"
+                                         style="width: 30px; height: 30px; display: inline-block"><br>
+                                </div>
+
+                                <div class="clickable-col d2 vic-black-c1"
+                                     data-href="./clase-{{ actividad.actividadId }}">{{ actividad.actividadDisciplinaNombre }}
+                                </div>
+
+                            </td>
+
+                            <td>
+
+                                <div class="flex-container vic-atleta-vigente">
+
+                    <div class="vic-atleta-c1">
+
+                        <a href="./clase-{{ actividad.actividadId }}">
+
+                            {% if actividad.actividadEstado == 'Cancelada' %}
+                                <div style="color: #777">
+                            {% else %}
+                                <div>
+
+                            {% endif %}
+
+
+                            <b class="min-24">{{ actividad.actividadNombre }}</b>
+                            </div>
+                            <div>
+
+
+                                {% if actividad.actividadInstructorAlias == vs.userAlias %}
+
+                                    <span style=" background: rgba(255,204,0,0.6);
+    padding: 0px 1px 1px 5px;
+    margin-top: 2px;
+    border-radius: 9px;
+    font-size: 15px;
+                                    "> {{ actividad.actividadInstructorNombre }} </span>
+                                    <span style="margin-left: 3px;" class=""> <b>(Tu) </b> </span>
+
+                                {% else %}
+                                    <span style="">   {{ actividad.actividadInstructorNombre }}</span>
+
+
+                                {% endif %}
+
+
+                            </div>
+                        </a>
+                    </div>
+
+{% comment %}                                    <div class="vic-atleta-c1">
+
+                                        <a href="./clase-{{ actividad.actividadId }}">
+                                            <div>
+                                                <b>{{ actividad.actividadNombre }} </b>
+                                            </div>
+                                            <div><a href="#" data-toggle="tooltip" class="tip-bottom"
+                                                    title="Esto es un ejemplo de descripción"></a>{{ actividad.actividadInstructorNombre }}
+                                            </div>
+                                            <small>@{{ actividad.actividadInstructorAlias }}</small>
+                                        </a>
+                                    </div>{% endcomment %}
+
+                                    <div class="vic-atleta-c2" style="padding-right: 15px;">
+                                        <div><b>{{ actividad.actividadHoraInicio|horaCivil }}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="vic-atleta-c3">
+                                        <small style="text-transform: uppercase;">
+                                            <b>{{ actividad.actividadNombreMarca }}</b></small>
+                                        <div>
+                                            {{ actividad.actividadSalonNombre }}</div>
+                                    </div>
+
+
+                                </div>
+
+                            <td>
+
+                        </tr>
+
+                        </tbody>
+
+
+                    </table>
+                </div>
+            </div>
+
+        {% endif %}
+    {%  endfor %}
+</div>
+
+<div id="idDivContenidoDER" class="seccionPaginaDer" style="display: none">
+    {% for actividad in actividadesDER %}
+        {% siguiendo_esta_marca actividad.actividadMarcaId vs.userId as seguidor %}
+        {% if seguidor %}
+
+                <div class=" vc-perf-instructor-menu2-tab   vc-perf-instructor-menu2-tab-1 animated fadeIn">
+                    {% ifchanged actividad.actividadFecha %}
+
+                        <div class="vic-table-perf-atle-title">{{ actividad.actividadFecha|fechaEspecial }}</div>
+                        <div class="vic-hr gris-oscuro-title2"></div>
+                    {% else %}
+
+                    {% endifchanged %}
+
+                    <div class="search-vic">
+
+                        <table class=" table-compra t-consumen" border="0"
+                               style="vertical-align: middle;">
+
+                            <tbody>
+
+                            <tr>
+
+                                <td class="vic-table-atleta-c1">
+
+                                    <div class="vic-circle-calendar-1">
+
+                                        {% if actividad.actividadEstado == 'Cancelada' %}
+                                            <div class="linea-suspendido"></div>
+                                        {% endif %}
+
+
+                                        <img src="{{ actividad.actividadDisciplinaImagenNegra }}"
+                                             style="width: 30px; height: 30px; display: inline-block"><br>
+                                    </div>
+
+                                    <div class="clickable-col d2 vic-black-c1"
+                                         data-href="./clase-{{ actividad.actividadId }}">{{ actividad.actividadDisciplinaNombre }}
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="flex-container vic-atleta-vigente">
+
+                                        <div class="vic-atleta-c1">
+
+                                            <a href="./clase-{{ actividad.actividadId }}">
+                                                <div>
+                                                    <b>{{ actividad.actividadNombre }} </b>
+                                                </div>
+                                                <div><a href="#" data-toggle="tooltip" class="tip-bottom"
+                                                        title="Esto es un ejemplo de descripción"></a>{{ actividad.actividadNombreInstructor }}
+                                                </div>
+                                                <small>@{{ actividad.actividadInstructorAlias }}</small>
+                                            </a>
+                                        </div>
+
+                                        <div class="vic-atleta-c2"  style="padding-right: 15px;">
+                                            <div><b>{{ actividad.actividadHoraInicio|horaCivil }}</b>
+                                            </div>
+                                        </div>
+
+                                        <div class="vic-atleta-c3">
+                                            <small style="text-transform: uppercase;">
+                                                <b>{{ actividad.actividadNombreMarca }}</b></small>
+                                            <div>
+                                                {{ actividad.actividadSalonNombre }}</div>
+                                        </div>
+
+
+                                    </div>
+
+                                <td>
+
+                            </tr>
+
+                            </tbody>
+
+
+                        </table>
+                    </div>
+
+                </div>
+
+        {% endif %}
+    {%  endfor %}
+</div>
+

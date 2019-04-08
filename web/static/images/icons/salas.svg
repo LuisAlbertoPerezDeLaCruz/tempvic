@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="23px" viewBox="0 0 18 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>map-marker-alt-solid (1)</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Menu-marca-" transform="translate(-16.000000, -409.000000)" fill-rule="nonzero" stroke="#000000">
+            <g id="map-marker-alt-solid-(1)" transform="translate(17.000000, 410.000000)">
+                <path d="M7.17783333,20.5763036 C1.12375,11.9368154 0,11.0501399 0,7.87499808 C0,3.52574328 3.58170833,0 8,0 C12.4182917,0 16,3.52574328 16,7.87499808 C16,11.0501399 14.87625,11.9368154 8.82216667,20.5763036 C8.424875,21.1412527 7.57508333,21.1412116 7.17783333,20.5763036 Z M8,11.1562473 C9.84095833,11.1562473 11.3333333,9.68719099 11.3333333,7.87499808 C11.3333333,6.06280516 9.84095833,4.59374888 8,4.59374888 C6.15904167,4.59374888 4.66666667,6.06280516 4.66666667,7.87499808 C4.66666667,9.68719099 6.15904167,11.1562473 8,11.1562473 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

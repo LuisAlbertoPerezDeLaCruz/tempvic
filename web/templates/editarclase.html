@@ -1,0 +1,218 @@
+
+<script type="text/javascript">
+var serieeditar = false;
+var modi = false;
+  function modificar_(actividad) {
+
+	  $(".agre-option").hide();
+	  $(".modi-option").show();
+
+      $.ajax({data: {'actividad':actividad,},url: '/obteneractividad',type:'get',success: function(data){
+                d = JSON.parse(data[0]);
+                fecha =d[0].fields.ac_fecha.slice(8,10)+"/"+d[0].fields.ac_fecha.slice(5,7)+"/"+d[0].fields.ac_fecha.slice(0,4);
+                if (parseInt(d[0].fields.ac_hora_ini.slice(0,2)) > 12){
+                	inicio = (parseInt(d[0].fields.ac_hora_ini.slice(0,2))-12)+":"+d[0].fields.ac_hora_ini.slice(3,5)+" PM";	
+                }else{
+                	inicio = d[0].fields.ac_hora_ini.slice(0,2)+":"+d[0].fields.ac_hora_ini.slice(3,5)+" AM";
+                }
+                if (parseInt(d[0].fields.ac_hora_fin.slice(0,2)) > 12){
+                	fin = (parseInt(d[0].fields.ac_hora_fin.slice(0,2))-12)+":"+d[0].fields.ac_hora_fin.slice(3,5)+" PM";	
+                }else{
+                	fin = d[0].fields.ac_hora_fin.slice(0,2)+":"+d[0].fields.ac_hora_fin.slice(3,5)+" AM";
+                }
+                nombres = data[2];
+                entrenadores  = JSON.parse(data[1]);
+                $("#actividadPK").val(actividad);
+                $("#iden").val(d[0].pk);
+                $("#anombre").val(d[0].fields.ac_nombre);
+                $("#amin").val(d[0].fields.ac_cap_min);
+                $("#amax").val(d[0].fields.ac_cap_max);
+                $("#asala").val(d[0].fields.ac_salon);
+                $("#aespera").val(d[0].fields.ac_cap_max_espera);
+                $("#adescripcioncontenido").val(d[0].fields.ac_descripcion);
+                $("#afecha").val(fecha);
+                $("#ahora_ini").val(inicio);
+                $("#ahora_fin").val(fin);
+                $("#adisciplina").val(d[0].fields.ac_disciplina);
+                $("#acosto").val(d[0].fields.ac_precio);
+                $("#acredito").val(d[0].fields.ac_creditos);
+                $('#ainstructorcontent').html("");
+                for (i=0;i<entrenadores.length;i++){
+                	$("#ainstructorcontent").append('<option id='+entrenadores[i].pk+" value="+entrenadores[i].pk+">"+nombres[i]+"</option>");
+                	console.log(entrenadores[i]);
+                }
+                $("#ainstructorcontent").val(d[0].fields.ac_instructor);
+                console.log("Creditos -->"+d[0].fields.ac_instructor+"  Nombre -->");
+                modi = true;
+                $( "input.bind" ).each(function(){
+            	  
+            	  console.log('entro');
+            	  
+            	 var bind = $(this).attr("bind");
+            	  
+            	 var param =   $(this).val() != ''? $(this).val().trim() : '-';
+            	  
+            	   $("."+bind).text(param);
+             
+            	});
+                
+                
+                $( "select#repetirComo" ).each(function() {
+              	  
+            		 $('.formclase-serie').text($(this).find(":selected").text());
+
+               	 if($(this).val() == 1){
+               		 $('.formclase-serie').text("-");
+               		 $(".dias-repetir").show(); 
+               		  
+               	 }else{
+               		 $('.formclase-serie').text($(this).find(":selected").text() != ""?$(this).find(":selected").text():"-");
+
+               		 $(".dias-repetir").hide(); 
+               	 }
+               	  
+                 });
+         
+           	$( "select.bind" ).each( function() {
+           	  
+           	  var bind = $(this).attr("bind");
+           	  
+           	  var param =   $(this).val() != ''? $(this).find(":selected").text() : '-';
+           	  
+           	   $("."+bind).text(param);
+             
+           	});
+            
+				if (serie){
+					changeTabs(12);
+				}else{
+					changeTabs(9);	
+				}
+               
+            },});
+  }
+var nserie = 0;
+function modificarserie_(serie,actividad) {
+	  $(".agre-option").hide();
+	  $(".modi-option").show();
+      serieeditar = true;
+      modificar(actividad);
+      console.log("Continue");
+      $.ajax({data: {'actividad':actividad,'serie':serie},url: '/obtenerserie',type:'get',success: function(data){
+      	actividad = JSON.parse(data[0]);
+      	series = JSON.parse(data[1])[0];
+      	console.log(series);
+      	$("#repetirComo").val(series.fields.s_tipo);
+      	$("#brepetir_cada").val(series.fields.s_cada);
+      	fechaini =series.fields.s_empieza.slice(8,10)+"/"+series.fields.s_empieza.slice(5,7)+"/"+series.fields.s_empieza.slice(0,4);
+      	fechafin =series.fields.s_termina_date.slice(8,10)+"/"+series.fields.s_termina_date.slice(5,7)+"/"+series.fields.s_termina_date.slice(0,4);
+      	$("#comienzad").val(fechaini);
+      	$("#terminafechad").val(fechafin);
+      	console.log("Llegue");
+      	nserie = serie;
+      	console.log(serie);
+      	changeTabs(12);
+        },});
+  }
+
+  function textAreaAdjust(o) {
+
+  o.style.height = "1px";
+  o.style.height = (25+o.scrollHeight)+"px";
+  }
+</script>
+
+<script type="text/javascript">
+function notif(str,tipo){
+    if (tipo){
+        document.getElementById("exito").style.display="";    
+        document.getElementById("exito").innerHTML=str;
+        $("#exito").delay(4000).fadeOut();
+    }else{
+        document.getElementById("error").style.display="";    
+        document.getElementById("error").innerHTML=str;
+        $("#error").delay(4000).fadeOut();
+    }
+}    
+
+</script>
+
+
+<script>
+function validate(target){
+    console.log(target);
+    var elements =[];
+    if (target == 0){
+        elements = [document.getElementById("nombre")];
+    }else if (target == 2){
+        fecha = new Date (document.getElementById("fecha").value);
+        fecha.setDate(fecha.getDate() + 1);
+        console.log(fecha);
+        hoy = new Date();
+        if (fecha < hoy){
+            document.getElementById("fecha").style.border="3px solid #a0026b";
+            notif("La fecha debe ser mayor a hoy",false);
+            return false;
+        }else{
+             document.getElementById("fecha").style.border="0px solid #a0026b";
+        }
+        ini = document.getElementById("hora_ini").value;
+        console.log(ini);
+        fin = document.getElementById("hora_fin").value;
+        console.log(fin);
+        if (fin<=ini){
+            document.getElementById("hora_fin").style.border="3px solid #a0026b";
+            notif("La hora de culminacion debe ser menor a la de inicio",false);
+            return false;
+        }else{
+            document.getElementById("hora_fin").style.border="0px solid #a0026b";
+        }    
+    }else if (target == 1){
+        elements = [document.getElementById("descripcioncontenido")];    
+    }else if (target == 4){
+        elements = [document.getElementById("creditos"),document.getElementById("costo")];
+    }
+    for (i = 0; i < elements.length; i++){
+        if (elements[i].value == null || elements[i].value == ""){
+            elements[i].style.border="3px solid #a0026b";
+            notif("Debe llenar el siguiente campo",false);
+            return false;
+        }else{
+            elements[i].style.border="0px solid #a0026b";
+        }
+    }
+    return true;
+}
+</script>
+
+<script type="text/javascript">
+ 
+
+  function modificando(opcion,actividad) {
+
+    var data = {'opcion':opcion,'actividad':document.getElementById('actividadPK').value,'instructor':document.getElementById('ainstructorcontent').value,'disciplina':document.getElementById('adisciplina').value,'fecha':document.getElementById('afecha').value,'hora_ini':document.getElementById('ahora_ini').value,'hora_fin':document.getElementById('ahora_fin').value,'descripcion':document.getElementById('adescripcioncontenido').value,'nombre':document.getElementById('anombre').value,'min':document.getElementById('amin').value,'max':document.getElementById('amax').value,'sala':document.getElementById('asala').value,'espera':document.getElementById('aespera').value,'creditos':document.getElementById('acredito').value,'costo':document.getElementById('acosto').value,'marca':'{{marca_actual.m_alias}}'};
+
+    //alert(JSON.stringify(data));
+
+    $.ajax({data: data,url: '/modificaractividad',type:'get',success: function(data){
+        if (data==1)
+           alertBack('/notifhandler',"La clase ha sido modificada",'{{marca_actual.m_alias}}/dashboard',1);
+        else if (data==-2)
+           alertVictorius("Actividad no pudo ser modificada. Revise disponibilidad de la Sala",2)
+        else if (data==-3)
+           alertVictorius("Actividad no pudo ser modificada. Revise disponibilidad del Instructor",2)
+    },});
+
+  }
+</script>
+
+<script type="text/javascript">
+  function modificandoserie(serie) {
+        $.ajax({data: {'serie':serie,},
+                url: '/modificarserie',type:'get',success: function(data){
+                console.log(data);
+                data = data+2;    
+            },});  
+  }
+</script>
+

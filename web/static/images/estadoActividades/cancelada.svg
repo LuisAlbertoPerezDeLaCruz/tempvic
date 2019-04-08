@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="13px" viewBox="0 0 14 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>culminada</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="culminada" transform="translate(0.000000, -1.000000)">
+            <g id="Group-5" transform="translate(0.000000, 0.971700)" fill-rule="nonzero" fill="#CCD3DE">
+                <path d="M6.6001,11.9883 C3.5171,11.9883 1.0291,9.5433 1.0291,6.5143 C1.0291,3.4853 3.5171,1.0403 6.6001,1.0403 C9.6821,1.0403 12.1711,3.4853 12.1711,6.5143 C12.1711,9.5433 9.6821,11.9883 6.6001,11.9883 M6.6001,0.0283 C2.9611,0.0283 0.0001,2.9383 0.0001,6.5143 C0.0001,10.0913 2.9611,13.0003 6.6001,13.0003 C10.2401,13.0003 13.2001,10.0913 13.2001,6.5143 C13.2001,2.9383 10.2401,0.0283 6.6001,0.0283" id="Fill-3"></path>
+            </g>
+            <path d="M4.5,5.5 L8.5,9.5" id="Line" stroke="#CCD3DE" fill="#D8D8D8" stroke-linecap="square"></path>
+            <path d="M4.5,5.5 L8.5,9.5" id="Line" stroke="#CCD3DE" stroke-linecap="square" transform="translate(6.500000, 7.500000) scale(-1, 1) translate(-6.500000, -7.500000) "></path>
+        </g>
+    </g>
+</svg>

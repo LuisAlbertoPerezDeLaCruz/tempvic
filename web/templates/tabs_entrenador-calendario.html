@@ -1,0 +1,2373 @@
+<!-- tabs_entrenador-calendario.html -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(document).ajaxStart(function () {
+            console.log('empezo un ajax', $('.vic-btn-finalizar').parent());
+            $('.vic-btn-finalizar').hide();
+        });
+        $(document).ajaxStop(function () {
+            $('.vic-btn-finalizar').show();
+            console.log('termino el ajax', $('.vic-btn-finalizar').parent());
+        });
+
+        /*
+            Estos son las funciones de validacion de existencia del username y del alias
+            No debe permitir el ingreso de un username existente al igual de un alias esistente
+         */
+
+        var hubo_error = false;
+        var correoActual = '';
+
+        $('#formNuevoAtleta').mousemove(function () {
+
+            if ($("#r-correo").val() != correoActual) {
+                $("#r-correo").change();
+            }
+
+        });
+
+        $("#r-alias").change(function () {
+            var alias = $(this).val();
+            $.ajax({
+                url: '/ajax/validate_useralias/',
+                data: {
+                    'useralias': alias
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        $("#r-alias").val(alias + '{{ dummy }}'.substr(0, 1))
+                        hubo_error = true;
+                    } else {
+                        hubo_error = false;
+                    }
+                    $('#formRegister').validator('validate');
+                }
+            });
+        });
+
+        $("#r-correo").change(function () {
+            //valida si existe el correo (username en tabla user)
+            if ($("#r-correo").val() == correoActual) {
+                return;
+            }
+            var correo = $(this).val();
+
+            $.ajax({
+                url: '/ajax/validate_username/',
+                data:
+                    {
+                        'username': correo
+                    }
+                ,
+                dataType: 'json',
+                success:
+                    function (data) {
+                        if (data.registeredHere) {
+                            $('#r-nombre').val(data.first_name);
+                            $('#r-apellido').val(data.last_name);
+                            $('#r-telefono').val(data.telefono);
+                            $('#r-alias').val(data.alias);
+                            $('#botonAgregar').html('Agregar');
+                            $('#botonAgregar').attr('disabled', true);
+                            alertVictorius("Usuario ya existe en " + data.estaMarca, 1);
+
+                        } else {
+                            if (data.is_taken) {
+                                $('#r-nombre').val(data.first_name);
+                                $('#r-apellido').val(data.last_name);
+                                $('#r-telefono').val(data.telefono);
+                                $('#r-alias').val(data.alias);
+                                $('#r-nombre').attr('disabled', true);
+                                $('#r-apellido').attr('disabled', true);
+                                $('#r-telefono').attr('disabled', false);
+                                $('#r-alias').attr('disabled', true);
+                                $('#r-flagUsuarioExistente').val('existe');
+                                $('#botonAgregar').html('Agregar');
+                                $('#botonAgregar').attr('disabled', false);
+                                $('#divIdAtletaInstructorNota').html('Este usuario ya existe en Victorius,<br> pulsa agregar para incorporarlo a {{ vs.marcaEnUsoNombre }}');
+                            } else {
+                                strAlias = correo.substring(0, correo.indexOf('@'));
+                                $('#r-alias').val(strAlias);
+                                $('#r-alias').change();
+                                $('#botonAgregar').attr('disabled', false)
+                                $('#r-flagUsuarioExistente').val('noExiste');
+                                $('#r-nombre').attr('disabled', false);
+                                $('#r-apellido').attr('disabled', false);
+                                $('#r-telefono').attr('disabled', false);
+                                $('#r-alias').attr('disabled', false);
+                                $('#botonAgregar').html('Agregar');
+                            }
+                        }
+
+                        $('#formNuevoAtleta').validator('validate');
+                    }
+            })
+            ;
+            correoActual = $("#r-correo").val();
+        });
+
+        $("#r-correo_bck").change(function () {
+            //valida si existe el correo (username en tabla user)
+            if ($("#r-correo").val() == correoActual) {
+                return;
+            }
+            var correo = $(this).val();
+            $.ajax({
+                url: '/ajax/validate_username/',
+                //se aprovecha la misma del funcion del registro inicial
+                // aqui la variable utilizada es r_correo pero en el registro inicial se usa username
+                data:
+                    {
+                        'username': correo
+                    }
+                ,
+                dataType: 'json',
+                success:
+                    function (data) {
+                        if (data.registeredHere) {
+                            $('#botonAgregar').attr('disabled', true);
+                            alertVictorius("El correo introducido ya existe en " + data.estaMarca, 2);
+                        } else {
+                            if (data.is_taken) {
+                                $('#r-nombre').val(data.first_name);
+                                $('#r-apellido').val(data.last_name);
+                                $('#r-telefono').val(data.telefono);
+                                $('#r-alias').val(data.alias);
+                                $('#r-nombre').attr('disabled', true);
+                                $('#r-apellido').attr('disabled', true);
+                                $('#r-telefono').attr('disabled', true);
+                                $('#r-alias').attr('disabled', true);
+                                $('#r-flagUsuarioExistente').val('existe');
+                            } else {
+                                strAlias = correo.substring(0, correo.indexOf('@'));
+                                $('#r-alias').val(strAlias);
+                                $('#r-alias').change();
+                                $('#botonAgregar').attr('disabled', false)
+                                $('#r-flagUsuarioExistente').val('noExiste');
+                                $('#r-nombre').attr('disabled', false);
+                                $('#r-apellido').attr('disabled', false);
+                                $('#r-telefono').attr('disabled', false);
+                                $('#r-alias').attr('disabled', false);
+                            }
+                        }
+
+                        $('#formNuevoAtleta').validator('validate');
+                    }
+            })
+            ;
+            correoActual = $("#r-correo").val();
+        });
+
+
+    });
+
+    function limpiarCamposNuevoAtleta() {
+        $('#r-nombre').val('');
+        $('#r-apellido').val('');
+        $('#r-telefono').val('');
+        $('#r-alias').val('');
+        $("#r-correo").val('');
+        $('#r-flagUsuarioExistente').val('');
+        $('#chkInstructor').prop('checked', false);
+        $('#chkInstructor').attr({'disabled': false});
+    }
+
+    function tituloInstructores() {
+        $('#divIdAtletaInstructorTabs').html('AGREGAR INSTRUCTOR');
+        $('#chkInstructor').prop('checked', true);
+        $('#chkInstructor').attr({'disabled': true});
+    }
+
+
+    function validarNuevoAtleta() {
+        var comoInstructor = false
+        if ($('#chkInstructor').is(":checked")) {
+            comoInstructor = true
+        }
+        temp = false;
+
+        $('#formNuevoAtleta').validator('validate');
+
+        $("#formNuevoAtleta").find('.with-errors').each(function (index) {
+
+            if ($.trim($(this).text()) != '') {
+                temp = true;
+            }
+        });
+
+        if (!temp) {
+            urlStr = '';
+            if ($('#r-flagUsuarioExistente').val() == 'noExiste') {
+                urlStr = '/registrarusuario';
+            } else {
+                urlStr = '/agregarUsuarioExistente';
+            }
+            $.ajax({
+                data: {
+                    'correo': document.getElementById('r-correo').value,
+                    'alias': document.getElementById('r-alias').value,
+                    'nombre': document.getElementById('r-nombre').value,
+                    'apellido': document.getElementById('r-apellido').value,
+                    'tel': document.getElementById('r-telefono').value,
+                    'actividad': '{{perfilMarca.marcaId}}',
+                    'comoInstructor': comoInstructor,
+                }, url: urlStr, type: 'get', success: function (data) {
+                    //window.location.replace("./perfil-atleta-" + document.getElementById('r-alias').value);
+                    location.reload();
+                },
+            });
+        }
+        return false;
+    }
+
+</script>
+
+<div id="vic-tab-3" class=" tab-pane animated fadeIn   sin-paddign-col">
+
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div class="col-xs-2 col-lg-3"></div>
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+            <span class="nav-rectangle-5"> Actividad ></span>
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div class="col-xs-12 t destop destop">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+    </div>
+    <div class="col-xs-12 cuerpo-tab">
+
+        <div
+                class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+                style="text-align: center;">
+
+            <div id="detailclases">
+                <div id="nombreactividad" class="col-xs-12 diciplina-vic"></div>
+                <div class="col-xs-12 user-vic">
+                    <span id="reservarnombre"></span>
+                </div>
+                <div class="col-xs-12 fecha-vic">
+                    <span id="reservarhora"></span>
+                </div>
+                <div id="reservarlugar" class="col-xs-12 direccion-vic">{{ vs.marcaEnUsoMunicipio }}
+                    @{{ vs.marcaEnUsoAlias }}</div>
+            </div>
+            <div class="col-xs-12 atleta-vic">
+				<span>Atletas
+					<div class="btn-group moreOpsBt"
+                         style="position: relative; padding-top: 12px">
+
+                        <button style="float: left;"
+                                class="btn  btn-default dropdown-toggle "
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							&nbsp;</button>
+                        <ul class="dropdown-menu" style="right: 30px; top: 0;">
+						<li><a
+                                onclick="desde=true;limpiarCamposNuevoAtleta();changeTabs('nuevoAtleta');" href="#">Agregar
+									Atleta</a></li>
+
+
+						</ul>
+					</div>
+				</span>
+
+            </div>
+            <div class="col-xs-offset-1 col-xs-10 ">
+                <form>
+                    <input autocomplete="off" id="myInput" onkeyup="return myFilter()" type="search"
+                           class="reservar-usuario input-search-vic">
+                </form>
+            </div>
+
+
+            <div id="atletas" style="text-align: left;">
+            
+      
+								<div class="text-center col-xs-12 ">
+                                    <br>
+                                    <i class="fas fa-minus-circle fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                                    <div class=" vic-calendar-title">No hay atletas disponibles.</div>
+                                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                                       cuando hayan podrás verlos aquí
+                                        <br class="md-movil">
+                                    </div>
+                                    <br>
+                                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <br> <br> <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="vic-tab-4" class=" tab-pane animated fadeIn   sin-paddign-col">
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div id="idDivAtrasTab4" class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick="changeTabs(3);">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+			<span class="nav-rectangle-5"><span id="titulo" class="breadcrum-grey">Actividad
+					></span> Planes ></span>
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div id="volverclases" class="col-xs-12  destop">
+
+        <img src="../static/images/prev.png"
+             class="blank-img  hvr-grow close-left" onclick="changeTabs(3);">
+    </div>
+    <div class="col-xs-12  destop">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+    </div>
+
+    <div class="col-xs-12 cuerpo-tab">
+
+        <div
+                class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+                style="text-align: center;">
+            <div id="detailplanesclases"></div>
+
+                <div id="usuariocompraplan"
+                 class="col-xs-12 col-md-offset-2 col-md-8 block-vic">
+{% comment %}                <img src="http://{{ request.META.HTTP_HOST }}/static/{{ user }}.png?dummy={{ dummy }}" class="img-avatar"
+                     onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/Fotoperfil.png'">{% endcomment %}
+                <div class="block-1-vic">
+                    <b>{{ user.first_name }} {{ user.last_name }}</b> <br> @{{ perfil.u_alias }}
+                </div>
+            </div>
+            <!-- <div class="col-xs-12 col-md-offset-2 col-md-8 block-2-vic" >
+            ejemplo de esta vaina<br>ejemplo de esta vaina<br>ejemplo de esta vaina<br>
+            http://{{ request.META.HTTP_HOST }}/static/images/close.png
+
+            </div> -->
+
+            <div class="col-xs-12 atleta-vic">
+                <span>Planes disponibles</span>
+                <hr>
+            </div>
+
+
+            <table class="table vic-table-pago" border="0">
+                <colgroup>
+                    <col width="40%;">
+                    <col width="5%">
+                    <col width="30%">
+                    <col width="5%">
+                    <col width="20%">
+                </colgroup>
+                <tbody id="planesactivos">
+
+                </tbody>
+            </table>
+            
+            	<div class="text-center col-xs-12 planesactivosmensajes">
+                                    <br>
+                                    <i class="fas fa-minus-circle fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                                    <div class=" vic-calendar-title">No hay planes disponibles.</div>
+                                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                                        cuando hayan podrás verlos aquí
+                                        <br class="md-movil">
+                                    </div>
+                                    <br>
+                                </div>
+
+            <div id="planes" class="col-xs-12">
+            
+							
+            </div>
+
+            <div class="col-xs-12">
+                <br> <br> <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="vic-tab-5" class=" tab-pane animated fadeIn   sin-paddign-col">
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick="changeTabs(4);" id="patrasMovil">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+			<span class="nav-rectangle-5"><span id="titulo2" class="breadcrum-grey">Actividad
+					></span><span class="breadcrum-grey"> Planes></span> Forma de Pago></span>
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+
+    <div class="col-xs-12 t destop">
+        <div id="patrasDestop">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left" onclick="changeTabs(4);">
+        </div>
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+    </div>
+
+    <div class="col-xs-12 cuerpo-tab">
+
+
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+             style="text-align: center;">
+            <div id="detailplanesclases2"></div>
+            <div id="detalleusuario2" class="col-xs-12 col-md-offset-2 col-md-8 block-vic"></div>
+
+            <div class="col-xs-12 col-md-offset-2 col-md-8 block-2-vic">
+                <table class=" table-compra" style="width: 90%; margin-left: 10%">
+                    <colgroup>
+                        <col width="33%">
+                        <col width="33%">
+                        <col width="33%">
+                    </colgroup>
+                    <tr>
+                        <td>PLAN</td>
+                        <td>FORMA DE PAGO</td>
+                        <td>VENCIMIENTO</td>
+                    </tr>
+                    <tr>
+                        <td class="td-b" id="nombreplan"><b>Basico</b></td>
+                        <td class="td-b"><b>-</b></td>
+                        <td class="td-b" id="vencimientoplan"><b>31/08/17</b></td>
+                    </tr>
+                    <tr>
+                        <td><br>PRECIO</td>
+                        <td><br>CREDITOS</td>
+                        <td><br>PRECIO DEL CREDITO</td>
+                    </tr>
+                    <tr>
+                        <td class="td-b" id="precioPlan"><b>20.000,00</b></td>
+                        <td class="td-b" id="creditosplan"><b>20.000,00</b></td>
+                        <td class="td-b" id="montocreditosplan"><b>20</b></td>
+                    </tr>
+                    <tr>
+                        <td><br>Dto General</td>
+                        <td><br>Dto Particular</td>
+                        <td><br>Total a Pagar</td>
+                    </tr>
+                    <tr>
+                        <td class="td-b" id="dtoGeneral"><b>20.000,00</b></td>
+                        <td class="td-b" id="dtoParticular"><b>20.000,00</b></td>
+                        <td class="td-b" id="totalPagar"><b>20</b></td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="col-xs-12 atleta-vic">
+                <span>FORMA DE PAGO</span>
+            </div>
+
+            <div class="col-xs-12 block-3-vic ">FAVORITOS</div>
+
+
+            <table class=" table-compra">
+                <colgroup>
+                    <col width="80%">
+                    <col width="20%">
+                </colgroup>
+                <tr>
+                    <td style="padding: 10px;"><span><i
+                            class="fa fa-upload"></i>&nbsp;&nbsp;Trasferencia</span></td>
+                    <td class="text-center"><a id="ptransferencia" href="javascript:void(0);"> <b
+                            class="hvr-float-shadow" style="text-decoration: underline;">PAGAR</b>
+                    </a></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;"><span><i
+                            class="fa fa-download"></i>&nbsp;&nbsp;Depósito </span></td>
+                    <td class="text-center"><a id="pdeposito" href="javascript:void(0);"> <b
+                            class="hvr-float-shadow" style="text-decoration: underline;">PAGAR</b>
+                    </a></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;"><span><i
+                            class="fa fa-credit-card"></i>&nbsp;&nbsp;POS</span></td>
+                    <td class="text-center"><a id="ppos" href="javascript:void(0);"> <b
+                            class="hvr-float-shadow" style="text-decoration: underline;">PAGAR</b>
+                    </a></td>
+                </tr>
+
+            </table>
+            <br/>
+            <div class="col-xs-12 block-3-vic">OTROS</div>
+
+            <table class=" table-compra table-span">
+                <colgroup>
+                    <col width="80%">
+                    <col width="20%">
+                </colgroup>
+                <tr>
+                    <td style="padding: 10px;"><span><i
+                            class="fa fa-pencil-square-o"></i>&nbsp;&nbsp;Cheque </span></td>
+                    <td class="text-center"><a id="pcheque" href="javascript:void(0);"> <b
+                            class="hvr-float-shadow" style="text-decoration: underline;">PAGAR</b>
+                    </a></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;"><span><i
+                            class="fa fa-money"></i>&nbsp;&nbsp;Efectivo </span></td>
+                    <td class="text-center"><a id="pefectivo" href="javascript:void(0);"> <b
+                            class="hvr-float-shadow" style="text-decoration: underline;">PAGAR</b>
+                    </a></td>
+                </tr>
+                <tr id="trppcobrar">
+                    <td style="padding: 10px;"><span><i
+                            class="fa fa-money"></i>&nbsp;&nbsp;Por Cobrar </span></td>
+                    <td class="text-center"><a id="pporcobrar" href="javascript:void(0);"> <b
+                            class="hvr-float-shadow" style="text-decoration: underline;">PAGAR</b>
+                    </a></td>
+                </tr>
+
+            </table>
+
+            <div id="formasdepago2" class="col-xs-12"></div>
+
+            <div class="col-xs-12">
+                <br> <br> <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="vic-tab-6" class=" tab-pane animated fadeIn  ">
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick="changeTabs(5);">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+			<span class="nav-rectangle-5"><span
+                    class="breadcrum-grey"><span id="titulo3" class="breadcrum-grey">Actividad ></span> Planes > Forma de Pago> </span> Datos de Pago></span>
+
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div class="col-xs-12 t destop">
+
+        <img src="../static/images/prev.png"
+             class="blank-img  hvr-grow close-left" onclick="changeTabs(5);">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+    </div>
+
+
+    <div class="col-xs-12 cuerpo-tab">
+
+        <div
+                class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+                style="text-align: center;">
+
+
+            <div id="detailplanesclases3"></div>
+            <div id="detalleusuario3" class="col-xs-12 col-md-offset-2 col-md-8 block-vic"></div>
+
+            <div id="resumen" class="col-xs-12 col-md-offset-2 col-md-8 block-2-vic">
+
+                <table class=" table-compra" style="width: 90%;margin-left : 10%">
+                    <colgroup>
+                        <col width="33%">
+                        <col width="33%">
+                        <col width="33%">
+                    </colgroup>
+                    <tr>
+                        <td>PLAN</td>
+                        <td>FORMA DE PAGO</td>
+                        <td>VENCIMIENTO</td>
+                    </tr>
+                    <tr>
+                        <td class="td-b" id="nombreplan2"><b>Basico</b></td>
+                        <td class="td-b" id="tipoplan"><b></b></td>
+                        <td class="td-b" id="vencimientoplan2"><b>31/08/17</b></td>
+                    </tr>
+                    <tr>
+                        <td><br>PRECIO</td>
+                        <td><br>CREDITOS</td>
+                        <td><br>PRECIO DEL CREDITO</td>
+                    </tr>
+                    <tr>
+                        <td class="td-b" id="precioPlan2"><b>20.000,00</b></td>
+                        <td class="td-b" id="creditosplan2"><b>20.000,00</b></td>
+                        <td class="td-b" id="montocreditosplan2"><b>20</b></td>
+                    </tr>
+                    <tr>
+                        <td><br>Dto General</td>
+                        <td><br>Dto Particular</td>
+                        <td><br>Total a Pagar</td>
+                    </tr>
+                    <tr>
+                        <td class="td-b" id="dtoGeneral2"><b>20.000,00</b></td>
+                        <td class="td-b" id="dtoParticular2"><b>20.000,00</b></td>
+                        <td class="td-b" id="totalPagar2"><b>20</b></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="col-xs-12 atleta-vic formpago-title">
+                <span>DATOS DEL PAGO</span>
+            </div>
+            <div class="col-lg-offset-1 col-lg-10 col-xs-12" style="text-align: left;margin-top: 30px">
+                <form id="formpago" novalidate="true">
+                    <input type="hidden" id="moneda" , name="moneda">
+                    <input type="hidden" id="modalidadPago" , name="modalidadPago">
+                    <input type="hidden" id="precioPlanNumerico" , name="precioPlanNumerico">
+                    <input type="hidden" id="montoModOrigen" , name="montoModOrigen">
+                    <div class="form-group">
+                        <label for="inputName" class="label-form-pago control-label"
+                        >MONTO</label> <input
+                            name="montoMod" id="montoMod" class="btn-block input-grey form-control format-mount"
+                            type="text" value="" min="1" readonly="readonly" placeholder="Monto"
+                            data-error="Monto menor al monto requerido" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ref-pago" class="label-form-pago control-label"
+                        >REFERENCIA</label> <input
+                            name="referencia" id="ref-pago" class="btn-block input-grey form-control"
+                            type="number" value="" min="1" max="999999999999999999" placeholder="Número"
+                            data-error="Numero de referncia invalido">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="label-form-pago control-label">FECHA</label>
+                        <input autocomplete="off" name="fecha" class="btn-block input-grey form-control" id="fecha-pago"
+                               type="" value="" placeholder="mm/dd/yyyy"
+                               data-error="Fecha invalida" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group" id="bancoPagoGrupo">
+                        <label for="inputName" class="label-form-pago control-label">BANCO</label>
+                        <select
+                                name="banco" id="banco-pago" data-error="Campo requerido"
+                                class="form-control btn-block input-grey" required>
+                        </select>
+                        <div class="help-block with-errors"></div>
+                    </div>
+
+                    <div class="col-xs-4 col-xs-offset-8 ">
+
+                        <button id="btnPagar" class="btn-block  btn-black disabled hvr-shrink"
+                                style="float:right;font-size: 16px; font-weight: bold;" onclick="return validarPago()">
+                            PAGAR
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+
+        <div style="display:none;" id="formulariocontent" class="col-xs-12"></div>
+
+        <div class="col-xs-12">
+            <br> <br> <br>
+        </div>
+    </div>
+</div>
+
+
+<div id="vic-tab-7" class=" tab-pane animated fadeIn  ">
+    <div class="rectangle-5 col-xs-12 ">
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick="changeTabs(6);">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+			<span class="nav-rectangle-5"><span
+                    class="breadcrum-grey"><span id="titulo4" class="breadcrum-grey">Actividad ></span> Planes > Forma de Pago> Datos de Pago></span> Confirmación ></span>
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div class="col-xs-12 cuerpo-tab">
+
+        <img src="../static/images/prev.png"
+             class="blank-img  hvr-grow close-left" onclick="changeTabs(6);">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+
+        <div
+                class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+                style="text-align: center;">
+
+            <div id="detailplanesclases4" class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+                 style="text-align: center;"></div>
+            <div id="detalleusuario4" class="col-xs-12 col-md-offset-2 col-md-8 block-vic"></div>
+            <div id="resumen2" class="col-xs-12 col-md-offset-2 col-md-8 block-2-vic"></div>
+
+            <div class="col-xs-12 col-md-offset-2 col-md-8 block-4-vic">
+                <table class=" table-compra" style="width: 90%; margin-left: 10%">
+                    <colgroup>
+                        <col width="25%">
+                        <col width="50%">
+                        <col width="25%">
+                    </colgroup>
+                    <tr id="grupoPagoBanco">
+                        <td><br>BANCO</td>
+                        <td class="td-b"><br>
+
+                            <b id="pagobanco"></b></td>
+
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><br>FECHA</td>
+                        <td class="td-b"><br>
+                            <b id="pagofecha"></b></td>
+
+                        <td class="td-b"></td>
+                    </tr>
+                    <tr id="grupoPagoRef">
+                        <td><br>REFERENCIA&nbsp;&nbsp;&nbsp;</td>
+                        <td class="td-b"><br>
+                            <b id="pagoref"></b></td>
+
+                        <td class="td-b"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <hr style="background: #393939;border: 0;height: 1px;color: #393939;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>TOTAL</b></td>
+                        <td></td>
+                        <td class="td-b"><b id="pagototal"></b></td>
+
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <div id="funcionpago" class="col-xs-5 col-xs-offset-8 " style="margin-top: 20px;">
+
+                    <button class="btn-block  btn-black disabled hvr-shrink"
+                            style="float: right; font-size: 16px; font-weight: bold;"
+                            onclick="pagar(1,6,1,1,-1)">CONTINUAR
+                    </button>
+
+                </div>
+            </div>
+
+
+            <div class="col-xs-12">
+                <br> <br> <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="vic-tab-actividades-conflictos" class=" tab-pane animated fadeIn ">
+
+    <div class="container">
+
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow " onclick="changeTabs(2);">
+
+        <div
+                class="col-xs-12 destop-md" style="height: 70px"></div>
+
+        <div
+                class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"
+                style="top:30px; line-height: 20px; height: 900px;padding-left: 5px;padding-right: 5px">
+
+            <div class="col-xs-12"
+                 style="color: #393939; font-family: Roboto; font-size: 15px;">
+
+
+                <div id="idDivConflictosTitulo" class="row col-xs-12 pull-center">
+
+                    aqui pongo el titulo del tab de conflictos
+
+                </div>
+
+                <div id="idDivConflictos" class="row col-xs-12 pull-center"
+                     style="color: #393939; font-family: Roboto; font-size: 12px;">
+
+                    aqui pongo la tabla de conflictos
+
+                </div>
+
+                <hr>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="vic-tab-recibo-pago" class=" tab-pane animated fadeIn   ">
+    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow " onclick="changeTabs(2);">
+
+    <div
+            class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2  col-lg-6 col-lg-offset-3"
+            style="top:30px; line-height: 20px; height: 900px;padding-left: 5px;padding-right: 5px">
+
+
+        <div class="col-xs-12"
+             style="color: #393939; font-family: Roboto; font-size: 20px;">
+
+            <div class="col-xs-12 pull-right">
+                Recibo
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-4"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;">CENTRO
+                </div>
+                <div id="recibo_centro">yogashala</div>
+            </div>
+            <div class="col-xs-5"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;">DATOS
+                </div>
+                <div id="recibo_nombre">Daniel Iribarren</div>
+                <em style="font-weight: bold" id="recibo_alias">@diribarren</em>
+
+            </div>
+            <div class="col-xs-3"
+                 style="color: #393939; font-family: Roboto; font-size: 14px; font-weight: 900;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;">TOTAL
+                </div>
+                <div id="recibo_totalArriba">120000 BsF.</div>
+
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-4"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;">FECHA
+                </div>
+                <div id="recibo_fecha">01/08/2017</div>
+
+            </div>
+            <div class="col-xs-5"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;margin-top: 8px;"></div>
+                <div id="recibo_tipoMedioPago">transferencia</div>
+                <div id="recibo_banco">mercantil</div>
+                <div id="recibo_referencia">989898</div>
+
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-4"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;">Nº RECIBO
+                </div>
+                <div id="recibo_numero">989898989</div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <hr style="box-sizing: border-box; border-top: 1px solid #393939; margin-top: 30px; margin-bottom: 20px;padding: 0">
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-3"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;margin-bottom: 12px">
+                    PLAN
+                </div>
+                <div id="recibo_planNombre">basico</div>
+            </div>
+            <div class="col-xs-3"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;margin-bottom: 12px">
+                    CREDITOS
+                </div>
+                <div id="recibo_planCreditos">numero de creditos</div>
+            </div>
+            <div class="col-xs-3"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;margin-bottom: 12px">
+                    VENCIMIENTO
+                </div>
+                <div id="recibo_planFechaVencimiento">fecha vencimiento</div>
+            </div>
+            <div class="col-xs-3"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;margin-bottom: 12px">
+                    PRECIO
+                </div>
+                <div id="recibo_planPrecio">precio del plan</div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-12" style="margin-top: 60px">
+            <div class="col-xs-3 col-xs-offset-6"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div id="recibo_headerDescuento"
+                     style="color: #8B96AA;  font-size: 10px; font-weight: 800;">DESCUENTO
+                </div>
+                {% comment %}                <div
+                        style="color: #8B96AA;  font-size: 10px; font-weight: 800;">I.V.A
+                </div>{% endcomment %}
+
+
+            </div>
+
+            <div class="col-xs-3"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;">
+
+                <div id="recibo_planDescuento">descuento aplicado</div>
+                {% comment %}                0 Bsf.{% endcomment %}
+
+            </div>
+
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <hr style="box-sizing: border-box; border-top: 1px solid #393939; margin-top: 30px; margin-bottom: 20px;padding: 0">
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="col-xs-9"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;font-weight: bold;">
+                TOTAL
+            </div>
+
+            <div class="col-xs-3"
+                 style="color: #393939; font-family: Roboto; font-size: 14px;font-weight: bold;">
+
+
+                <div id="recibo_totalAbajo">120000 BsF.</div>
+            </div>
+
+        </div>
+        {% comment %}        <div class="col-xs-12" style="text-align: center;margin-top: 40px;">
+            <img style="background: #393939; padding: 16px; -webkit-border-radius: 10px;
+		-webkit-border-top-left-radius: 30px; -webkit-border-bottom-right-radius: 30px;
+		 -moz-border-radius: 10px; -moz-border-radius-topleft: 30px; -moz-border-radius-bottomright: 30px;
+		  border-radius: 10px; border-top-left-radius: 30px; border-bottom-right-radius: 30px; width: 129px;"
+                 src="../static/images/Victorius_version_negro.svg" alt="" class="big-logo">
+        </div>{% endcomment %}
+
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <hr
+                        style="box-sizing: border-box; border: 1px solid #8B96AA; margin-top: 30px; margin-bottom: 20px; padding: 0">
+            </div>
+        </div>
+
+        <div class="col-xs-12"
+             style="color: #8B96AA; font-family: Roboto; font-size: 12px; line-height: 18px;">
+            <div class="col-xs-12">
+                Si tiene problemas para continuar contacte <a href="#" style="color: blue;text-decoration: underline;">soporte@victorius.com</a><br>
+                Victorius C.A Caracas, Venezuela
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div id="vic-tab-8" class=" tab-pane animated fadeIn   sin-paddign-col">
+    <div class="rectangle-5 col-xs-12 ">
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick="changeTabs(3);">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+			<span class="nav-rectangle-5"><span class="breadcrum-grey">
+				>Actividad >Planes > Forma de Pago > Datos de Pago ></span> Confirmación ></span>
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div class="col-xs-12 t destop"><img src="../static/images/prev.png"
+                                         class="blank-img  hvr-grow close-left" onclick="changeTabs(3);">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+    </div>
+    <div class="col-xs-12 cuerpo-tab">
+
+
+        <div
+                class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+                style="text-align: center;">
+
+            <div class="col-xs-12 diciplina-vic">SPINNING</div>
+            <div class="col-xs-12 user-vic">
+                <span><b>Daniel Iribarren</b>@diribarren</span> <span
+                    style="display: none;" class="usuariodecompra"></span>
+            </div>
+            <div class="col-xs-12 fecha-vic">
+                <span id="reservarhora"><b>Viernes, 14 de julio 07:00 PM</b></span>
+            </div>
+            <div class="col-xs-12 direccion-vic">La Castellana</div>
+
+            <div id="puestousuario" class="col-xs-12 col-md-offset-2 col-md-8 block-vic">
+            </div>
+
+            <div class="col-xs-12 atleta-vic">
+                <span>SELECCIONAR PUESTO</span>
+            </div>
+
+            <div class="col-xs-12" style="padding-top: 20px; text-align: left;">
+
+                <div class="col-sm-offset-2 col-sm-2 col-xs-offset-1 col-xs-3 ">
+                    <span class="puesto-button puesto-style-libre puesto-demo"></span><span
+                        class="puesto-demo-text">Libre</span>
+                </div>
+                <div class="col-xs-4 col-sm-3">
+                    <span class="puesto-button puesto-style-selec puesto-demo"></span><span
+                        class="puesto-demo-text"> seleccionado</span>
+                </div>
+                <div class="col-sm-5 col-xs-4">
+                    <span class="puesto-button puesto-style-ocupado puesto-demo"></span><span
+                        class="puesto-demo-text">No disponiblde</span>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 direccion-vic" style="padding-top: 20px;">
+                Puesto seleccionado: <span class="puesto-selec"
+                                           style="font-weight: bold; font-size: 22px;"></span>
+            </div>
+
+
+            <div class="col-xs-12 selector-puesto" style="padding-top: 10px;">
+
+            </div>
+
+            <div class="col-xs-12">
+
+                <hr>
+
+                <span class="col-xs-12 error-puesto">Por favor seleccione un
+					puesto.</span>
+
+                <div class="col-xs-4 col-xs-offset-8 ">
+
+                    <button
+                            class="btn-block  btn-black disabled hvr-shrink confirmar-puesto"
+                            style="float: right; font-size: 16px; font-weight: bold;">CONFIRMAR
+                    </button>
+
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <br> <br> <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- tabs agregar clase -->
+
+<div id="vic-tab-9" class=" tab-pane animated fadeIn  ">
+    <div class="rectangle-5 col-xs-12 destop">
+        <div class="col-xs-10 col-md-8 col-md-offset-3 block-5-vic">
+			<span class="nav-rectangle-5" style="margin-left: 5px;"><span class="breadcrum-grey"></span>
+				<span id="cambiar2">Agregar actividad</span> ></span>
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 destop"></div>
+    <div class="col-xs-12 t destop">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+    </div>
+      <div class="col-xs-12  hidden-sm hidden-md  hidden-lg">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="pull-right" onclick="changeTabs(2);">
+    </div>
+    <div class="col-xs-12 cuerpo-tab">
+
+        <div class=" col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 col-xs-12 vic-body  hidden-sm  hidden-md  hidden-lg"
+             style="text-align: center;">
+             
+             
+             <div class="m-t-10 text-center" style="font-size: 14px;">
+              CREAR ACTIVIDAD
+             </div>
+             <div style="font-size: 20px;font-weight: bold;">
+             Victorius A Center
+             </div>
+             
+             <br>
+             <div>
+             <i class="fas fa-exclamation fa-5x"></i>
+
+             </div>
+             
+             <div class="m-t-10" >
+             
+             
+             Actualmente la funcionalidad para crear <br>actividades esta solo disponible en dektop. 
+             </div>
+            
+
+</div>
+<div class=" col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 col-xs-12 vic-body hidden-xs"
+             style="text-align: center;">
+
+
+            <div class="col-xs-12 atleta-vic "
+                 style="margin-top: 60px; margin-bottom: 50px;">
+                <span id="cambio">Actividad</span>
+            </div>
+            <div
+                    class="col-xs-4  col-lg-3 block-2-vic panel-amarillo-clase panel-amarillo-clase-destop"
+                    style="font-size: 12px; text-align: left;">
+                {% include "tabs_clase_amarillo.html" %}
+            </div>
+
+
+
+
+            <div class="col-md-8 col-lg-9 col-xs-12">
+                <div class="col-xs-12"
+                     style="text-align: left; margin: 10px 0 0 0;">
+                    <label class="label-form-pago control-label"
+                           style="font-size: 20px;" onclick="fakeEmail();">Datos Generales</label> <i
+                        style="float: right;"
+                        class="fa fa-info-circle fa-2x movil info-clase"
+                        aria-hidden="true"></i>
+                </div>
+
+                <div class="col-xs-12" style="text-align: left; font-size: 12px;">
+
+                    <form id="formclase1" novalidate="true" data-toggle="validator">
+                        <input type="hidden" id="actividadPK" , name="actividadPK">
+                        <div class="form-group col-xs-12">
+                            <label for="anombre" class="label-form-pago control-label">NOMBRE DESCRIPTIVO</label>
+
+                            <input maxlength="30" autocomplete="off" id="anombre" name="anombre"
+                                   class="btn-block input-grey form-control bind" bind="formclase-nombre" type="text"
+                                   value=""
+                                   placeholder="Nombre" data-error="Campo requerido" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        {% if perfilMarca.marcaPermiteReferenciados %}
+                             <div class="form-group col-xs-12">
+                                <br>
+                                <label for="planReferenciado" class="label-form-pago control-label">Actividad
+                                        Referenciada</label>
+                                <div class="form-group " style="margin-bottom: 0">
+                                    <input id="planReferenciado" autocomplete="off" class=""
+                                           data-icon-checked="<b>&check;</b>" data-inline="true"
+                                           type="checkbox" data-toggle="checkbox-x"
+                                           data-three-state="false" data-size="xl" value="0" >
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="form-group col-xs-12">
+                            <label for="productosPermitidos" class="label-form-pago control-label">Planes
+                                Permitidos</label>
+                            <select id="productosPermitidos" name="productosPermitidos"
+                                    data-error="Campo requerido"
+                                    class="form-control btn-block input-grey" multiple>
+                                <option value="0" selected>Todos</option>
+                                {% with perfilMarca.marcaProductosVigentes as productos %}
+                                    {% for producto in productos %}
+                                        {% if producto.productoNombre != 'Referenciado' %}
+                                            <option value="{{ producto.productoId }}">{{ producto.productoNombre }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                            </select>
+                            <div class="help-block with-errors"></div>
+                            <br>
+                        </div>
+
+                        <div class="form-group col-xs-6 ">
+                            <label for="afecha" class="label-form-pago control-label">FECHA</label>
+                            <input autocomplete="off" id="afecha" name="afecha"
+                                   class="btn-block input-grey form-control bind fecha-d1" bind="formclase-fecha"
+                                   type="text" value=""
+
+                                   placeholder="DD/MM/YYYY" data-error="Campo requerido" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="col-xs-12 sin-paddign-cols">
+
+                            <div class="form-group col-xs-6">
+                                <label for="ahora_ini" class="label-form-pago control-label">HORA INICIO</label>
+                                <input autocomplete="off" id="ahora_ini" name="ahora_ini"
+                                       class="btn-block input-grey form-control bind fecha-h" bind="formclase-hin"
+                                       type="text" value="06:00 AM"
+
+                                       placeholder="MM:SS AM">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="ahora_fin" class="label-form-pago control-label">HORA FIN</label>
+                                <input autocomplete="off" id="ahora_fin" name="ahora_fin"
+                                       class="btn-block input-grey form-control bind fecha-h5" bind="formclase-hfn"
+                                       type="text" value="07:00 AM"
+
+                                       placeholder="MM:SS AM">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 sin-paddign-cols">
+                            <div class="form-group col-xs-6">
+                                <label id="lblBotonSerie" for="aBotonSerie" class="label-form-pago control-label">REPETIR</label>
+                                <input id="ac_actividadBaseSerieId" type="text" hidden>
+                                <div class="btn-group btn-toggle btn-toggle-rep"
+                                     style="margin-left: 2px; display: block;">
+                                    <div class="btn-group  btn-toggle" data-toggle="buttons" id="aBotonSerie">
+                                        <label class="btn btn-md btn-default-2 active"> <input
+                                                type="radio" value="Si" id="aOpcionSerie" name="aOpcionSerie">SI
+                                        </label>
+                                        <label class="btn btn-md btn-success"> <input
+                                                type="radio" value="No" checked id="aOpcionSerie" name="aOpcionSerie">NO
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-6 repetir-clase">
+                                <label for="repetirComo" class="label-form-pago control-label">REPETIR CADA</label>
+                                <select id="repetirComo" name="repetirComo"
+                                        data-error="Campo requerido"
+                                        class="form-control btn-block input-grey bind" bind="formclase-rp-cada">
+                                    <option value="">Seleccione</option>
+                                    <option value="LM">Lunes, Miercoles, Viernes</option>
+                                    <option value="MJ">Martes, Jueves</option>
+                                    <option value="LV">Lunes a Viernes</option>
+                                    <option value="DI">Diario</option>
+                                    <option value="SM">Selección de dias</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 sin-paddign-cols repetir-clase">
+                            <div class="form-group col-xs-12 animated In dias-repetir "
+                                 style="text-align: center;display:none">
+
+                                <table class=" table-compra" style="width: 90%; margin-left: 10%">
+                                    <colgroup>
+
+                                    </colgroup>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="slu" class="label-form-pago control-label"
+                                                       style="font-size: 16px;">L</label>
+                                                <input id="slu" autocomplete="off" class="serieSemana"
+                                                       data-icon-checked="<b>&check;</b>" data-inline="false"
+                                                       type="checkbox"
+                                                       dia="L" data-toggle="checkbox-x" data-three-state="false"
+                                                       data-size="xl">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="sma" class="label-form-pago control-label"
+                                                       style="font-size: 16px;">M</label>
+                                                <input id="sma" autocomplete="off" class="serieSemana"
+                                                       data-icon-checked="<b>&check;</b>" data-inline="false"
+                                                       type="checkbox"
+                                                       dia="M" data-toggle="checkbox-x" data-three-state="false"
+                                                       data-size="xl">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="smi" class="label-form-pago control-label"
+                                                       style="font-size: 16px;">M</label>
+                                                <input id="smi" autocomplete="off" class="serieSemana"
+                                                       name="serieSemana" data-icon-checked="<b>&check;</b>"
+                                                       data-inline="false" type="checkbox"
+                                                       dia="M" data-toggle="checkbox-x" data-three-state="false"
+                                                       data-size="xl">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="sju" class="label-form-pago control-label"
+                                                       style="font-size: 16px;">J</label>
+                                                <input id="sju" autocomplete="off" class="serieSemana"
+                                                       data-icon-checked="<b>&check;</b>" data-inline="false"
+                                                       type="checkbox"
+                                                       dia="J" data-toggle="checkbox-x" data-three-state="false"
+                                                       data-size="xl">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="svi" class="label-form-pago control-label"
+                                                       style="font-size: 16px;">V</label>
+                                                <input id="svi" autocomplete="off" class="serieSemana"
+                                                       data-icon-checked="<b>&check;</b>" data-inline="false"
+                                                       type="checkbox"
+                                                       dia="V" data-toggle="checkbox-x" data-three-state="false"
+                                                       data-size="xl">
+                                            </div>
+                                        </td>
+
+
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="ssa" class="label-form-pago control-label"
+                                                       style="font-size: 16px;">S</label>
+                                                <input id="ssa" autocomplete="off" class="serieSemana"
+                                                       data-icon-checked="<b>&check;</b>" data-inline="false"
+                                                       type="checkbox"
+                                                       dia="S" data-toggle="checkbox-x" data-three-state="false"
+                                                       data-size="xl">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="sdo" class="label-form-pago control-label"
+                                                       style="font-size: 16px;">D</label>
+                                                <input id="sdo" autocomplete="off" dia="D" class="serieSemana"
+                                                       data-icon-checked="<b>&check;</b>" data-inline="false"
+                                                       type="checkbox"
+                                                       data-toggle="checkbox-x" data-three-state="false"
+                                                       data-size="xl">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="col-xs-12 error-serie-semana"
+                                     style="color: #a94442;float: left;display: none;">Campo requerido
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-xs-12 sin-paddign-cols ">
+
+                                <div class="form-group col-xs-12  col-md-6" style="margin-bottom: 0">
+                                    <label for="nunca" class="label-form-pago control-label "
+                                           style="margin-bottom: 10px;">Termina</label>
+
+                                    <div class="form-group " style="margin-bottom: 0">
+                                        <input id="nunca" autocomplete="off" class="serieSemana"
+                                               data-icon-checked="<b>&check;</b>" data-inline="true"
+                                               type="checkbox" dia="L" data-toggle="checkbox-x"
+                                               data-three-state="false" data-size="xl" value="0">
+                                        <label for="nunca" class="label-form-pago control-label">Nunca</label>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 sin-paddign-cols " style="margin-bottom: 0">
+                                <div class="form-group col-xs-12 " style="margin-bottom: 0">
+                                    <div class="form-group" style="margin-bottom: 0">
+                                        <input id="despd" autocomplete="off" class="serieSemana"
+                                               data-icon-checked="<b>&check;</b>" data-inline="true"
+                                               type="checkbox" dia="L" data-toggle="checkbox-x"
+                                               data-three-state="false" data-size="xl" value="0"> <label
+                                            for="despd" class="label-form-pago control-label">Despues
+                                        de</label>
+
+                                        <input id="do"
+                                               style="display: inline-block;width: 70px;height: 35px;margin-top: 10px;margin-left: 5px;vertical-align: bottom;"
+                                               autocomplete="off" name="do"
+                                               class="btn-block input-grey form-control bind "
+                                               bind="formclase-serie-comienza" type="number" min="1" max="52" value="1"
+                                               placeholder="" data-error="Campo requerido">
+                                        <label for="do" class="label-form-pago control-label"> Ocurrencias</label>
+
+                                        <div class="help-block with-errors"></div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 sin-paddign-cols ">
+
+                                <div class="form-group col-xs-12 ">
+                                    <div class="form-group">
+                                        <input id="enf" autocomplete="off" class="serieSemana"
+                                               data-icon-checked="<b>&check;</b>" data-inline="true"
+                                               type="checkbox" dia="L" data-toggle="checkbox-x"
+                                               data-three-state="false" data-size="xl" value="0"> <label
+                                            for="inputName" class="label-form-pago control-label">En
+                                        fecha</label>
+                                        <input autocomplete="off" id="fdesp" name="fdesp"
+                                               class="btn-block input-grey form-control fecha-d1" type="text" value=""
+
+                                               placeholder="DD/MM/YYYY" data-error="Campo requerido"
+                                               style="display: inline-block;width: 170px;height: 35px;margin-top: 10px;margin-left: 20px;vertical-align: bottom;">
+
+
+                                    </div>
+                                    <div class="help-block with-errors" style="color: #a94442">
+                                        <ul class="list-unstyled">
+                                            <li class="rep-msj"></li>
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <label for="adescripcion" class="label-form-pago control-label">DESCRIPCION
+                                DE LA ACTIVIDAD</label>
+                            <textarea autocomplete="off" id="adescripcioncontenido"
+                                      name="adescripcioncontenido" class="btn-block input-grey form-control bind"
+                                      bind="formclase-descrip-clase" type="text" value=""
+                                      placeholder="Descripción" data-error="Campo requerido" required
+                                      rows="4"></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+
+                        <div class="col-xs-4 col-xs-offset-4 modi-option">
+
+                            <button id='fin001' type="submit" class="btn btn-block btn-black hvr-shrink"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="modi=true;finalizo=true;">
+                                FINALIZAR
+                            </button>
+
+                            <br>
+                        </div>
+                        <div class="col-xs-4 modi-option">
+
+                            <button id='cont002' type="submit" class="btn btn-block btn-black hvr-shrink modi-option"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="modi=true;finalizo=false;"
+                            >CONTINUAR
+                            </button>
+
+                            <br>
+                        </div>
+
+                        <div class="col-xs-4 col-xs-offset-8 agre-option "
+                             style="display: inline;">
+
+                            <button id='cont001' type="submit" class="btn btn-block btn-black hvr-shrink"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="modi=false;finalizo=false;"
+                            >CONTINUAR
+                            </button>
+
+                            <br>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <br> <br> <br>
+    </div>
+</div>
+
+
+<div id="vic-tab-10" class=" tab-pane animated fadeIn  ">
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick=" anteriorClase(2,9);">
+        </div>
+
+
+        <div class="col-xs-8 col-md-8 col-md-offset-3 block-5-vic">
+			<span class="nav-rectangle-5" style="margin-left: 5px;"><span class="breadcrum-grey"></span>
+				<span id="cambiar3">Agregar actividad</span> ></span>
+        </div>
+
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div class="col-xs-12 t destop">
+        <img src="../static/images/prev.png"
+             class="blank-img  hvr-grow close-left" onclick="anteriorClase(2,9);">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+
+    </div>
+    <div class="col-xs-12 cuerpo-tab">
+
+
+        <div class=" col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 col-xs-12 vic-body"
+             style="text-align: center;">
+
+
+            <div class="col-xs-12 atleta-vic "
+                 style="margin-top: 60px; margin-bottom: 50px;">
+                <span>Actividad</span>
+            </div>
+
+            <div
+                    class="col-xs-4  col-lg-3 block-2-vic panel-amarillo-clase panel-amarillo-clase-destop"
+                    style="font-size: 12px; text-align: left;">
+                {% include "tabs_clase_amarillo.html" %}
+            </div>
+
+            <div class="col-md-8 col-lg-9 col-xs-12">
+                <div class="col-xs-12"
+                     style="text-align: left; margin: 10px 0 0 0;">
+                    <label class="label-form-pago control-label"
+                           style="font-size: 20px;">Recursos</label> <i
+                        style="float: right;"
+                        class="fa fa-info-circle fa-2x movil info-clase"
+                        aria-hidden="true"></i>
+                </div>
+
+                <div class="col-xs-12" style="text-align: left; font-size: 12px;">
+
+                    <form id="formclase2" novalidate="true" data-toggle="validator">
+
+                        <div class="col-xs-12 sin-paddign-cols">
+
+
+                            <div class="form-group col-xs-12  col-md-6">
+                                <label for="categoria" class="label-form-pago control-label">categoría</label>
+                                <select id="acategoria" name="acategoria"
+
+                                        data-error="Campo requerido"
+                                        class="form-control btn-block input-grey  bind"
+                                        bind="formclase-categaria" required>
+                                    <option value="">Seleccione</option>
+                                    {% for disciplina in perfilMarca.marcaDisciplinasTodas %}
+                                        <option value="{{ disciplina.idDisciplina }}">{{ disciplina.nombreDisciplina }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group col-xs-12  col-md-6">
+                                <label for="aubicacion" class="label-form-pago control-label">Ubicación
+                                </label> <select id="aubicacion" name="aubicacion"
+                                                 data-error="Campo requerido"
+                                                 class="form-control btn-block input-grey  bind"
+                                                 bind="formclase-ubicacion" onclick="setearCapacidad(value);" required>
+                                <option value="">Seleccione</option>
+                                <option value="-1">Sin Asignar</option>
+                                {% for salon in perfilMarca.marcaSalones %}
+                                    {% if not salon.esReferenciado %}
+                                        <option id="sala{{ salon.idSalon }}" value="{{ salon.idSalon }}">{{ salon.nombreSalon }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 sin-paddign-cols"
+                             style="text-align: left; margin: 10px 0 5px 0;">
+                            <label class="label-form-pago control-label"
+                                   style="font-size: 20px;">Cupos</label>
+                        </div>
+
+
+                        <div class="col-xs-12 sin-paddign-cols">
+
+
+                            <div class="form-group col-xs-6 ">
+                                <label for="amin" class="label-form-pago control-label">Min
+                                </label> <select id="amin" name="amin"
+                                                 data-error="Campo requerido"
+                                                 class="form-control btn-block input-grey  bind"
+                                                 bind="formclase-cmin" required>
+                                <option value="">Seleccione</option>
+                                <option value="-1">Sin Asignar</option>
+
+                            </select>
+
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group col-xs-6  ">
+                                <label for="amax" class="label-form-pago control-label">Max
+                                </label> <select id="amax" name="amax"
+                                                 data-error="Campo requerido"
+                                                 class="form-control btn-block input-grey  bind"
+                                                 bind="formclase-cmax" required>
+                                <option value="">Seleccione</option>
+                                <option value="-1">Sin Asignar</option>
+                            </select>
+
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 sin-paddign-cols">
+
+                            <div class="form-group col-xs-12  col-md-6">
+                                <label for="aespera" class="label-form-pago control-label">LISTA DE ESPERA</label>
+                                <select id="aespera" name="aespera"
+                                        data-error="Campo requerido"
+                                        class="form-control btn-block input-grey  bind"
+                                        bind="formclase-list-esp" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="-1">Sin Asignar</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 sin-paddign-cols"
+                             style="text-align: left; margin: 10px 0 5px 0;">
+                            <label class="label-form-pago control-label"
+                                   style="font-size: 20px;">Consideraciones</label>
+                        </div>
+
+
+                        <div class="form-group col-xs-12 animated In dias-repetir"
+                             style="text-align:left">
+
+                            <div class="form-group col-xs-12  col-md-6 sin-paddign-cols">
+
+                                <label for="inputName" class="label-form-pago control-label">Dificultad :</label>
+                                <input class="bind" bind="formclase-dif" type="text" id="amount" readonly
+                                       style="border:0; color:#FFD301; font-weight:bold;font-size: 18px" value="1">
+
+                                <div id="slider-range-max"></div>
+                            </div>
+                            <div class="col-xs-12 error-serie-semana" style="color: #a94442;float: left;display: none;">
+                                Campo requerido
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12">
+                            <label for="inputName" class="label-form-pago control-label">Instrucciones</label>
+                            <textarea autocomplete="off" id="adescripcioninstrucciones" name="referencia"
+
+                                      class="btn-block input-grey form-control bind" bind="formclase-inst" type="text"
+                                      value=""
+                                      placeholder="Instrucciones" data-error="Campo requerido" required
+                                      rows="4"></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="col-xs-4 col-xs-offset-4 modi-option">
+
+                            <button type="submit" class="btn btn-block btn-black hvr-shrink"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="modi=true;finalizo=true;">FINALIZAR
+                            </button>
+
+                            <br>
+                        </div>
+                        <div class="col-xs-4 modi-option">
+
+                            <button type="submit" class="btn btn-block btn-black hvr-shrink"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="modi=true;finalizo=false;">CONTINUAR
+                            </button>
+
+                            <br>
+                        </div>
+
+                        <div class="col-xs-4 col-xs-offset-8 agre-option " style="display: inline;">
+
+                            <button type="submit" class="btn btn-block btn-black hvr-shrink"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="modi=false;finalizo=false;">CONTINUAR
+                            </button>
+
+                            <br>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <br> <br> <br>
+    </div>
+</div>
+
+
+<div id="vic-tab-11" class=" tab-pane animated fadeIn  ">
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick=" anteriorClase(3,10);">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+						<span class="nav-rectangle-5"><span class="breadcrum-grey"><span
+                                id="cambiar4">Agregar actividad</span></span></span>
+
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div class="col-xs-12 t destop">
+        <img src="../static/images/prev.png"
+             class="blank-img  hvr-grow close-left" onclick=" anteriorClase(3,10);">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+
+    </div>
+    <div class="col-xs-12 cuerpo-tab">
+
+        <div class=" col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 col-xs-12 vic-body"
+             style="text-align: center;">
+
+
+            <div class="col-xs-12 atleta-vic "
+                 style="margin-top: 60px; margin-bottom: 50px;">
+                <span>DETALLES DE LA CLASE</span>
+            </div>
+
+            <div
+                    class="col-xs-4  col-lg-3 block-2-vic panel-amarillo-clase panel-amarillo-clase-destop"
+                    style="font-size: 12px; text-align: left;">
+                {% include "tabs_clase_amarillo.html" %}
+            </div>
+
+            <div class="col-md-8 col-lg-9 col-xs-12">
+                <div class="col-xs-12"
+                     style="text-align: left; margin: 10px 0 0 0;">
+                    <label class="label-form-pago control-label"
+                           style="font-size: 20px;">Responsables</label> <i
+                        style="float: right;"
+                        class="fa fa-info-circle fa-2x movil info-clase"
+                        aria-hidden="true"></i>
+                </div>
+
+                <div class="col-xs-12" style="text-align: left; font-size: 12px;">
+
+                    <form id="formclase3" novalidate="true" data-toggle="validator">
+                        <div class="col-xs-12 sin-paddign-cols">
+
+                            <div class="form-group col-xs-12">
+                                <label for="inputName" class="label-form-pago control-label">Lider Respansable</label>
+                                <select id="ainstructor" name="ainstructor" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey bind" bind="formclase-lidrep" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="-1">Sin Asignar</option>
+                                    {% for instructor in perfilMarca.marcaInstructores %}
+                                        <option id="ins{{ instructor.idProfileInstructor }}"
+                                                value="{{ instructor.idProfileInstructor }}">{{ instructor.nombreInstructor }}&nbsp;&nbsp;@{{ instructor.aliasInstructor }}</option>
+                                    {% endfor %}
+
+                                </select>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div id="divInfoExtra">
+
+
+                                <div class="form-group col-xs-12 col-md-6">
+                                    <label for="inputName" class="label-form-pago control-label">Colaborador</label>
+                                    <select
+                                            id="acolaborador1" name="acolaborador1" data-error="Campo requerido"
+                                            class="form-control btn-block input-grey bind" bind="formclase-col1">
+                                        <option value="-1">Sin Asignar</option>
+                                        {% for instructor in perfilMarca.marcaInstructores %}
+                                            <option id="col1{{ instructor.idProfileInstructor }}"
+                                                    value="{{ instructor.idProfileInstructor }}">{{ instructor.nombreInstructor }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group  col-xs-12 col-md-6">
+                                    <label for="inputName" class="label-form-pago control-label">Colaborador</label>
+                                    <select
+                                            id="acolaborador2" name="acolaborador2" data-error="Campo requerido"
+                                            class="form-control btn-block input-grey bind" bind="formclase-col2">
+                                        <option value="-1">Sin Asignar</option>
+                                        {% for instructor in perfilMarca.marcaInstructores %}
+                                            <option id="col2{{ instructor.idProfileInstructor }}"
+                                                    value="{{ instructor.idProfileInstructor }}">{{ instructor.nombreInstructor }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+
+                                <div class="col-xs-12 sin-paddign-cols">
+
+                                    <div class="form-group col-xs-6">
+                                        <label for="inputName" class="label-form-pago control-label">Inversión
+                                            Instructor</label> <input autocomplete="off" id="ainversion"
+                                                                      name="ainversion"
+                                                                      class="btn-block input-grey form-control bind format-mount"
+                                                                      bind="formclase-invint" type="text"
+                                                                     value=""
+                                                                      placeholder="Monto" min="0">
+                                        <input type="hidden" id="invintAlterno"
+                                               class="btn-block input-grey form-control bind" bind="formclase-invint">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+
+                                    <div class="form-group col-xs-6">
+                                        <label for="inputName" class="label-form-pago control-label">COSTO EN
+                                            CREDITOS</label> <input autocomplete="off" id="acosto" name="acosto"
+                                                                    class="btn-block input-grey form-control bind"
+                                                                    bind="formclase-costo" type="number" value="1"
+                                                                    placeholder="#Crédito" data-error="Campo requerido"
+                                                                    min="1" max="10" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-xs-6">
+                                    <label for="inputName" class="label-form-pago control-label">Bonificación</label>
+                                    <input
+                                            autocomplete="off" id="abonificacion" name="abonificacion"
+                                            class="btn-block input-grey form-control bind format-mount" bind="formclase-bonif"
+                                            type="text "
+                                            value=""
+                                            placeholder="Monto" min="0">
+                                    <input type="hidden" id="bonifAlterno"
+                                           class="btn-block input-grey form-control bind "
+                                           bind="formclase-bonif">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-4 col-xs-offset-8">
+
+                            <button id="idbtnFinalizarCrearActividad" type="submit"
+                                    class="btn btn-block btn-black hvr-shrink vic-btn-finalizar"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="modi=true;finalizo=true;">FINALIZAR
+                            </button>
+                            <br>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <br> <br> <br>
+    </div>
+</div>
+
+
+<div id="vic-tab-12" class=" tab-pane animated fadeIn  ">
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick="serieback(9);">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+            <span class="nav-rectangle-5"><span class="breadcrum-grey">Agregar Actividad ></span> Repetición ></span>
+
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="serieback(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div class="col-xs-12 t destop">
+        <img src="../static/images/prev.png"
+             class="blank-img  hvr-grow close-left" onclick="serieback(9);">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="serieback(2);">
+
+
+    </div>
+
+    <div class="col-xs-12 cuerpo-tab">
+
+
+        <div class=" col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 col-xs-12 vic-body"
+             style="text-align: center;">
+
+
+            <div class="col-xs-12 atleta-vic "
+                 style="margin-top: 60px; margin-bottom: 50px;">
+                <span>REPETICION</span>
+            </div>
+
+            <div
+                    class="col-xs-4  col-lg-3 block-2-vic panel-amarillo-clase panel-amarillo-clase-destop"
+                    style="font-size: 12px; text-align: left;">
+                {% include "tabs_clase_amarillo.html" %}
+            </div>
+
+            <div class="col-md-8 col-lg-9 col-xs-12">
+                <div class="col-xs-12">
+                    <i style="float: right;" class="fa fa-info-circle fa-2x movil info-clase" aria-hidden="true"></i>
+                </div>
+
+                <div class="col-xs-12" style="text-align: left; font-size: 12px;">
+
+                    <form id="formclase4" novalidate="true">
+                        <div class="col-xs-12 sin-paddign-cols">
+
+
+                            <div class="form-group col-xs-6">
+                                <label for="inputName" class="label-form-pago control-label">REPETIR CADA</label>
+                                <select id="brepetir_cada" name="banco"
+                                        data-error="Campo requerido"
+                                        class="form-control btn-block input-grey  bind"
+                                        bind="formclase-serie-cada" required>
+                                    <option value="">Seleccione</option>
+                                    <option value="20">4</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 sin-paddign-cols">
+
+                            <div class="form-group col-xs-6">
+                                <label for="inputName" class="label-form-pago control-label">COMIENZA</label><input
+                                    id="comienzad" autocomplete="off" name="referencia"
+                                    class="btn-block input-grey form-control bind  fecha-d2"
+                                    bind="formclase-serie-comienza" type="text" value=""
+                                    placeholder="DD/MM/YYYY" data-error="Campo requerido" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label for="inputName" class="label-form-pago control-label">TERMINA</label> <input
+                                    id="terminafechad" autocomplete="off" name="referencia"
+                                    class="btn-block input-grey form-control bind  fecha-d3"
+                                    bind="formclase-serie-termina" type="text" value=""
+                                    placeholder="DD/MM/YYYY" data-error="Campo requerido" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4 col-xs-offset-8 formclase-ct-11">
+
+                            <button class="btn-block  btn-black disabled hvr-shrink"
+                                    style="float: right; font-size: 16px; font-weight: bold;"
+                                    onclick="serie=true;return conSerie(4)">CONTINUAR
+                            </button>
+                            <br>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12"><br> <br> <br>
+    </div>
+</div>
+
+
+<!-- tabs  agregar clase -->
+
+
+<div id="vic-tab-nuevoAtleta" class=" tab-pane animated fadeIn  ">
+
+    <!-- tabs_entrenador-calendario.html (vic-tab-nuevoAtleta)
+        Aqui se agrega un atleta desde la marca
+    -->
+
+    <div class="rectangle-5 col-xs-12 ">
+
+        <div class="col-xs-2 col-lg-3">
+            <img src="../static/images/prev.png"
+                 class="blank-img  hvr-grow close-left-xs" onclick="changeTabs(3);">
+        </div>
+
+        <div class="col-xs-8 col-lg-7 block-5-vic">
+            <span class="nav-rectangle-5"><span class="breadcrum-grey"><span id="titulo5">Actividad ></span></span> Agregar atleta ></span>
+        </div>
+        <div class="col-xs-2">
+            <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+                 class="blank-img  hvr-grow close-right-xs" onclick="changeTabs(2);">
+
+        </div>
+    </div>
+    <div class="rectangle-copy col-xs-12 "></div>
+    <div id="volverclases2" class="col-xs-12 t destop">
+
+        <img src="../static/images/prev.png"
+             class="blank-img  hvr-grow close-left" onclick="changeTabs(3);">
+    </div>
+    <div class="col-xs-12 t destop">
+        <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+             class="blank-img  hvr-grow close-right" onclick="changeTabs(2);">
+    </div>
+
+    <div class="col-xs-12 cuerpo-tab">
+
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 col-xs-12 vic-body"
+             style="text-align: center;">
+
+            <div id="detailclases-agregar">
+            </div>
+
+            <div class="col-xs-12 atleta-vic" style="text-align: center;">
+                <span><div id="divIdAtletaInstructorTabs">AGREGAR ATLETA</div></span>
+                <div class="label-form-pago control-label" style="text-align: center;">
+                    <br>
+                    <div id="divIdAtletaInstructorNota"></div>
+                    <br>
+                </div>
+            </div>
+
+
+            <div class="col-md-10 col-md-offset-1 col-xs-12" style="text-align: left;">
+                <form id="formNuevoAtleta" data-toggle="validator">
+                    <div class="form-group col-xs-12">
+                        <label for="inputName" class="label-form-pago control-label">Correo Electrónico</label>
+
+                        <input autocomplete="off" name="username" id="r-correo" data-correoOK="correoOK"
+                               class="btn-block input-grey form-control" type="email"
+                               value="" placeholder="Correo Electrónico"
+                               data-error="Correo Invalido" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group  col-xs-12">
+                        <label for="inputName" class="label-form-pago control-label">Nombre</label>
+
+                        <input autocomplete="off" name="first_name" id="r-nombre"
+                               placeholder="Nombre" data-error="Campo requerido"
+                               class="btn-block input-grey form-control" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label for="inputName" class="label-form-pago control-label">Apellido</label>
+
+                        <input autocomplete="off" name="last_name" id="r-apellido"
+
+                               class="btn-block input-grey form-control" type="text" value=""
+                               placeholder="Apellido" data-error="Campo requerido" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="col-xs-12 sin-paddign-cols">
+
+                        <div class="form-group col-xs-12  col-md-6" hidden>
+                            <label for="inputName" class="label-form-pago control-label">Alias</label>
+
+                            <input autocomplete="off" name="alias" id="r-alias"
+
+                                   class="btn-block input-grey form-control" type="text" value=""
+                                   placeholder="Alias" readonly>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+
+                        <div class="form-group col-xs-12  col-md-6">
+                            <label for="inputName" class="label-form-pago control-label">Teléfono</label>
+
+                            <input autocomplete="off" name="phone" id="r-telefono"
+
+                                   class="btn-block input-grey form-control" type="text"
+                                   value="" placeholder="Teléfono" data-error="Campo requerido"
+                                   required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 sin-paddign-cols">
+                        <div class="form-group col-xs-4">
+                            <div class="checkbox">
+                                <input id="chkInstructor" name="chkInstructor" type="checkbox">Autorizar como instructor
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-4 col-xs-offset-4 ">
+
+                            <input type="hidden" id="r-flagUsuarioExistente" value="">
+
+                            <button type="submit" id="botonAgregar" class="btn btn-block btn-black hvr-shrink"
+                                    style="float: left; font-size: 16px; font-weight: bold; text-align: center"
+                                    onclick="return validarNuevoAtleta();">AGREGAR
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-xs-12">
+                <br> <br> <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12 block-2-vic panel-amarillo-clase animated  panel-amarillo-clase-movil panel-amarillo-clase-movil-d1"
+     style="position: fixed; top: 0; left: 0;height: 100%;font-size: 12px; text-align: left;z-index: 99999;height: 100%;width: 300px;overflow: auto;">
+    {% include "tabs_clase_amarillo.html" %}
+
+</div>
+<div class="col-xs-12  animated panel-amarillo-clase-movil panel-amarillo-clase-movil-close panel-amarillo-clase-movil-d2"
+     style="z-index:9990; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.45);">
+</div>
+
+<!-- tabs fin agregar clase -->
+
+
+<div id="vic-tab-conflictos" class=" tab-pane animated fadeIn  ">
+
+    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+         class="blank-img  hvr-grow " onclick="changeTabs(2);location.reload();">
+    <div class="container">
+
+        <div class="m-t-35" style="font-size: 16px;font-weight: 500">Confictos en la modificación de la actividad</div>
+        <hrctualizi></hrctualizi>
+    </div>
+
+</div>
+
+
+<div id="vic-tab-plan-new" class=" tab-pane animated fadeIn  ">
+ <div class="container">
+
+    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+         class="blank-img  hvr-grow " onclick="changeTabs(2);">
+        <div class="section-tab-plan-new">
+
+        </div>
+
+    </div>
+    </div>
+    
+    
+<div id="vic-tab-ayudaMarca" class=" tab-pane animated fadeIn  ">
+ <div class="container text-center">
+    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+         class="blank-img  hvr-grow " onclick="changeTabs(2);">
+         <br><br><br>
+         
+           <i class="fa fa-bolt fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+         <div class=" vic-calendar-title">Ayuda en la configuración de tu cuenta personal  </div>
+          <br><br>
+            
+             <div class="vic-calendar-sub-title-header vic-tex-inic box-msn">
+                         
+           <b>¿Qué son los centros?</b> <br><br>
+               
+
+Los planes son los tipos de suscripción que tus atletas contratan para poder registrarse y asistir tus clases. Crear tus planes bajo modalidad por creditos o uso ilimitado. 
+
+¿Qué son las actividades referenciadas?
+
+Son los espacios donde tus clases tendran luegar. Es necesario definir al menos una luego puedes agregar otras. 
+
+
+
+               <br> <br><b>¿Qué con los planes?</b> <br><br>
+
+
+Son las personas responsables del liderazgo de cada clase. Ya cuentas con un usuario que eres tu mismo el cual puedes promover a rol de instructor o crear otro y promoverlo a instructor. 
+
+
+
+               <br> <br><b>¿Cuales son los tipos de actividades?</b> <br><br>
+
+
+Para poder hacer el seguimiento y control de los pagos asociados a la venta de tus planes de suscripción que tus atletas adquieren para poder registrarse y participar de tus clases es necesario que configures el banco y la cuenta bancaria para el control y seguimiento de la conciliación bancaria. 
+
+Políticas e información adicional de las actividades
+
+Son las clases que estarás publicando en tu calendario de actividades para que tus atletas puedan registrarse para participar. 
+
+
+               <br> <br><b>¿Cómo contrato los planes?</b> <br><br>
+
+
+Para poder hacer el seguimiento y control de los pagos asociados a la venta de tus planes de suscripción que tus atletas adquieren para poder registrarse y participar de tus clases es necesario que configures el banco y la cuenta bancaria para el control y seguimiento de la conciliación bancaria. 
+              </div>
+            
+         
+     
+</div>
+</div>
+
+<div id="vic-tab-proximas" class=" tab-pane animated fadeIn  ">
+ <div class="container">
+
+    <img src="http://{{ request.META.HTTP_HOST }}/static/images/close.png"
+         class="blank-img  hvr-grow " onclick="changeTabs(2);">
+     
+<div class="text-center">
+
+	<div class="vic-circle-calendar-carrusel  selected"
+		style="display: table; margin: auto; margin-top: 60px;">
+		<div
+			style="font-size: 18px; font-weight: medium; display: table-cell; vertical-align: middle;">
+			VAC</div>
+	</div>
+
+	<div class="vic-perfil-atl-inst-sub-title "
+		style="margin-top: 10px; text-align: center; font-size: 18px;">
+		Victorius A Center</div>
+		
+		
+		<br><br>
+		<div class="vic-table-perf-atle-title text-center">Esta actividad esta planificada para el próximo</div>
+		<div id="idDivFechaTabProximas_1">Martes 03, de Septiembre.</div>
+		<br>
+		<div class="vic-table-perf-atle-title  text-center">Aún no acepta reservaciones. </div>
+		<br>
+		<div>Las reservas abrén el </div>
+		<div id="idDivFechaTabProximas_2" class="vic-table-perf-atle-title  text-center" style="margin-top: 0">Martes 26, de Septiembre a las 4:30 pm</div>
+		<div id="idDivTiempoFaltanteTabProximas">(Faltan 7 días)</div>
+		
+		
+		
+		
+		</div>
+</div>
+</div>
+    
+ 
+
+<script type="text/javascript">
+
+
+    var desde = false;
+
+    $("#amax").prop('disabled', true);
+    $("#amin").prop('disabled', true);
+    $("#aespera").prop('disabled', true);
+
+    for (i = 1; i <= 4; i++) {
+        $("#acredito").append("<option value='" + i + "'>" + i + "</option>");
+        $("#brepetir_cada").append("<option value='" + i + "'>" + i + "</option>");
+    }
+
+
+    $('#formclase1').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+        } else {
+            if (modi == true && finalizo == true) {
+                return crearactividad();
+            } else {
+                return siguienteClase(1, 10);
+            }
+        }
+    })
+    $('#formclase2').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+        } else {
+            if (modi == true && finalizo == true) {
+                return crearactividad();
+            } else {
+                return siguienteClase(2, 11);
+            }
+        }
+    })
+
+    $('#formclase3').validator().on('submit', function (e) {
+
+        if (e.isDefaultPrevented()) {
+        } else {
+            if (modi == true && finalizo == true) {
+                return crearactividad();
+
+            }
+        }
+    })
+
+
+</script>

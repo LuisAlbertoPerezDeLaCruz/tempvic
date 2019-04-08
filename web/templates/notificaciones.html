@@ -1,0 +1,256 @@
+<!-- notificaciones.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load filtrosEspeciales %}
+    {% include "head.html" %}
+
+
+    <style type="text/css">
+        .vic-hr {
+
+            margin-left: inherit;
+            margin-right: inherit;
+        }
+    </style>
+
+    {% load static %}
+    <script src="{% static 'js/notificaciones.js' %}"></script>
+
+</head>
+
+<body>
+{% include "header.html" %}
+{% include "scriptsActividades.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+
+
+
+<link rel="stylesheet" type="text/css"
+      href="../static/css/nuevo_calendario.css"/>
+
+
+<input type="hidden" id="fechaInicialVigentes" value="{{ fechaInicio }}">
+<input type="hidden" id="fechaFinalVigentes" value="{{ fechaFinalizacion }}">
+
+
+<div id="vic-tab-2" class="tab-pane in active">
+
+
+    <div class="container">
+        <div class=" col-sm-offset-1 col-sm-10">
+
+            <div class="vic-noti-title">Notificaciones</div>
+
+        </div>
+        <div class=" col-sm-offset-1 col-sm-10">
+
+{% comment %}            <div class="vic-perfil-atl-inst-sub-title "
+                 style="margin-bottom: 32px;border-bottom: 0.5px solid #777;padding-bottom: 15px;">
+
+                <div class="">
+
+                    <div id="tabPendientes" class="menu-tab-calendar active" style="margin-right: 10px;">PENDIENTES
+                    </div>
+                    <div id="tabRecientes" class="menu-tab-calendar  ">RECIENTES</div>
+
+                </div>
+            </div>{% endcomment %}
+
+
+            <div id="idDivPpal" style="display: unset">
+                {% if notificacionesPendientes %}
+
+                    {% for notificacion in notificacionesPendientes %}
+
+
+                        <div class="vic-hr gris-oscuro">
+                            <table class=" table-compra tc t-consumen" border="0"
+                                   style="vertical-align: middle;">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="flex-container vic-noti">
+                                            <div class="vic-noti-c1 vic-noti-table-title"><i class="far fa-flag blink_me" style="margin-right: 10px"></i>{{ notificacion.descripcion }}</div>
+                                            <div class="vic-noti-c3 vic-noti-table-descripcion">{{ notificacion.textoNotificacion }}
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    {% if notificacion.acciones.aceptar %}
+                                        <td title="Aceptar" class=""
+                                            onclick="llamarFuncion({{ notificacion.callbackAceptar }},{{ notificacion.funcionAceptar }})">
+                                            <button style="float: right;"
+                                                    id="idAceptar-{{ notificacion.notificacionId }}"
+                                                    class="btn btn-group btn-default btn-xs reservar-active ">
+                                                Aceptar
+                                            </button>
+                                        </td>
+                                        
+                                        {% else %}
+                                        
+                                          <td style="width:60px;font-size: 12px;color: #777">
+                                            <div class="vic-noti-c2 vic-noti-table-hora">{{ notificacion.tiempoEmitida }}</div>
+                                        </td>                                     
+                                        
+                                    {% endif %}
+
+                                    <td>
+                                        &nbsp;
+                                        &nbsp;
+                                    </td>
+
+                                    {% if notificacion.acciones.rechazar %}
+                                        <td title="Eliminar" class=""
+                                            onclick="llamarFuncion({{ notificacion.callbackRechazar }},{{ notificacion.funcionRechazar }})">
+                                            <button style="float: right;"
+                                                    id="idRechazar-{{ notificacion.notificacionId }}"
+                                                    class="btn btn-group btn-default btn-xs reservar-active ">
+                                                Eliminar
+                                            </button>
+                                        </td>
+                                    {% endif %}
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    {% endfor %}
+                {% else %}
+{% comment %}
+                    <div>
+                        <div class="columns" style="text-align: center; padding-top: 10px;">
+
+
+                            <div class="row">
+
+                                <div class="text-center col-xs-12 ">
+                                    <br>
+                                    <i class="fa fa-moon fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                                    <div class=" vic-calendar-title">No tienes notificaciones pendientes.</div>
+                                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                                        Cuando tenga notificaciones por accionar podrás verlas aquí
+                                        <br class="md-movil">
+                                    </div>
+                                    <br>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>{% endcomment %}
+                {% endif %}
+
+            </div>
+
+            <div id="idDivSec_notif" style="display: unset">
+                {% if notificacionesRecientes %}
+
+                    {% for notificacion in notificacionesRecientes %}
+
+
+                        <div class="vic-hr gris-oscuro">
+                            <table class=" table-compra tc t-consumen" border="0"
+                                   style="vertical-align: middle;">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="flex-container vic-noti">
+                                            <div class="vic-noti-c1 vic-noti-table-title">
+
+                                             {{ notificacion.descripcion }}</div>
+                                            <div class="vic-noti-c3 vic-noti-table-descripcion">{{ notificacion.textoNotificacion }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td style="width:60px;font-size: 12px;color: #777">
+                                      <div class="vic-noti-c2 vic-noti-table-hora">{{ notificacion.tiempoEmitida }}</div>
+
+                                        <div class="vic-atleta-c6">
+                                            <div class="pull-right ">
+                                                {{ notificacion.estado }}
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                    {% endfor %}
+
+                {% elif not notificacionesPendientes %}
+
+                    <div>
+                        <div class="columns" style="text-align: center; padding-top: 10px;">
+
+
+                            <div class="row">
+
+                                <div class="text-center col-xs-12 ">
+                                    <br>
+                                    <i class="fa fa-moon fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+                                    <div class=" vic-calendar-title">No tienes notificaciones recientes.</div>
+                                    <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                                        Cuando tenga notificaciones podrás verlas aquí
+                                        <br class="md-movil">
+                                    </div>
+                                    <br>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+        {% include "fin-content-tabs.html" %} 
+        {% include "footer.html" %}
+
+<script>
+    $('#tabPendientes').click(function () {
+        $('#idDivSec_notif').hide();
+        $('#idDivPpal').show();
+        $('#tabRecientes').removeClass('active');
+        $('#tabPendientes').addClass('active');
+    });
+
+    $('#tabRecientes').click(function () {
+        $('#idDivPpal').hide();
+        $('#idDivSec_notif').show();
+        $('#tabRecientes').addClass('active');
+        $('#tabPendientes').removeClass('active');
+    });
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,488 @@
+<!-- calendario-marca-mensajes.html -->
+
+{% extends 'calendario-marca-controles.html' %}>
+{% include '' %}
+{% block mensajes %}
+
+<script type="text/javascript">
+<!--
+
+//-->
+
+$(document).ready(function () {
+
+
+    $('.section-1').hide('0');
+    
+    $('div.expandable').expander({
+       
+    	afterExpand: function() {
+ 		   $(this).find($('span.details')).css('display','inline');
+ 		},
+    	slicePoint: 300, // si eliminamos por defecto es 100 caracteres
+        expandText: '[...]', // por defecto es 'read more...'
+        //collapseTimer: 5000, // tiempo de para cerrar la expanción si desea poner 0 para no cerrar
+        userCollapseText: ' [^]' // por defecto es 'read less...',
+        	
+      });
+});
+
+function changeSections(num){
+
+	if(num == 1){
+		
+
+		$(".btn-steps-configurar").attr("href","planes");
+	}
+	
+if(num == 2){
+		
+
+		$(".btn-steps-configurar").attr("href","cuentas");
+	}
+	
+if(num == 3){
+	
+
+	$(".btn-steps-configurar").attr("href","salas");
+}
+
+
+if(num == 4){
+	
+
+	$(".btn-steps-configurar").attr("href","instructores");
+}
+
+if(num == 5){
+	
+
+	$(".btn-steps-configurar").attr("href","calendario-marca");
+}
+	
+	
+	
+	
+	  $('.sectionSteps').hide(0,function(){
+		  $('.sectionSteps-'+num).show(0);
+	  });
+	
+}
+
+</script>
+
+    {% if not actividadesTodas %}
+
+        {% with perfilMarca.marcaProductosVigentes as marcaPlanes %}
+
+            {% with perfilMarca.marcaSalones as marcaSalones %}
+            
+            <!--  
+            {{ perfilMarca.marcaEstadoConfiguracion }}
+            -->
+                        <div class="w-100 text-center">
+            
+            
+             <br><br>
+            <div class="sectionSteps sectionSteps-1 animated fadeIn w-100">
+            
+            
+          
+                 <i class="fa fa-bolt fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+         <div class=" vic-calendar-title">Bienvenido {{ perfilMarca.marcaNombre }} </div>
+         <br>
+         
+          
+             <div class="vic-calendar-sub-title-header vic-tex-inic ">Antes de empezar configura tu perfil de negocios</div>	
+          
+            <br>
+              <div class="vic-calendar-sub-title-header vic-tex-inic ">Paso 1</div>
+                            <div class="vic-calendar-sub-title-header vic-tex-inic "><b>Configurar tus planes y servicios </b></div>
+              
+        
+          
+        
+            </div>
+            <div class="sectionSteps sectionSteps-2 animated fadeIn w-100" style="display: none;">
+            
+            <div class="vic-calendar-sub-title-header vic-tex-inic ">Paso 2</div>	
+                            <div class="vic-calendar-sub-title-header vic-tex-inic "><b>Configurar tus cuentas bancarias </b></div>	
+              
+            </div>
+            
+            <div class="sectionSteps sectionSteps-3 animated fadeIn w-100" style="display: none;">
+            
+            <div class="vic-calendar-sub-title-header vic-tex-inic ">Paso 3</div>	
+                            <div class="vic-calendar-sub-title-header vic-tex-inic "><b>Configurar tus salas </b></div>	
+              
+            </div>
+            
+            <div class="sectionSteps sectionSteps-4 animated fadeIn w-100" style="display: none;">
+            
+            <div class="vic-calendar-sub-title-header vic-tex-inic ">Paso 4</div>	
+                            <div class="vic-calendar-sub-title-header vic-tex-inic "><b> Configura tus instructores </b></div>	
+              
+            </div>
+            
+            <div class="sectionSteps sectionSteps-5 animated fadeIn w-100" style="display: none;">
+            
+            <div class="vic-calendar-sub-title-header vic-tex-inic ">Paso 5</div>	
+                            <div class="vic-calendar-sub-title-header vic-tex-inic "><b>Configura tus actividades y entrenamientos </b></div>	
+              
+            </div>
+            
+             <!-- steps -->
+             <br><br>
+       <div class="  destop-md  w-100">
+             
+          <div class="flex-container-msn msn  h-100">          
+
+		<div class="vic-c1">
+		
+			<a  href="javascript:void(0);" onclick="changeSections(1)">
+			
+			 <span
+				class="vic-black  badge "> 1
+				
+				 {% if perfilMarca.marcaTiene.planes %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+
+				
+				</span>
+				<br >
+				<div  class="text-breadcon">
+				
+					 <b>Configurar tus planes y servicios</b>
+			 
+				 </div>
+				
+			</a>
+			
+		</div>
+		
+		<div class="vic-c2">
+			<a  href="javascript:void(0);"  onclick="changeSections(2)" >
+				<span
+				class="vic-black  badge " > 2 
+				
+				 {% if perfilMarca.marcaTiene.cuentas %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+				
+				
+				</span>
+				
+				<div  class="text-breadcon">
+				
+					 <b>Configurar tus cuentas bancarias</b>
+			 
+				</div>
+			</a>
+			
+		</div>
+		
+		<div class="vic-c3">
+			<a  href="javascript:void(0);"  onclick="changeSections(3)" >
+				 <span
+				class="vic-black  badge "> 3 
+				
+				 {% if perfilMarca.marcaTiene.salas %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+                 
+                 </span>
+				<br >
+				
+				<div  class="text-breadcon">
+				
+					 <b>Configurar tus salas</b>
+			 
+				</div>
+			</a>
+			
+		</div>
+		
+		<div class="vic-c4">
+						<a  href="javascript:void(0);"  onclick="changeSections(4)" >
+			
+<span
+				class="vic-black  badge "> 4
+				
+				 {% if perfilMarca.marcaTiene.instructores %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+                  </span>
+				<br >
+				
+				<div  class="text-breadcon">
+				
+					 <b> Configura tus instructores</b>
+			 
+				</div>	
+				</a>		
+		</div>
+		
+		<div class="vic-c5">
+					<a  href="javascript:void(0);"  onclick="changeSections(5)" >
+		
+				<span
+				class="vic-black  badge "> 5
+				
+					 {% if perfilMarca.marcaTiene.actividades %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+				 </span>
+				<br >
+				
+				<div  class="text-breadcon">
+				
+					 <b>Configura tus actividades y entrenamientos</b>
+			 
+				</div>
+			</a>
+		</div>
+		</div>
+	</div>
+
+
+             
+              <!-- Fin steps -->
+            
+
+            <div class="sectionSteps sectionSteps-1 animated fadeIn w-100">
+            
+            <div class=" movil-md w-100">
+             <div class="flex-container-msn msn  h-100  ">          
+
+		<div class="vic-c1">
+		
+			<a  href="javascript:void(0);" onclick="changeSections(1)">
+			
+			 <span
+				class="vic-black  badge "> 1 
+				
+				 {% if perfilMarca.marcaTiene.planes %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+
+				
+				</span>
+				<br >
+				<div  class="text-breadcon">
+				
+					 <b>Configurar tus planes y servicios</b>
+			 
+				 </div>
+				
+			</a>
+			
+		</div>
+		</div>
+              </div>
+               <br><br>
+            
+             <div class="expandable vic-calendar-sub-title-header vic-tex-inic box-msn">
+                         
+                <b>Pro Tip:</b>  Ya cuentas con un Plan Referenciado según indicaste en tu configuración. Los planes referenciados le permiten a tu negocio crear actividades en las que tus usuarios pueden reservarse sin necesidad de adquirir un plan. Esto es útil para aquellos casos donde el cobro por tus servicios no esta departe de tu negocio.<br><br> 
+
+Para hacer uso de los planes referenciados debes crear salas referenciadas que hacen referencia a la locación. <br><br> 
+
+Puedes agregar los planes que utilizas para comercializar tus actividades y servicios con tus usuarios o puedes continuar continuar y hacerlo luego, pero te recomendamos que crees al menos un plan comercial, por ejemplo “10 pases TRX”.
+                         
+                  
+              </div>
+            
+            
+              </div>
+              
+       <div class="sectionSteps sectionSteps-2 animated fadeIn w-100" style="display: none;">
+              
+                <div class=" movil-md w-100">
+             <div class="flex-container-msn msn  h-100  ">          
+
+		<div class="vic-c2">
+			<a  href="javascript:void(0);"  onclick="changeSections(2)" >
+				<span
+				class="vic-black  badge " > 2 
+				
+				 {% if perfilMarca.marcaTiene.cuentas %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+				
+				
+				</span>
+				<br>
+				<div  class="text-breadcon">
+				
+					 <b>Configurar tus cuentas bancarias</b>
+			 
+				</div>
+			</a>
+			
+		</div>
+		</div>
+              </div>
+               <br><br>
+            
+             <div class="expandable vic-calendar-sub-title-header vic-tex-inic box-msn">
+                      
+                                      <b>Pro Tip:</b>  A través la configuración de tus cuentas bancarias podrás llevar un control riguroso de las ventas  de los planes, el consumo y su vigencia. Cada vez que registras una venta de un plan a tus atletas esa venta debe estar asociada a una forma de pago en la cuenta bancaria que configures. 
+                      
+             </div>
+             
+             
+            
+            
+              </div>
+              
+              
+               <div class="sectionSteps sectionSteps-3 animated fadeIn w-100" style="display: none;">
+              
+              
+                 <div class=" movil-md w-100">
+             <div class="flex-container-msn msn  h-100  ">          
+<div class="vic-c3">
+			<a  href="javascript:void(0);"  onclick="changeSections(3)" >
+				 <span
+				class="vic-black  badge "> 3 
+				
+				 {% if perfilMarca.marcaTiene.salas %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+                 
+                 </span>
+				<br >
+				
+				<div  class="text-breadcon">
+				
+					 <b>Configurar tus salas</b>
+			 
+				</div>
+			</a>
+			
+		</div>
+              </div>
+              </div>
+               <br><br>
+            
+             <div class="expandable  vic-calendar-sub-title-header vic-tex-inic box-msn">
+                  
+                  
+                    <b>Pro Tip:</b> 
+                    
+                     A través la configuración de tus salas podrás especificarle a tus atletas la locación de la actividad. Tus salas suelen ser un nombre amigable el cual tus atletas reconozcan o puedan relacionarse, por ejemplo Salon VIP, Sala de Spinning, Zona 1, etc.                       
+              </div>
+            
+            
+              </div>
+              
+              
+               <div class="sectionSteps sectionSteps-4 animated fadeIn w-100" style="display: none;">
+              
+              
+                 <div class=" movil-md w-100">
+             <div class="flex-container-msn msn  h-100  ">        
+              
+              <div class="vic-c4">
+						<a  href="javascript:void(0);"  onclick="changeSections(4)" >
+			
+<span
+				class="vic-black  badge "> 4
+				
+				 {% if perfilMarca.marcaTiene.instructores %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+                  </span>
+				<br >
+				
+				<div  class="text-breadcon">
+				
+					 <b> Configura tus instructores</b>
+			 
+				</div>	
+				</a>		
+		</div>
+		</div></div>
+		
+               <br><br>
+            
+             <div class="expandable  vic-calendar-sub-title-header vic-tex-inic box-msn">
+                      
+                                          <b>Pro Tip:</b>  A través la configuración de tus instructores podrás autorizar a un contacto atleta para que desempeñe el rol de instructor. Los instructores son necesarios para poder crear actividades de entrenamiento y asignarlos como líderes responsables de cada una. 
+              </div>
+            
+            
+              </div>
+              
+              
+               <div class="sectionSteps sectionSteps-5 animated fadeIn w-100" style="display: none;">
+              
+               <div class=" movil-md w-100">
+             <div class="flex-container-msn msn  h-100  ">          
+		<div class="vic-c5">
+					<a  href="javascript:void(0);"  onclick="changeSections(5)" >
+		
+				<span
+				class="vic-black  badge "> 5
+				
+					 {% if perfilMarca.marcaTiene.actividades %}
+				 <i class="fa fa-check vic-icon-line-time" aria-hidden="true"></i>
+
+                 {% endif %}
+				 </span>
+				<br >
+				
+				<div  class="text-breadcon">
+				
+					 <b>Configura tus actividades y entrenamientos</b>
+			 
+				</div>
+			</a>
+		</div>
+              </div>
+              </div>
+               <br><br>
+            
+             <div class="expandable  vic-calendar-sub-title-header vic-tex-inic box-msn">
+                      
+                                          <b>Pro Tip:</b>  A través de tus actividades podrás defnir tu calendario que estará disponible para que tus atletas puedan optr por reservarse o que tu puedas reservarlos desde tu consola de gestión de negocio. Las actividades requieren de los parámetros de forma de cobro (planes que acepta esa actividad), instructores, fecha y hora, si es una serie, cupos así como también otras reglas de negocio. 
+              </div>
+            
+            
+              </div>
+              
+              
+ 
+        <br><br>  <a  href="perfil-afiliaciones-atleta-{{ request.session.vs.userAlias }}"  type="button" class="destop-md  btn  vic-btn-aplicar btn-steps-configurar">
+                Configurar</a>
+                
+                
+                
+                <a href="perfil-afiliaciones-atleta-{{ request.session.vs.userAlias }}"  style="text-align: center;padding-top: 9px" href="planes"  type="button" class="movil-md  btn btn-block  vic-btn-reservar-reverse  btn-steps-configurar">
+                Configurar</a>
+                
+                
+                
+            <br><br>      
+        
+<a href="javascript:void(0);"  onclick="changeTabs('ayudaMarca')" class="vic-calendar-sub-title-header vic-tex-inic "><b>Necesitas ayuda ?</b></a>	
+                
+     
+         </div>
+             {% endwith %}
+
+        {% endwith %}
+
+    {% endif %}
+
+{% endblock mensajes %}

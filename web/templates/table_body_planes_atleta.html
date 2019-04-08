@@ -1,0 +1,546 @@
+<!-- table_body_planes_atleta.html -->
+
+{% load filtrosEspeciales %}
+{% load staticfiles %}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.marcasCarrusel').owlCarousel({
+
+            loop: false,
+            center: false,
+            dots: false,
+            margin: 5,
+            responsiveClass: true,
+            animateOut: 'fadeOut',
+            nav: false,
+            autoWidth: false,
+            //autoplay:true,
+            //autoplayTimeout:5000,
+            // autoplayHoverPause:true,
+            rewind: true,
+            responsive: {
+                0: {
+                    items: 4,
+                    dots: false
+                },
+                600: {
+                    items: 6,
+                    dots: false
+                }
+            }
+        });
+
+    });
+
+
+</script>
+
+
+<div class="container">
+
+    {% if perfil.atletaEstadoConfiguracion > 0 %}
+
+        {% with planesActivosPagos as planes %}
+
+
+
+            <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+                <div class="tabPlanesActivos col-xs-6 menu-movil sin-left vic-plans-menu-link active"
+                     onclick="vcPlansMenu(this,1)">
+                    <div class="cell">
+                        Activos
+                    </div>
+                </div>
+                <div class="tabPlanesVencidos col-xs-6 menu-movil vic-plans-menu-link " onclick="vcPlansMenu(this,2)">
+                    <div class="cell">
+                        Vencidos
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+                <div>
+                    <div class="tabPlanesActivos menu-tab-calendar vic-plans-menu-link active"
+                         onclick="vcPlansMenu(this,1)">
+                        Activos
+                    </div>
+                    <div class="tabPlanesVencidos menu-tab-calendar vic-plans-menu-link  vic-left"
+                         onclick="vcPlansMenu(this,2)">
+                        Vencidos
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            {% if vs.tipoSesion == vs.ATLETA %}
+                <!-- CARROUSEL DE CIRCULOS-->
+                <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn ">
+                    <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px ">
+                        <div class="owl-carousel owl-theme marcasCarrusel m-t-20">
+
+                            {% comment %}                            <div>
+                                <!-- Dibuja el circulo-->
+                                <div id="idDiv_Todos" class="idDiv_Todos vic-circle-calendar-carrusel-lap selected "
+                                     style="display: table;margin: auto"
+                                     onClick="seleccionCirculoMarca_ppa('')">
+                                    <div style="font-size: 30px; display: table-cell;vertical-align:middle">
+                                        <i
+                                                class="fas fa-building"></i></div>
+                                </div>
+                                <!-- Agrega el texto -->
+                                <div style="font-size:12px">
+                                    Todos
+                                </div>
+                            </div>{% endcomment %}
+
+                            <div>
+                                <div id="idDiv_Todos" class="idDiv_Todos vic-circle-calendar-carrusel-65
+                                {% if marcaAlias is None %}
+                                    selected
+                                {% endif %}
+                                " style="display: table;margin: auto"
+                                     onClick="seleccionCirculoMarca_ppa('{{ marca.m_alias }}')">
+                                    <div style="font-size: 18px; font-weight:normal; display: table-cell;vertical-align:middle;">
+                                        {% comment %}{{ marca.m_iniciales }}{% endcomment %}
+
+                                        <img id="fotoPerfil" class="vic-circle-calendar-carrusel-65 "
+                                             src="{% static '/images/todas_afiliaciones.png' %}">
+
+                                    </div>
+                                </div>
+                                <div class="line-clamp" style="font-size:12px">
+                                    Todos
+                                </div>
+                            </div>
+
+
+                            {% with perfil.atletaMarcas as marcasAprobadas %}
+
+                                {% for marca in marcasAprobadas %}
+
+                                    <div>
+                                        <div id="idDiv_{{ marca.m_alias }}" class="idDiv_{{ marca.m_alias }} vic-circle-calendar-carrusel-65
+                                        {% if marca.m_alias == marcaAlias %}
+                                           selected
+                                        {% endif %}
+                                        " style="display: table;margin: auto"
+                                             onClick="seleccionCirculoMarca_ppa('{{ marca.m_alias }}')">
+                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;">
+                                                {% comment %}{{ marca.m_iniciales }}{% endcomment %}
+                                                <img id="fotoPerfil" class="vic-circle-calendar-carrusel-65"
+                                                     style="border: none"
+                                                     src="{{ marca.full_ruta_avatar }}?dummy={{ dummy }}"
+                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                            </div>
+                                        </div>
+                                        <div class="line-clamp" style="font-size:12px">
+                                            {{ marca.m_nombre }}
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            {% endwith %}
+
+                            {% with perfil.atletaMarcasPendientes as marcasPendientes %}
+
+                                {% for marca in marcasPendientes %}
+
+                                    <div>
+
+                                        <div id="idDiv_{{ marca.m_alias }}"
+                                             class="vic-circle-calendar-carrusel-65 "
+                                             style="display: table;margin: auto;pointer-events:none;"
+                                             onClick="seleccionCirculoMarca('{{ marca.m_alias }}')">
+                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;">
+                                                <img id="fotoPerfil" class="vic-circle-calendar-carrusel-65"
+                                                     style="border: none"
+                                                     src="{{ marca.full_ruta_avatar }}"
+                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                            </div>
+                                        </div>
+                                        <div style="font-size:12px">
+                                            {{ marca.m_nombre }}
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            {% endwith %}
+
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+
+
+
+            <div class="resultado_div" style="display: none;">
+                <div class="vic-hr  "></div>
+
+                <div style=" margin-top: 8px">
+                    <b>Resultado para</b>
+                </div>
+                <div class="resultado" style="font-style: italic;"></div>
+                <hr>
+            </div>
+
+
+
+            <!-- -----------------------------------------------   planes activos         --------------------------------------------------------- -->
+
+
+            {% if planes %}
+
+                <div class="vic-plans-box-1 vic-plans-menu  animated fadeIn">
+
+
+                    <br>
+
+                    {% for plan in planes %}
+
+                        <div class="flex-container vic-plans-atleta">
+
+                            <div class="box-1">
+                                <span><b>VENCE</b></span> {{ plan.planFechaVencimiento|fechaCortaPlus }}
+                            </div>
+                            <div class="box-2">
+                                <button type="button" class="btn btn-link p-r-0"
+                                        onclick="muestraReciboPago({{ plan.planId }})">Ver Recibo
+                                </button>
+                            </div>
+
+                            <div class="box-3">
+                                <div class="pull-left " style="font-size: 21px;
+    margin-right: 12px;"><i class="fas fa-tag"></i></div>
+                                <div><b>{{ plan.planNombre }}</b></div>
+                                <div>
+                                    <a href="../{{ plan.planMarcaAlias }}">
+                                        {{ plan.planMarcaNombre }}
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                            <div class="box-4">
+                                <div>
+                                    <small>INVERSION</small>
+                                </div>
+                                <div>{{ plan.planPrecio|bolivares }}</div>
+                            </div>
+
+                            <div class="box-5">
+                                <div>
+                                    <small>TIPO</small>
+                                </div>
+                                <div>{{ plan.PlanTipoString }}</div>
+                            </div>
+                            <div class="box-6">
+                                <div>
+                                    <small>CREDITOS</small>
+                                </div>
+                                <div>{{ plan.planEstadoConsumo }}</div>
+                            </div>
+                        </div>
+                        <hr>
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+
+            {% else %}
+
+                <div class="vic-plans-box-1 vic-plans-menu  animated fadeIn">
+
+                    {% if perfil.atletaMarcas %}
+
+
+                        <div class="row">
+                            <div class="col-xs-12 vic-ma2">
+                                <div class="text-center col-xs-12 ">
+
+                                    <i class="fas fa-battery-quarter fa-4x" style="color: #ffcd00"
+                                       aria-hidden="true"></i>
+
+                                    {% if vs.tipoSesion == vs.MARCA %}
+                                        <div class=" vic-calendar-title">Sin planes activos</div>
+                                        <div class="vic-calendar-sub-title-header vic-tex-inic "
+                                             style="margin-top: 10px;">
+                                            Recárgale para que continúe entrenando
+                                        </div>
+                                        <br>
+                                    {% else %}
+                                        <div class=" vic-calendar-title">No cuentas con ningún plan activo</div>
+
+                                        {% comment %}                            <div class="vic-calendar-sub-title-header vic-tex-inic "
+                                             style="margin-top: 10px;">Selecciona el centro donde quisieras comprar un
+                                            <br> un plan para ver los disponibles.
+                                        </div>{% endcomment %}
+                                        <div class="vic-calendar-sub-title-header vic-tex-inic "
+                                             style="margin-top: 10px;">
+                                            Para contratar explora los planes y te enviaremos
+                                            <br>
+                                            la información para el pago y luego debes reportarlo.
+                                            <br><br>
+                                            Ver planes
+                                        </div>
+                                        <br>
+                                    {% endif %}
+
+                                    {% if vs.tipoSesion == vs.MARCA %}
+                                        <div class="">
+
+                                            <button onclick="comprarplan2('{{ perfil.atletaId }}',actividadId=null,quitarAtras=true)"
+                                                    style="text-align: center" id="" type="button"
+                                                    class="movil-md btn btn-block  vic-btn-reservar-reverse vic-btn-reservar ">
+                                                Comprar
+                                            </button>
+
+                                            <button onclick="comprarplan2('{{ perfil.atletaId }}',actividadId=null,quitarAtras=true)"
+                                                    type="button" class="btn btn-xs  vic-btn-reservar destop-md">Comprar
+                                            </button>
+
+                                        </div>
+
+                                    {% else %}
+
+                                        <div class="vic-center">
+
+                                            <table style="margin-left: auto;margin-right: auto;">
+                                                {% for relacion in relaciones %}
+
+                                                    {% if request.GET.marcaAlias != 'None' and request.GET.marcaAlias != '' %}
+
+                                                        {% if request.GET.marcaAlias == relacion.r_marca.m_alias %}
+
+                                                            <tr>
+                                                                <td>
+                                                                    <button type="button"
+                                                                            onclick="preparaTabNewCentrosPrev('{{ relacion.r_marca.m_alias }}');"
+                                                                            ;
+                                                                            class="btn btn-xs  vic-btn-reservar dropdown-toggle"
+                                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                                            aria-expanded="false">
+                                                                        {{ relacion.r_marca.m_nombre }}
+                                                                    </button>
+
+                                                                </td>
+                                                            </tr>
+
+                                                        {% endif %}
+
+                                                    {% else %}
+
+                                                        <tr>
+
+                                                            <td>
+                                                                <button type="button"
+                                                                        onclick="preparaTabNewCentrosPrev('{{ relacion.r_marca.m_alias }}');"
+                                                                        ;
+                                                                        class="btn btn-xs  vic-btn-reservar dropdown-toggle"
+                                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                                        aria-expanded="false">
+                                                                    {{ relacion.r_marca.m_nombre }}
+                                                                </button>
+
+                                                            </td>
+                                                        </tr>
+
+                                                    {% endif %}
+
+                                                {% endfor %}
+                                            </table>
+
+
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="vic-ma2-letras"></div>
+                        </div>
+                        </div>
+                    {% else %}
+
+                        <div class="row">
+                            <div class="col-xs-12 vic-ma2">
+                                <div class="col-xs-12  vic-text">
+                                    <div class="vic-left">
+                                        <i class="fa fa-exclamation-triangle"></i> No cuentas con ningun
+                                        plan. Una vez afiliado a tus centros podrás contratar tus planes.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+            {% endif %}
+
+
+        {% endwith %}
+
+
+
+
+
+        <!-- -----------------------------------------------   fin         --------------------------------------------------------- -->
+
+
+
+        <div style="display:none;" class=" vic-plans-box-2 vic-plans-menu  animated fadeIn">
+
+
+            <div class="columns" style="text-align: center; padding-top: 10px;">
+
+                {% with planesHistoricos as historicos %}
+
+                    {% if historicos %}
+                        <div>
+
+                            {% for plan in historicos %}
+
+                                <div class="flex-container vic-plans-atleta">
+
+                                    <div class="box-1">
+                                        <span><b>VENCE</b></span> {{ plan.planFechaVencimiento|fechaCortaPlus }}
+                                    </div>
+                                    <div class="box-2">
+                                        <button type="button" class="btn btn-link p-r-0"
+                                                onclick="muestraReciboPago({{ plan.planId }})">Ver Recibo
+                                        </button>
+                                    </div>
+
+                                    <div class="box-3">
+                                        <div class="pull-left " style="font-size: 21px;
+    margin-right: 12px;"><i class="fas fa-tag"></i></div>
+                                        <div style="text-decoration: line-through;"><b>{{ plan.planNombre }}</b></div>
+                                        <div>
+                                            <a href="../{{ plan.planMarcaAlias }}">
+                                                {{ plan.planMarcaNombre }}
+
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="box-4">
+                                        <div>
+                                            <small>INVERSION</small>
+                                        </div>
+                                        <div>{{ plan.planPrecio|bolivares }}</div>
+                                    </div>
+
+                                    <div class="box-5">
+                                        <div>
+                                            <small>TIPO</small>
+                                        </div>
+                                        <div>{{ plan.PlanTipoString }}</div>
+                                    </div>
+                                    <div class="box-6">
+                                        <div>
+                                            <small>CREDITOS</small>
+                                        </div>
+                                        <div>{{ plan.planEstadoConsumo }}</div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                            {% endfor %}
+
+                        </div>
+
+
+
+                    {% else %}
+
+                        <div class="row">
+                            <div class="col-xs-12 vic-ma2">
+                                <div class="row">
+
+                                    <div class="text-center col-xs-12 ">
+                                        <i class="fa fa-money-check fa-4x" style="color: #ffcd00"
+                                           aria-hidden="true"></i>
+                                        <div class=" vic-title-ms">No encontré planes</div>
+                                        <div class="vic-calendar-sub-title-header vic-tex-inic "
+                                             style="margin-top: 10px;">Cuando tengas planes <br>
+                                            podrás verlos aquí.
+                                            <br class="md-movil">
+                                        </div>
+                                        <br>
+                                    </div>
+
+                                </div>
+
+                                <div class="vic-ma2-letras"></div>
+
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </div>
+        </div>
+
+
+    {% elif perfil.atletaEstadoConfiguracion == 1 %}
+        <div id="idDivBienvenida" class="text-center col-md-8 col-md-offset-2 ">
+
+
+            <i class="fas fa-battery-quarter fa-4x" style="color: #ffcd00" aria-hidden="true"></i>
+
+            {% if vs.tipoSesion == vs.MARCA %}
+                <div class=" vic-calendar-title">{{ perfil.atletaPrimerNombre }} no cuenta aún con un
+                    historial con {{ vs.marcaEnUsoNombre }}
+                </div>
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Cuando
+                    contrate planes y reserve actividades podrás verlas aquí
+                    <br>
+                </div>
+            {% else %}
+                <div class=" vic-calendar-title">No cuentas con ningún plan activo</div>
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">Explora
+                    los
+                    planes de tus centros afiliados <br>
+                    y sigue las indicaciones de pago<br>
+                    <br>
+                </div>
+            {% endif %}
+
+            <br>
+
+        </div>
+
+    {% endif %}
+
+
+</div>
+
+<script>
+    function preparaTabNewCentrosPrev(marcaAliasIn) {
+        {% for marca in perfil.atletaMarcas %}
+            marcaAliasWork = '{{ marca.m_alias }}';
+            marcaWorkId = '{{ marca.id }}';
+            if (marcaAliasWork == marcaAliasIn) {
+                preparaTabNewCentros(marcaWorkId);
+            }
+        {% endfor %}
+    }
+</script>

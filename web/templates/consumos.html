@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "head.html" %}
+
+</head>
+<body>
+
+{% include "header.html" %}
+{% include "content-tabs.html" %}
+{% include "tabs_entrenador-calendario.html" %}
+{% load i18n %}
+{% load filtrosEspeciales %}
+
+<div id="vic-tab-2" class="tab-pane in active">
+    {% language 'es' %}
+
+        <div class="container-fluid fondo-atletas" id="nombre-display">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 margen">
+                        <center>
+                            {% for p,d,pa,pe,tc in sem_date %}
+                                <h1 id="f{{ forloop.counter0 }}">{{ d|date:"D, d b" }}</h1>
+                            {% endfor %}
+                            <h4>Consumos</h4>
+                        </center>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <form>
+                            <input id="elInput" onkeyup="return myFiltrodeDetalle()" type="search"
+                                   class="buscar-atleta ">
+                        </form>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 block-2c">
+            <a href="?fecha={{ sem_pas|date:'Y-m-d' }}">
+                <div class="col-xs-1 col-md-offset-2 col-md-1 ">
+                    <img src="../static/images/prev.png"
+                         class="blank-img  hvr-grow close-left-all" onclick="">
+                </div>
+            </a>
+            <div class=" col-xs-10 col-md-6  block-2c-c">
+
+                {% for p,d,pa,pe,tc in sem_date %}
+                    <a onclick="cambio({{ forloop.counter0 }})">
+                        <div id="dd{{ forloop.counter0 }}"
+                             class="col-xs-2 div-fecha-c destop {% if d == hoy %}{% endif %}">
+                            <div class="fecha-c">{{ d|date:"d b" }}</div>
+                            <div class="dia-c">{{ p }}<i class="fa fa-user" aria-hidden="true"></i></div>
+                        </div>
+                    </a>
+
+                    {% if forloop.counter0 > 2 and forloop.counter0 < 6 %}
+                        <a onclick="cambio({{ forloop.counter0 }})">
+                            <div id="mm{{ forloop.counter0 }}"
+                                class="col-xs-4 div-fecha-c movil {% if d == hoy %}{% endif %}">
+                                <div class="fecha-c">{{ d|date:"d b" }}</div>
+                                <div class="dia-c">{{ p }}<i class="fa fa-user" aria-hidden="true"></i></div>
+                            </div>
+                        </a>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+            {% if not esultimo %}
+                <a href="?fecha={{ fin_sem|date:'Y-m-d' }}">
+                    <div class="col-xs-1 col-md-1  ">
+                        <img src="../static/images/next.png"
+                             class="blank-img  hvr-grow close-right-all" onclick="">
+
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-xs-12 block-3c" style="text-align: center;">
+            <div class="fecha-c col-xs-12">CONSUMOS</div>
+            <div class="resumen-c col-xs-12" style="margin-bottom: 20px;">RESUMEN DEL DIA</div>
+            {% for k,d,pa,pe,tc in sem_date %}
+                <div id="d{{ forloop.counter0 }}" class="resumen-c col-xs-12" style="margin-bottom: 20px;">
+                    <div class="resumen-c col-xs-6  col-lg-3  col-lg-offset-3   ">
+                        <div class="resumen-c">{{ k }}</div>
+                        <div class="fecha-c">Total Atletas</div>
+                    </div>
+                    <div class="resumen-c col-xs-6  col-lg-3 ">
+                        <div class="resumen-c">{{ tc }}</div>
+                        <div class="fecha-c">Total Creditos Consumidos</div>
+                    </div>
+                    {% if pa %}
+                        <div class=" col-xs-12" style="top: 30px;">
+
+
+                            <table class=' table-compra t-consumen' border="0">
+                                <colgroup class='destop'>
+                                    <col width='15%'>
+                                    <col width='10%'>
+                                    <col width='20%'>
+                                    <col width='10%'>
+                                    <col width='10%'>
+                                    <col width='15%'>
+                                </colgroup>
+                                <colgroup class='movil'>
+                                    <col width='30%'>
+                                    <col width='30%'>
+                                    <col width='30%'>
+                                    <col width='10%'>
+                                </colgroup>
+                                <tr style="border-bottom: 1.5px solid #8B96AA;">
+
+                                    <th style="text-align: center;">FECHA HORA</th>
+                                    <th class="destop">ACTIVIDAD</th>
+                                    <th>CLIENTE</th>
+                                    <th class="destop">CREDITOS</th>
+                                    <th class="destop">PLAN USADO</th>
+                                    <th class="movil">PLAN USADO/CREDITOS</th>
+                                    <th style="text-align: center;" hidden><i class="fa fa-cog  fa-2x fa-fw margin-bottom "
+                                                                       style="cursor: pointer;"></i></th>
+
+                                </tr>
+
+                                {% for p,f in pa %}
+                                    <tr id="r-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+                                        style="border-bottom: 1px solid #E7EAEF;">
+                                        <td class="destop" style="text-align: center;">{{ p.pa_actividad.ac_fecha|fechaCorta}} {{ p.pa_actividad.ac_hora_ini}}</td>
+                                        <td class="movil" style="text-align: center;">{{ p.pa_actividad.ac_fecha|fechaCorta}} {{ p.pa_actividad.ac_hora_ini }}</td>
+
+                                        <td class="destop">{{ p.pa_actividad }}</td>
+
+                                        <td style="text-align: center;" class="destop">
+
+                                            <div class="col-xs-4" style="text-align: right;">
+
+{% comment %}                                                <img class='foto-perfil img-avatar'
+                                                     style='height: 40px; width: 40px; margin: 0px !important; border: solid 2px #ffcd00; float: none;'
+                                                     src='../static/{{ p.pa_usuario.username }}.png'
+                                                     onerror="this.src='http://{{ request.META.HTTP_HOST }}/static/images/Fotoperfil.png'">{% endcomment %}
+
+                                            </div>
+                                            <div class="col-xs-8" style="text-align: left;">
+                                                <div class="user-c">{{ p.pa_usuario.first_name }} {{ p.pa_usuario.last_name }}</div>
+                                                <div class="alias-c">@{{ f.u_alias }}</div>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;" class="movil">
+
+                                            <div class="col-xs-12">
+                                                <div id="n-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+                                                     class="resumen-c"
+                                                     style="font-weight: normal;">{{ p.pa_usuario.first_name }} {{ p.pa_usuario.last_name }}</div>
+                                                <div class="fecha-c"
+                                                     style="color: #393939; margin-top: 0px; font-weight: bold;">
+                                                    @{{ f.u_alias }}</div>
+                                            </div>
+
+                                        </td>
+
+                                        <td class="destop">{{ p.pa_actividad.ac_creditos }}</td>
+
+                                        <td>
+                                            <div class="col-xs-12">
+                                                <div class="resumen-c"
+                                                     style="font-weight: normal;">{{ p.pa_plan.p_nombre }} {{ p.pa_plan.p_creditos_usados }}/{{ p.pa_plan.p_creditos_totales }}</div>
+                                                <div class="fecha-c movil"
+                                                     style="color: #393939;margin-top: 0px;font-weight: bold;">{{ p.pa_actividad.ac_creditos }}</div>
+                                            </div>
+
+                                        </td>
+                                        <td style="text-align: center;" hidden>
+                                            <div class='btn-group moreOpsBt'
+                                                 style='position: relative; '>
+                                                <button type='button'
+                                                        class='btn btn-sm btn-default dropdown-toggle '
+                                                        data-toggle='dropdown' aria-haspopup='true'
+                                                        aria-expanded='false'>&nbsp;
+                                                </button>
+                                                <ul class='dropdown-menu' style='right: 30px; top: 0;'>
+                                                    <li role="presentation"><a href="#">1 ejemplo</a></li>
+                                                    <li role="presentation"><a href="#">2 ejemplo</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+
+
+                            </table>
+                        </div>
+
+
+                    {% else %}
+
+                        <div class=" col-xs-12" style="top: 30px;">
+
+                            <div class="container-fluid vc-vacio-block">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+							  <span class="vacioTxt">Oops no hay consumos registrados... <strong><br>
+			para este mes.</strong></span>
+                                    </div>
+                                    <div class="col-xs-12 text-center">
+                                        <img class="vc-vacio-img"
+                                             src="../static/images/No_pagos.png" alt="">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+
+        {% include "fin-content-tabs.html" %}
+
+
+        {% include "footer.html" %}
+
+        <script src="../../static/js/sameHeight.js"></script>
+        <script type="text/javascript">
+            function cambio(input) {
+                for (i = 0; i < 6; i++) {
+                    $("#d" + i).hide();
+                    $("#f" + i).hide();
+                    $("#dd" + i).removeClass("active");
+                    $("#mm" + i).removeClass("active");
+                }
+                $("#d" + input).show();
+                $("#f" + input).show();
+                $("#dd" + input).addClass("active");
+                $("#mm" + input).addClass("active");
+
+            }
+
+            cambio(5);
+
+            function myFiltrodeDetalle() {
+                var input, filter, ul, li, a, i;
+                input = document.getElementById("elInput");
+                filter = input.value.toUpperCase();
+                {%for k,d,pa,pe,tc in sem_date %}
+                    for (i = 1; i <= parseInt('{{pa|length}}'); i++) {
+                        palabra = document.getElementById('n-{{forloop.counter}}-' + i);
+                        if (palabra.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            $('#r-{{forloop.counter}}-' + i).show();
+                        } else {
+                            $('#r-{{forloop.counter}}-' + i).hide();
+                        }
+                    }
+                {%endfor%}
+            }
+
+            $(document).ready(function () {
+                $(".dropdown").hover(
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                        $(this).toggleClass('open');
+                    },
+                    function () {
+                        $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                        $(this).toggleClass('open');
+                    }
+                );
+            });
+        </script>
+    {% endlanguage %}
+<script>
+    var div = $("#nombre-display");
+    document.querySelector('div#resultados-tabla').style.marginTop = div.outerHeight() + 'px';
+    document.getElementById("t{{dia_sem}}").className += " selected";
+</script>
+
+
+</body>
+</html>

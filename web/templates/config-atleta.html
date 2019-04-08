@@ -1,0 +1,591 @@
+<!-- config-atleta.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% include "head.html" %}
+
+</head>
+
+<body>
+
+{% load filtrosEspeciales %}
+
+{% include "header.html" %} {% include "content-tabs.html" %} {% include "tabs_entrenador-calendario.html" %}
+<script type="text/javascript">
+
+
+    function changeType() {
+        if ($('#contrasena').attr('type') === 'password') {
+            $('#icon-contrasena').removeClass('fa-eye-slash');
+            $('#icon-contrasena').addClass('fa-eye');
+            $('#contrasena').attr('type', 'text');
+        } else {
+            $('#icon-contrasena').addClass('fa-eye-slash');
+            $('#icon-contrasena').removeClass('fa-eye');
+            $('#contrasena').attr('type', 'password');
+        }
+    }
+
+</script>
+<div id="vic-tab-2" class="tab-pane in active fondo-index">
+
+    <div class="container">
+
+        <form id="formConfAtleta" data-toggle="validator" role="form" method="POST" action="/{{ vs.userAlias }}/actualizarConfigAtleta" id="formAtleta"
+              style="text-align: left;">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1" style="margin-top: 30px">
+                    <div class="vc-form-t1">Actualiza tu Perfil</div>
+                    <hr>
+                    <div class="vc-form-t1" style="font-weight: 500">Informacion Personal</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="primerNombre" class="label-form-pago control-label ">Nombre
+                                    <i class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                </label>
+
+                                <div class="vc-form-d1">El nombre que verán tus usuarios en tu perfil
+                                </div>
+                                <input name="primerNombre" id="primerNombre" class="btn-block input-grey form-control" type="text"
+                                       value="{{ usuario.first_name }}" placeholder="Por ejemplo: Andrés"
+                                       data-error="Campo requerido" required>
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="apellido" class="label-form-pago control-label ">Apellido
+                                    <i class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                </label>
+
+                                <div class="vc-form-d1">El nombre que verán tus usuarios en tu perfil
+                                </div>
+                                <input name="primerApellido" id="primerApellido" class="btn-block input-grey form-control"
+                                       type="text" value="{{ usuario.last_name }}"
+                                       placeholder="Apellido">
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="segundoNombre" class="label-form-pago control-label ">Segundo nombre
+                                    <i class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                </label>
+
+                                <div class="vc-form-d1">Segundo nombre
+                                </div>
+                                <input name="segundoNombre" id="segundoNombre" class="btn-block input-grey form-control" type="text"
+                                       value="{{ perfil.u_secondname }}" placeholder="Por ejemplo: Ignacio">
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="segundoApellido" class="label-form-pago control-label ">Segundo Apellido
+                                    <i class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                </label>
+
+                                <div class="vc-form-d1">Segundo Apellido
+                                </div>
+                                <input name="segundoApellido" id="segundoApellido" class="btn-block input-grey form-control"
+                                       type="text" value="{{ perfil.u_secondlastname }}"
+                                       placeholder="Por ejemplo: Armas">
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="alias" class="label-form-pago control-label ">ALIAS
+                                    <i class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                </label>
+
+                                <div class="vc-form-d1">Identificador único con el que podrán ubicarte
+                                </div>
+                                <input id="u-alias" name="u-alias" class="btn-block input-grey form-control" type="text"
+                                       value="{{ perfil.u_alias }}" placeholder="http://www.victorius.io/arodriguez"
+                                       readonly bind="formclase-fecha"
+                                       data-error="Campo requerido" required>
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="telefono" class="label-form-pago control-label ">Teléfono
+                                    <i class="far fa-1x fa-question-circle hide-show-desc"></i>
+                                </label>
+
+                                <div class="vc-form-d1">Un teléfono para poder contactarle
+                                </div>
+                                <input id="telefono" name="telefono" class="btn-block input-grey form-control" type="text"
+                                       value="{{ telefono }}" placeholder="teléfono">
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="correo" class="label-form-pago control-label  error-label">CORREO</label>
+
+                                <input name="correo" id="correo" class="btn-block input-grey form-control" type="email"
+                                       value="{{ usuario.username }}" placeholder="daniel.iribarren@gmail.com">
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+                        {% if token %}
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contrasena"
+                                           class="label-form-pago control-label  error-label">CONTRASEÑA</label>
+
+                                    <div class="input-group">
+
+                                        <input class="btn-block input-grey form-control" name="passwordIn" id="passwordIn"
+                                               type="password" data-minlength="6" data-error="Minimo 6 caracteres" required/>
+                                        <div class="input-group-addon ">
+                                            <a href="javascript:changeType()">
+                                                <i class="far fa-eye-slash" id="icon-contrasena"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="help-block with-errors error-label"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="fec_nacimiento" class="label-form-pago control-label  error-label">FECHA DE
+                                    NACIMIENTO</label>
+
+                                <input name="fechaNacimiento" id="fechaNacimiento"
+                                       class="btn-block input-grey form-control" type="date"
+                                       value="{{ fechaNacFormatoSP }}" placeholder="">
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="genero" class="label-form-pago control-label  error-label">GENERO</label>
+
+                                <select id="genero" name="genero" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey">
+                                    {% with perfil.u_genero as genero %}
+                                        <option value="0"
+                                        {% if genero == '0' %}selected{% endif %}
+                                        >Seleccione...
+                                        </option>
+                                        <option value="1"
+                                        {% if genero == '1' %}selected{% endif %}
+                                        >Masculino
+                                        </option>
+                                        <option value="2"
+                                        {% if genero == '2' %}selected{% endif %}
+                                        >Femenino
+                                        </option>
+                                    {% endwith %}
+                                </select>
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="vc-form-t1" style="font-weight: 500">Dirección (Opcional)
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="pais" class="label-form-pago control-label ">PAÍS
+                                </label>
+                                <select id="pais" name="pais" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey">
+                                    <option value="" selected="">Seleccione...</option>
+                                    {% for pais in paises %}
+                                        <option value="{{ pais.pk }}"
+                                                {% if pais.pk == perfil.u_pais.pk %}selected{% endif %}>{{ pais.p_nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="help-block with-errors error-label"></div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="calle" class="label-form-pago control-label ">Calle, avenida </label>
+                                <input id="calle" name="calle" class="btn-block input-grey form-control" type="text"
+                                       value="{{ perfil.u_calle }}" placeholder="" data-error="Campo requerido">
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="urbanizacion" class="label-form-pago control-label ">Urbanizacion </label>
+                                <input id="urbanizacion" name="urbanizacion" class="btn-block input-grey form-control"
+                                       type="text" value="{{ perfil.u_urbanizacion }}" placeholder=""
+                                       data-error="Campo requerido">
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="edificioCasa" class="label-form-pago control-label ">Edificio, Casa ó
+                                    Centro </label>
+                                <input id="edificioCasa" name="edificioCasa" class="btn-block input-grey form-control"
+                                       type="text" value="{{ perfil.u_edificioCasa }}" placeholder=""
+                                       data-error="Campo requerido">
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="ciudad" class="label-form-pago control-label ">CIUDAD
+                                </label>
+                                <select id="ciudad" name="ciudad" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey">
+                                    <optionvalue
+                                    ="" selected="">Seleccione...</option>
+                                    {% for ciudad in ciudades %}
+                                        <option {% if ciudad.pk == perfil.u_ciudad.pk %}selected{% endif %}
+                                                value="{{ ciudad.pk }}">{{ ciudad.c_nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="municipio" class="label-form-pago control-label ">MUNICIPIO</label>
+                                <select id="municipio" name="municipio" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey">
+                                    <option value="" selected="">Seleccione...</option>
+                                    {% for municipio in municipios %}
+                                        <option {% if municipio.pk == perfil.u_municipio.pk %}selected{% endif %}
+                                                value="{{ municipio.pk }}">{{ municipio.z_municipio }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="vc-form-t1" style="font-weight: 500">Aspiraciones y objetivos
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <div class="vc-form-d1" style="display: block;">Estos objetivos aparecerán como parte de
+                                    tu información de perfil.
+                                </div>
+                                <textarea autocomplete="off" id="objetivos" name="objetivos"
+                                          class="btn-block input-grey form-control bind" bind="formclase-descrip-clase"
+                                          type="text" value="" placeholder="Objetivos " data-error="Campo requerido"
+                                          rows="6">{{ perfil.u_objetivos }}</textarea>
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="vc-form-t1" style="font-weight: 500">Disciplinas
+                                <br>
+                                <br>
+                            </div>
+                            <div class="vc-form-d1" style="display: block;">Selecciona los tipos de disciplinas que
+                                prefieres.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="dic1" class="label-form-pago control-label ">PRIMERA
+                                    DISCIPLINA</label>
+                                <select id="dic1" name="dic1" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey">
+                                    <option value="">Seleccione...</option>
+                                    {% for disciplina in disciplinas %}
+                                        <option {% if disciplina.d_nombre == dic1 %}selected{% endif %}
+                                                value="{{ disciplina.id }}">{{ disciplina.d_nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="dic2" class="label-form-pago control-label ">SEGUNDA
+                                    DISCIPLINA</label>
+                                <select id="dic2" name="dic2" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey">
+                                    <option value="">Seleccione...</option>
+                                    {% for disciplina in disciplinas %}
+                                        <option {% if disciplina.d_nombre == dic2 %}selected{% endif %}
+                                                value="{{ disciplina.id }}">{{ disciplina.d_nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="dic3" class="label-form-pago control-label ">TERCERA
+                                    DISCIPLINA</label>
+                                <select id="dic3" name="dic3" data-error="Campo requerido"
+                                        class="form-control btn-block input-grey">
+                                    <option value="">Seleccione...</option>
+                                    {% for disciplina in disciplinas %}
+                                        <option {% if disciplina.d_nombre == dic3 %}selected{% endif %}
+                                                value="{{ disciplina.id }}">{{ disciplina.d_nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="help-block with-errors error-label"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-sm-6">
+                            <div class="vc-form-t1" style="font-weight: 500">Políticas de Privacidad
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="form-group">Perfil
+                                <div class="radio">
+                                    <label style="padding-left:0px!important">
+                                        <input style="transform: scale(2);margin-right: 10px;margin-left: 5px"
+                                               type="checkbox" id="publica" name="publica"
+                                                {% if perfil.u_public %} checked {% endif %}>
+                                        PUBLICO
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-8 col-lg-8">
+                            <div class="vc-form-d1 " style="display: block;">
+                                Cuando tu cuenta es pública tu perfil esta disponible en nuestro directorio para todos
+                                nuestros usuarios registrados. Al
+                                desactivar esta opción solo usuarios que tu invites podrán ver tu perfil.
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div style="margin-top: 24px; margin-bottom: 20px;" class="col-xs-6 col-md-offset-8 col-md-4 ">
+
+                            <button type="submit" id="idGuardar" class="btn-block botones-agregar"
+                                    style="float: left; font-size: 16px; text-align: center">ACTUALIZAR
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% include "fin-content-tabs.html" %} {% include "footer.html" %}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".hide-show-desc").click(function () {
+            obj = $(this).parent('label').parent('.form-group').find('.vc-form-d1');
+            $(obj).toggle();
+        });
+
+        $(".dropdown").hover(function () {
+            $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+            $(this).toggleClass('open');
+        }, function () {
+            $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+            $(this).toggleClass('open');
+        });
+        $("#passwordIn").change(function () {
+        })
+    }
+    });
+
+    $('.fechaNacimiento').datepicker({
+        todayBtn: "linked",
+        language: "it",
+        autoclose: true,
+        todayHighlight: true,
+        format: 'dd/mm/yyyy'
+    });
+
+</script>
+<script>
+    function seguirDejar(opcion, usuario, marca) {
+        $.ajax({
+            data: {'opcion': opcion, 'usuario': usuario, 'marca': marca},
+            url: '/solicitudusuario',
+            type: 'get',
+            success: function (data) {
+            },
+        });
+    }
+</script>
+<script>
+
+
+    $("#u-alias").change(function () {
+        var alias = $(this).val();
+        $.ajax({
+            url: '/ajax/validate_useralias/',
+            data: {
+                'useralias': alias
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken && data.usuario_pk != {{ usuario.pk }
+        }) {
+        alertVictorius("alias ya existe", 2);
+        hubo_error = true;
+        } else {
+        hubo_error = false;
+        }
+        if (hubo_error) {
+        $('#botonActualizar').attr('disabled', true);
+        } else {
+        $('#botonActualizar').attr('disabled', false);
+        }
+        $('#formActualizarRegistro').validator('validate');
+        }
+        });
+        });
+
+
+
+
+        </script>
+        </body>
+
+        </html>
