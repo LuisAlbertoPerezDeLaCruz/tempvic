@@ -48,8 +48,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_FILE_PATH = config('EMAIL_FILE_PATH', default='tm/p-messages')
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='Equipo Victorius <register@victorius.io>')
 
-DEFAULT_FROM_EMAIL = 'Equipo Victorius <register@victorius.io>'
 EMAIL_SUBJECT_PREFIX = '[Victorius] '
 
 if AMBIENTE == "PRODUCCION":
