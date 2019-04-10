@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/victorius/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/victorius/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/views/viewsGeneral.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views/viewsGeneral.py" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -74,13 +74,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/victorius/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="45" column="21" lean-forward="true" selection-start-line="43" selection-end-line="50" selection-end-column="101" />
+            <state relative-caret-position="475">
+              <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
               <folding>
                 <element signature="e#310#319#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/views/viewsGeneral.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="534">
+              <caret line="1265" column="26" selection-start-line="1265" selection-start-column="26" selection-end-line="1265" selection-end-column="26" />
+              <folding>
+                <element signature="e#93#116#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,12 +110,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>idDiv_Suscripciones</find>
-      <find>resete</find>
-      <find>resetearCentrosEnCarruse</find>
-      <find>idDiv_Todos</find>
-      <find>.vic-circle-calendar-carrusel-65</find>
-      <find>$('.idDiv_Todos')</find>
       <find>resetearCentrosEnCarrusel</find>
       <find>_todos</find>
       <find>change</find>
@@ -128,6 +134,12 @@
       <find>perfil-actividades-atleta-</find>
       <find>todos_centros.png</find>
       <find>logfile.txt</find>
+      <find>send</find>
+      <find>send_</find>
+      <find>SETTINGS</find>
+      <find>send_mail</find>
+      <find>Completa tu registro para la auto-gestion</find>
+      <find>&quot;http://&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -136,6 +148,7 @@
       <replace>re_path(</replace>
       <replace>localidadesafiliadas</replace>
       <replace>is not None</replace>
+      <replace>&quot;https://&quot;</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -176,7 +189,6 @@
         <option value="$PROJECT_DIR$/web/views/viewsDashBoards.py" />
         <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html" />
-        <option value="$PROJECT_DIR$/web/views/viewsGeneral.py" />
         <option value="$PROJECT_DIR$/web/clases.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-perfil.html" />
@@ -184,12 +196,13 @@
         <option value="$PROJECT_DIR$/web/templates/table_body_planes_atleta.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/victorius/settings.py" />
+        <option value="$PROJECT_DIR$/web/views/viewsGeneral.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="94" />
-    <option name="y" value="35" />
+    <option name="x" value="104" />
+    <option name="y" value="53" />
     <option name="width" value="1657" />
     <option name="height" value="940" />
   </component>
@@ -199,6 +212,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -224,7 +238,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -357,7 +370,9 @@
       <workItem from="1554739726336" duration="2297000" />
       <workItem from="1554742056208" duration="1750000" />
       <workItem from="1554754764317" duration="768000" />
-      <workItem from="1554838052240" duration="192000" />
+      <workItem from="1554838052240" duration="4699000" />
+      <workItem from="1554853719699" duration="619000" />
+      <workItem from="1554909656651" duration="344000" />
     </task>
     <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
       <created>1553561863044</created>
@@ -485,17 +500,24 @@
       <option name="project" value="LOCAL" />
       <updated>1554742552293</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Arreglo de parametros del correo">
+      <created>1554838272742</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1554838272742</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124764000" />
+    <option name="totallyTimeSpent" value="130234000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="94" y="35" width="1657" height="940" extended-state="0" />
+    <frame x="116" y="54" width="1657" height="940" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23774053" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24394786" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -543,7 +565,8 @@
     <MESSAGE value="Realizado tunning al api de las actividades del atleta" />
     <MESSAGE value="Verificacion de correo" />
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Arreglo de parametros del correo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglo de parametros del correo" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
@@ -946,16 +969,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/views/viewsGeneral.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="767">
-          <caret line="1764" column="43" selection-start-line="1764" selection-start-column="43" selection-end-line="1764" selection-end-column="43" />
-          <folding>
-            <element signature="e#93#116#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -965,10 +978,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/victorius/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="45" column="21" lean-forward="true" selection-start-line="43" selection-end-line="50" selection-end-column="101" />
+        <state relative-caret-position="475">
+          <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
           <folding>
             <element signature="e#310#319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/views/viewsGeneral.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="1265" column="26" selection-start-line="1265" selection-start-column="26" selection-end-line="1265" selection-end-column="26" />
+          <folding>
+            <element signature="e#93#116#0" expanded="true" />
           </folding>
         </state>
       </provider>
