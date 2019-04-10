@@ -80,7 +80,7 @@ def validate_username(request):
                 message = 'Correo de Bienvenida'
                 data = {
                     'token': token,
-                    'enlace': "https://" + request.META['HTTP_HOST'] + "/token/" + token.u_token,
+                    'enlace': "http://" + request.META['HTTP_HOST'] + "/token/" + token.u_token,
                     'nombres': first_name + ' ' + last_name,
                     'alias': alias,
                     'marcaNombre': marcaNombre,
@@ -244,7 +244,7 @@ def login(request):
                 message = 'Correo de Bienvenida'
                 data = {
                     'token': token,
-                    'enlace': "https://" + request.META['HTTP_HOST'] + "/token/" + token.u_token,
+                    'enlace': "http://" + request.META['HTTP_HOST'] + "/token/" + token.u_token,
                     'nombres': user.first_name + ' ' + user.last_name,
                     'alias': useralias,
                     'marcaNombre': 'victorius',
@@ -1259,7 +1259,7 @@ def registrarusuarioajax(request):
                 message = 'Correo de Bienvenida'
                 data = {
                     'token': token,
-                    'enlace': "https://" + request.META['HTTP_HOST'] + "/token/" + token.u_token,
+                    'enlace': "http://" + request.META['HTTP_HOST'] + "/token/" + token.u_token,
                     'nombres': nombre + ' ' + apellido,
                     'alias': alias,
                     'marcaNombre': marca.m_nombre,
@@ -3695,7 +3695,7 @@ def reenviarcorreo(request):
     except:
         t = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(25))
         token = Token.objects.create(u_user=user, u_token=t)
-    enlace = "https://" + request.META['HTTP_HOST'] + "/token/" + token.u_token
+    enlace = "http://" + request.META['HTTP_HOST'] + "/token/" + token.u_token
     send_mail('Registro en Victorius',
               user.first_name + ' ' + user.last_name + ', gracias por registrarse en Victorius \n Usuario:' + user.username + "\nPara activar su cuenta entre en el siguiente enlace: " + enlace + "\n\n",
               'register@victorius.io', [user.username], fail_silently=False, )
