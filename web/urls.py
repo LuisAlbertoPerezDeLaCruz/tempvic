@@ -5,7 +5,6 @@ app_name = 'web'
 
 urlpatterns = [
     url(r'^$', viewsGeneral.login, name='login'),
-    url('^', include('django.contrib.auth.urls')),
     url(r'^requerirLogon$', viewsGeneral.requerirLogon, name='requerirLogon'),
     url(r'^reenviarcorreo/$', viewsGeneral.reenviarcorreo, name='reenviarcorreo'),
     url(r'^token/updateajax$', viewsGeneral.updateajax),

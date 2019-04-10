@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     "django_crontab",
     'import_export',
+    'accounts',
     'web',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -105,7 +106,7 @@ ROOT_URLCONF = 'victorius.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["web/templates",BASE_DIR+"/web/templates/calendarios",BASE_DIR+"/web/templates/perfiles"],
+        'DIRS': ["web/templates",BASE_DIR+"/web/templates/calendarios",BASE_DIR+"/web/templates/perfiles",BASE_DIR+"/web/templates/registration"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
