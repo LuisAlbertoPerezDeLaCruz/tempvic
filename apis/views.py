@@ -11,6 +11,8 @@ import requests
 
 import rest_framework.permissions as drf_perm
 
+app_name = 'apis'
+
 import logging
 
 class HelloView(APIView):
