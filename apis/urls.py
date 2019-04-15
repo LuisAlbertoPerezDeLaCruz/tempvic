@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views
+from apis import views
 import rest_framework.documentation as drf_doc
 from rest_framework_simplejwt import views as jwt_views
 
