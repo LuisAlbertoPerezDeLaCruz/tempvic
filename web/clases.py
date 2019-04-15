@@ -1479,7 +1479,6 @@ class PerfilAtleta(PerfilBasicoAtleta):
             searchString = request.GET['searchString']
         else:
             searchString=None
-
         if soloFuturas:
             tipoTodas = TipoEstatus().tipoTodasFuturas
         else:

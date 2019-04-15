@@ -1,15 +1,15 @@
 from django.conf.urls import include, url
 from .views import viewsGeneral,viewsDashBoards, viewsActividades, viewsScripts
+from accounts.views import token
 
 app_name = 'web'
 
 urlpatterns = [
-    url(r'^$', viewsGeneral.login, name='login'),
     url(r'^requerirLogon$', viewsGeneral.requerirLogon, name='requerirLogon'),
     url(r'^reenviarcorreo/$', viewsGeneral.reenviarcorreo, name='reenviarcorreo'),
     url(r'^token/updateajax$', viewsGeneral.updateajax),
     url(r'^token/p-(?P<pk>[\w\-]+)$', viewsGeneral.activacionporcorreo, name='activate'),
-    url(r'^token/(?P<pk>[\w\-]+)$', viewsGeneral.token, name='token'),
+    url(r'^token/(?P<pk>[\w\-]+)$', token, name='token'),
     url(r'^registro-marca$', viewsGeneral.registromarca),
     url(r'^(?P<pka>[\w\-]+)/registro-marca$', viewsGeneral.registromarca, name='registromarca'),
     url(r'^centros$', viewsGeneral.centros, name='centros'),
@@ -31,9 +31,6 @@ urlpatterns = [
     url(r'^getplan$', viewsGeneral.getplanajax),
     url(r'^getplanPendientePorCobrar$', viewsGeneral.getPlanPendientePorCobrarAjax),
     url(r'^instructores$', viewsGeneral.instructores, name='instructores'),
-    url(r'^login$', viewsGeneral.login, name='login'),
-    #url(r'^logout$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
-    url(r'^logout$', viewsGeneral.user_logout, name='logout'),
     url(r'^marcarasistencia$', viewsGeneral.marcarasistenciaajax),
     url(r'^mostrarpago$', viewsGeneral.mostrarpagoajax),
     url(r'^mostrarPagoPendientePorCobrar$', viewsGeneral.mostrarPagoPendientePorCobrarAjax),
@@ -52,7 +49,6 @@ urlpatterns = [
     url(r'^agregarUsuarioExistente$', viewsGeneral.agregarUsuarioExistenteAjax),
     url(r'^solicitudusuario$', viewsGeneral.solicitudusuarioajax),
     url(r'^(?P<pk>[\w\-]+)/atletas$', viewsGeneral.atletascentro),
-    url(r'^cambiarmarca/(?P<pk>[\w\-]+)$', viewsGeneral.cambiarmarca),
     url(r'^(?P<pka>[\w\-]+)/confmarca$', viewsGeneral.confmarca, name='confmarca'),
     url(r'^(?P<pka>[\w\-]+)/confatleta$', viewsGeneral.confatleta, name='confatleta'),
     url(r'^(?P<pk>[\w\-]+)/instructores$', viewsGeneral.atletasentrenadores, ),
@@ -81,9 +77,6 @@ urlpatterns = [
     url(r'^(?P<pk>[\w\-]+)/reservar$', viewsGeneral.reservarajax),
     url(r'^(?P<pkb>[\w\-]+)/h-(?P<pk>[\w\-]+)-(?P<id>[\w\-]+)$', viewsGeneral.historial),
     url(r'^(?P<pk>[\w\-]+)/(?P<pka>[\w\-]+)-pagos$', viewsGeneral.pagospendientes),
-    url(r'^ajax/validate_username/$', viewsGeneral.validate_username, name='validate_username'),
-    url(r'^ajax/validate_useralias/$', viewsGeneral.validate_useralias, name='validate_useralias'),
-    url(r'^ajax/validate_marcaalias/$', viewsGeneral.validate_marcaalias, name='validate_marcaalias'),
     url(r'^ajax/validate_refpago/$', viewsGeneral.validate_refpago, name='validate_refpago'),
     url(r'^ajax/validate_salon/$', viewsActividades.validate_salon, name='validate_salon'),
     url(r'^ajax/getReciboPagoInfo/$', viewsGeneral.getReciboPagoInfo, name='getReciboPagoInfo'),
@@ -94,7 +87,6 @@ urlpatterns = [
     url(r'^crearUsuariosBatch$', viewsScripts.crearUsuariosBatch),
     url(r'^dashboard$', viewsDashBoards.dashboard,name='dashboard'),
     url(r'^table_body_remuneraciones_instructor$', viewsGeneral.table_body_remuneraciones_instructor, name='table_body_remuneraciones_instructor'),
-    url(r'^register$', viewsGeneral.register),
     url(r'^(?P<pk>[\w\-]+)/$', viewsGeneral.perfilmarca, name='perfilmarca'),
     url(r'^(?P<pk>[\w\-]+)/notificaciones$', viewsGeneral.notificacionesAjax, name='notificaciones'),
     url(r'^ajax/aceptarRechazarSolicitud/$', viewsGeneral.aceptarRechazarSolicitudAjax,

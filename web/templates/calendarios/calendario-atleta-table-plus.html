@@ -10,9 +10,20 @@
             <br> <br> <br>
             <img src="../static/images/moon.svg">
             <div class=" vic-title-ms">No encontre actividades</div>
-            <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
-                Cuando hayan actividades en tus centros afiliados<br> podrás verlas aquí.
-            </div>
+            {% if marcaAlias == 'Suscripciones' %}
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                    Cuando hayan actividades que tengas suscripciones activas<br> podrás verlas aquí.
+                </div>
+            {% elif marcaAlias == 'Todos' %}
+                <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                    Cuando hayan actividades en tus centros afiliados<br> podrás verlas aquí.
+                </div>
+            {% else %}
+                 <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                    Cuando hayan actividades en {{ marcaNombre }}<br> podrás verlas aquí.
+                </div>
+            {% endif %}
+
             <br>
         </div>
     {% endif %}

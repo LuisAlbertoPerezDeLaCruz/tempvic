@@ -10,7 +10,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 import json
-from web.views.viewsGeneral import manejarSesion
+from accounts.views import manejarSesion
 
 from django.http import JsonResponse
 from web.templatetags.filtrosEspeciales import *

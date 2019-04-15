@@ -7,7 +7,7 @@ from web.crons import *
 from web.templatetags.filtrosEspeciales import *
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from web.views.viewsGeneral import manejarSesion
+from accounts.views import manejarSesion
 import json
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from random import randint
@@ -386,6 +386,7 @@ def dashboard(request, pk=None):
 
 def calendarioAtleta(request, pk=None):
     vs = manejarSesion(request, pk, False)
+    manejoFechas = ManejoFechas()
     if vs == None:
         return redirect('logout')
     pa = PerfilAtleta(vs.userAlias, vs)
@@ -399,7 +400,20 @@ def calendarioAtleta(request, pk=None):
 
     actividadesPorPagina = 25
 
-    actividades = pa.actividadesTodasEntreFechas(request, True)
+    try:
+        fechaInicio = manejoFechas.dateStr2DateTime(request.GET['fechaInicio'])
+    except:
+        fechaInicio = datetime.today()
+    try:
+        fechaFinalizacion = manejoFechas.dateStr2DateTime(request.GET['fechaFinalizacion'])
+    except:
+        fechaFinalizacion = datetime.today() + timedelta(days=365)
+
+    if fechaInicio.date() < datetime.today().date():
+        soloFuturas=False
+    else:
+        soloFuturas=True
+    actividades = pa.actividadesTodasEntreFechas(request, soloFuturas)
 
     # Pagineo para tabIzquierdo
     paginaIZQ = request.GET.get('paginaIZQ', 1)
@@ -435,8 +449,16 @@ def calendarioAtleta(request, pk=None):
     else:
         reset = False
 
+    marcaAlias = request.GET.get('marcaAlias','Suscripciones')
+    if marcaAlias not in ['Suscripciones', 'Todos']:
+        marcaNombre = Marca.objects.get(m_alias=request.GET['marcaAlias']).m_nombre
+    else:
+        marcaNombre = marcaAlias
+
     if paginaIZQ > 1 or paginaDER > 1 or reset:
         return render(request, 'calendario-atleta-table-plus.html', {
+            'marcaNombre': marcaNombre,
+            'marcaAlias': marcaAlias,
             'vs': vs,
             'dummy': randint(0, 10000),
             'perfilAtleta': pa,

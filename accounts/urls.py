@@ -1,7 +1,15 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from .views import *
 
 urlpatterns = [
+    url(r'^$',login, name='login'),
+    url(r'^login$', login, name='login'),
+    url(r'^logout$', user_logout, name='logout'),
+    url(r'^ajax/validate_username/$', validate_username, name='validate_username'),
+    url(r'^ajax/validate_useralias/$', validate_useralias, name='validate_useralias'),
+    url(r'^ajax/validate_marcaalias/$', validate_marcaalias, name='validate_marcaalias'),
+    url(r'^cambiarmarca/(?P<pk>[\w\-]+)$', cambiarmarca),
     url(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='registration/password_reset.html',

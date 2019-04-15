@@ -5,12 +5,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
-class RegisterForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ('username', 'password', 'first_name','last_name')
-        
 class ProfileImageForm(forms.Form):
     image = forms.FileField(label='Select a profile Image')    
 
