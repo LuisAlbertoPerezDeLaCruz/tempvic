@@ -3,6 +3,8 @@ from . import views
 import rest_framework.documentation as drf_doc
 from rest_framework_simplejwt import views as jwt_views
 
+app_name = 'apis'
+
 urlpatterns = [
     url(r'^apis/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^apis/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
