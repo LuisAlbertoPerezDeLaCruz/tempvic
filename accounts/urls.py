@@ -1,18 +1,18 @@
 from django.conf.urls import url
-from accounts import views
+from accounts import views as accounts_views
 from django.contrib.auth import views as auth_views
 
 
 app_name = 'accounts'
 
 urlpatterns = [
-    url(r'^$',views.login, name='login'),
-    url(r'^login$', views.login, name='login'),
-    url(r'^logout$', views.user_logout, name='logout'),
-    url(r'^ajax/validate_username/$', views.validate_username, name='validate_username'),
-    url(r'^ajax/validate_useralias/$', views.validate_useralias, name='validate_useralias'),
-    url(r'^ajax/validate_marcaalias/$', views.validate_marcaalias, name='validate_marcaalias'),
-    url(r'^cambiarmarca/(?P<pk>[\w\-]+)$', views.cambiarmarca),
+    url(r'^$',accounts_views.login, name='login'),
+    url(r'^login$', accounts_views.login, name='login'),
+    url(r'^logout$', accounts_views.user_logout, name='logout'),
+    url(r'^ajax/validate_username/$', accounts_views.validate_username, name='validate_username'),
+    url(r'^ajax/validate_useralias/$', accounts_views.validate_useralias, name='validate_useralias'),
+    url(r'^ajax/validate_marcaalias/$', accounts_views.validate_marcaalias, name='validate_marcaalias'),
+    url(r'^cambiarmarca/(?P<pk>[\w\-]+)$', accounts_views.cambiarmarca),
     url(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='registration/password_reset.html',
