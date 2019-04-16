@@ -416,7 +416,7 @@ def calendarioAtleta(request, pk=None):
     actividades = pa.actividadesTodasEntreFechas(request, soloFuturas)
 
     # Pagineo para tabIzquierdo
-    paginaIZQ = request.GET.get('paginaIZQ', 1)
+    paginaIZQ = int(request.GET.get('paginaIZQ', 1))
     paginatorIZQ = Paginator(actividades[0], actividadesPorPagina)
     try:
         actividadesIZQ = paginatorIZQ.page(paginaIZQ)
@@ -426,7 +426,7 @@ def calendarioAtleta(request, pk=None):
         actividadesIZQ = paginatorIZQ.page(paginatorIZQ.num_pages)
 
     # Pagineo para tabDerecho
-    paginaDER = request.GET.get('paginaDER', 1)
+    paginaDER = int(request.GET.get('paginaDER', 1))
     paginatorDER = Paginator(actividades[1], actividadesPorPagina)
     try:
         actividadesDER = paginatorDER.page(paginaDER)

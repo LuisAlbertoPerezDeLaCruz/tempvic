@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/accounts/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/views/viewsDashBoards.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views/viewsDashBoards.py" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -91,66 +89,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/urls.py">
+        <entry file="file://$PROJECT_DIR$/web/views/viewsDashBoards.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="2" column="32" lean-forward="true" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+            <state relative-caret-position="195">
+              <caret line="392" lean-forward="true" selection-start-line="392" selection-end-line="392" />
               <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/accounts/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#96#119#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/accounts/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/victorius/urls.py">
+        <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
-              <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="39" />
-              <folding>
-                <element signature="e#634#671#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apis/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/accounts/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
-              <folding>
-                <element signature="e#95#140#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="369">
+              <caret line="113" column="81" selection-start-line="113" selection-start-column="81" selection-end-line="113" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -167,8 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>todos_centros.png</find>
-      <find>logfile.txt</find>
       <find>send_</find>
       <find>SETTINGS</find>
       <find>send_mail</find>
@@ -197,6 +149,8 @@
       <find>soloF</find>
       <find>views.</find>
       <find>accounts_views.</find>
+      <find>proximas</find>
+      <find>próximas</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -240,11 +194,9 @@
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/logfile.txt" />
         <option value="$PROJECT_DIR$/static/js/calendario-atleta.js" />
-        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
         <option value="$PROJECT_DIR$/web/templates/perfiles/perfil-planes-atleta.html" />
         <option value="$PROJECT_DIR$/web/static/js/calendario-atleta.js" />
         <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
-        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-perfil.html" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-controles.html" />
@@ -258,23 +210,25 @@
         <option value="$PROJECT_DIR$/accounts/forms.py" />
         <option value="$PROJECT_DIR$/web/views/viewsActividades.py" />
         <option value="$PROJECT_DIR$/web/views/viewsGeneral.py" />
-        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html" />
-        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html" />
         <option value="$PROJECT_DIR$/web/clases.py" />
-        <option value="$PROJECT_DIR$/web/views/viewsDashBoards.py" />
         <option value="$PROJECT_DIR$/apis/urls.py" />
         <option value="$PROJECT_DIR$/accounts/views.py" />
         <option value="$PROJECT_DIR$/apis/views.py" />
         <option value="$PROJECT_DIR$/web/urls.py" />
         <option value="$PROJECT_DIR$/victorius/urls.py" />
         <option value="$PROJECT_DIR$/accounts/urls.py" />
+        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
+        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html" />
+        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html" />
+        <option value="$PROJECT_DIR$/web/views/viewsDashBoards.py" />
+        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="228" />
-    <option name="y" value="65" />
-    <option name="width" value="1657" />
+    <option name="x" value="165" />
+    <option name="y" value="77" />
+    <option name="width" value="1684" />
     <option name="height" value="966" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -282,44 +236,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
-              <item name="victorius" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
-              <item name="victorius" type="462c0819:PsiDirectoryNode" />
-              <item name="accounts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
-              <item name="victorius" type="462c0819:PsiDirectoryNode" />
-              <item name="apis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
-              <item name="victorius" type="462c0819:PsiDirectoryNode" />
-              <item name="victorius" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-            </path>
-            <path>
-              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="postgresql" />
@@ -470,7 +387,9 @@
       <workItem from="1555347316154" duration="2878000" />
       <workItem from="1555352003860" duration="126000" />
       <workItem from="1555367110019" duration="2700000" />
-      <workItem from="1555370083870" duration="2207000" />
+      <workItem from="1555370083870" duration="3278000" />
+      <workItem from="1555422562790" duration="6086000" />
+      <workItem from="1555434865589" duration="2043000" />
     </task>
     <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
       <created>1553561863044</created>
@@ -696,22 +615,30 @@
       <option name="project" value="LOCAL" />
       <updated>1555373447350</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Ajustes en urls del modulo de accounts">
+      <created>1555373734260</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1555373734260</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160497000" />
+    <option name="totallyTimeSpent" value="169697000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="228" y="65" width="1657" height="966" extended-state="0" />
+    <frame x="165" y="77" width="1684" height="966" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18249534" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25698325" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.44444445" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.2962963" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -790,15 +717,20 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/accounts/views.py</url>
           <line>325</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/web/views/viewsGeneral.py</url>
           <line>3326</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/web/views/viewsDashBoards.py</url>
+          <line>458</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -857,13 +789,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../venv/lib/python3.6/site-packages/dj_database_url.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../venv/lib/python3.6/site-packages/psycopg2/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -940,20 +865,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5353">
-          <caret line="421" selection-start-line="421" selection-end-line="421" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -978,13 +889,6 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="282" selection-start-line="282" selection-end-line="282" />
         </state>
       </provider>
     </entry>
@@ -1020,27 +924,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="767">
           <caret line="75" column="30" selection-start-line="75" selection-start-column="30" selection-end-line="75" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="25" selection-end-line="310" />
-          <folding>
-            <element signature="n#block#1;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-perfil.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
-          <folding>
-            <element signature="n#block#1;n#!!top" />
-            <element signature="n#block#2;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1134,9 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
           <caret line="60" selection-start-line="60" selection-end-line="60" />
-          <folding>
-            <element signature="e#93#116#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1144,44 +1024,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="123" selection-start-line="123" selection-end-line="123" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/clases.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="1481" selection-start-line="1481" selection-end-line="1481" />
-          <folding>
-            <element signature="e#87#111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/views/viewsDashBoards.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="414" selection-start-line="414" selection-end-line="414" />
-          <folding>
-            <element signature="e#96#119#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1202,42 +1044,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apis/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="2" column="32" lean-forward="true" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/accounts/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#95#140#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/victorius/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="39" />
-          <folding>
-            <element signature="e#634#671#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1254,6 +1066,124 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/accounts/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/victorius/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="39" />
+          <folding>
+            <element signature="e#634#671#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apis/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/accounts/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/clases.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="1481" selection-start-line="1481" selection-end-line="1481" />
+          <folding>
+            <element signature="e#87#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-perfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding>
+            <element signature="n#block#2;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1000">
+          <caret line="2" column="29" lean-forward="true" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="68" column="7" lean-forward="true" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
+          <folding>
+            <element signature="n#if#0;n#!!top" />
+            <element signature="n#if#2;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+          <folding>
+            <element signature="e#21064#21101#0#DjangoTemplate" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="385" column="8" lean-forward="true" selection-start-line="385" selection-end-line="410" selection-end-column="36" />
+          <folding>
+            <element signature="e#71#87#0#DjangoTemplate" />
+            <element signature="e#665#684#0#DjangoTemplate" />
+            <element signature="e#17780#17805#0#DjangoTemplate" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="2" column="39" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="39" />
+          <folding>
+            <element signature="n#block#0;n#!!top" />
+            <element signature="n#block#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/views/viewsDashBoards.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="392" lean-forward="true" selection-start-line="392" selection-end-line="392" />
+          <folding>
+            <element signature="e#96#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="113" column="81" selection-start-line="113" selection-start-column="81" selection-end-line="113" selection-end-column="81" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

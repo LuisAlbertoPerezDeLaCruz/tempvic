@@ -40,3 +40,30 @@
         </div>
     {% endif %}
 {% endblock mensajesPlus %}
+
+{% block accionPagineo %}
+    {% if numPagesIZQ > 0 %}
+
+        <div class="container text-center">
+            <br> <br>
+            <a id="idAccionPagineoIZQ" href="javascript:void(0)" class="accionPagineoIZQ"></a>
+
+            <button style="text-align: center" id="idAccionPagineoIZQ" type="button"
+                    class="btn btn-block  vic-btn-reservar-reverse accionPagineoIZQ"
+                    style="margin-top: 15px">
+                Próximas
+            </button>
+        </div>
+    {% endif %}
+    {% if numPagesDER > 1 %}
+        <div class="container text-center">
+            <br> <br>
+            <a id="idAccionPagineoDER" href="javascript:void(0)" class="accionPagineoDER"></a>
+            <button style="text-align: center" id="idAccionPagineoDER" type="button"
+                    class="btn btn-block  vic-btn-reservar-reverse accionPagineoDER"
+                    style="margin-top: 15px">
+                Próximas
+            </button>
+        </div>
+    {% endif %}
+{% endblock accionPagineo %}
