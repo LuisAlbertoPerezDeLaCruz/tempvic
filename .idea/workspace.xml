@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/views/viewsDashBoards.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views/viewsDashBoards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/header.html" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -88,23 +84,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/views/viewsDashBoards.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="392" lean-forward="true" selection-start-line="392" selection-end-line="392" />
-              <folding>
-                <element signature="e#96#119#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
+        <entry file="file://$PROJECT_DIR$/web/templates/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="113" column="81" selection-start-line="113" selection-start-column="81" selection-end-line="113" selection-end-column="81" />
+            <state relative-caret-position="294">
+              <caret line="419" column="41" selection-start-line="419" selection-start-column="41" selection-end-line="419" selection-end-column="41" />
+              <folding>
+                <element signature="e#6847#6894#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -121,7 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>send_</find>
       <find>SETTINGS</find>
       <find>send_mail</find>
       <find>Completa tu registro para la auto-gestion</find>
@@ -151,6 +137,7 @@
       <find>accounts_views.</find>
       <find>proximas</find>
       <find>próximas</find>
+      <find>victorius_</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -222,12 +209,13 @@
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table-plus.html" />
         <option value="$PROJECT_DIR$/web/views/viewsDashBoards.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html" />
+        <option value="$PROJECT_DIR$/web/templates/header.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="165" />
-    <option name="y" value="77" />
+    <option name="x" value="194" />
+    <option name="y" value="120" />
     <option name="width" value="1684" />
     <option name="height" value="966" />
   </component>
@@ -236,7 +224,52 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="calendarios" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="postgresql" />
@@ -389,7 +422,8 @@
       <workItem from="1555367110019" duration="2700000" />
       <workItem from="1555370083870" duration="3278000" />
       <workItem from="1555422562790" duration="6086000" />
-      <workItem from="1555434865589" duration="2043000" />
+      <workItem from="1555434865589" duration="2193000" />
+      <workItem from="1555527544680" duration="689000" />
     </task>
     <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
       <created>1553561863044</created>
@@ -622,17 +656,24 @@
       <option name="project" value="LOCAL" />
       <updated>1555373734260</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Ajustes en pagineos de calendario atleta">
+      <created>1555437025658</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1555437025658</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169697000" />
+    <option name="totallyTimeSpent" value="170536000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="165" y="77" width="1684" height="966" extended-state="0" />
+    <frame x="194" y="120" width="1684" height="966" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25698325" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25946277" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -712,7 +753,8 @@
     <MESSAGE value="Personalizados los mensajes en calendario atleta y arreglado bug que impedia que actividades viejas se vieran" />
     <MESSAGE value="Agregado app_name en accounts.urls y apis.urls" />
     <MESSAGE value="Ajustes en urls del modulo de accounts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajustes en urls del modulo de accounts" />
+    <MESSAGE value="Ajustes en pagineos de calendario atleta" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajustes en pagineos de calendario atleta" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -800,13 +842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-175">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -1168,20 +1203,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="113" column="81" selection-start-line="113" selection-start-column="81" selection-end-line="113" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/views/viewsDashBoards.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
-          <caret line="392" lean-forward="true" selection-start-line="392" selection-end-line="392" />
+          <caret line="392" selection-start-line="392" selection-end-line="392" />
           <folding>
             <element signature="e#96#119#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
+    <entry file="file://$PROJECT_DIR$/web/templates/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="113" column="81" selection-start-line="113" selection-start-column="81" selection-end-line="113" selection-end-column="81" />
+        <state relative-caret-position="294">
+          <caret line="419" column="41" selection-start-line="419" selection-start-column="41" selection-end-line="419" selection-end-column="41" />
+          <folding>
+            <element signature="e#6847#6894#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
