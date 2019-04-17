@@ -15,6 +15,8 @@ from datetime import timedelta
 from decouple import config, Csv
 import dj_database_url
 
+from django.utils.timezone import activate
+
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
@@ -126,6 +128,8 @@ WSGI_APPLICATION = 'victorius.wsgi.application'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Caracas'
+
+activate(TIME_ZONE)
 
 USE_I18N = True
 
