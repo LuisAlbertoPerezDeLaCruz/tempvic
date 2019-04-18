@@ -680,6 +680,9 @@
 
     $(document).ready(function () {
 
+        $('#idTiempo').html(getSeccionDelDia());
+
+        getSeccionDelDia();
 
         $('.customCarruserActividades').owlCarousel({
             loop: false,
@@ -695,31 +698,6 @@
                 }
             }
         });
-
-
-        /**
-         *
-
-         loop: false,
-         center: false,
-         dots: false,
-         margin: 5,
-         responsiveClass: true,
-
-         autoWidth:true,
-         rewind: true,
-         responsive: {
-                            0: {
-                                items: 1,
-                                dots: false
-                            },
-                            600: {
-                                items: 1,
-                                dots: false
-                            }
-                        }
-         * */
-
 
         $(".min-24").each(function (index, element) {
 
@@ -753,6 +731,21 @@
             $(id).parent().hide();
         }
     }
+
+    function getSeccionDelDia(){
+        ahora= new Date();
+        minutosDia=ahora.getHours()*60+ahora.getMinutes();
+        saludo='';
+        if (minutosDia < 12*60)
+            saludo='Buenos Dias !';
+        if (minutosDia >= 12*60 && minutosDia < 18*60)
+            saludo='Buenas Tardes !';
+        if (minutosDia > 18*60)
+            saludo='Buenas Noches !';
+        return saludo;
+    }
+
+
 
 </script>
 

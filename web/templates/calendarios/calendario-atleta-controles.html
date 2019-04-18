@@ -7,6 +7,7 @@
 {% load staticfiles %}
 
 {% block controlFiltro %}
+
     <!-- Espacio para Desktop solamente -->
     <div class="row  hidden-xs hidden-sm" style="margin-bottom: 10px; ">
     </div>
@@ -226,6 +227,15 @@
 
 {% block controlCarrusel %}
     {% if vs.tipoSesion == vs.ATLETA %}
+        <div class="soloIZQ">
+            <div class="vic-title-ms " style="text-align: center ">
+                <label id="idTiempo"></label>
+            </div>
+            <div class="vic-calendar-sub-title-header vic-tex-inic " style="margin-top: 10px;">
+                Que te gustaria entrenar hoy ?
+            </div>
+            <br>
+        </div>
         {% if perfilAtleta.atletaTieneRelacionConMarcas == True %}
             <!-- CARROUSEL DE CIRCULOS-->
             <div class="row vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn">
