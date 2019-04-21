@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from apis import views
-import rest_framework.documentation as drf_doc
 from rest_framework_simplejwt import views as jwt_views
 
 app_name = 'apis'
@@ -9,7 +8,6 @@ urlpatterns = [
     url(r'^apis/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^apis/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'^apis/hello/', views.HelloView.as_view(), name='hello'),
-    url(r'', drf_doc.include_docs_urls(title='Victorius API')),
     url(r'^apis/lista/$', views.VictoriusApi.as_view()),
     url(r'^apis/actividades-todas/$', views.ActividadesTodasView.as_view()),
     url(r'^apis/actividades-atleta/$', views.ActividadesAfiliacionView.as_view()),
@@ -26,7 +24,6 @@ urlpatterns = [
     url(r'^apis/localidades/(?P<pk>[\w\-]+)', views.LocalidadesAfiliacionView.as_view(), name="localidades_afiliacion"),
     url(r'^apis/planes-atleta/(?P<pk>[\w\-]+)', views.PlanesAtletaView.as_view(), name="planes_atleta"),
     url(r'^apis/productos-actividad/(?P<pk>[\w\-]+)', views.ProductosActividadView.as_view(), name="productos_actividad"),
-    url(r'^apis/docs/', drf_doc.include_docs_urls(title='Victorius API')),
     url(r'^apis/pin-notificaciones-atleta/$', views.PinNotificacionesAtletaView.as_view(), name="pin-notificaciones-atleta"),
     url(r'^apis/notificaciones-pendientes-atleta/$', views.NotificacionesPendientesAtletaView.as_view(), name="notificaciones-pendientes-atleta"),
     url(r'^apis/notificaciones-recientes-atleta/$', views.NotificacionesRecientesAtletaView.as_view(), name="notificaciones-recientes-atleta"),

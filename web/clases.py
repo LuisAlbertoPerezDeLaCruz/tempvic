@@ -1973,7 +1973,7 @@ class PerfilActividad:
         self.actualizarCupos(actividad)
         self.actividadNombre = actividad.ac_nombre
         self.actividadMarca = actividad.ac_marca
-        self.actividadMarcaId=actividad.id
+        self.actividadMarcaId=actividad.ac_marca_id
         self.actividadInicialesMarca = actividad.ac_marca.m_iniciales
         self.actividadNombreMarca = actividad.ac_marca.m_nombre
         self.actividadAliasMarca = actividad.ac_marca.m_alias

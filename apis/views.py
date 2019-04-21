@@ -414,12 +414,13 @@ class Cancelar(APIView):
             return Response(mensaje, status.HTTP_400_BAD_REQUEST)
 
 class Reservar(APIView):
+    permission_classes = (drf_perm.IsAuthenticated,)
     def post(self,request):
+        userId = request._user.pk
         mensaje = 'ok'
-        if 'actividadId' in request.POST and 'userId' in request.POST:
+        if 'actividadId' in request.POST:
             try:
                 actividadId=int(request.POST['actividadId'])
-                userId = int(request.POST['userId'])
                 if User.objects.filter(pk=userId).exists() and Actividad.objects.filter(pk=actividadId).exists():
                     pass
                 else:
@@ -427,7 +428,8 @@ class Reservar(APIView):
             except:
                 mensaje = 'parametros invalidos'
         else:
-            mensaje='parametros invalidos'
+            mensaje ='parametros invalidos (falta actividadId)'
+            return Response(mensaje, status.HTTP_400_BAD_REQUEST)
 
         planId=0
         try:
@@ -444,13 +446,18 @@ class Reservar(APIView):
             cupo=0
 
         perfilActividad=PerfilActividad(actividadId)
+
+        if perfilActividad.atletaReservado(userId):
+           return Response('ya tiene reserva', status.HTTP_200_OK)
+
+
         atletaAlias=User.objects.get(pk=userId).profile.u_alias
         perfilAtleta=PerfilAtleta(atletaAlias)
         if puede_reservar(perfilActividad,perfilAtleta):
             mensaje=reservarUsuario(perfilActividad, perfilAtleta,cupo,planId)
         else:
             mensaje='atleta no puede reservar'
-        if mensaje=='ok':
+        if mensaje == ' ha sido reservado':
             return Response(mensaje, status.HTTP_200_OK)
         else:
             return Response(mensaje, status.HTTP_400_BAD_REQUEST)
@@ -474,7 +481,7 @@ def reservarUsuario(perfilActividad,perfilAtleta,cupo,planId):
         else:
             mensaje = " No existe lista de espera."
     else:
-        strRetorno = vicsafe.registrar_reserva(actividadId, cupo, planId)
+        strRetorno = vicsafe.registrar_reserva(actividadId, cupo)
         if strRetorno == 'ok':
             if perfilActividad.actividadEsSerie:
                 oActividad = Actividad.objects.get(id=actividadId)
@@ -488,7 +495,7 @@ def reservarUsuario(perfilActividad,perfilAtleta,cupo,planId):
                 oActividad.ac_enf = 'No'
                 oActividad.ac_fdesp = oActividad.ac_fecha
                 oActividad.save()
-    
+
             mensaje = " ha sido reservado"
         else:
             mensaje = strRetorno
@@ -506,7 +513,7 @@ def puede_reservar(perfilActividad,perfilAtleta):
         else:
             try:
                 vicsafe = VicSafe(perfilAtleta.atletaId, marcaId, None)
-                resultado = vicsafe.puedeReservarActividad(perfilActividad.actividadId) is not None
+                resultado = vicsafe.puedeReservarActividad(perfilActividad.actividadId,vs) is not None
                 return resultado
             except Exception as ex:
                 return False

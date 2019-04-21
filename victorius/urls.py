@@ -18,11 +18,14 @@ from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+import rest_framework.documentation as drf_doc
 
 urlpatterns = [
+    path('apis/', drf_doc.include_docs_urls(title='Victorius API')),
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('', include('web.urls')),
     path('', include('apis.urls')),
+    path('apis/docs/', drf_doc.include_docs_urls(title='Victorius API')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
