@@ -1957,6 +1957,8 @@ class PerfilActividad:
         self.actividadLocalizador=None
         self.actividadInstructorProfile=None
         self.actividadEsSerie=None
+        self.actividadSerieIdOriginaria = None
+        self.actividadBaseSerieId = None
         self.actividadClaseCSS=None
         self.actividadTiempoIrreversible=None
         self.cargaInfoActividad()
@@ -2129,8 +2131,11 @@ class PerfilActividad:
                                                             self.actividadId)
         if actividad.ac_OpcionSerie=='Si':
             self.actividadEsSerie=True
+            self.actividadBaseSerieId=actividad.ac_actividadBaseSerieId
         else:
             self.actividadEsSerie=False
+            self.actividadBaseSerieId = actividad.ac_actividadBaseSerieId
+            self.actividadSerieIdOriginaria = actividad.ac_serieId_originaria
 
         self.actividadTiempoIrreversible=actividad.ac_marca.m_est_irrev
 

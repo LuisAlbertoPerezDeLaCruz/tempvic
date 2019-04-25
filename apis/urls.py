@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^apis/actividades-atleta/$', views.ActividadesAfiliacionView.as_view()),
     url(r'^apis/detalle-actividad/(?P<id>[\w\-]+)', views.DetalleActividadView.as_view()),
     url(r'^apis/reservar/$',views.Reservar.as_view()),
+    url(r'^apis/marcar-ingreso-express/$', views.MarcarIngresoExpress.as_view(), name="marcar-ingreso-express"),
     url(r'^apis/cancelar/$', views.Cancelar.as_view()),
     url(r'^apis/reservas/(?P<pk>[\w\-]+)', views.ActividadesReservadasView.as_view(), name="actividades_reservadas"),
     url(r'^apis/esperas/(?P<pk>[\w\-]+)', views.ActividadesEnEsperaView.as_view(), name="actividades_en_espera"),

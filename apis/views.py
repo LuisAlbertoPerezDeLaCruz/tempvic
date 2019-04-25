@@ -413,6 +413,87 @@ class Cancelar(APIView):
         else:
             return Response(mensaje, status.HTTP_400_BAD_REQUEST)
 
+class MarcarIngresoExpress(APIView):
+    permission_classes = (drf_perm.IsAuthenticated,)
+    def post(self,request):
+        userId = request._user.pk
+        mensaje = 'ok'
+        if 'actividadId' in request.POST:
+            try:
+                actividadId=int(request.POST['actividadId'])
+                if User.objects.filter(pk=userId).exists() and Actividad.objects.filter(pk=actividadId).exists():
+                    pass
+                else:
+                    mensaje = 'parametros invalidos'
+            except:
+                mensaje = 'parametros invalidos'
+        else:
+            mensaje ='parametros invalidos (falta actividadId)'
+            return Response(mensaje, status.HTTP_400_BAD_REQUEST)
+
+        perfilActividad = PerfilActividad(actividadId)
+
+        codigoSerie = None
+
+        if perfilActividad.actividadEsSerie:
+            codigoSerie = perfilActividad.actividadBaseSerieId
+        elif perfilActividad.actividadSerieIdOriginaria > 0:
+            perfilActividadOriginaria = PerfilActividad(perfilActividad.actividadSerieIdOriginaria)
+            codigoSerie = perfilActividadOriginaria.actividadBaseSerieId
+
+        if codigoSerie:
+            actividadesSerie = Actividad.objects.filter(ac_actividadBaseSerieId=codigoSerie,
+                    ac_estado='Abierta Irreversible').order_by('-ac_fecha', '-ac_hora_ini').values('id')
+            if actividadesSerie:
+                codigoActividadReal = actividadesSerie[0]['id']
+            else:
+                mensaje = 'no hay actividades abiertas para esta serie'
+                return Response(mensaje, status.HTTP_400_BAD_REQUEST)
+        else:
+            if perfilActividad.actividadEstado != 'Abierta Irreversible':
+                mensaje = 'esta actividades no esta abierta'
+                return Response(mensaje, status.HTTP_400_BAD_REQUEST)
+            else:
+                codigoActividad = perfilActividad.actividadId
+
+        perfilActividad = PerfilActividad(codigoActividadReal)
+
+        # El codigoActividadReal representa el codigo con el cual vamos a realizar
+        # la reserva y/o marcar la asistencia. Esto es por lo siguiente: El QR que
+        # podrian deplegar en la puerta de la sala puede ser el QR de una actividad cualquiera
+        # de la serie. En la logica de esta api, encontramos la proxima actividad
+        # en estado Abierta Irreversible perteneciente a esa serie y ese viene siendo
+        # el codigoActividadReal.
+
+        atletaAlias = User.objects.get(pk=userId).profile.u_alias
+        perfilAtleta = PerfilAtleta(atletaAlias)
+        mensaje = 'ok'
+        if perfilActividad.atletaReservado(userId):
+            self.marcarAsistencia(perfilActividad.actividadId, perfilAtleta.atletaId)
+        elif perfilActividad.actividadReservados <= perfilActividad.actividadCapacidadMaxima:
+            if puede_reservar(perfilActividad, perfilAtleta):
+                mensaje = reservarUsuario(perfilActividad, perfilAtleta)
+                if perfilActividad.atletaReservado(userId):
+                    self.marcarAsistencia(perfilActividad.actividadId, perfilAtleta.atletaId)
+                    mensaje = 'ok'
+            else:
+                mensaje = 'atleta no puede reservar'
+        else:
+            mensaje = 'no hay cupo disponible'
+
+        if mensaje == 'ok':
+            return Response(mensaje, status.HTTP_200_OK)
+        else:
+            return Response(mensaje, status.HTTP_400_BAD_REQUEST)
+
+
+    def marcarAsistencia(self,actividadId,userId):
+        participante = Participantes.objects.get(pa_usuario_id=userId,pa_actividad_id=actividadId)
+        participante.pa_asistencia = True
+        participante.save()
+        return
+
+
 class Reservar(APIView):
     permission_classes = (drf_perm.IsAuthenticated,)
     def post(self,request):

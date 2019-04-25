@@ -45,7 +45,7 @@
 
 
 
-            <div class="row hidden-md hidden-lg" style="margin-left: -15px;margin-right: -15px; ">
+            <div class="row hidden-md hidden-lg pcnn"  style="margin-left: -15px;margin-right: -15px; ">
                 <div class="tabPlanesActivos col-xs-6 menu-movil sin-left vic-plans-menu-link active"
                      onclick="vcPlansMenu(this,1)">
                     <div class="cell">
@@ -61,7 +61,7 @@
 
             </div>
 
-            <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll">
+            <div class="vic-perfil-atl-inst-sub-title hidden-xs hidden-sm menu-movil-ll pcnn">
                 <div>
                     <div class="tabPlanesActivos menu-tab-calendar vic-plans-menu-link active"
                          onclick="vcPlansMenu(this,1)">
@@ -79,7 +79,7 @@
 
             {% if vs.tipoSesion == vs.ATLETA %}
                 <!-- CARROUSEL DE CIRCULOS-->
-                <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn ">
+                <div class=" vc-perf-atleta-menu1-tab   vc-perf-atleta-menu1-tab-1 animated fadeIn pcnn">
                     <div class="columns" style="text-align: center; padding-top: 5px; padding-bottom: 5px ">
                         <div class="owl-carousel owl-theme marcasCarrusel m-t-20">
 
@@ -200,7 +200,7 @@
 
             {% if planes %}
 
-                <div class="vic-plans-box-1 vic-plans-menu  animated fadeIn">
+                <div class="vic-plans-box-1 vic-plans-menu  animated fadeIn ">
 
 
                     <br>
@@ -272,7 +272,7 @@
                         <div class="row">
                             <div class="col-xs-12 vic-ma2">
                                 <div class="text-center col-xs-12 ">
-
+<div class="pcnn">
                                     <i class="fas fa-battery-quarter fa-4x" style="color: #ffcd00"
                                        aria-hidden="true"></i>
 
@@ -286,21 +286,10 @@
                                     {% else %}
                                         <div class=" vic-calendar-title">No cuentas con ningún plan activo</div>
 
-                                        {% comment %}                            <div class="vic-calendar-sub-title-header vic-tex-inic "
-                                             style="margin-top: 10px;">Selecciona el centro donde quisieras comprar un
-                                            <br> un plan para ver los disponibles.
-                                        </div>{% endcomment %}
-                                        <div class="vic-calendar-sub-title-header vic-tex-inic "
-                                             style="margin-top: 10px;">
-                                            Para contratar explora los planes y te enviaremos
-                                            <br>
-                                            la información para el pago y luego debes reportarlo.
-                                            <br><br>
-                                            Ver planes
-                                        </div>
+                                       
                                         <br>
                                     {% endif %}
-
+                                </div>
                                     {% if vs.tipoSesion == vs.MARCA %}
                                         <div class="">
 
@@ -316,54 +305,91 @@
 
                                         </div>
 
+                                      
+
                                     {% else %}
+                                    <div class="vic-calendar-sub-title-header vic-tex-inic w-100 pcn" style="display: none;"
+                                    style="margin-top: 10px;">
+                                   Para contratar explora los planes y te enviaremos
+                                
+                                   la información para el pago y luego debes reportarlo.
+                                   </div>
+                                   <br>
 
-                                        <div class="vic-center">
+                                    <div class="w-100 pcn" style="display: none; margin-top: -3px; ">
+                                            <img style="width: 36px;" src="http://127.0.0.1:8000/static/images/close.png" class="pull-right"  onclick="$('.pcn').toggle();$('.pcnn').toggle();">
+                                     </div>
+                               
 
-                                            <table style="margin-left: auto;margin-right: auto;">
+                                    <button type="button"
+                                    onclick="$('.pcn').toggle();$('.pcnn').toggle();"
+                                    ;
+                                    class="btn btn-xs  vic-btn-reservar dropdown-toggle pcnn"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+
+                                    Comprar
+
+                                     </button>
+
+
+                                 
+                                        <div class="vic-center" style="margin-top: 60px; ">
+
+                                               
                                                 {% for relacion in relaciones %}
 
-                                                    {% if request.GET.marcaAlias != 'None' and request.GET.marcaAlias != '' %}
-
-                                                        {% if request.GET.marcaAlias == relacion.r_marca.m_alias %}
-
-                                                            <tr>
-                                                                <td>
-                                                                    <button type="button"
-                                                                            onclick="preparaTabNewCentrosPrev('{{ relacion.r_marca.m_alias }}');"
-                                                                            ;
-                                                                            class="btn btn-xs  vic-btn-reservar dropdown-toggle"
-                                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="false">
-                                                                        {{ relacion.r_marca.m_nombre }}
-                                                                    </button>
-
-                                                                </td>
-                                                            </tr>
-
-                                                        {% endif %}
-
-                                                    {% else %}
-
-                                                        <tr>
-
-                                                            <td>
-                                                                <button type="button"
-                                                                        onclick="preparaTabNewCentrosPrev('{{ relacion.r_marca.m_alias }}');"
-                                                                        ;
-                                                                        class="btn btn-xs  vic-btn-reservar dropdown-toggle"
-                                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                                        aria-expanded="false">
-                                                                    {{ relacion.r_marca.m_nombre }}
+                                               
+                                                <div class="animated fadeIn pcn" style="display: none;">
+                                                <div class="flex-container vic-filia-atleta ">
+    
+                                                    <div class="box-1">
+                                                        
+                                                                        <div class="vic-circle-calendar-carrusel-65 "
+                                                                             style="display: table">
+                                                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                                <img id="fotoPerfil"
+                                                                                     class="vic-circle-calendar-carrusel-65 "
+                                                                                     src="{{ relacion.rutaAvatar }}"
+                                                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                                            </div>
+                                                                        </div>
+    
+                                                        
+                                                    </div>
+    
+                                                    <div class="box-2">
+                                                        <a href="../{{ relacion.marcaAlias }}">
+    
+                                                            <div><b>{{ relacion.r_marca.m_nombre }}</b></div>
+                                                          
+                                                        </a>
+                                                    </div>
+    
+                                                    <div class="box-3">
+    
+                                                      
+                                                                <button  onclick="preparaTabNewCentrosPrev('{{ relacion.r_marca.m_alias }}');" style="margin-top: -2px;"
+                                                                        type="button"
+                                                                        class="btn btn-xs  vic-btn-outline-reservar "
+                                                                        onclick=""
+                                                                > comprar
                                                                 </button>
+                        
+    
+                                                    </div>
+                                                </div>
+    
+    
+    
+                                                <br>
+                                                <div class="vic-hr hidden-xs hidden-sm"></div>
+    
+    
 
-                                                            </td>
-                                                        </tr>
-
-                                                    {% endif %}
+</div>
 
                                                 {% endfor %}
-                                            </table>
 
 
                                         </div>
