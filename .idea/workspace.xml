@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -87,7 +86,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
+            <state relative-caret-position="438">
               <caret line="750" selection-start-line="750" selection-end-line="750" />
               <folding>
                 <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
@@ -243,7 +242,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="235" />
+    <option name="x" value="209" />
     <option name="y" value="27" />
     <option name="width" value="1724" />
     <option name="height" value="1003" />
@@ -456,7 +455,7 @@
       <workItem from="1556037687612" duration="11575000" />
       <workItem from="1556114079164" duration="818000" />
       <workItem from="1556149524429" duration="352000" />
-      <workItem from="1556150005090" duration="736000" />
+      <workItem from="1556150005090" duration="1220000" />
     </task>
     <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
       <created>1553561863044</created>
@@ -738,23 +737,29 @@
       <option name="project" value="LOCAL" />
       <updated>1556151163269</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Ajustes varios de front">
+      <created>1556151265220</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1556151265220</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215224000" />
+    <option name="totallyTimeSpent" value="215708000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="235" y="27" width="1724" height="1003" extended-state="0" />
-    <editor active="true" />
+    <frame x="209" y="27" width="1724" height="1003" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28843862" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28843862" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.25171626" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.25171626" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -1300,7 +1305,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
+        <state relative-caret-position="438">
           <caret line="750" selection-start-line="750" selection-end-line="750" />
           <folding>
             <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
