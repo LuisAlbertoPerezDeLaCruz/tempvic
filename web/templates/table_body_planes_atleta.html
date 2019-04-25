@@ -45,7 +45,7 @@
 
 
 
-            <div class="row hidden-md hidden-lg pcnn"  style="margin-left: -15px;margin-right: -15px; ">
+            <div class="row hidden-md hidden-lg pcnn" style="margin-left: -15px;margin-right: -15px; ">
                 <div class="tabPlanesActivos col-xs-6 menu-movil sin-left vic-plans-menu-link active"
                      onclick="vcPlansMenu(this,1)">
                     <div class="cell">
@@ -272,24 +272,24 @@
                         <div class="row">
                             <div class="col-xs-12 vic-ma2">
                                 <div class="text-center col-xs-12 ">
-<div class="pcnn">
-                                    <i class="fas fa-battery-quarter fa-4x" style="color: #ffcd00"
-                                       aria-hidden="true"></i>
+                                    <div class="pcnn">
+                                        <i class="fas fa-battery-quarter fa-4x" style="color: #ffcd00"
+                                           aria-hidden="true"></i>
 
-                                    {% if vs.tipoSesion == vs.MARCA %}
-                                        <div class=" vic-calendar-title">Sin planes activos</div>
-                                        <div class="vic-calendar-sub-title-header vic-tex-inic "
-                                             style="margin-top: 10px;">
-                                            Recárgale para que continúe entrenando
-                                        </div>
-                                        <br>
-                                    {% else %}
-                                        <div class=" vic-calendar-title">No cuentas con ningún plan activo</div>
+                                        {% if vs.tipoSesion == vs.MARCA %}
+                                            <div class=" vic-calendar-title">Sin planes activos</div>
+                                            <div class="vic-calendar-sub-title-header vic-tex-inic "
+                                                 style="margin-top: 10px;">
+                                                Recárgale para que continúe entrenando
+                                            </div>
+                                            <br>
+                                        {% else %}
+                                            <div class=" vic-calendar-title">No cuentas con ningún plan activo</div>
 
-                                       
-                                        <br>
-                                    {% endif %}
-                                </div>
+
+                                            <br>
+                                        {% endif %}
+                                    </div>
                                     {% if vs.tipoSesion == vs.MARCA %}
                                         <div class="">
 
@@ -305,91 +305,93 @@
 
                                         </div>
 
-                                      
+
 
                                     {% else %}
-                                    <div class="vic-calendar-sub-title-header vic-tex-inic w-100 pcn" style="display: none;"
-                                    style="margin-top: 10px;">
-                                   Para contratar explora los planes y te enviaremos
-                                
-                                   la información para el pago y luego debes reportarlo.
-                                   </div>
-                                   <br>
+                                        <div class="vic-calendar-sub-title-header vic-tex-inic w-100 pcn"
+                                             style="display: none;"
+                                             style="margin-top: 10px;">
+                                            Para contratar explora los planes y te enviaremos
 
-                                    <div class="w-100 pcn" style="display: none; margin-top: -3px; ">
-                                            <img style="width: 36px;" src="http://127.0.0.1:8000/static/images/close.png" class="pull-right"  onclick="$('.pcn').toggle();$('.pcnn').toggle();">
-                                     </div>
-                               
+                                            la información para el pago y luego debes reportarlo.
+                                        </div>
+                                        <br>
 
-                                    <button type="button"
-                                    onclick="$('.pcn').toggle();$('.pcnn').toggle();"
-                                    ;
-                                    class="btn btn-xs  vic-btn-reservar dropdown-toggle pcnn"
-                                    data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-
-                                    Comprar
-
-                                     </button>
+                                        <div class="w-100 pcn" style="display: none; margin-top: -3px; ">
+                                            <img style="width: 36px;"
+                                                 src="http://127.0.0.1:8000/static/images/close.png" class="pull-right"
+                                                 onclick="$('.pcn').toggle();$('.pcnn').toggle();">
+                                        </div>
 
 
-                                 
+                                        <button type="button"
+                                                onclick="$('.pcn').toggle();$('.pcnn').toggle();"
+                                                ;
+                                                class="btn btn-xs  vic-btn-reservar dropdown-toggle pcnn"
+                                                data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+
+                                            Comprar
+
+                                        </button>
+
+
+
                                         <div class="vic-center" style="margin-top: 60px; ">
 
-                                               
-                                                {% for relacion in relaciones %}
 
-                                               
+                                            {% for relacion in relaciones %}
+
+
                                                 <div class="animated fadeIn pcn" style="display: none;">
-                                                <div class="flex-container vic-filia-atleta ">
-    
-                                                    <div class="box-1">
-                                                        
-                                                                        <div class="vic-circle-calendar-carrusel-65 "
-                                                                             style="display: table">
-                                                                            <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
-                                                                                <img id="fotoPerfil"
-                                                                                     class="vic-circle-calendar-carrusel-65 "
-                                                                                     src="{{ relacion.rutaAvatar }}"
-                                                                                     onerror=src="{% static '/images/AvatarCentro1.png' %}">
-                                                                            </div>
-                                                                        </div>
-    
-                                                        
+                                                    <div class="flex-container vic-filia-atleta ">
+
+                                                        <div class="box-1">
+
+                                                            <div class="vic-circle-calendar-carrusel-65 "
+                                                                 style="display: table">
+                                                                <div style="font-size: 18px; font-weight:medium; display: table-cell;vertical-align:middle;text-align: center;">
+                                                                    <img id="fotoPerfil"
+                                                                         class="vic-circle-calendar-carrusel-65 "
+                                                                         src="{{ relacion.r_marca.full_ruta_avatar }}"
+                                                                         onerror=src="{% static '/images/AvatarCentro1.png' %}">
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div class="box-2">
+                                                            <a href="../{{ relacion.marcaAlias }}">
+
+                                                                <div><b>{{ relacion.r_marca.m_nombre }}</b></div>
+
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="box-3">
+
+
+                                                            <button onclick="preparaTabNewCentrosPrev('{{ relacion.r_marca.m_alias }}');"
+                                                                    style="margin-top: -2px;"
+                                                                    type="button"
+                                                                    class="btn btn-xs  vic-btn-outline-reservar "
+                                                                    onclick=""
+                                                            > comprar
+                                                            </button>
+
+
+                                                        </div>
                                                     </div>
-    
-                                                    <div class="box-2">
-                                                        <a href="../{{ relacion.marcaAlias }}">
-    
-                                                            <div><b>{{ relacion.r_marca.m_nombre }}</b></div>
-                                                          
-                                                        </a>
-                                                    </div>
-    
-                                                    <div class="box-3">
-    
-                                                      
-                                                                <button  onclick="preparaTabNewCentrosPrev('{{ relacion.r_marca.m_alias }}');" style="margin-top: -2px;"
-                                                                        type="button"
-                                                                        class="btn btn-xs  vic-btn-outline-reservar "
-                                                                        onclick=""
-                                                                > comprar
-                                                                </button>
-                        
-    
-                                                    </div>
+
+
+                                                    <br>
+                                                    <div class="vic-hr hidden-xs hidden-sm"></div>
+
+
                                                 </div>
-    
-    
-    
-                                                <br>
-                                                <div class="vic-hr hidden-xs hidden-sm"></div>
-    
-    
 
-</div>
-
-                                                {% endfor %}
+                                            {% endfor %}
 
 
                                         </div>
