@@ -2948,6 +2948,11 @@ class VicSafe:
 class ManejoFechas:
     """Facilita el manejo de los formatos de fechas"""
 
+    meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre',
+             'noviembre', 'diciembre']
+
+    dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+
     def __init__(self):
         pass
 
@@ -2972,43 +2977,46 @@ class ManejoFechas:
     def desdeCuando(self,fechaHora):
         today = datetime.now()
         tdiff = today - fechaHora
-        strmes = "mes"
-        strdia="día"
-        strhora="hora"
-        strminuto="min"
+        strdia = "d"
+        strhora = "h"
+        strminuto = "m"
+        strsegundo = "s"
 
-        if tdiff.days/30 > 1:
-            strmes += 'es'
-        if tdiff.days>1:
-            strdia += 's'
-        if tdiff.seconds/3600 > 1:
-            strhora += 's'
-        if tdiff.seconds/60 > 1:
-            strminuto += 's'
-
-        if tdiff.days/30 > 0:
-            s = "%d " + strmes
-            return s % (tdiff.days/30)
+        if tdiff.days > 7:
+            return self.fechaTwitter(fechaHora)
         elif tdiff.days > 0:
-            s="%d "+strdia
+            s = "%d "+strdia
             return s % tdiff.days
-        elif tdiff.seconds/3600 > 0:
-            s="%d " + strhora + " "
+        elif int(tdiff.seconds/3600) > 0:
+            s = "%d " + strhora + " "
             return s % (tdiff.seconds / 3600)
-        elif tdiff.seconds/60 > 0:
-            s="%d " + strminuto + " "
+        elif int(tdiff.seconds/60) > 0:
+            s = "%d " + strminuto + " "
             return s % (tdiff.seconds / 60)
+        elif tdiff.seconds > 0:
+            s = "%d " + strsegundo + " "
+            return s % (tdiff.seconds)
         else:
             return "ahora"
 
     def mesLiteral(self,mes):
-        meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre',
-                 'noviembre', 'diciembre']
-        return meses[mes-1]
+        return self.meses[mes-1]
+
+    def fechaTwitter(self, fechaIn):
+        fecha = fechaIn
+        hoy = datetime.now().date()
+        anioActual = hoy.year -2000
+        anioFecha = fecha.year - 2000
+        anioDisplay = ''
+        if anioActual != anioFecha:
+            anioDisplay = str(anioFecha)
+
+        fechaFormateada = str(fecha.day) + ' ' + self.meses[fecha.month - 1][:3] + '.' + anioDisplay
+
+        return fechaFormateada
 
     def diaLiteral(self,dia):
-        dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
-        return dias[dia-1]
+        return self.dias[dia-1]
 
     def fechaCorta(self,fechaIn):
         if type(fechaIn).__name__ == 'date' or type(fechaIn).__name__ == 'datetime':
@@ -3036,9 +3044,6 @@ class ManejoFechas:
     def fechaEspecial(self,fechaIn):  # Solo un argumento.
         hoy = datetime.now().date()
         fechaFormateada = ''
-        dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
-        meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre',
-                 'noviembre', 'diciembre']
         if fechaIn == 'ahora':
             fechaIn = datetime.now()
         if type(fechaIn).__name__ == 'date' or type(fechaIn).__name__ == 'datetime':
@@ -3046,7 +3051,7 @@ class ManejoFechas:
         else:
             fecha = datetime.strptime(fechaIn, "%I:%M %p").time()
         d = fecha.weekday()
-        dia = dias[d][:3].capitalize()
+        dia = self.dias[d][:3].capitalize()
         if fecha == hoy:
             fechaFormateada = 'hoy'
         elif fecha == hoy + timedelta(days=1):
@@ -3057,10 +3062,10 @@ class ManejoFechas:
             fechaFormateada = dia + ' ' + str(fecha.day)
         elif fecha.year == hoy.year:
             fechaFormateada += str(fecha.day) + ' '
-            fechaFormateada += meses[fecha.month - 1][:3].capitalize()
+            fechaFormateada += self.meses[fecha.month - 1][:3].capitalize()
         else:
             fechaFormateada += str(fecha.day) + ' '
-            fechaFormateada += meses[fecha.month - 1][:3].capitalize() + ', '
+            fechaFormateada += self.meses[fecha.month - 1][:3].capitalize() + ', '
             fechaFormateada += str(fecha.year)
         return fechaFormateada
 

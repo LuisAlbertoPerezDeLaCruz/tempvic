@@ -432,8 +432,23 @@ class MarcarIngresoExpress(APIView):
             return Response(mensaje, status.HTTP_400_BAD_REQUEST)
 
         perfilActividad = PerfilActividad(actividadId)
+        atletaAlias = User.objects.get(pk=userId).profile.u_alias
+        perfilAtleta = PerfilAtleta(atletaAlias)
 
         codigoSerie = None
+        codigoActividadReal = actividadId
+
+        if perfilActividad.actividadEstado == 'Culminada':
+            if perfilActividad.atletaReservado(perfilAtleta.atletaId):
+                if not perfilActividad.actividadEsSerie and perfilActividad.actividadSerieIdOriginaria == 0:
+                    self.marcarAsistencia(perfilActividad.actividadId, perfilAtleta.atletaId)
+                    return Response(mensaje, status.HTTP_200_OK)
+                    #
+                    # Solo le marco asistencia si la actividad no es perteneciente a una serie
+                    # Esto es por lo siguiente: El QR que podrian deplegar en la puerta de la sala
+                    # puede ser el QR de una actividad cualquiera de la serie y aqui no se sabe
+                    # a ciencia cierta cual es la actividad que el usuario estaria marcando asistencia.
+                    #
 
         if perfilActividad.actividadEsSerie:
             codigoSerie = perfilActividad.actividadBaseSerieId
@@ -443,7 +458,10 @@ class MarcarIngresoExpress(APIView):
 
         if codigoSerie:
             actividadesSerie = Actividad.objects.filter(ac_actividadBaseSerieId=codigoSerie,
-                    ac_estado='Abierta Irreversible').order_by('-ac_fecha', '-ac_hora_ini').values('id')
+                    ac_estado__in=['Abierta Irreversible','Activa']).order_by('-ac_fecha', '-ac_hora_ini').values('id')
+            if not actividadesSerie:
+                actividadesSerie = Actividad.objects.filter(ac_serieId_originaria=codigoSerie,
+                    ac_estado__in=['Abierta Irreversible', 'Activa']).order_by('-ac_fecha', '-ac_hora_ini').values('id')
             if actividadesSerie:
                 codigoActividadReal = actividadesSerie[0]['id']
             else:
@@ -465,8 +483,6 @@ class MarcarIngresoExpress(APIView):
         # en estado Abierta Irreversible perteneciente a esa serie y ese viene siendo
         # el codigoActividadReal.
 
-        atletaAlias = User.objects.get(pk=userId).profile.u_alias
-        perfilAtleta = PerfilAtleta(atletaAlias)
         mensaje = 'ok'
         if perfilActividad.atletaReservado(userId):
             self.marcarAsistencia(perfilActividad.actividadId, perfilAtleta.atletaId)
@@ -485,6 +501,7 @@ class MarcarIngresoExpress(APIView):
             return Response(mensaje, status.HTTP_200_OK)
         else:
             return Response(mensaje, status.HTTP_400_BAD_REQUEST)
+
 
 
     def marcarAsistencia(self,actividadId,userId):
@@ -543,7 +560,7 @@ class Reservar(APIView):
         else:
             return Response(mensaje, status.HTTP_400_BAD_REQUEST)
 
-def reservarUsuario(perfilActividad,perfilAtleta,cupo,planId):
+def reservarUsuario(perfilActividad,perfilAtleta,cupo=0):
     atletaId=perfilAtleta.atletaId
     actividadId=perfilActividad.actividadId
     vs=VicSession(perfilAtleta.atletaCorreo)
@@ -554,7 +571,7 @@ def reservarUsuario(perfilActividad,perfilAtleta,cupo,planId):
 
     if perfilActividad.actividadReservados == perfilActividad.actividadCapacidadMaxima:
         if perfilActividad.actividadCapacidadEspera > 0:
-            strRetorno = vicsafe.registrar_lista_espera(actividadId, planId)
+            strRetorno = vicsafe.registrar_lista_espera(actividadId)
             if strRetorno == 'ok':
                 mensaje = " paso a lista de espera"
             else:
@@ -589,7 +606,7 @@ def puede_reservar(perfilActividad,perfilAtleta):
     marcaId=perfilActividad.actividadMarcaId
     vs=VicSession(perfilAtleta.atletaCorreo)
     try:
-        if perfilAtleta.atletaAlias==perfilActividad.actividadInstructorAlias:
+        if perfilAtleta.atletaAlias == perfilActividad.actividadInstructorAlias:
             return False
         else:
             try:
