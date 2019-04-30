@@ -210,12 +210,14 @@ def crearActividadAjax(request):
     diasTipoSMIn=''
     fechaIn = request.GET['fecha']
     fechaCheck=datetime.strptime(fechaIn, "%d/%m/%Y").date()
-    horaCheck = datetime.strptime(request.GET['hora_ini'], "%I:%M %p").time()
-    fechaHoraCheck=datetime.combine(fechaCheck,horaCheck)
+    #horaCheck = datetime.strptime(request.GET['hora_ini'], "%I:%M %p").time()
+    #fechaHoraCheck=datetime.combine(fechaCheck,horaCheck)
+    horaCheck = datetime.strptime('11:30 PM', "%I:%M %p").time()
+    fechaHoraCheck = datetime.combine(fechaCheck, horaCheck)
     if fechaHoraCheck < datetime.today():
         mensaje = "Acción no realizada fecha menor que fecha actual."
         print(mensaje)
-        opcion = -1
+        opcion = -99
         return HttpResponse(json.dumps([opcion, 0, {}]), content_type='application/json')
     serieIn = request.GET['serie']
     actividadId=request.GET['actividadId']

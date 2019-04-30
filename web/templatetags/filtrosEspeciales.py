@@ -240,7 +240,7 @@ def fechaNormal(fechaIn): # Solo un argumento.
     fechaFormateada += str(fecha.year)
     return fechaFormateada
 
-def fechaEspecial(fechaIn): # Solo un argumento.
+def fechaEspecial_(fechaIn): # Solo un argumento.
     hoy=datetime.now().date()
     fechaFormateada=''
     if not fechaIn:
@@ -271,6 +271,38 @@ def fechaEspecial(fechaIn): # Solo un argumento.
         fechaFormateada+=str(fecha.day)+' de '
         fechaFormateada += meses[fecha.month-1] + ' de '
         fechaFormateada += str(fecha.year)
+    return fechaFormateada
+
+def fechaEspecial(fechaIn): # Solo un argumento.
+    hoy=datetime.now().date()
+    fechaFormateada=''
+    if not fechaIn:
+        return fechaFormateada
+    dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+    meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre',
+             'noviembre', 'diciembre']
+    if fechaIn=='ahora':
+        fechaIn=datetime.now()
+    if type(fechaIn).__name__=='date' or type(fechaIn).__name__=='datetime':
+        fecha=fechaIn
+    else:
+        fecha = datetime.strptime(fechaIn, "%I:%M %p").time()
+    d = fecha.weekday()
+    diaStr = dias[d]
+    dia = str(fecha.day)
+    mes = meses[fecha.month-1]
+    if fecha == hoy:
+        fechaFormateada = 'hoy'
+    elif fecha == hoy + timedelta(days=1):
+        fechaFormateada = 'mañana'
+    elif fecha == hoy - timedelta(days=1):
+        fechaFormateada = 'ayer'
+    elif fecha.month == hoy.month and fecha.year == hoy.year:
+        fechaFormateada = diaStr + ' ' + dia
+    elif fecha.year == hoy.year:
+        fechaFormateada += diaStr + ' ' + dia + ' ' + mes
+    else:
+        fechaFormateada = fechaCorta(fechaIn)
     return fechaFormateada
 
 def fechaCorta(fechaIn):

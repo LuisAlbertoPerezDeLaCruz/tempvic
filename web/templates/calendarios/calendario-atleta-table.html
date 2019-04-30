@@ -18,8 +18,8 @@
 
         {% ifchanged actividad.actividadFecha %}
 
-            <div class="vic-table-perf-atle-title">{{ actividad.actividadFecha|fechaEspecial }}</div>
-            <div class="vic-hr gris-oscuro-title2"></div>
+            <div class="vic-table-perf-atle-title" style="color: #4A4A4A">{{ actividad.actividadFecha|fechaEspecial }}</div>
+            <hr style="color: lightgray ">
 
         {% else %}
 
@@ -123,7 +123,7 @@
                                 </a>
                             </div>
 
-                            <div class="vic-atleta-c2">
+                            <div class="vic-atleta-c2" style="color: #4A4A4A">
                                 <div><b>{{ actividad.actividadHoraInicio|horaCivil }}</b>
                                 </div>
                             </div>

@@ -1103,11 +1103,11 @@
                     clear: 'fa fa-trash',
                     close: 'fa fa-times'
                 },
-                useCurrent: false,
+                useCurrent: true,
                 ignoreReadonly: true,
                 locale: 'es',
                 format: 'DD/MM/YYYY',
-                minDate: myDate.setDate(myDate.getDate() - 1)
+                minDate: myDate.setDate(myDate.getDate() )
             }).on("dp.change", function (e) {
 
                 var bindValue = $(this).attr('bind');
@@ -1133,7 +1133,7 @@
                 ignoreReadonly: true,
                 locale: 'es',
                 format: 'DD/MM/YYYY',
-                minDate: myDate.setDate(myDate.getDate() - 1)
+                minDate: myDate.setDate(myDate.getDate() )
             }).on("dp.change", function (e) {
                 /*	 $('.fecha-d3').data("DateTimePicker").minDate(e.date).maxDate(e.date);*/
                 $("#terminafechad").val($("#comienzad").val());
@@ -1160,7 +1160,7 @@
                 ignoreReadonly: true,
                 locale: 'es',
                 format: 'DD/MM/YYYY',
-                minDate: myDate.setDate(myDate.getDate() - 1)
+                minDate: myDate.setDate(myDate.getDate() )
             }).on("dp.change", function (e) {
 
                 var bindValue = $(this).attr('bind');
@@ -1184,7 +1184,8 @@
                 },
                 useCurrent: false,
                 ignoreReadonly: true,
-                format: 'LT'
+                format: 'LT',
+                minDate: myDate.setDate(myDate.getDate() )
             }).on("dp.change", function (e) {
 
                 $('.fecha-h5').val($('.fecha-h').val());

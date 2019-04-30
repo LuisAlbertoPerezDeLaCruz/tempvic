@@ -1127,7 +1127,9 @@
                             <div class="vic-text-descrip">
                                 {{ perfilActividad.actividadLocalizador }}
                             </div>
-                            {% qr_from_text perfilActividad.actividadLocalizador size="s" %}
+                            {% if vs.tipoSesion == vs.MARCA %}
+                                {% qr_from_text perfilActividad.actividadLocalizador size="s" %}
+                            {% endif %}
                         </div>
 
 
@@ -1294,7 +1296,9 @@
                         <div class="vic-text-descrip">
                             {{ perfilActividad.actividadLocalizador }}
                         </div>
-                        {% qr_from_text perfilActividad.actividadLocalizador size="s" %}
+                        {% if vs.tipoSesion == vs.MARCA %}
+                            {% qr_from_text perfilActividad.actividadLocalizador size="s" %}
+                        {% endif %}
                     </div>
 
                 </div>

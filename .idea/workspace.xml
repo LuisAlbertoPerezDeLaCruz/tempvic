@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/clase-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/clase-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/head.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/scriptsActividades.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/scriptsActividades.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/views/viewsActividades.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views/viewsActividades.py" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -84,32 +89,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/clases.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="203">
-              <caret line="198" column="36" lean-forward="true" selection-start-line="198" selection-start-column="36" selection-end-line="198" selection-end-column="36" />
+              <caret line="21" column="42" lean-forward="true" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
               <folding>
-                <element signature="e#87#111#0" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="509" column="87" selection-start-line="509" selection-start-column="87" selection-end-line="509" selection-end-column="87" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="123" column="62" selection-start-line="123" selection-start-column="53" selection-end-line="123" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -126,36 +116,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tabDerecho</find>
-      <find>idTie</find>
-      <find>LOCALIZADOR</find>
-      <find>PARTIC</find>
-      <find>PARTICI</find>
-      <find>puede_reservar</find>
-      <find>reservarUsuario</find>
-      <find>perfilActividad.actividadMarcaId</find>
-      <find>ss R</find>
-      <find>marcaId</find>
-      <find>registrar_reserva</find>
-      <find>ss PerfilAc</find>
-      <find>self.actividadEsSerie</find>
-      <find>ac_estado=</find>
-      <find>.order_by(</find>
-      <find>.values('id')</find>
-      <find>perfilActividad.actividadReservados</find>
-      <find>marcarAsistencia</find>
-      <find>para contratar explora</find>
-      <find>avatar</find>
-      <find>meses</find>
-      <find>diff</find>
-      <find>dias</find>
-      <find>Configurar tus planes y servicios</find>
-      <find>EstadoConfiguracion</find>
-      <find>marcaEstadoConfiguracion</find>
       <find>actividadesTodas</find>
       <find>ultima</find>
       <find>Configurar tus planes</find>
       <find>no tienes</find>
+      <find>Hubo</find>
+      <find>Hubo un error en la creacion de la actividad</find>
+      <find>sticky</find>
+      <find>alertVictorius</find>
+      <find>id=&quot;afecha&quot;</find>
+      <find>getSeccionDelDia()</find>
+      <find>tiem</find>
+      <find>getFechaActual()</find>
+      <find>$('#afecha')</find>
+      <find>formclase-fecha</find>
+      <find>#afecha</find>
+      <find>vic-tab-9</find>
+      <find>changeTabs(9</find>
+      <find>).val</find>
+      <find>fecha-d1</find>
+      <find>fecha-d3</find>
+      <find>getDate()</find>
+      <find>fecha-h</find>
+      <find>afecha</find>
+      <find>myDate</find>
+      <find>pl-m</find>
+      <find>pl-m15 pr-m15</find>
+      <find>vic-table-perf-atle-title</find>
+      <find>{% qr_from_text perfilActividad.actividadLocalizador size=&quot;s&quot; %}</find>
+      <find>actividad.actividadFecha|fechaEspecial</find>
+      <find>3333</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -177,13 +167,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/web/static/css/estilos.css" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/static/css/estilos.css" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/web/static/css/nuevo_calendario.css" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/static/css/nuevo_calendario.css" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/web/views/__init__.py" />
-        <option value="$PROJECT_DIR$/web/templates/scriptsActividades.html" />
         <option value="$PROJECT_DIR$/web/templates/edo-cuenta.html" />
         <option value="$PROJECT_DIR$/web/templates/centro-detail.html" />
         <option value="$PROJECT_DIR$/web/templates/registration/password_reset_complete.html" />
@@ -199,7 +191,6 @@
         <option value="$PROJECT_DIR$/logfile.txt" />
         <option value="$PROJECT_DIR$/web/templates/perfiles/perfil-planes-atleta.html" />
         <option value="$PROJECT_DIR$/web/static/js/calendario-atleta.js" />
-        <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-perfil.html" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-controles.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
@@ -208,7 +199,6 @@
         <option value="$PROJECT_DIR$/web/templates/registration/password_reset_email.html" />
         <option value="$PROJECT_DIR$/web/forms.py" />
         <option value="$PROJECT_DIR$/accounts/forms.py" />
-        <option value="$PROJECT_DIR$/web/views/viewsActividades.py" />
         <option value="$PROJECT_DIR$/web/views/viewsGeneral.py" />
         <option value="$PROJECT_DIR$/accounts/views.py" />
         <option value="$PROJECT_DIR$/web/urls.py" />
@@ -220,10 +210,8 @@
         <option value="$PROJECT_DIR$/web/templates/header.html" />
         <option value="$PROJECT_DIR$/static/js/calendario-atleta.js" />
         <option value="$PROJECT_DIR$/victorius/settings.py" />
-        <option value="$PROJECT_DIR$/web/templates/clase-detail.html" />
         <option value="$PROJECT_DIR$/victorius/urls.py" />
         <option value="$PROJECT_DIR$/apis/urls.py" />
-        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html" />
         <option value="$PROJECT_DIR$/web/templates/perfiles/perfil.html" />
         <option value="$PROJECT_DIR$/web/templates/table_body_planes_atleta.html" />
@@ -231,14 +219,21 @@
         <option value="$PROJECT_DIR$/apis/views.py" />
         <option value="$PROJECT_DIR$/web/clases.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html" />
+        <option value="$PROJECT_DIR$/web/templates/scriptsActividades.html" />
+        <option value="$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html" />
+        <option value="$PROJECT_DIR$/web/templates/head.html" />
+        <option value="$PROJECT_DIR$/web/views/viewsActividades.py" />
+        <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
+        <option value="$PROJECT_DIR$/web/templates/clase-detail.html" />
+        <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="77" />
-    <option name="y" value="43" />
-    <option name="width" value="1664" />
-    <option name="height" value="970" />
+    <option name="x" value="112" />
+    <option name="y" value="83" />
+    <option name="width" value="1709" />
+    <option name="height" value="977" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -261,7 +256,31 @@
             <path>
               <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
               <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="victorius" type="b2602c69:ProjectViewProjectNode" />
+              <item name="victorius" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -333,6 +352,9 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -440,7 +462,10 @@
       <workItem from="1556212252282" duration="7860000" />
       <workItem from="1556234403052" duration="3088000" />
       <workItem from="1556301952164" duration="5761000" />
-      <workItem from="1556309433175" duration="2734000" />
+      <workItem from="1556309433175" duration="2979000" />
+      <workItem from="1556312801987" duration="151000" />
+      <workItem from="1556642679955" duration="10079000" />
+      <workItem from="1556655294705" duration="4650000" />
     </task>
     <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
       <created>1553561863044</created>
@@ -757,11 +782,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556307746054</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Arreglado el caso de los mensajes malos en calendario marca">
+      <created>1556312378187</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1556312378187</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238499000" />
+    <option name="totallyTimeSpent" value="253624000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -773,16 +805,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="77" y="43" width="1664" height="970" extended-state="0" />
+    <frame x="112" y="83" width="1709" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1761434" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.1785929" />
+      <window_info id="Structure" order="1" sideWeight="0.5024311" side_tool="true" weight="0.1785929" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.32223544" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.27240565" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936978" />
@@ -836,7 +868,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Actualizados los requirements.txt" />
     <MESSAGE value="Incluido en el .env informacion de los parametros de entrada a la BD" />
     <MESSAGE value="Ajustes en settings" />
     <MESSAGE value="Ajustes en admin.py y models.py" />
@@ -861,7 +892,8 @@
     <MESSAGE value="Arreglo de mensaje en calendario atleta" />
     <MESSAGE value="Arreglo de los avatares en perfil atleta planes" />
     <MESSAGE value="Modificacion en clases.py ManejoFechas - Incorporacionde la funcion fechaTwitter()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modificacion en clases.py ManejoFechas - Incorporacionde la funcion fechaTwitter()" />
+    <MESSAGE value="Arreglado el caso de los mensajes malos en calendario marca" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglado el caso de los mensajes malos en calendario marca" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -887,6 +919,26 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
+        <expression-string>request.GET['hora_ini']</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>now</expression-string>
+        <language-id>HTML</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>{% now %}</expression-string>
+        <language-id>HTML</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>{% now &quot;SHORT_DATETIME_FORMAT&quot; %}</expression-string>
+        <language-id>HTML</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>perfilMarca.marcaTiene['actividades']</expression-string>
         <language-id>HTML</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
@@ -911,91 +963,9 @@
         <language-id>HTML</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>str(fecha.day) + ' ' + self.meses[fecha.month - 1][:3] + '.' + anioDisplay</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>relacion.r_marca.full_ruta_avatar</expression-string>
-        <language-id>HTML</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>relacion.r_marca</expression-string>
-        <language-id>HTML</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>relacion</expression-string>
-        <language-id>HTML</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../venv/lib/python3.6/os.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="668" selection-start-line="668" selection-end-line="668" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5322" column="27" lean-forward="true" selection-start-line="5322" selection-start-column="27" selection-end-line="5322" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="53" column="20" lean-forward="true" selection-start-line="53" selection-end-line="74" selection-end-column="20" />
-          <folding>
-            <element signature="e#25#52#0" expanded="true" />
-            <element signature="e#1544#2253#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_marca">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true">
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/auth_user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/static/js/calendario-atleta.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="225" column="38" selection-start-line="225" selection-start-column="9" selection-end-line="225" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logfile.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3425">
-          <caret line="137" selection-start-line="137" selection-end-line="137" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-controles.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="767">
@@ -1083,13 +1053,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="123" selection-start-line="123" selection-end-line="123" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/views/viewsActividades.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1188,16 +1151,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/clase-detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="1342" column="62" selection-start-line="1342" selection-start-column="55" selection-end-line="1342" selection-end-column="62" />
-          <folding>
-            <element signature="n#head#0;n#html#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/victorius/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -1222,23 +1175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="472">
           <caret line="829" column="39" selection-start-line="829" selection-start-column="39" selection-end-line="829" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="750" selection-start-line="750" selection-end-line="750" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="238" column="12" selection-start-line="238" selection-start-column="12" selection-end-line="238" selection-end-column="12" />
-          <folding>
-            <element signature="n#style#0;n#div#3;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1279,7 +1215,7 @@
     <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_participantes">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
-          <filtering enabled="true">
+          <filtering>
             <filter text="" />
           </filtering>
         </state>
@@ -1288,7 +1224,7 @@
     <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
-          <filtering enabled="true">
+          <filtering>
             <filter text="" />
           </filtering>
         </state>
@@ -1314,27 +1250,126 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/clases.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="198" column="36" lean-forward="true" selection-start-line="198" selection-start-column="36" selection-end-line="198" selection-end-column="36" />
-          <folding>
-            <element signature="e#87#111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-mensajes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="3075">
           <caret line="123" column="62" selection-start-line="123" selection-start-column="53" selection-end-line="123" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
+        <state relative-caret-position="425">
           <caret line="509" column="87" selection-start-line="509" selection-start-column="87" selection-end-line="509" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/clases.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="198" column="36" selection-start-line="198" selection-start-column="36" selection-end-line="198" selection-end-column="36" />
+          <folding>
+            <element signature="e#87#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="232" column="33" selection-start-line="232" selection-start-column="25" selection-end-line="232" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/editarclase.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/views/viewsActividades.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="221" selection-start-line="221" selection-end-line="221" />
+          <folding>
+            <element signature="e#97#120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10950">
+          <caret line="438" selection-start-line="438" selection-end-line="438" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32050">
+          <caret line="1282" column="92" selection-start-line="1282" selection-start-column="85" selection-end-line="1282" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/head.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27725">
+          <caret line="1109" column="56" selection-start-line="1109" selection-start-column="56" selection-end-line="1109" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="302" column="47" selection-start-line="302" selection-start-column="47" selection-end-line="302" selection-end-column="47" />
+          <folding>
+            <element signature="e#7916#9146#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/nuevo_calendario.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/static/css/estilos.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="9" lean-forward="true" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/static/css/nuevo_calendario.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/clase-detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="1133" lean-forward="true" selection-start-line="1133" selection-end-line="1133" />
+          <folding>
+            <element signature="e#57684#58817#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="21" column="42" lean-forward="true" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

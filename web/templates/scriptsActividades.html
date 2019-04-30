@@ -572,9 +572,13 @@
                     alertVictorius(str, 2);
                     location.reload();
                 }
-                else  {
-                    var str = "Hubo un error en la creacion de la actividad";
-                    alertVictorius(str, 2);
+                else if (data[0] == -99) {
+                    var str = 'Actividad no creada, fecha/hora de inicio invalida';
+                    alertVictorius(str, 2, true);
+                    window.location.href = newUrl + 'dashboard';
+                } else {
+                    var str = 'Hubo un error en la creacion de la actividad';
+                    alertVictorius(str, 2, true);
                     window.location.href = newUrl + 'dashboard';
                 }
             }
