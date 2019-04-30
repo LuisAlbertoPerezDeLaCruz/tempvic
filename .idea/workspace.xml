@@ -4,11 +4,7 @@
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/clase-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/clase-detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/head.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/scriptsActividades.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/scriptsActividades.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/views/viewsActividades.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views/viewsActividades.py" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -92,12 +88,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="21" column="42" lean-forward="true" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+            <state relative-caret-position="178">
+              <caret line="504" column="81" selection-start-line="504" selection-start-column="62" selection-end-line="504" selection-end-column="81" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#a#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#a#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#a#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#a#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -116,10 +118,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>actividadesTodas</find>
-      <find>ultima</find>
-      <find>Configurar tus planes</find>
-      <find>no tienes</find>
       <find>Hubo</find>
       <find>Hubo un error en la creacion de la actividad</find>
       <find>sticky</find>
@@ -146,6 +144,10 @@
       <find>{% qr_from_text perfilActividad.actividadLocalizador size=&quot;s&quot; %}</find>
       <find>actividad.actividadFecha|fechaEspecial</find>
       <find>3333</find>
+      <find>actividad.actividadHoraInicio|horaCivil</find>
+      <find>style=&quot;font-weight: normal&quot;</find>
+      <find>${</find>
+      <find>font-weight: normal</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -223,15 +225,15 @@
         <option value="$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html" />
         <option value="$PROJECT_DIR$/web/templates/head.html" />
         <option value="$PROJECT_DIR$/web/views/viewsActividades.py" />
-        <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
         <option value="$PROJECT_DIR$/web/templates/clase-detail.html" />
+        <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="112" />
-    <option name="y" value="83" />
+    <option name="x" value="111" />
+    <option name="y" value="77" />
     <option name="width" value="1709" />
     <option name="height" value="977" />
   </component>
@@ -241,6 +243,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -286,7 +289,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -465,7 +467,8 @@
       <workItem from="1556309433175" duration="2979000" />
       <workItem from="1556312801987" duration="151000" />
       <workItem from="1556642679955" duration="10079000" />
-      <workItem from="1556655294705" duration="4650000" />
+      <workItem from="1556655294705" duration="4850000" />
+      <workItem from="1556663403155" duration="3683000" />
     </task>
     <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
       <created>1553561863044</created>
@@ -789,11 +792,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556312378187</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Cambios en estilos del calendario marca, fechaespecial y logica de la fecha inicial en crear actividad">
+      <created>1556660114549</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1556660114549</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="253624000" />
+    <option name="totallyTimeSpent" value="257507000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -805,16 +815,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="112" y="83" width="1709" height="977" extended-state="0" />
+    <frame x="111" y="77" width="1709" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.1785929" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756888" weight="0.18099819" />
       <window_info id="Structure" order="1" sideWeight="0.5024311" side_tool="true" weight="0.1785929" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.27240565" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.27240565" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936978" />
@@ -824,7 +834,7 @@
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="GitLabIntegration" order="11" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.28555176" />
-      <window_info anchor="bottom" id="Python Console" order="13" weight="0.32818073" />
+      <window_info anchor="bottom" id="Python Console" order="13" weight="0.3278302" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.27219626" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -833,13 +843,13 @@
       <window_info anchor="right" id="Database" order="4" weight="0.2027194" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.22187886" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18099819" />
+      <window_info id="Structure" order="1" sideWeight="0.5024311" side_tool="true" weight="0.1785929" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.27942926" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.27240565" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936978" />
@@ -868,7 +878,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Incluido en el .env informacion de los parametros de entrada a la BD" />
     <MESSAGE value="Ajustes en settings" />
     <MESSAGE value="Ajustes en admin.py y models.py" />
     <MESSAGE value="Ajustes" />
@@ -893,7 +902,8 @@
     <MESSAGE value="Arreglo de los avatares en perfil atleta planes" />
     <MESSAGE value="Modificacion en clases.py ManejoFechas - Incorporacionde la funcion fechaTwitter()" />
     <MESSAGE value="Arreglado el caso de los mensajes malos en calendario marca" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglado el caso de los mensajes malos en calendario marca" />
+    <MESSAGE value="Cambios en estilos del calendario marca, fechaespecial y logica de la fecha inicial en crear actividad" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios en estilos del calendario marca, fechaespecial y logica de la fecha inicial en crear actividad" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1319,16 +1329,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="302" column="47" selection-start-line="302" selection-start-column="47" selection-end-line="302" selection-end-column="47" />
-          <folding>
-            <element signature="e#7916#9146#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/nuevo_calendario.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -1360,14 +1360,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="290" column="24" lean-forward="true" selection-start-line="290" selection-start-column="24" selection-end-line="290" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="21" column="42" lean-forward="true" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+        <state relative-caret-position="178">
+          <caret line="504" column="81" selection-start-line="504" selection-start-column="62" selection-end-line="504" selection-end-column="81" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#a#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#a#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#a#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#a#0;n#div#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>

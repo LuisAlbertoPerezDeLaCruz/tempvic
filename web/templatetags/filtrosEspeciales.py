@@ -288,9 +288,9 @@ def fechaEspecial(fechaIn): # Solo un argumento.
     else:
         fecha = datetime.strptime(fechaIn, "%I:%M %p").time()
     d = fecha.weekday()
-    diaStr = dias[d]
+    diaStr = dias[d][:3]
     dia = str(fecha.day)
-    mes = meses[fecha.month-1]
+    mes = meses[fecha.month-1][:3]
     if fecha == hoy:
         fechaFormateada = 'hoy'
     elif fecha == hoy + timedelta(days=1):
