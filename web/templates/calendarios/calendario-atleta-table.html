@@ -414,15 +414,15 @@
         {% ifchanged actividad.actividadFecha %}
 
             <div class="vic-table-perf-atle-title">{{ actividad.actividadFecha|fechaEspecial }}</div>
-
+            <hr style="color: lightgray ">
         {% else %}
 
         {% endifchanged %}
 
 
         <div class="
-            {% if actividad.actividadAbiertaParaGestionar %}vic-hr gris-oscuro-title2
-            {% else %}{% if actividad.actividadEstado == 'Culminada' %} vic-hr{% else %} vic-recientes-opacity vic-hr{% endif %}{% endif %}
+            {% if actividad.actividadAbiertaParaGestionar %} gris-oscuro-title2
+            {% else %}{% if actividad.actividadEstado == 'Culminada' %}  {% else %} vic-recientes-opacity {% endif %}{% endif %}
         " {% if actividad.actividadEstado == 'Culminada' %}style="vertical-align: middle; opacity: .7;"{% endif %}>
 
             <table class=" table-compra tc t-consumen" border="0"
@@ -503,7 +503,7 @@
                             </div>
 
                             <div class="vic-atleta-c2" style="font-weight: normal; color: black">
-                                <div><b>{{ actividad.actividadHoraInicio|horaCivil }}</b>
+                                <div>{{ actividad.actividadHoraInicio|horaCivil }}
                                 </div>
                             </div>
 
