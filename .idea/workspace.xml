@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/scriptsActividades.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/scriptsActividades.html" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -74,7 +74,17 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="web_actividad: table" type="69fad909:PgImplModel$LocalTable" />
+        <item name="auth_user: table" type="69fad909:PgImplModel$LocalTable" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="victorius@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="victorius: database" type="162271b6:PgImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="web_espera: table" type="69fad909:PgImplModel$LocalTable" />
       </path>
     </expand>
     <select />
@@ -85,17 +95,43 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html">
+        <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="424" column="106" selection-start-line="424" selection-start-column="106" selection-end-line="424" selection-end-column="106" />
-              <folding>
-                <element signature="n#div#0;n#!!top" />
-                <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#hr#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#1;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="153">
+              <caret line="1194" column="34" selection-start-line="1194" selection-start-column="34" selection-end-line="1194" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+              <filtering>
+                <filter text="" />
+              </filtering>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_espera">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+              <filtering>
+                <filter text="" />
+              </filtering>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/auth_user">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+              <filtering>
+                <filter text="" />
+              </filtering>
             </state>
           </provider>
         </entry>
@@ -112,10 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Hubo un error en la creacion de la actividad</find>
-      <find>sticky</find>
-      <find>alertVictorius</find>
-      <find>id=&quot;afecha&quot;</find>
       <find>getSeccionDelDia()</find>
       <find>tiem</find>
       <find>getFechaActual()</find>
@@ -142,6 +174,10 @@
       <find>${</find>
       <find>font-weight: normal</find>
       <find>vic-hr</find>
+      <find>seguro</find>
+      <find>Eliminar</find>
+      <find>cancelarActualizar</find>
+      <find>Desea</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -215,19 +251,19 @@
         <option value="$PROJECT_DIR$/apis/views.py" />
         <option value="$PROJECT_DIR$/web/clases.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html" />
-        <option value="$PROJECT_DIR$/web/templates/scriptsActividades.html" />
         <option value="$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html" />
         <option value="$PROJECT_DIR$/web/templates/head.html" />
         <option value="$PROJECT_DIR$/web/views/viewsActividades.py" />
         <option value="$PROJECT_DIR$/web/templates/clase-detail.html" />
         <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
+        <option value="$PROJECT_DIR$/web/templates/scriptsActividades.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="103" />
-    <option name="y" value="68" />
+    <option name="x" value="122" />
+    <option name="y" value="71" />
     <option name="width" value="1709" />
     <option name="height" value="977" />
   </component>
@@ -236,7 +272,10 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="postgresql" />
@@ -416,7 +455,8 @@
       <workItem from="1556642679955" duration="10079000" />
       <workItem from="1556655294705" duration="4850000" />
       <workItem from="1556663403155" duration="3921000" />
-      <workItem from="1556718861752" duration="1744000" />
+      <workItem from="1556718861752" duration="1859000" />
+      <workItem from="1556740093830" duration="2936000" />
     </task>
     <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
       <created>1553561863044</created>
@@ -754,11 +794,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556667369930</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Cambios en estilos del calendario atleta Mis Actividades">
+      <created>1556723716117</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1556723716117</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="259489000" />
+    <option name="totallyTimeSpent" value="262540000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -770,10 +817,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="103" y="68" width="1709" height="977" extended-state="0" />
+    <frame x="122" y="82" width="1709" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756888" weight="0.18099819" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18099819" />
       <window_info id="Structure" order="1" sideWeight="0.5024311" side_tool="true" weight="0.1785929" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -795,7 +842,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" id="Database" order="4" weight="0.2027194" />
+      <window_info anchor="right" id="Database" order="4" weight="0.20264582" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18099819" />
@@ -833,7 +880,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Ajustes en admin.py y models.py" />
     <MESSAGE value="Ajustes" />
     <MESSAGE value="Tunning Apis" />
     <MESSAGE value="Configurado el email" />
@@ -858,7 +904,8 @@
     <MESSAGE value="Arreglado el caso de los mensajes malos en calendario marca" />
     <MESSAGE value="Cambios en estilos del calendario marca, fechaespecial y logica de la fecha inicial en crear actividad" />
     <MESSAGE value="Cambios en estilos del calendario atleta" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios en estilos del calendario atleta" />
+    <MESSAGE value="Cambios en estilos del calendario atleta Mis Actividades" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios en estilos del calendario atleta Mis Actividades" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -931,20 +978,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/templates/calendarios/perfil-actividades-atleta-controles.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="767">
-          <caret line="75" column="30" selection-start-line="75" selection-start-column="30" selection-end-line="75" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/registration/password_reset_confirm.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -1186,15 +1219,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apis/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -1263,13 +1287,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10950">
-          <caret line="438" selection-start-line="438" selection-end-line="438" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32050">
@@ -1326,13 +1343,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
           <caret line="424" column="106" selection-start-line="424" selection-start-column="106" selection-end-line="424" selection-end-column="106" />
-          <folding>
-            <element signature="n#div#0;n#!!top" />
-            <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#hr#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#1;n#!!top" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_espera">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/auth_user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="1194" column="34" selection-start-line="1194" selection-start-column="34" selection-end-line="1194" selection-end-column="34" />
         </state>
       </provider>
     </entry>
