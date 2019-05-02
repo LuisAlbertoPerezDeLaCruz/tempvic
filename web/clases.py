@@ -830,36 +830,31 @@ class PerfilBasicoAtleta:
         self.atletaNombres = profile.u_user.first_name + ' ' + profile.u_user.last_name
         self.atletaIniciales = profile.u_iniciales
         self.atletaNombreCompleto = profile.u_user.first_name + ' ' + \
-                                    profile.u_secondname + ' ' + \
-                                    profile.u_user.last_name + ' ' + \
-                                    profile.u_secondlastname
+            profile.u_secondname + ' ' + \
+            profile.u_user.last_name + ' ' + \
+            profile.u_secondlastname
         if not self.atletaIniciales:
             words=self.atletaNombreCompleto.split()
-            tempIniciales=''
-            if len(words)>=3:
+            tempIniciales = ''
+            if len(words) >= 2:
                 for word in words:
-                    if len(tempIniciales)>=3:
+                    if len(tempIniciales) >= 2:
                         break
                     if word:
-                        tempIniciales+=word[0:1].upper()
-            elif len(words)>=2:
+                        tempIniciales += word[0:1].upper()
+            elif len(words) >= 1:
                 for word in words:
-                    if len(tempIniciales)>=3:
+                    if len(tempIniciales) >= 2:
                         break
                     if word:
-                        tempIniciales+=word[0:2].upper()
-                tempIniciales=tempIniciales[0:3]
-            elif len(words)>=1:
-                for word in words:
-                    if len(tempIniciales)>=3:
-                        break
-                    if word:
-                        tempIniciales+=word[0:3].upper()
-                tempIniciales=tempIniciales[0:3]
-            tempProfile=UserProfile.objects.get(u_alias=self.atletaAlias)
+                        tempIniciales += word[0:2].upper()
+                tempIniciales = tempIniciales[0:2]
+            tempProfile = UserProfile.objects.get(u_alias=self.atletaAlias)
             tempProfile.u_iniciales=tempIniciales
             tempProfile.save()
-            self.atletaIniciales=tempIniciales
+            self.atletaIniciales = tempIniciales
+        else:
+            self.atletaIniciales = self.atletaIniciales[0:2]
 
         self.atletaDireccionCompleta = profile.full_dir
         if profile.u_telefono:

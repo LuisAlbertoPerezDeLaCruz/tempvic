@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d/storage_v2/_src_/database/victorius.IEAzNA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d/storage_v2/_src_/database/victorius.IEAzNA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/templates/scriptsActividades.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/scriptsActividades.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/clases.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/clases.py" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -29,6 +31,10 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="postgres@produccion" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="victorius@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
@@ -74,17 +80,7 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="auth_user: table" type="69fad909:PgImplModel$LocalTable" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="victorius@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="victorius: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="web_espera: table" type="69fad909:PgImplModel$LocalTable" />
+        <item name="web_userprofile: table" type="69fad909:PgImplModel$LocalTable" />
       </path>
     </expand>
     <select />
@@ -94,41 +90,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/clases.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="1194" column="34" selection-start-line="1194" selection-start-column="34" selection-end-line="1194" selection-end-column="34" />
+            <state relative-caret-position="478">
+              <caret line="854" selection-start-line="854" selection-end-line="854" />
+              <folding>
+                <element signature="e#87#111#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
+      <file pinned="false" current-in-tab="true">
+        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_userprofile">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
-              <filtering>
-                <filter text="" />
-              </filtering>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_espera">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
-              <filtering>
-                <filter text="" />
-              </filtering>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/auth_user">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+            <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
               <filtering>
                 <filter text="" />
               </filtering>
@@ -148,7 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getSeccionDelDia()</find>
       <find>tiem</find>
       <find>getFechaActual()</find>
       <find>$('#afecha')</find>
@@ -178,6 +154,7 @@
       <find>Eliminar</find>
       <find>cancelarActualizar</find>
       <find>Desea</find>
+      <find>atletaIniciales</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -207,7 +184,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/views/__init__.py" />
         <option value="$PROJECT_DIR$/web/templates/edo-cuenta.html" />
         <option value="$PROJECT_DIR$/web/templates/centro-detail.html" />
         <option value="$PROJECT_DIR$/web/templates/registration/password_reset_complete.html" />
@@ -247,9 +223,7 @@
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-controles.html" />
         <option value="$PROJECT_DIR$/web/templates/perfiles/perfil.html" />
         <option value="$PROJECT_DIR$/web/templates/table_body_planes_atleta.html" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/apis/views.py" />
-        <option value="$PROJECT_DIR$/web/clases.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-marca-mensajes.html" />
         <option value="$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html" />
         <option value="$PROJECT_DIR$/web/templates/head.html" />
@@ -258,12 +232,15 @@
         <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
         <option value="$PROJECT_DIR$/web/templates/scriptsActividades.html" />
+        <option value="$PROJECT_DIR$/web/clases.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/0c60d0f7-f0e7-41fe-8722-ede6daaf2c9d/console.sql" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="122" />
-    <option name="y" value="71" />
+    <option name="x" value="133" />
+    <option name="y" value="84" />
     <option name="width" value="1709" />
     <option name="height" value="977" />
   </component>
@@ -456,14 +433,8 @@
       <workItem from="1556655294705" duration="4850000" />
       <workItem from="1556663403155" duration="3921000" />
       <workItem from="1556718861752" duration="1859000" />
-      <workItem from="1556740093830" duration="2936000" />
-    </task>
-    <task id="LOCAL-00001" summary="Inicio de upgrade a python 3.6 y Django 2.1.7">
-      <created>1553561863044</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1553561863044</updated>
+      <workItem from="1556740093830" duration="3052000" />
+      <workItem from="1556811012228" duration="4656000" />
     </task>
     <task id="LOCAL-00002" summary="Incluida app apis">
       <created>1553771931944</created>
@@ -801,11 +772,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556723716117</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Cambios es modal de eliminacion de lista de espera y reservas">
+      <created>1556743115787</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1556743115788</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="262540000" />
+    <option name="totallyTimeSpent" value="267312000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -817,16 +795,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="122" y="82" width="1709" height="977" extended-state="0" />
-    <editor active="true" />
+    <frame x="133" y="84" width="1709" height="977" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18099819" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18340349" />
       <window_info id="Structure" order="1" sideWeight="0.5024311" side_tool="true" weight="0.1785929" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.27240565" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.27240565" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936978" />
@@ -842,7 +819,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" id="Database" order="4" weight="0.20264582" />
+      <window_info active="true" anchor="right" id="Database" order="4" visible="true" weight="0.24293445" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18099819" />
@@ -880,7 +857,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Ajustes" />
     <MESSAGE value="Tunning Apis" />
     <MESSAGE value="Configurado el email" />
     <MESSAGE value="Realizado tunning al api de las actividades del atleta" />
@@ -905,7 +881,8 @@
     <MESSAGE value="Cambios en estilos del calendario marca, fechaespecial y logica de la fecha inicial en crear actividad" />
     <MESSAGE value="Cambios en estilos del calendario atleta" />
     <MESSAGE value="Cambios en estilos del calendario atleta Mis Actividades" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios en estilos del calendario atleta Mis Actividades" />
+    <MESSAGE value="Cambios es modal de eliminacion de lista de espera y reservas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios es modal de eliminacion de lista de espera y reservas" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -930,6 +907,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>self.atletaIniciales</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>request.GET['hora_ini']</expression-string>
         <language-id>Python</language-id>
@@ -970,28 +952,9 @@
         <language-id>HTML</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>perfilMarca.marcaTieneActividades</expression-string>
-        <language-id>HTML</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/templates/registration/password_reset_confirm.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../venv/lib/python3.6/site-packages/django/urls/resolvers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="541" selection-start-line="541" selection-end-line="541" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/registration/password_reset_email.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -1210,15 +1173,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_participantes">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apis/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -1250,16 +1204,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="509" column="87" selection-start-line="509" selection-start-column="87" selection-end-line="509" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/clases.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="198" column="36" selection-start-line="198" selection-start-column="36" selection-end-line="198" selection-end-column="36" />
-          <folding>
-            <element signature="e#87#111#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1346,37 +1290,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_espera">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
-          <filtering>
-            <filter text="" />
-          </filtering>
+    <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="1194" column="34" selection-start-line="1194" selection-start-column="34" selection-end-line="1194" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/auth_user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="6dc94620-df1e-47ba-95f4-c3b3b4ea4e70">
+        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
+          <filtering />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_espera">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
           <filtering>
             <filter text="" />
           </filtering>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_participantes">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/0c60d0f7-f0e7-41fe-8722-ede6daaf2c9d/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/clases.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="1194" column="34" selection-start-line="1194" selection-start-column="34" selection-end-line="1194" selection-end-column="34" />
+        <state relative-caret-position="478">
+          <caret line="854" selection-start-line="854" selection-end-line="854" />
+          <folding>
+            <element signature="e#87#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_userprofile">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
+          <filtering>
+            <filter text="" />
+          </filtering>
         </state>
       </provider>
     </entry>
