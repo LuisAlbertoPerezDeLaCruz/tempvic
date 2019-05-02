@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b6bf805-afa5-49a1-bf5d-3bb117a3de02" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d/storage_v2/_src_/database/victorius.IEAzNA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cd8f46be-149b-445c-8359-72d66984287d/storage_v2/_src_/database/victorius.IEAzNA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/clases.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/clases.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/clase-detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/clase-detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/templates/scriptsActividades.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/scriptsActividades.html" afterDir="false" />
     </list>
     <ignored path="../venv/" />
     <ignored path="logfile.txt" />
@@ -31,10 +30,6 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="postgres@produccion" type="feb32156:DbDataSourceImpl" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="victorius@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
@@ -71,16 +66,6 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
         <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="victorius@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="victorius: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="web_userprofile: table" type="69fad909:PgImplModel$LocalTable" />
       </path>
     </expand>
     <select />
@@ -90,25 +75,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/clases.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="854" selection-start-line="854" selection-end-line="854" />
-              <folding>
-                <element signature="e#87#111#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_userprofile">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
-              <filtering>
-                <filter text="" />
-              </filtering>
+        <entry file="file://$PROJECT_DIR$/web/templates/clase-detail.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="1415" column="48" selection-start-line="1415" selection-start-column="48" selection-end-line="1415" selection-end-column="48" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#a#0;n#b#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#7;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -125,19 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tiem</find>
-      <find>getFechaActual()</find>
-      <find>$('#afecha')</find>
-      <find>formclase-fecha</find>
-      <find>#afecha</find>
-      <find>vic-tab-9</find>
-      <find>changeTabs(9</find>
-      <find>).val</find>
-      <find>fecha-d1</find>
-      <find>fecha-d3</find>
-      <find>getDate()</find>
-      <find>fecha-h</find>
-      <find>afecha</find>
       <find>myDate</find>
       <find>pl-m</find>
       <find>pl-m15 pr-m15</find>
@@ -155,6 +116,19 @@
       <find>cancelarActualizar</find>
       <find>Desea</find>
       <find>atletaIniciales</find>
+      <find>Los cupos de esta actividad esta</find>
+      <find>actividadEspera</find>
+      <find>Lista de espera</find>
+      <find>ESPERANDO</find>
+      <find>atletaPuestoEnListaEspera</find>
+      <find>puesto_espera</find>
+      <find>puestoEspera</find>
+      <find>Salir de Lista de Espera</find>
+      <find>puesto</find>
+      <find>Desea eliminar la reserva</find>
+      <find>Tú</find>
+      <find>Participantes</find>
+      <find>PARTICIPANTES</find>
     </findStrings>
     <replaceStrings>
       <replace>except Exception as e:</replace>
@@ -228,19 +202,19 @@
         <option value="$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html" />
         <option value="$PROJECT_DIR$/web/templates/head.html" />
         <option value="$PROJECT_DIR$/web/views/viewsActividades.py" />
-        <option value="$PROJECT_DIR$/web/templates/clase-detail.html" />
         <option value="$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py" />
         <option value="$PROJECT_DIR$/web/templates/calendarios/calendario-atleta-table.html" />
-        <option value="$PROJECT_DIR$/web/templates/scriptsActividades.html" />
         <option value="$PROJECT_DIR$/web/clases.py" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/0c60d0f7-f0e7-41fe-8722-ede6daaf2c9d/console.sql" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$PROJECT_DIR$/web/templates/scriptsActividades.html" />
+        <option value="$PROJECT_DIR$/web/templates/clase-detail.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="133" />
-    <option name="y" value="84" />
+    <option name="x" value="132" />
+    <option name="y" value="66" />
     <option name="width" value="1709" />
     <option name="height" value="977" />
   </component>
@@ -434,14 +408,8 @@
       <workItem from="1556663403155" duration="3921000" />
       <workItem from="1556718861752" duration="1859000" />
       <workItem from="1556740093830" duration="3052000" />
-      <workItem from="1556811012228" duration="4656000" />
-    </task>
-    <task id="LOCAL-00002" summary="Incluida app apis">
-      <created>1553771931944</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1553771931945</updated>
+      <workItem from="1556811012228" duration="5183000" />
+      <workItem from="1556816646819" duration="4626000" />
     </task>
     <task id="LOCAL-00003" summary="Actualizacion general para despliegue en apache">
       <created>1554029570286</created>
@@ -779,11 +747,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556743115788</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Cambios en Perfil Atleta para poner solo dos letras en inicialies">
+      <created>1556815912065</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1556815912066</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="267312000" />
+    <option name="totallyTimeSpent" value="272465000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -795,9 +770,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="133" y="84" width="1709" height="977" extended-state="0" />
+    <frame x="125" y="77" width="1709" height="977" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18340349" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.13108839" />
       <window_info id="Structure" order="1" sideWeight="0.5024311" side_tool="true" weight="0.1785929" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -819,7 +795,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info active="true" anchor="right" id="Database" order="4" visible="true" weight="0.24293445" />
+      <window_info anchor="right" id="Database" order="4" weight="0.24293445" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49756888" visible="true" weight="0.18099819" />
@@ -857,7 +833,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Tunning Apis" />
     <MESSAGE value="Configurado el email" />
     <MESSAGE value="Realizado tunning al api de las actividades del atleta" />
     <MESSAGE value="Verificacion de correo" />
@@ -882,7 +857,8 @@
     <MESSAGE value="Cambios en estilos del calendario atleta" />
     <MESSAGE value="Cambios en estilos del calendario atleta Mis Actividades" />
     <MESSAGE value="Cambios es modal de eliminacion de lista de espera y reservas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios es modal de eliminacion de lista de espera y reservas" />
+    <MESSAGE value="Cambios en Perfil Atleta para poner solo dos letras en inicialies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios en Perfil Atleta para poner solo dos letras en inicialies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1231,13 +1207,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32050">
-          <caret line="1282" column="92" selection-start-line="1282" selection-start-column="85" selection-end-line="1282" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/head.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27725">
@@ -1266,20 +1235,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/clase-detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="1133" lean-forward="true" selection-start-line="1133" selection-end-line="1133" />
-          <folding>
-            <element signature="e#57684#58817#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templatetags/filtrosEspeciales.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="290" column="24" lean-forward="true" selection-start-line="290" selection-start-column="24" selection-end-line="290" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/auth_user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
+          <filtering />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/0c60d0f7-f0e7-41fe-8722-ede6daaf2c9d/console.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_userprofile">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="1b7f9729-d89c-4e7f-be80-ebd2e5b78df1">
+          <filtering />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_espera">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="1b7f9729-d89c-4e7f-be80-ebd2e5b78df1">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_participantes">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="1b7f9729-d89c-4e7f-be80-ebd2e5b78df1">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="1b7f9729-d89c-4e7f-be80-ebd2e5b78df1">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/clases.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="2256" column="23" selection-start-line="2256" selection-start-column="8" selection-end-line="2256" selection-end-column="33" />
+          <folding>
+            <element signature="e#87#111#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1292,64 +1305,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/scriptsActividades.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="1194" column="34" selection-start-line="1194" selection-start-column="34" selection-end-line="1194" selection-end-column="34" />
+        <state relative-caret-position="196">
+          <caret line="1195" column="16" lean-forward="true" selection-start-line="1195" selection-start-column="16" selection-end-line="1195" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/auth_user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
-          <filtering />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_espera">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_participantes">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_actividad">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/0c60d0f7-f0e7-41fe-8722-ede6daaf2c9d/console.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/clases.py">
+    <entry file="file://$PROJECT_DIR$/web/templates/tabs_entrenador-calendario.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="854" selection-start-line="854" selection-end-line="854" />
-          <folding>
-            <element signature="e#87#111#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="178">
+          <caret line="1452" column="97" selection-start-line="1452" selection-start-column="94" selection-end-line="1452" selection-end-column="97" />
         </state>
       </provider>
     </entry>
-    <entry file="das://cd8f46be-149b-445c-8359-72d66984287d/database/victorius/schema/public/table/web_userprofile">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="34efda0a-7767-4987-8ca3-d3d29caf6d83">
-          <filtering>
-            <filter text="" />
-          </filtering>
+    <entry file="file://$PROJECT_DIR$/web/templates/clase-detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="1415" column="48" selection-start-line="1415" selection-start-column="48" selection-end-line="1415" selection-end-column="48" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#a#0;n#b#0;n#div#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#7;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -272,6 +272,7 @@
 {% esta_reservado perfilActividad.actividadId vs.userId as tieneReserva %}
 {% esta_en_espera perfilActividad.actividadId vs.userId as estaEnEspera %}
 {% puede_reservar perfilActividad.actividadId vs.userId as puedeReservar %}
+{% puesto_espera perfilActividad.actividadId vs.userId as puestoEspera %}
 
 <div id="vic-tab-2" class="tab-pane in active">
 
@@ -891,7 +892,7 @@
                                                                             <button onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
                                                                                     type="button"
                                                                                     class="btn btn-md  vic-btn-reservar-reverse ">
-                                                                                Lista de espera
+                                                                                Reservar Lista de Espera ({{ perfilActividad.actividadEspera }})
                                                                             </button>
 
                                                                         {% endif %}
@@ -1229,8 +1230,6 @@
                         </table>
                     </a>
 
-                    {% comment %}                    <div class="vic-clase-d-text">{{ perfilActividad.actividadInstructorProfile }}.</div>{% endcomment %}
-
                     <div class="vic-hr movil-md"></div>
                     <br class="destop-md">
 
@@ -1310,37 +1309,7 @@
 
             <div class="pull-right">
 
-                <!--
-                    <div class=" vic-calendar-box gray">
-                        <table>
-
-                            <tr>
-                                <td style="padding-left: 5px;"><input style="border: 0" id="searchString"
-                                                                      autocomplete="off" name="afecha"
-                                                                      class="btn-block  vic-calendar-filtro-input-search "
-                                                                      type="text" value="" placeholder="Buscar...">
-                                </td>
-
-                            </tr>
-                        </table>
-
-
-                    </div>
-
-
-                     <div >
-                     <div style="border: 1px solid blue">ejemplo</div>
-                      <div style="font-size: 19px" >
-                                        <i style="cursor: pointer; " onclick="clear_form_search();"
-                                           class="fa fa-search "></i>
-
-
-                                    </div>
-                     </div>
-                      -->
-
-
-            </div>
+             </div>
             {% if vs.tipoSesion == vs.MARCA or  perfilActividad.actividadEstado != 'Cancelada'  and  perfilActividad.actividadEstado  != 'Planifico' %}
 
         </div>
@@ -1377,25 +1346,6 @@
                                     <tr>
                                         <td>
                                             <div class="vic-clase-d-box-user-leeter ">
-
-                                                {% comment %}
-
-									 {% if perfilActividad.actividadEstado == 'Culminada' %}
-                                            {% if  participante.participanteAsistio %}
-                                                <div class="vic-icon-nc" title="Asistio"><i class="fa fa-check"
-                                                                                            aria-hidden="true"></i>
-                                                </div>
-                                            {% else %}
-                                                <div class="vic-icon-nc" title="No Asistio"><i class="fas fa-times"
-                                                                                               aria-hidden="true"></i>
-                                                </div>
-                                            {% endif %}
-                                        {% else %}
-                                            <div class="vic-icon-nc" title="Reservado"><i class="fas fa-thumbtack"
-                                                                                          aria-hidden="true"></i>
-                                            </div>
-                                        {% endif %}{% endcomment %}
-
 
                                                 {% esta_reservado perfilActividad.actividadId participante.participanteUserId as tieneReserva %}
                                                 {% atleta_asistio perfilActividad.actividadId participante.participanteUserId as asistio %}
@@ -1455,21 +1405,21 @@
                                         <td class="vic-table-perf-atle-td-1">
 
                                             <div>
-                                                <b><a href="/{{ request.session.vs.userAlias }}/perfil-atleta-{{ participante.participanteAlias }}">{{ participante.participanteNombre }}</a></b>
+                                                <b><a href="/{{ request.session.vs.userAlias }}/perfil-atleta-{{ participante.participanteAlias }}">
+
+                                                    {% if participante.participanteAlias == vs.userAlias %}
+                                                        <span style="background-color: rgba(255,204,0,0.6)"> {{ participante.participanteNombre }} </span>
+                                                        <span style="" class=""> (Tú) </span>
+                                                    {% else %}
+                                                        {{ participante.participanteNombre }}
+                                                    {% endif %}
+                                                
+                                                </a></b>
                                             </div>
 
                                             <div>@{{ participante.participanteAlias }}</div>
 
                                         </td>
-
-                                        {% comment %}<td class="vic-table-perf-atle-td-2">
-
-                                    <strong><i class="fas fa-ticket-alt fa-2x" aria-hidden="true"
-                                               style="color: #FFCD00"></i>
-                                        <strong style="font-size: 16px;">{{ participante.participanteSaldo }}</strong></strong>
-
-
-                                </td>{% endcomment %}
 
                                         <td class=" vic-table-perf-atle-td-3">
                                             <strong class="puesto_salon"><strong> P
@@ -2022,7 +1972,7 @@
                         <button style="text-align: center"
                                 onclick="cancelarReservaDesdeClaseDetail({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
                                 type="button" class="btn btn-md btn-block vic-btn-reservar-reverse sticky-btn">
-                            ESPERANDO
+                            Salir de Lista de Espera ({{ puestoEspera }})
 
                         </button>
 
@@ -2161,7 +2111,7 @@
                                                     onclick="reservausuario({{ vs.userId }},{{ perfilActividad.actividadId }},0.0)"
                                                     type="button"
                                                     class="btn btn-md  btn-block vic-btn-reservar-reverse sticky-btn">
-                                                Lista de espera
+                                                Reservar Lista de Espera ({{ perfilActividad.actividadEspera }})
                                             </button>
 
                                         {% endif %}
