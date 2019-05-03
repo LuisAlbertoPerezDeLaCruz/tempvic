@@ -2091,9 +2091,10 @@ class PerfilActividad:
 
         porcentaje=Marca.objects.get(m_alias=self.actividadMarca.m_alias).m_porcentaje_aviso_cupos_restantes
 
-        cantidadAviso=self.actividadCapacidadMaxima-porcentaje*self.actividadCapacidadMaxima/100
-        if cantidadAviso>=(self.actividadCapacidadMaxima-self.actividadReservados) and self.actividadReservados<self.actividadCapacidadMaxima:
-            self.actividadAvisoQuedanPuestos = str(cantidadAviso)+' puestos'
+        cantidadAviso = self.actividadCapacidadMaxima-math.floor(porcentaje*self.actividadCapacidadMaxima/100)
+        puestosQuedan = self.actividadCapacidadMaxima-self.actividadReservados
+        if cantidadAviso >= puestosQuedan and self.actividadReservados < self.actividadCapacidadMaxima:
+            self.actividadAvisoQuedanPuestos = str(puestosQuedan)+' puestos'
         else:
             self.actividadAvisoQuedanPuestos = ''
 
