@@ -13,7 +13,7 @@ django-crontab==0.7.1
 django-globals==0.3.2
 django-import-export==1.2.0
 django-stubs==0.9.0
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 djangorestframework-simplejwt==4.1.0
 djangorestframework-stubs==0.4.0
 et-xmlfile==1.0.1
